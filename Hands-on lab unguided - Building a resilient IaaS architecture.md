@@ -15,49 +15,66 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-[Building a resilient IaaS architecture hands-on lab unguided](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
--   [Abstract and learning objectives](#abstract-and-learning-objectives)
--   [Overview](#overview)
--   [Requirements](#requirements)
--   [Solution Architecture](#solution-architecture)
--   [Help References](#help-references)
--   [Before the hands-on lab ](#before-the-hands-on-lab)
-    -   [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
-    -   [Task 2: Connect to the VM and download the student files](#_Toc505347855)
-    -   [Task 3: Update the Azure PowerShell CmdLets](#_Toc505347856)
-    -   [Task 4: Validate Connectivity to Azure](#_Toc505347857)
-    -   [Task 5: Create a Storage Account for Artifact Storage](#_Toc505347858)
-    -   [Task 6: Run Script to create the Active Directory deployment](#_Toc505347859)
-    -   [Task 7: Run Script to create the Web and SQL Tiers](#task-3-deploy-the-lab-environment)
--   [Exercise 1: Prepare the Infrastructure Region 2](#exercise-1-prepare-connectivity-between-regions)
-    -   [Task 1: Create a Virtual Network for the Azure Infrastructure (Region 2)](#_Toc505347863)
-    -   [Task 2: Add Gateway subnet to the VNET (Region 2)](#_Toc505347864)
-    -   [Task 3: Deploy VPN Gateway (Region 2)](#_Toc505347865)
-    -   [Task 4: Create a Backup Vault (Region 2)](#_Toc505347866)
--   [Exercise 2: Resilient Infrastructure Options Region 1](#_Toc505347868)
-    -   [Task 1: Add Gateway subnet to existing VNET (Region 1)](#_Toc505347869)
-    -   [Task 2: Deploy VPN Gateway (Region 1)](#_Toc505347870)
-    -   [Task 3: Create a Backup Vault (Region 1)](#_Toc505347871)
-    -   [Task 4: Modify load balancer Settings (Region 1)](#_Toc505347872)
--   [Exercise 3: Build the DCs in for resiliency](#exercise-2-build-the-dcs-in-for-resiliency)
-    -   [Task 1: Create Resilient Active Directory Deployment (Region 1)](#task-1-create-resilient-active-directory-deployment)
-    -   [Task 2: Create the Active Directory Deployment (Region)](#task-2-create-the-active-directory-deployment-in-the-second-region)
-    -   [Task 3: Add data disks to Active Directory domain controllers (both regions)](#_Toc504475398)
-    -   [Task 4: Build a connection between the VPN Gateways](#_Toc505347878)
-    -   [Task 5: Format data disks on DCs and configure DNS settings across connection](#task-4-format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
-    -   [Task 6: Promote DCs as additional domain controllers (both regions)](#task-5-promote-dcs-as-additional-domain-controllers)
--   [Exercise 4: Build web tier and SQL for resiliency](#_Toc505347882)
-    -   [Task 1: Deploy SQL Always-On Cluster (Region 1)](#task-1-deploy-sql-always-on-cluster)
-    -   [Task 2: Run Script to Deploy Web Tier Scale Set (Region 1)](#task-3-build-a-scalable-and-resilient-web-tier)
-    -   [Task 3: Deploy SQL Always-On Cluster (Region 2)](#_Toc505347885)
-    -   [Task 4: Deploy Web Tier Scale Set (Region 2)](#_Toc505347886)
--   [Exercise 5: Prepare other resources for resiliency](#_Toc505347888)
-    -   [Task 1: Create Traffic Manager in Priority Mode](#_Toc505347889)
-    -   [Task 2: Configure Operations Management Suite for Monitoring (Region 1 and 2)](#_Toc505347890)
-    -   [Task 3: Configure Backups of IaaS Servers in Vaults (Region 1 and 2)](#_Toc505347891)
-    -   [Task 4: Configure Network Security Groups as Needed (Region 1 and 2)](#_Toc505347892)
--   [After the hands-on lab](#_Toc505347894)
-    -   [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
+# Contents
+
+<!-- TOC -->
+
+- [Building a resilient IaaS architecture](#building-a-resilient-iaas-architecture)
+    - [Hands-on lab unguided](#hands-on-lab-unguided)
+    - [March 2018](#march-2018)
+- [Contents](#contents)
+- [Building a resilient IaaS architecture hands-on lab unguided](#building-a-resilient-iaas-architecture-hands-on-lab-unguided)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Overview](#overview)
+    - [Solution architecture](#solution-architecture)
+    - [Requirements](#requirements)
+        - [Help References](#help-references)
+    - [Before the hands-on lab](#before-the-hands-on-lab)
+        - [Task 1: Create a Virtual Machine using the Azure portal](#task-1--create-a-virtual-machine-using-the-azure-portal)
+        - [Task 2: Connect to the VM and download the student files](#task-2--connect-to-the-vm-and-download-the-student-files)
+        - [Task 3: Deploy the Lab Environment](#task-3--deploy-the-lab-environment)
+        - [Summary](#summary)
+    - [Exercise 1: Prepare connectivity between regions](#exercise-1--prepare-connectivity-between-regions)
+        - [Task 1: Create a VNET in the second region](#task-1--create-a-vnet-in-the-second-region)
+    - [Exercise 2: Build the DCs in for resiliency](#exercise-2--build-the-dcs-in-for-resiliency)
+        - [Task 1: Create Resilient Active Directory Deployment](#task-1--create-resilient-active-directory-deployment)
+        - [Task 2: Create the Active Directory deployment in the second region](#task-2--create-the-active-directory-deployment-in-the-second-region)
+        - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3--add-data-disks-to-active-directory-domain-controllers-both-regions)
+        - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4--format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
+        - [Task 5: Promote DCs as additional domain controllers](#task-5--promote-dcs-as-additional-domain-controllers)
+        - [Summary](#summary)
+    - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3--build-web-tier-and-sql-for-resiliency)
+        - [Task 1: Deploy SQL Always-On Cluster](#task-1--deploy-sql-always-on-cluster)
+        - [Task 2: Convert the SQL deployment to Managed Disks](#task-2--convert-the-sql-deployment-to-managed-disks)
+        - [Task 3: Build a scalable and resilient web tier](#task-3--build-a-scalable-and-resilient-web-tier)
+        - [Summary](#summary)
+    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4--configure-sql-server-managed-backup)
+        - [Task 1: Create an Azure Storage Account](#task-1--create-an-azure-storage-account)
+        - [Task 2: Configure managed backup in SQL Server](#task-2--configure-managed-backup-in-sql-server)
+    - [Exercise 5: Validate resiliency](#exercise-5--validate-resiliency)
+        - [Task 1: Validate resiliency for the CloudShop application](#task-1--validate-resiliency-for-the-cloudshop-application)
+        - [Task 2: Validate SQL Always On](#task-2--validate-sql-always-on)
+        - [Task 3: Validate backups are taken](#task-3--validate-backups-are-taken)
+    - [After the hands-on lab](#after-the-hands-on-lab)
+        - [Task 1: Delete the resource groups created](#task-1--delete-the-resource-groups-created)
+
+<!-- /TOC -->
+
+# Building a resilient IaaS architecture hands-on lab unguided
+
+## Abstract and learning objectives 
+
+The student will assist a large organization in evaluating their current infrastructure deployments in Azure, and help identify single points of failure. Attention will be given to making the customer\'s current deployments more resilient and communicating best practices to ensure future deployments will follow best practices.
+
+Attendees will be better able to design resilient applications in Azure, for high availability and disaster recovery. Specific attention will be given to:
+
+-   The use of availability sets
+
+-   The use of Managed Disks
+
+-   Design principles when provisioning storage to VMs
+
+-   Effective employment of Azure Backup to provide point-in-time recovery
 
 ## Overview
 
@@ -85,7 +102,7 @@ Deployment of a web app using scale sets, and a highly available SQL Always On d
 
     -   Ensure you reboot after installing the SDK or Azure PowerShell will not work correctly
 
-#### Help References
+### Help References
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
@@ -105,7 +122,7 @@ Duration: 30 minutes
 
 In this exercise, you build a Lab VM followed by preparing an Azure infrastructure containing several issues needing to be addressed from a resiliency standpoint. You will create an Active Directory environment, a SQL database tier, and a web tier for a Web Application.
 
-#### Task 1: Create a Virtual Machine using the Azure portal 
+### Task 1: Create a Virtual Machine using the Azure portal 
 
 1.  Launch a browser and navigate to <https://portal.azure.com>. Once prompted, login with your Microsoft Azure credentials. If prompted, choose whether your account is an organization account or just a Microsoft Account.
 
@@ -173,7 +190,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 **Note**: Once the deployment is complete, move on to the next exercise.
 
-#### Task 2: Connect to the VM and download the student files
+### Task 2: Connect to the VM and download the student files
 
 1.  Move back to the portal page on your local machine and wait for **LABVM** to show the Status of **Running**. Click **Connect** to establish a new remote desktop session.
 
@@ -229,7 +246,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 14. The **Downloads** folder will open, ***Right-click*** the zip file, and click **Extract All**. In the **Extract Compressed (Zipped) Folders** window, enter **C:\\HOL** in the **Files will be extracted to this folder** dialog. Click the **Extract** button.
 
-#### Task 3: Deploy the Lab Environment
+### Task 3: Deploy the Lab Environment
 
 1.  Login to the Azure portal (<https://portal.azure.com>) with the credentials that you want to deploy the lab environment to.
 
@@ -249,7 +266,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![The CloudShopDemo window displays. Under Select a product from the list, a product list displays.](images/Hands-onlabunguided-BuildingaresilientIaaSarchitectureimages/media/image27.png "CloudShopDemo window")
 
-#### Summary
+### Summary
 
 In this exercise, you prepared an Azure infrastructure containing several issues needing to be addressed from a resiliency standpoint. You created an Active Directory environment, a SQL Database tier, and a web tier for a Web Application.
 
@@ -261,7 +278,7 @@ Duration: 30 minutes
 
 Litware is planning to deploy infrastructure in multiple regions in Azure to provide infrastructure closer to their employees in each region as well as the ability to provide additional resiliency in the future for certain workloads. In this exercise, you will configure connectivity between the two regions.
 
-#### Task 1: Create a VNET in the second region
+### Task 1: Create a VNET in the second region
 
 Tasks to complete
 
@@ -277,7 +294,7 @@ Duration: 30 minutes
 
 In this exercise, you will deploy Windows Server Active Directory configured for resiliency using Azure Managed Disks and Availability Sets in the primary region. You will then deploy additional domain controllers in a second region for future expansion of Litware's Azure footprint.
 
-#### Task 1: Create Resilient Active Directory Deployment 
+### Task 1: Create Resilient Active Directory Deployment 
 
 Tasks to complete
 
@@ -289,7 +306,7 @@ Exit criteria
 
 -   The DCs should also be configured for Azure Backup.
 
-#### Task 2: Create the Active Directory deployment in the second region
+### Task 2: Create the Active Directory deployment in the second region
 
 Tasks to complete
 
@@ -301,7 +318,7 @@ Exit criteria
 
 -   The DCs should also be configured for Azure Backup.
 
-#### Task 3: Add data disks to Active Directory domain controllers (both regions)
+### Task 3: Add data disks to Active Directory domain controllers (both regions)
 
 Tasks to complete
 
@@ -311,7 +328,7 @@ Exit criteria
 
 -   Each DC should have an additional SSD based 1023 GB managed disk attached.
 
-#### Task 4: Format data disks on DCs and configure DNS settings across connection
+### Task 4: Format data disks on DCs and configure DNS settings across connection
 
 Tasks to complete
 
@@ -331,7 +348,7 @@ Exit criteria
 
 -   The Set-DnsServerPrimary zone cmdlet should be executed on ADVM.
 
-#### Task 5: Promote DCs as additional domain controllers 
+### Task 5: Promote DCs as additional domain controllers 
 
 Tasks to complete
 
@@ -341,7 +358,7 @@ Exit criteria
 
 -   All the DCs should be Domain Controllers.
 
-#### Summary
+### Summary
 
 In this exercise, you will deploy Windows Server Active Directory configured for resiliency using Azure Managed Disks and Availability Sets in the primary and the failover region.
 
@@ -351,7 +368,7 @@ Duration: 60 minutes
 
 In this exercise, you will deploy resilient web servers using VM scale sets and a SQL Always-On Cluster for resiliency at the data tier.
 
-#### Task 1: Deploy SQL Always-On Cluster 
+### Task 1: Deploy SQL Always-On Cluster 
 
 In this task, you will deploy a SQL Always-On cluster using an ARM template that deploys to your existing Virtual Network and Active Directory infrastructure.
 
@@ -372,7 +389,7 @@ Exit criteria
 
 -   SQL AlwaysOn Availability groups should be deployed.
 
-#### Task 2: Convert the SQL deployment to Managed Disks 
+### Task 2: Convert the SQL deployment to Managed Disks 
 
 In this task, you will convert the disks of the SQL deployment to managed disks. This task could be automated as part of the template deployment; however, it is important to understand how to migrate existing infrastructure to managed disks.
 
@@ -416,7 +433,7 @@ Exit criteria
 
 -   All the disks for the SQL deployment should be managed.
 
-#### Task 3: Build a scalable and resilient web tier
+### Task 3: Build a scalable and resilient web tier
 
 In this task, you will deploy a VM scale set that can automatically scale up or down based on the CPU criteria. The application the scale set deploys points to the new SQL AlwaysOn availability group created previously.
 
@@ -428,7 +445,7 @@ Exit criteria
 
 -   The scale set should be deployed, and you should be able to browse the CloudShop application from the public IP address assigned to the load balancer.
 
-#### Summary
+### Summary
 
 In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency.
 
@@ -438,7 +455,7 @@ Duration: 15 minutes
 
 In this exercise, you will configure SQL Server Managed Backup to back up to an Azure Storage Account.
 
-#### Task 1: Create an Azure Storage Account
+### Task 1: Create an Azure Storage Account
 
 Tasks to complete
 
@@ -503,7 +520,7 @@ Exit criteria
 
 -   A storage account for SQL Server managed back and code to create an identity in SQL Server should be ready.
 
-#### Task 2: Configure managed backup in SQL Server
+### Task 2: Configure managed backup in SQL Server
 
 Tasks to complete
 
@@ -550,7 +567,7 @@ Exit criteria
 
 ## Exercise 5: Validate resiliency
 
-#### Task 1: Validate resiliency for the CloudShop application 
+### Task 1: Validate resiliency for the CloudShop application 
 
 Tasks to complete
 
@@ -560,7 +577,7 @@ Exit criteria
 
 -   After 15-20 minutes new instances should spin up automatically from the auto scale rules.
 
-#### Task 2: Validate SQL Always On
+### Task 2: Validate SQL Always On
 
 Tasks to complete
 
@@ -570,7 +587,7 @@ Exit criteria
 
 -   **The SQL AlwaysOn cluster should automatically failover to SQLVM-2.**
 
-#### Task 3: Validate backups are taken 
+### Task 3: Validate backups are taken 
 
 Tasks to complete
 
@@ -584,7 +601,7 @@ Exit criteria
 
 Duration: 10 minutes
 
-#### Task 1: Delete the resource groups created
+### Task 1: Delete the resource groups created
 
 -   Within the Azure portal, click Resource Groups on the left navigation.
 

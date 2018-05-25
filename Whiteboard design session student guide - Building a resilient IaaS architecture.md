@@ -17,13 +17,26 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Contents
 
--   **[Building a resilient IaaS architecture whiteboard design session student guide](#building-a-resilient-iaas-architecture-whiteboard-design-session-student-guide)**
-    -   [Abstract and learning objectives](#abstract-and-learning-objectives)
-    -   [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-    -   [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-    -   [Step 3: Present the solution](#step-3-present-the-solution)
-    -   [Wrap-up](#wrap-up)
-    -   [Additional references](#additional-references)
+<!-- TOC -->
+
+- [Building a resilient IaaS architecture](#building-a-resilient-iaas-architecture)
+    - [Whiteboard design session student guide](#whiteboard-design-session-student-guide)
+    - [March 2018](#march-2018)
+    - [Contents](#contents)
+- [Building a resilient IaaS architecture whiteboard design session student guide](#building-a-resilient-iaas-architecture-whiteboard-design-session-student-guide)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Step 1: Review the customer case study](#step-1--review-the-customer-case-study)
+        - [Facilitator/subject matter expert (SME) presentation of customer case study](#facilitator-subject-matter-expert-sme-presentation-of-customer-case-study)
+        - [Customer situation](#customer-situation)
+        - [Customer needs](#customer-needs)
+        - [Customer objections](#customer-objections)
+        - [Infographic for common scenarios](#infographic-for-common-scenarios)
+    - [Step 2: Design a proof of concept solution](#step-2--design-a-proof-of-concept-solution)
+    - [Step 3: Present the solution](#step-3--present-the-solution)
+    - [Wrap-up](#wrap-up)
+    - [Additional references](#additional-references)
+
+<!-- /TOC -->
 
 #  Building a resilient IaaS architecture whiteboard design session student guide
 
@@ -47,7 +60,7 @@ Attendees will be better able to design resilient applications in Azure for high
 
 Analyze your customer's needs.
 
-#### Facilitator/subject matter expert (SME) presentation of customer case study 
+### Facilitator/subject matter expert (SME) presentation of customer case study 
 
 Timeframe: 15 minutes
 
@@ -59,7 +72,7 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 3.  As a table team, review the following customer case study.
  
-#### Customer situation
+### Customer situation
 
 Litware, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Litware specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
@@ -123,7 +136,7 @@ Litware's business critical applications include:
 
     -   Third-party manufacturing plants and factories: supply manufacturing schedules to Litware
 
-#### Customer needs 
+### Customer needs 
 
 1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices.
 
@@ -137,7 +150,7 @@ Litware's business critical applications include:
 
 6.  Monitoring option for issues that may arise on the servers and in Azure.
 
-#### Customer objections 
+### Customer objections 
 
 1.  Cost is a huge concern for us. With looming infrastructure and server replacement costs, we want to avoid any unnecessary expenditures.
 
@@ -149,7 +162,7 @@ Litware's business critical applications include:
 
 5.  We are very concerned about the disk space issue that occurred earlier with our ADDS DCs and nearly our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
-#### Infographic for common scenarios
+### Infographic for common scenarios
 
 ![An image that depicts various services in Azure Infrastructrure as a Service that could be used for the solution. Services included are: Virtual Machines, Virtual Networks, VPN Gateways, Hybrid Connectivity, Load Balancers, STorage, Azure Backup, Azure Site Recovery and SQL Server Managed Backup.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image6.png "Common Scenarios")
 
