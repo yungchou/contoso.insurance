@@ -1,10 +1,17 @@
 ![](images/HeaderPic.png "Microsoft Cloud Workshops")
 
-# Building a resilient IaaS architecture
+<div class="MCWHeader1">
+Building a resilient IaaS architecture
+</div>
 
-## Hands-on lab step-by-step
+<div class="MCWHeader2">
+Hands-on lab step-by-step
+</div>
 
-## March 2018
+<div class="MCWHeader3">
+March 2018
+</div>
+
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
@@ -15,15 +22,10 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
-
-# Contents
+**Contents**
 
 <!-- TOC -->
 
-- [Building a resilient IaaS architecture](#building-a-resilient-iaas-architecture)
-    - [Hands-on lab step-by-step](#hands-on-lab-step-by-step)
-    - [March 2018](#march-2018)
-- [Contents](#contents)
 - [Building a resilient IaaS architecture hands-on lab step-by-step](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
     - [Abstract and learning objectives](#abstract-and-learning-objectives)
     - [Overview](#overview)
@@ -31,34 +33,34 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Requirements](#requirements)
         - [Help References](#help-references)
     - [Before the hands-on lab](#before-the-hands-on-lab)
-        - [Task 1: Create a Virtual Machine using the Azure portal](#task-1--create-a-virtual-machine-using-the-azure-portal)
-        - [Task 2: Connect to the VM and download the student files](#task-2--connect-to-the-vm-and-download-the-student-files)
-        - [Task 3: Deploy the Lab Environment](#task-3--deploy-the-lab-environment)
+        - [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
+        - [Task 2: Connect to the VM and download the student files](#task-2-connect-to-the-vm-and-download-the-student-files)
+        - [Task 3: Deploy the Lab Environment](#task-3-deploy-the-lab-environment)
         - [Summary](#summary)
-    - [Exercise 1: Prepare connectivity between regions](#exercise-1--prepare-connectivity-between-regions)
-        - [Task 1: Create a VNET in the second region](#task-1--create-a-vnet-in-the-second-region)
-        - [Task 2: Configure VNET Peering between region](#task-2--configure-vnet-peering-between-region)
-    - [Exercise 2: Build the DCs in for resiliency](#exercise-2--build-the-dcs-in-for-resiliency)
-        - [Task 1: Create Resilient Active Directory Deployment](#task-1--create-resilient-active-directory-deployment)
-        - [Task 2: Create the Active Directory deployment in the second region](#task-2--create-the-active-directory-deployment-in-the-second-region)
-        - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3--add-data-disks-to-active-directory-domain-controllers-both-regions)
-        - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4--format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
-        - [Task 5: Promote DCs as additional domain controllers](#task-5--promote-dcs-as-additional-domain-controllers)
-        - [Summary](#summary)
-    - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3--build-web-tier-and-sql-for-resiliency)
-        - [Task 1: Deploy SQL Always-On Cluster](#task-1--deploy-sql-always-on-cluster)
-        - [Task 2: Convert the SQL deployment to Managed Disks](#task-2--convert-the-sql-deployment-to-managed-disks)
-        - [Task 3: Build a scalable and resilient web tier](#task-3--build-a-scalable-and-resilient-web-tier)
-        - [Summary](#summary)
-    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4--configure-sql-server-managed-backup)
-        - [Task 1: Create an Azure Storage Account](#task-1--create-an-azure-storage-account)
-        - [Task 2: Configure managed backup in SQL Server](#task-2--configure-managed-backup-in-sql-server)
-    - [Exercise 5: Validate resiliency](#exercise-5--validate-resiliency)
-        - [Task 1: Validate resiliency for the CloudShop application](#task-1--validate-resiliency-for-the-cloudshop-application)
-        - [Task 2: Validate SQL Always On](#task-2--validate-sql-always-on)
-        - [Task 3: Validate backups are taken](#task-3--validate-backups-are-taken)
+    - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
+        - [Task 1: Create a VNET in the second region](#task-1-create-a-vnet-in-the-second-region)
+        - [Task 2: Configure VNET Peering between region](#task-2-configure-vnet-peering-between-region)
+    - [Exercise 2: Build the DCs in for resiliency](#exercise-2-build-the-dcs-in-for-resiliency)
+        - [Task 1: Create Resilient Active Directory Deployment](#task-1-create-resilient-active-directory-deployment)
+        - [Task 2: Create the Active Directory deployment in the second region](#task-2-create-the-active-directory-deployment-in-the-second-region)
+        - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3-add-data-disks-to-active-directory-domain-controllers-both-regions)
+        - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4-format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
+        - [Task 5: Promote DCs as additional domain controllers](#task-5-promote-dcs-as-additional-domain-controllers)
+        - [Summary](#summary-1)
+    - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3-build-web-tier-and-sql-for-resiliency)
+        - [Task 1: Deploy SQL Always-On Cluster](#task-1-deploy-sql-always-on-cluster)
+        - [Task 2: Convert the SQL deployment to Managed Disks](#task-2-convert-the-sql-deployment-to-managed-disks)
+        - [Task 3: Build a scalable and resilient web tier](#task-3-build-a-scalable-and-resilient-web-tier)
+        - [Summary](#summary-2)
+    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
+        - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
+        - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
+    - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
+        - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
+        - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
+        - [Task 3: Validate backups are taken](#task-3-validate-backups-are-taken)
     - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete the resource groups created](#task-1--delete-the-resource-groups-created)
+        - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
 
 <!-- /TOC -->
 
