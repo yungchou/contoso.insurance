@@ -1,3 +1,39 @@
+# Abstract
+
+## Workshop
+
+The student will assist a large organization in evaluating their current infrastructure deployments in Azure, and help identify single points of failure. Attention will be given to making the customer\'s current deployments more resilient and communicating best practices to ensure future deployments will follow best practices.
+
+Attendees will be better able to design resilient applications in Azure, for high availability and disaster recovery. Specific attention will be given to:
+
+-   The use of availability sets
+
+-   The use of Managed Disks
+
+-   Design principles when provisioning storage to VMs
+
+-   Effective employment of Azure Backup to provide point-in-time recovery
+
+
+## Whiteboard Design Session
+TBD
+
+## Hand-on Lab
+TBD
+
+
+## Azure services and related products
+- Azure VMs
+- Azure Portal
+- Azure PowerShell
+- Azure Storage
+- Azure Active Directory
+- Azure Web Apps
+- Azure Virtual Networks
+- SQL Server
+- Operations Management Suite
+- Azure Backup
+
 
 # Contributing
 
