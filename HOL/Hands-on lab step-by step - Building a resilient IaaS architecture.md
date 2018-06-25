@@ -77,7 +77,7 @@ Attendees will be better able to design resilient applications in Azure, for hig
 
 ## Overview
 
-Litware has asked you to deploy their infrastructure in a resilient manner to insure their infrastructure will be available for their users and gain an SLA from Microsoft.
+Contoso has asked you to deploy their infrastructure in a resilient manner to insure their infrastructure will be available for their users and gain an SLA from Microsoft.
 
 ## Solution architecture
 
@@ -120,7 +120,7 @@ Deployment of a web app using scale sets, and a highly available SQL Always On d
 
 Duration: 30 minutes
 
-Litware is planning to deploy infrastructure in multiple regions in Azure to provide infrastructure closer to their employees in each region as well as the ability to provide additional resiliency in the future for certain workloads. In this exercise, you will configure connectivity between the two regions.
+Contoso is planning to deploy infrastructure in multiple regions in Azure to provide infrastructure closer to their employees in each region as well as the ability to provide additional resiliency in the future for certain workloads. In this exercise, you will configure connectivity between the two regions.
 
 ### Task 1: Create a VNET in the second region
 
@@ -133,7 +133,7 @@ Litware is planning to deploy infrastructure in multiple regions in Azure to pro
 
 4.  For the **Create virtual network** settings, enter the following information:
 
-    -   Name: **LitwareVNET2**
+    -   Name: **VNET2**
 
     -   Address space: **172.16.0.0/16**
 
@@ -143,7 +143,7 @@ Litware is planning to deploy infrastructure in multiple regions in Azure to pro
 
     -   Subscription: **Choose your subscription**
 
-    -   Resource group: **Create new -- LitwareWUS2RG**
+    -   Resource group: **Create new -- WUS2RG**
 
     -   Location: **West US 2**
 
@@ -190,9 +190,9 @@ Litware is planning to deploy infrastructure in multiple regions in Azure to pro
 
     ![A screen highlighting the peerings link in the Azure portal.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image35.png "Peerings")
 
-3.  Name the peering, **LitwarePeering** and change the Virtual network dropdown to **LitewareVNET2,** click **Allow forwarded traffic,** and then click **OK**.
+3.  Name the peering, **Peering** and change the Virtual network dropdown to **VNET2,** click **Allow forwarded traffic,** and then click **OK**.
 
-    ![A screen that shows the name LitwarePeering, the virtual network LitwareVNET2, and Allow forwarded traffic checked.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image36.png "Add peering")
+    ![A screen that shows the name Peering, the virtual network VNET2, and Allow forwarded traffic checked.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image36.png "Add peering")
 
 4.  Open the second virtual network (LitewareVNET2) by clicking **All Services -\> Virtual networks** and clicking the name.
 
@@ -200,15 +200,15 @@ Litware is planning to deploy infrastructure in multiple regions in Azure to pro
 
     ![A screen highlighting the peerings link in the Azure portal.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image35.png "Peerings")
 
-6.  Name the peering, **LitwarePeering** and change the Virtual network dropdown to **LitewareVNET,** click **Allow forwarded traffic,** and then click **OK**.
+6.  Name the peering, **Peering** and change the Virtual network dropdown to **VNET,** click **Allow forwarded traffic,** and then click **OK**.
 
-    ![A screen that shows the name LitwarePeering, the virtual network LitwareVNET, and Allow forwarded traffic checked.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image37.png "Add peering")
+    ![A screen that shows the name Peering, the virtual network VNET, and Allow forwarded traffic checked.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image37.png "Add peering")
 
 ## Exercise 2: Build the DCs in for resiliency
 
 Duration: 30 minutes
 
-In this exercise, you will deploy Windows Server Active Directory configured for resiliency using Azure Managed Disks and Availability Sets in the primary region. You will then deploy additional domain controllers in a second region for future expansion of Litware's Azure footprint.
+In this exercise, you will deploy Windows Server Active Directory configured for resiliency using Azure Managed Disks and Availability Sets in the primary region. You will then deploy additional domain controllers in a second region for future expansion of the Azure footprint.
 
 ### Task 1: Create Resilient Active Directory Deployment 
 
@@ -238,7 +238,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
 7.  In the **Create virtual machine** blade, enter the **Basics** information:
 
-    -   Name: **LitwareDC01**
+    -   Name: **DC01**
 
     -   VM disk type**: SSD**
 
@@ -250,13 +250,13 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Subscription: **Select your subscription**
 
-    -   Resource group: **Create New - LitwareADRG**
+    -   Resource group: **Create New - ADRG**
 
     -   Location: **West Central US**
 
     -   Click the **OK** button to continue.
 
-        ![A screen that shows the basics blade of creating a new VM. The name is LitwareDC01, the user name is demouser, the resource group is LitwareADRG, and the location is West Central US.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image42.png "Basics")
+        ![A screen that shows the basics blade of creating a new VM. The name is DC01, the user name is demouser, the resource group is ADRG, and the location is West Central US.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image42.png "Basics")
 
 8.  For the **Size**, select **DS1\_V2**. You may have to select the **View All** option if it is not one of the recommended sizes.
 
@@ -264,11 +264,11 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Storage Use Managed Disks: **Yes**
 
-    -   Virtual Network: **Click the name to choose LitwareVNET**
+    -   Virtual Network: **Click the name to choose VNET**
 
     -   Subnet: **Choose Identity as the subnet**
 
-    -   Availability set: **Create new, LitwareADAV**
+    -   Availability set: **Create new, ADAV**
 
     -   Auto-shutdown: **Off**
 
@@ -276,9 +276,9 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Backup: **Enabled**
 
-    -   Recovery Services Vault: **Create New -\> LitwareBackupVault**
+    -   Recovery Services Vault: **Create New -\> BackupVault**
 
-    -   Resource Group: **LitwareBackupVaultRG**
+    -   Resource Group: **BackupVaultRG**
 
     -   Leave all other settings: **Default**
 
@@ -286,11 +286,11 @@ In this task, you will change the disk cache settings on the existing domain con
 
 **Note**: Backup with a Domain Controller is a supported scenario. Care should be taken on restore. For more information see the following: <https://docs.microsoft.com/en-us/azure/backup/backup-azure-arm-restore-vms#backup-for-restored-vms>
 
-![In this screen, a new availability set LitwareADAV is set, managed disks is set to Yes, LitwareVNET and the Identity subnet is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image43.png "Settings") ![In this screen, auto-shutdown is set to off, Guest OS diagnostics is enabled, backup is enabled.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image44.png "Additional Settings")
+![In this screen, a new availability set ADAV is set, managed disks is set to Yes, VNET and the Identity subnet is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image43.png "Settings") ![In this screen, auto-shutdown is set to off, Guest OS diagnostics is enabled, backup is enabled.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image44.png "Additional Settings")
 
 There will be a final validation and when this is passed, click the **Create** button to complete the deployment.
 
-10. Give the deployment a few minutes to build the Availability Set resource. Then, repeat those steps to create **LitwareDC02**, as that will be another Domain Controller making sure to place it in the **LitwareADAV** availability set and the existing **LitwareBackupVault**.
+10. Give the deployment a few minutes to build the Availability Set resource. Then, repeat those steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set and the existing **BackupVault**.
 
 ### Task 2: Create the Active Directory deployment in the second region
 
@@ -304,7 +304,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 3.  In the **Create virtual machine** blade, enter the **Basics** information:
 
-    -   Name: **LitwareDC03**
+    -   Name: **DC03**
 
     -   VM disk type**: SSD**
 
@@ -316,13 +316,13 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Subscription: **Select your subscription**
 
-    -   Resource group: **LitwareWUS2ADRG**
+    -   Resource group: **WUS2ADRG**
 
     -   Location: **West US 2**
 
     -   Click the **OK** button to continue.
 
-        ![In this screen, the LitwareDC03 VM is being configured with demouser as the username, and the resource group is set to LitwareWUS2ADRG and the location is West US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image45.png "Basics blade")
+        ![In this screen, the DC03 VM is being configured with demouser as the username, and the resource group is set to WUS2ADRG and the location is West US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image45.png "Basics blade")
 
 4.  For the **Size**, select **Standard DS1 V2**. You may have to select the **View All** option if it is not one of the recommended sizes.
 
@@ -332,11 +332,11 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Storage Use Managed Disks: **Yes**
 
-    -   Virtual Network: **Click the name to choose LitwareVNET2**
+    -   Virtual Network: **Click the name to choose VNET2**
 
     -   Subnet: **Choose Identity as the subnet**
 
-    -   Availability set: **Create new, LitwareADAV2**
+    -   Availability set: **Create new, ADAV2**
 
     -   Auto-shutdown: **Off**
 
@@ -344,9 +344,9 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Backup: **Enabled**
 
-    -   Recovery Services Vault: **Create New -\> LitwareBackupVault2**
+    -   Recovery Services Vault: **Create New -\> BackupVault2**
 
-    -   Resource Group: **Create New -\> LitwareBackupVault2RG**
+    -   Resource Group: **Create New -\> BackupVault2RG**
 
     -   Leave all other settings: **Default**
 
@@ -354,15 +354,15 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Then, click the **OK** button to continue to the **Summary**.
 
-        ![In this screen, a new availability set LitwareADAV2 is set, managed disks is set to Yes, LitwareVNET and the Identity subnet is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image46.png "Settings") ![In this screen, auto-shutdown is set to off, Guest OS diagnostics is enabled, backup is enabled.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image47.png "Additional settings")
+        ![In this screen, a new availability set ADAV2 is set, managed disks is set to Yes, VNET and the Identity subnet is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image46.png "Settings") ![In this screen, auto-shutdown is set to off, Guest OS diagnostics is enabled, backup is enabled.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image47.png "Additional settings")
 
 7.  There will be a final validation. When this is passed, click the **Create** button to complete the deployment.
 
-8. Give the deployment a few minutes to build the Availability Set resource. Then, repeat those steps to create **LitwareDC04**, as that will be another Domain Controller making sure to place it in the **LitwareADAV2** availability set and the existing **LitwareBackupVault2**.
+8. Give the deployment a few minutes to build the Availability Set resource. Then, repeat those steps to create **DC04**, as that will be another Domain Controller making sure to place it in the **ADAV2** availability set and the existing **BackupVault2**.
 
 ### Task 3: Add data disks to Active Directory domain controllers (both regions)
 
-1.  Open **LitwareDC01** from the Azure portal.
+1.  Open **DC01** from the Azure portal.
 
 2.  In the **Settings** blade, select **Disks.**
 
@@ -376,9 +376,9 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 5.  On the Create managed disk blade, enter the following, and click **Create**.
 
-    -   Name: **LitwareDC01-Data-Disk-1**
+    -   Name: **DC01-Data-Disk-1**
 
-    -   Resource group: **Use existing / LitwareADRG**
+    -   Resource group: **Use existing / ADRG**
 
     -   Account Type: **Premium (SSD)**
 
@@ -392,13 +392,13 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![On the Disks blade, under Host Caching, None is selected. At the top, Save is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image51.png "Disks blade")
 
-7.  Perform these same steps for **LitwareDC02** naming the disk **LitwareDC02-Data-Disk-1**. Also, make sure the Host caching is set to **None**.
+7.  Perform these same steps for **DC02** naming the disk **DC02-Data-Disk-1**. Also, make sure the Host caching is set to **None**.
 
-8.  Perform Steps 1-4 for **LitwareDC03** and **LitwareDC04** naming the disks **LitwareDC03-Data-Disk-1** and **LitwareDC04-Data-Disk1** respectively. Make sure to set the Host caching to **None**.
+8.  Perform Steps 1-4 for **DC03** and **DC04** naming the disks **DC03-Data-Disk-1** and **DC04-Data-Disk1** respectively. Make sure to set the Host caching to **None**.
 
 ### Task 4: Format data disks on DCs and configure DNS settings across connection
 
-1.  Click on **LitwareDC01** on the Azure dashboard.
+1.  Click on **DC01** on the Azure dashboard.
 
 2.  Click the **Connect** icon on the menu bar to RDP into the server.
 
@@ -410,7 +410,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 **Note**: You might have to click "Use a different account," depending on which OS you are connecting from to put in the demouser credentials.
 
-4.  Click **Yes** to continue to connect to LitwareDC01.
+4.  Click **Yes** to continue to connect to DC01.
 
     ![In the Remote Desktop Connection window, the Yes button is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image54.png "Remote Desktop Connection window")
 
@@ -420,7 +420,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 6.  Click on **Disks**, and let the data load. You should now see an **Unknown** partition disk in the list.
 
-    ![In the Disks section, under LitwareDC01, the Unknown partition disk is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image56.png "Disks section")
+    ![In the Disks section, under DC01, the Unknown partition disk is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image56.png "Disks section")
 
 7.  Right-click on this disk and choose **New Volume...** from the context menu options.
 
@@ -428,13 +428,13 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 8.  Follow the prompts in the **New Volume Wizard** to format this disk, as the **F:\\** drive for the domain controller.
 
-9.  Perform these same steps for the remaining 3 DCs (**LitwareDC02**, **LitwareDC03**, and **LitwareDC04**).
+9.  Perform these same steps for the remaining 3 DCs (**DC02**, **DC03**, and **DC04**).
 
-10. Go back to the Azure portal dashboard and click on **LitwareDC01**. Next, click on **Networking** followed by the name of the NIC.
+10. Go back to the Azure portal dashboard and click on **DC01**. Next, click on **Networking** followed by the name of the NIC.
 
     ![Under Settings, Networking is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image58.png "Settings section")
 
-    ![Next to Network Interface, litwaredc01222 is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image59.png "Network Interface")
+    ![Next to Network Interface, dc01222 is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image59.png "Network Interface")
 
 11. Select the **IP** **configurations**.
 
@@ -448,11 +448,11 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![In the ipconfig1 blade, , Public IP address is enabled, Assignment is Static, and the IP address is 10.0.2.5.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image62.png "ipconfig1 blade")
 
-14. Once Azure notifies the network interface change is saved, repeat these steps on the remaining 3 DCs (**LitwareDC02**, **LitwareDC03**, and **LitwareDC04**).
+14. Once Azure notifies the network interface change is saved, repeat these steps on the remaining 3 DCs (**DC02**, **DC03**, and **DC04**).
 
-**Note**: Static IP for LitwareDC02 should be 10.0.2.6. LitwareDC03 should be 172.16.2.4 and LitwareDC04 should be 172.16.2.5.
+**Note**: Static IP for DC02 should be 10.0.2.6. DC03 should be 172.16.2.4 and DC04 should be 172.16.2.5.
 
-15. In the Azure portal, click **More Services \>** and in the filter, type in **Virtual Networks**. Select **LitwareVNET2** from the list.
+15. In the Azure portal, click **More Services \>** and in the filter, type in **Virtual Networks**. Select **VNET2** from the list.
 
 16. In the **Settings** area, select **DNS Servers**.
 
@@ -462,13 +462,13 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![In the DNS Servers blade, under DNS servers, the Custom radio button is selected, and the field below it is set to 10.0.2.4. ](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image64.png "DNS Servers blade")
 
-18. At this point, restart **LitwareDC03** and **LitwareDC04**, so they can get their new DNS Settings.
+18. At this point, restart **DC03** and **DC04**, so they can get their new DNS Settings.
 
-**Note**: LitwareDC01 and LitwareDC02 received the correct DNS settings from the VNET DNS configured prior to their deployment, as the Customer DNS was set before the hands-on lab for that VNET. LitwareDC03 and LitwareDC04 must be rebooted to receive the updated DNS settings from their virtual network.
+**Note**: DC01 and DC02 received the correct DNS settings from the VNET DNS configured prior to their deployment, as the Customer DNS was set before the hands-on lab for that VNET. DC03 and DC04 must be rebooted to receive the updated DNS settings from their virtual network.
 
 19. While these two DCs are rebooting, RDP into **ADVM**, and run the following PowerShell command:\
     \
-    Set-DnsServerPrimaryZone -Name Litware.com -DynamicUpdate NonsecureAndSecure ??
+    Set-DnsServerPrimaryZone -Name contoso.com -DynamicUpdate NonsecureAndSecure ??
 
 **Note**: This would not be done in a production environment, but for purposes of our hands-on lab, we need to perform this step for the SQL Cluster in the coming tasks.
 
@@ -480,7 +480,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 2.  Browse to the Azure portal and authenticate at <https://portal.azure.com/>.
 
-3.  Click on **LitwareDC01** on the Azure dashboard.
+3.  Click on **DC01** on the Azure dashboard.
 
 4.  In the **Settings** area, click **Extensions**.
 
@@ -498,7 +498,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![The Script file field is set to AddDC.ps1, and the OK button is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image68.png "Script section")
 
-8.  This script will run the commands to add this DC to the domain as an additional DC in the Litware.com domain. Repeat these steps for **LitwareDC02**, **LitwareDC03**, and **LitwareDC04**.
+8.  This script will run the commands to add this DC to the domain as an additional DC in the contoso.com domain. Repeat these steps for **DC02**, **DC03**, and **DC04**.
 
 9.  Once this succeeds, you will see a **Provisioning succeeded** message under **Extensions** for all four domain controllers.
 
@@ -506,7 +506,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 **Note**: While this a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADDC should be demoted gracefully, and if required, a new DC can be added to the ADAVSet and data disk attached for F:\\.
 
-10. Open the settings for LitwareVNET2 in the Azure portal. Under DNS servers, add the two new domain controller IP addresses and click **Save**.
+10. Open the settings for VNET2 in the Azure portal. Under DNS servers, add the two new domain controller IP addresses and click **Save**.
 
     ![A screen that shows setting the IP addresses for the two new DNS servers on the virtual network.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image70.png "DNS servers")
 
@@ -528,9 +528,9 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![The Deploy to Azure button is highlighted for deploying a sample from GitHub.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image71.png "Sample page")
 
-2.  Specify the resource group name as **LitwareCloudShopRG** and ensure the region is set to **West Central US**.
+2.  Specify the resource group name as **CloudShopRG** and ensure the region is set to **West Central US**.
 
-    ![The custom deployment blade is displayed with LitwareCloudShopRG as the resource group and West Cental US as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image72.png "Custom deployment")
+    ![The custom deployment blade is displayed with CloudShopRG as the resource group and West Cental US as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image72.png "Custom deployment")
 
 3.  Check the two checkboxes for agreeing to terms and conditions and Pin to Dashboard and click Purchase to start the deployment.
 
@@ -538,11 +538,11 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 4.  Wait until the template deployment is complete before continuing.
 
-5.  Open a remote desktop connection to the **SQLVM-1** virtual machine you created in the previous task, and login using the **Litware\\demouser** account.
+5.  Open a remote desktop connection to the **SQLVM-1** virtual machine you created in the previous task, and login using the **contoso\\demouser** account.
 
     ![Screenshot of the Connect icon.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image52.png "Connect icon")
 
-    ![The Windows Security login window displays with litware\\demouser called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image74.png "Windows Security login window")
+    ![The Windows Security login window displays with contoso\\demouser called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image74.png "Windows Security login window")
 
 6.  Once connected, open the Windows Explorer, check to make sure the F:\\ Drive is present, and the Database was restored to the F:\\Data directory.
 
@@ -570,17 +570,17 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image79.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
-13. On the **Log On** tab, change the service account to **Litware\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
+13. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
 
-    ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, LITWARE\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
+    ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
     ![On the Confirm Account Change pop-up, the Yes button is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image81.png "Confirm Account Change pop-up")
 
 14. Minimize the RDP Window for **SQLVM-1.**
 
-15. From the Azure portal, locate **SQLVM-2**, and click **Connect.** Make sure to Sign On using the LITWARE\\demouser domain account.
+15. From the Azure portal, locate **SQLVM-2**, and click **Connect.** Make sure to Sign On using the contoso\\demouser domain account.
 
-    ![On the Windows Security login page, the LITWARE\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
+    ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
 
 16. From the RPD Session on **SQLVM-2**, repeat steps to configure **AlwaysOn High Availability** and **Log On** using SQL 2016 Configuration Manager.
 
@@ -618,7 +618,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![On the Dashboard, a green checkmark displays next to AdventureWorksAG: hosted by SQLVM - 1 (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQLVM-1 SQLVM-2, AdventureWorks SQLVM-1 and AdventureWorks SQLVM-1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
-25. On the Azure portal, open the settings of the **BackendLB** load balancer in the **LitwareSQLRG** resource group.
+25. On the Azure portal, open the settings of the **BackendLB** load balancer in the **contosoSQLRG** resource group.
 
     ![The BackendLB Load balancer option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image90.png "BackendLB option")
 
@@ -657,7 +657,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![The Connect to Server for SQL Server dialog box displays. Server type is Database Engine, Server name is AdventureWorks, and Authentication is Windows Authentication.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image96.png "Connect to Server for SQL Server dialog box")
 
-    ![In Object Explorer, AdventureWorks (SQL Server 13.0.2164.0 - LITWARE\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image97.png "Object Explorer")
+    ![In Object Explorer, AdventureWorks (SQL Server 13.0.2164.0 - contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image97.png "Object Explorer")
 
 33. After successfully connecting to the AOG listener, disconnect from both SQLVM-1 and SQLVM-2 by using Sign Out from the RDP windows.
 
@@ -684,7 +684,7 @@ In this task, you will convert the disks of the SQL deployment to managed disks.
 
 5.  Once this is completed, run the following command to verify your VMs for the hands-on lab are present.
 
-    Get-AzureRMVM -ResourceGroupName LitwareCloudShopRG
+    Get-AzureRMVM -ResourceGroupName contosoCloudShopRG
 
 6.  Now, move to the scripting pane of the PowerShell ISE tool. Paste this code into the window.
     ```
@@ -697,7 +697,7 @@ The following code converts the existing availability to aligned/managed and the
     ```
     \#\>
 
-    \$rgName = \'LitwareCloudShopRG\'
+    \$rgName = \'contosoCloudShopRG\'
 
     \$avSetName = \'SQLAVSet\'
 
@@ -724,7 +724,7 @@ The following code converts the existing availability to aligned/managed and the
 
 **Note**: This process will take about 10-15 minutes to complete and be careful not to stop the process.
 
-8.  Open the Azure portal and browse to the **LitwareCloudShopRG** Resource Group. Notice now, the machines are using Managed Disks, and the disk objects now appear.
+8.  Open the Azure portal and browse to the **contosoCloudShopRG** Resource Group. Notice now, the machines are using Managed Disks, and the disk objects now appear.
 
     ![Four Disk objects display: SQLVM-1, SQLVM-1\_SQL1datadisk1, SQLVM-1\_SQL1datadisk2, and SQLVM-1\_SQLVM-1OSDisk.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image99.png "Disk objects")
 
@@ -736,11 +736,11 @@ In this task, you will deploy a VM scale set that can automatically scale up or 
 
     ![The Deploy to Azure button is highlighted for deploying a sample from GitHub.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image100.png "Sample screen")
 
-2.  Specify the existing resource group **LitwareCloudShopRG** and set the **Instance Count to 2**.
+2.  Specify the existing resource group **contosoCloudShopRG** and set the **Instance Count to 2**.
 
 **Note**: The instance count is the initial number of servers deployed. The number can change based on the auto scale rules set in the ARM template.
 
-![The custom deployment blade is displayed with LitwareCloudShopRG as the resource group and West Cental US as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image101.png "Custom deployment")
+![The custom deployment blade is displayed with contosoCloudShopRG as the resource group and West Cental US as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image101.png "Custom deployment")
 
 3.  Agree to the terms, check **Pin to dashboard** and click **Purchase**.
 
@@ -764,7 +764,7 @@ In this task, you will add a 3^rd^ node to the SQL Always-On deployment in a sec
     ```
     $storageAcctName = "[unique storage account name]"
 
-    $resourceGroupName = "LitwareCloudShopRG"
+    $resourceGroupName = "contosoCloudShopRG"
     $containerName= "backups"
     $location = "West Central US"
     $storageSkuName = "Standard_LRS"
@@ -864,7 +864,7 @@ In this task, you will add a 3^rd^ node to the SQL Always-On deployment in a sec
 
 ### Task 1: Validate resiliency for the CloudShop application 
 
-1.  In the Azure portal, open the **LitwareCloudShopRG** resource group. Click the VM scale set created in the previous task.
+1.  In the Azure portal, open the **contosoCloudShopRG** resource group. Click the VM scale set created in the previous task.
 
 2.  Click the Scaling menu item to review the auto scale settings that were deployed with the ARM template.
 
