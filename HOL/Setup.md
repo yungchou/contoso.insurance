@@ -156,9 +156,9 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![A screen with the Deploy to Azure button visible.](images/Setup/image24.png "Sample Application in GitHub")
 
-4.  Specify the Resource group name as **LitwareRG** and the region as **West Central US**, **check the two checkboxes** on the page and click **Purchase**.
+4.  Specify the Resource group name as **ContosoRG** and the region as **West Central US**, **check the two checkboxes** on the page and click **Purchase**.
 
-    ![The custom deployment screen with LitwareRG as the resource group and West Central US as the region.](images/Setup/image25.png "Custom deployment")
+    ![The custom deployment screen with ContosoRG as the resource group and West Central US as the region.](images/Setup/image25.png "Custom deployment")
 
 5.  Once the deployment is successful, validate the deployment by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
 
