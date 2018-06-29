@@ -146,28 +146,10 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 14. The **Downloads** folder will open, ***Right-click*** the zip file, and click **Extract All**. In the **Extract Compressed (Zipped) Folders** window, enter **C:\\HOL** in the **Files will be extracted to this folder** dialog. Click the **Extract** button.
 
-### Task 3: Deploy the Lab Environment
 
-1.  Login to the Azure portal (<https://portal.azure.com>) with the credentials that you want to deploy the lab environment to.
-
-2.  In a separate tab, navigate to: <https://github.com/opsgility/cw-building-resilient-iaas-architecture>.
-
-3.  Click the button **Deploy to Azure**.
-
-    ![A screen with the Deploy to Azure button visible.](images/Setup/image24.png "Sample Application in GitHub")
-
-4.  Specify the Resource group name as **ContosoRG** and the region as **West Central US**, **check the two checkboxes** on the page and click **Purchase**.
-
-    ![The custom deployment screen with ContosoRG as the resource group and West Central US as the region.](images/Setup/image25.png "Custom deployment")
-
-5.  Once the deployment is successful, validate the deployment by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
-
-    ![The CloudShopWeb blade in the Azure portal with the public IP address highlighted.](images/Setup/image26.png "CloudShopWeb ")
-
-    ![The CloudShopDemo window displays. Under Select a product from the list, a product list displays.](images/Setup/image27.png "CloudShopDemo window")
 
 ### Summary
 
-In this exercise, you prepared an Azure infrastructure containing several issues needing to be addressed from a resiliency standpoint. You created an Active Directory environment, a SQL Database tier, and a web tier for a Web Application.
+In this exercise, you setup a lab virtual machine and downloaded the required setup files. 
 
 You should follow all steps provided *before* attending the Hands-on lab.

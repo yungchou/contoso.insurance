@@ -1,4 +1,4 @@
-![](images/HeaderPic.png "Microsoft Cloud Workshops")
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -9,7 +9,7 @@ Whiteboard design session student guide
 </div>
 
 <div class="MCWHeader3">
-March 2018
+June 2018
 </div>
 
 
@@ -69,13 +69,13 @@ Directions: With all participants in the session, the facilitator/SME presents a
  
 ### Customer situation
 
-Litware, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Litware specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
+Contoso, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Contoso specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
-Litware would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. In the process Litware developed a standard deployment policy for new infrastructure that has been followed ever since.
+Contoso would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. In the process Contoso developed a standard deployment policy for new infrastructure that has been followed ever since.
 
-Their ordering system is running in Azure on virtual machines with a SQL Server data tier. For many years Litware's ordering process was done mainly via phone by their sales team based in one of their offices. Recently, the company has moved to an Internet-based ordering system with Internet Information Services (IIS) web servers in Azure housing the front-end application for the ordering, invoicing, and support options. Customers have complained at times of intermittent problems/errors with the website.
+Their ordering system is running in Azure on virtual machines with a SQL Server data tier. For many years Contoso's ordering process was done mainly via phone by their sales team based in one of their offices. Recently, the company has moved to an Internet-based ordering system with Internet Information Services (IIS) web servers in Azure housing the front-end application for the ordering, invoicing, and support options. Customers have complained at times of intermittent problems/errors with the website.
 
-There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Litware to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a four-hour recovery time objective (RTO) with a recovery point objective (RPO) for the data of 8 hours.
+There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Contoso to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a four-hour recovery time objective (RTO) with a recovery point objective (RPO) for the data of 8 hours.
 
 In addition to the ordering system, they have a legacy software program where the data is tightly coupled with the application. Because of the time and effort required, a re-write of this application is not planned. The application is being backed up using a disk-to-disk-to-tape approach. The legacy application is running on aging hardware and a decision must be made as to whether to purchase new hardware, re-write the application, or move it as-is to Azure.
 
@@ -90,11 +90,11 @@ Taking their cue from the AD and Web teams, the Database Administrators have als
 The Marketing department has recently been tasked with moving their server workloads into Azure by rebuilding each application. They have begun building their servers utilizing a single Azure storage account. They have around 40-50 VMs already but anticipate continued growth.
 
 ![The current storage account implementation has 40 to 50 virtual machines, with a Single Blob LRS Storage account, made up of 40 to 50 VHDs, one per VM.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image2.png "Storage Account Current Implementation")
-*Figure 2 -- Litware's Storage Account Configuration*
+*Figure 2 -- Contoso's Storage Account Configuration*
 
-Litware is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
+Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
-While the Azure deployments have served Litware well so far, they are concerned about expanding workloads for their Seattle datacenter. Janet Lewis, business continuity team director, says, "it appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
+While the Azure deployments have served Contoso well so far, they are concerned about expanding workloads for their Seattle datacenter. Janet Lewis, business continuity team director, says, "it appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
 
 Over a recent three-day holiday weekend, there was an incident with one of the ADDS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal.
 
@@ -114,12 +114,12 @@ Additionally, the SQL Server VM and Web site implementation are also housed at t
 
 They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
 
-Litware has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
+Contoso has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image5.png "SQL and Web Server Current Implementation")
 
 
-Litware's business critical applications include:
+Contoso's business critical applications include:
 
 -   The authentication and authorization infrastructure.
 
@@ -129,7 +129,7 @@ Litware's business critical applications include:
 
     -   Customers: search the catalog of inventory, order parts, schedule repairs and provide support
 
-    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Litware
+    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Contoso
 
 ### Customer needs 
 
@@ -185,13 +185,13 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 *Virtual Network design in Azure*
 
-1.  Document and diagram how you will build redundant Virtual Networks for Litware. Address the following design points:
+1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
 
-    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Litware's offices to Azure
+    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
-    -   How will you design the address space and subnets to support Litware's requirements?
+    -   How will you design the address space and subnets to support Contoso's requirements?
 
 2.  Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
@@ -201,13 +201,13 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 
-3.  Consider storage account resiliency. What would best suit the needs for Litware virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
 4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-5.  Provide Litware with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
-6.  What would you recommend Litware enable for monitoring their environment?
+6.  What would you recommend Contoso enable for monitoring their environment?
 
 **Prepare**
 

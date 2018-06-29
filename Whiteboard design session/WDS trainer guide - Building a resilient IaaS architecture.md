@@ -1,4 +1,4 @@
-![](images/HeaderPic.png "Microsoft Cloud Workshops")
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-March 2018
+June 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -189,13 +189,13 @@ Directions: With all participants in the session, the facilitator/SME presents a
  
 ### Customer situation
 
-Litware, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Litware specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
+Contoso, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Contoso specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
-Litware would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. In the process Litware developed a standard deployment policy for new infrastructure that has been followed ever since.
+Contoso would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. In the process Contoso developed a standard deployment policy for new infrastructure that has been followed ever since.
 
-Their ordering system is running in Azure on virtual machines with a SQL Server data tier. For many years Litware's ordering process was done mainly via phone by their sales team based in one of their offices. Recently, the company has moved to an Internet-based ordering system with Internet Information Services (IIS) web servers in Azure housing the front-end application for the ordering, invoicing, and support options. Customers have complained at times of intermittent problems/errors with the website.
+Their ordering system is running in Azure on virtual machines with a SQL Server data tier. For many years Contoso's ordering process was done mainly via phone by their sales team based in one of their offices. Recently, the company has moved to an Internet-based ordering system with Internet Information Services (IIS) web servers in Azure housing the front-end application for the ordering, invoicing, and support options. Customers have complained at times of intermittent problems/errors with the website.
 
-There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Litware to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a four-hour recovery time objective (RTO) with a recovery point objective (RPO) for the data of 8 hours.
+There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Contoso to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a four-hour recovery time objective (RTO) with a recovery point objective (RPO) for the data of 8 hours.
 
 In addition to the ordering system, they have a legacy software program where the data is tightly coupled with the application. Because of the time and effort required, a re-write of this application is not planned. The application is being backed up using a disk-to-disk-to-tape approach. The legacy application is running on aging hardware and a decision must be made as to whether to purchase new hardware, re-write the application, or move it as-is to Azure.
 
@@ -210,11 +210,11 @@ Taking their cue from the AD and Web teams, the Database Administrators have als
 The Marketing department has recently been tasked with moving their server workloads into Azure by rebuilding each application. They have begun building their servers utilizing a single Azure storage account. They have around 40-50 VMs already but anticipate continued growth.
 
 ![The current storage account implementation has 40 to 50 virtual machines, with a Single Blob LRS Storage account, made up of 40 to 50 VHDs, one per VM.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image2.png "Storage Account Current Implementation")
-*Figure 2 -- Litware's Storage Account Configuration*
+*Figure 2 -- Contoso's Storage Account Configuration*
 
-Litware is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
+Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
-While the Azure deployments have served Litware well so far, they are concerned about expanding workloads for their Seattle datacenter. Janet Lewis, business continuity team director, says, "it appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
+While the Azure deployments have served Contoso well so far, they are concerned about expanding workloads for their Seattle datacenter. Janet Lewis, business continuity team director, says, "it appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
 
 Over a recent three-day holiday weekend, there was an incident with one of the ADDS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal.
 
@@ -234,12 +234,12 @@ Additionally, the SQL Server VM and Web site implementation are also housed at t
 
 They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
 
-Litware has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
+Contoso has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image5.png "SQL and Web Server Current Implementation")
 
 
-Litware's business critical applications include:
+Contoso's business critical applications include:
 
 -   The authentication and authorization infrastructure.
 
@@ -249,7 +249,7 @@ Litware's business critical applications include:
 
     -   Customers: search the catalog of inventory, order parts, schedule repairs and provide support
 
-    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Litware
+    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Contoso
 
 ### Customer needs 
 
@@ -305,13 +305,13 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 *Virtual Network design in Azure*
 
-1.  Document and diagram how you will build redundant Virtual Networks for Litware. Address the following design points:
+1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
 
-    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Litware's offices to Azure
+    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
-    -   How will you design the address space and subnets to support Litware's requirements?
+    -   How will you design the address space and subnets to support Contoso's requirements?
 
 2.  Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
@@ -321,13 +321,13 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 
-3.  Consider storage account resiliency. What would best suit the needs for Litware virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
 4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-5.  Provide Litware with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
-6.  What would you recommend Litware enable for monitoring their environment?
+6.  What would you recommend Contoso enable for monitoring their environment?
 
 
 **Prepare**
@@ -440,13 +440,13 @@ Timeframe: 15 minutes
 
 *Virtual Network design in Azure*
 
--   Document and diagram how you will build redundant Virtual Networks for Litware. Address the following design points:
+-   Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
 
-    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Litware's offices to Azure
+    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
-    -   How will you design the address space and subnets to support Litware's requirements?
+    -   How will you design the address space and subnets to support Contoso's requirements?
 
         Solution
 
@@ -496,7 +496,7 @@ Resilient benefits:
 
 -   Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
-    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow exactly as a firewall rule does. NSGs may be applied to either individual network interfaces or to a subnet. In Litware's case there will be a single NSG applied to each subnet.
+    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow exactly as a firewall rule does. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
 
 Address Spaces:
 
@@ -533,7 +533,7 @@ Network Security Groups for the West Central US Virtual Network|
 
 Network Security Groups for the West US 2 Virtual Network
 
-Since Litware has not deployed any additional infrastructure to West US 2 the only ports needed are for administration and replication of Active Directory.
+Since Contoso has not deployed any additional infrastructure to West US 2 the only ports needed are for administration and replication of Active Directory.
 
   Identity Tier NSGs                                                                                                                   
   -------------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
@@ -554,7 +554,7 @@ Resilient benefits:
 
     *AD configuration details*
 
-    -   Active Directory Domain Service (ADDS) Domain Controllers (DC) are deployed into Azure virtual machines. These are extensions of the on-premises AD DS DCs and allow for resiliency for the authentication and authorization mechanism that Litware employees use today.
+    -   Active Directory Domain Service (ADDS) Domain Controllers (DC) are deployed into Azure virtual machines. These are extensions of the on-premises AD DS DCs and allow for resiliency for the authentication and authorization mechanism that Contoso employees use today.
 
     -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD.
 
@@ -582,9 +582,9 @@ Resilient benefits:
 
     *Web Server configuration details*
 
-    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. To help manage the load and provide performance options, the servers will be deployed into a Scale Set within Azure. This will allow Litware the option to scale-up, scale-out, and even scale-down and scale-in based on the need. It will cease Litware's practice of scaling manually as it is rife with issues and lacks the automated scaling that can be provided otherwise for resiliency.
+    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. To help manage the load and provide performance options, the servers will be deployed into a Scale Set within Azure. This will allow Contoso the option to scale-up, scale-out, and even scale-down and scale-in based on the need. It will cease Contoso's practice of scaling manually as it is rife with issues and lacks the automated scaling that can be provided otherwise for resiliency.
 
-    Litware's use of an Availability Set for the Web farm VMs should be applauded. Availability Sets provide protection and resiliency against unplanned and planned downtime. We configured the availability set to spread the VMs across **three** fault domains and **five** update domains.
+    Contoso's use of an Availability Set for the Web farm VMs should be applauded. Availability Sets provide protection and resiliency against unplanned and planned downtime. We configured the availability set to spread the VMs across **three** fault domains and **five** update domains.
 
     A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
 
@@ -594,13 +594,13 @@ Resilient benefits:
 
     -   Moving the Health Probe from TCP to HTTP on the load balancer gives a deeper more application centric view into the web server health. It will help avoid any intermittent problems that customers experienced in the past.
 
-    -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Litware's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
+    -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
 
     -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
 
     *SQL Always-On configuration details*
 
-    SQL Server is critical to the availability of the applications at Litware. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. The two servers in West Central US comprise a single primary and a secondary, synchronously replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
+    SQL Server is critical to the availability of the applications at Contoso. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. The two servers in West Central US comprise a single primary and a secondary, synchronously replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
 
     The SQL Servers will use premium managed disks with a database and log files on separate disks. The TempDB will be housed on the local host SSD drive and split to match the number of cores in the VM.
 
@@ -619,11 +619,11 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
 ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.png "SQL Server Managed Backup to Microsoft Azure ")
 
-3.  Consider storage account resiliency. What would best suit the needs for Litware virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
     *Storage account configuration details*
 
-    Moving beyond using only one storage account is a must for Litware. The sub-optimal storage configurations at Litware, such as 40 disks in a single storage account, or creating a single storage account per VM disk, are solved using managed disks. Managed disks remove the scalability limits associated with storage accounts, leaving the number of disks per subscription as the only remaining scale consideration.
+    Moving beyond using only one storage account is a must for Contoso. The sub-optimal storage configurations at Contoso, such as 40 disks in a single storage account, or creating a single storage account per VM disk, are solved using managed disks. Managed disks remove the scalability limits associated with storage accounts, leaving the number of disks per subscription as the only remaining scale consideration.
 
     Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated:
 
@@ -635,7 +635,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
         Resilient benefits:
 
-    -   Using managed storage takes the guess work out of VM storage. There is no longer a need to worry about the number of storage accounts or how many VMs use each storage account. Azure does all of this for Litware.
+    -   Using managed storage takes the guess work out of VM storage. There is no longer a need to worry about the number of storage accounts or how many VMs use each storage account. Azure does all of this for Contoso.
 
     -   Managed storage honors availability sets, so this ensures that VMs in an Availability Sets will not have their storage backend fail for multiple VMs at the same time. Prior to managed disks VMs in an availability set could still have shared a storage stamp in Azure. This meant it was possible to lose the VMs in an availability set due to a storage outage if it was isolated to one stamp. With the honoring of availability sets this is no longer an issue.
 
@@ -657,13 +657,13 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     -   Premium storage account must be used and replicated across to another storage account
 
-5.  Provide Litware with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
-    Litware should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
+    Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
     The documentation can be found here: <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits>.
 
-6.  What would you recommend Litware enable for monitoring their environment?
+6.  What would you recommend Contoso enable for monitoring their environment?
 
     *Monitoring configuration details*
 
@@ -675,17 +675,17 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     Alert uses the term??**Log Alerts**??to describe alerts where signal is custom query based on??[Log Analytics](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-tutorial-viewdata)??or??[Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics). The??[new metric alert capability](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts)??provides ability to alert on??[multidimensional metrics](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts)??for specific Azure resources. The alerts for such resource can use additional filters on dimensions creating??**Multi-Dimensional Metric Alerts**.
 
-    Litware could use Azure Alerts to raise awareness to Litware staff when an issue occurs such as the VM being restarted, deleted, or any other action they want to be made aware of.
+    Contoso could use Azure Alerts to raise awareness to Contoso staff when an issue occurs such as the VM being restarted, deleted, or any other action they want to be made aware of.
 
     **Log Analytics**
 
     Log Analytics plays a central role in Azure management by collecting telemetry and other data from a variety of sources and providing a query language and analytics engine that gives you insights into the operation of your applications and resources. You can either interact directly with Log Analytics data through log searches and views, or you may use analysis tools in other Azure services that store their data in Log Analytics such as Application Insights or Azure Security Center.
 
-    In Litware's situation, they would use Log Analytics to monitor the state of the servers such as the issue mentioned about the Active Directory Domain Controller running out of disk space. A query could be made based on the % Free Space performance counter and an alert raised based on the percentage available.
+    In Contoso's situation, they would use Log Analytics to monitor the state of the servers such as the issue mentioned about the Active Directory Domain Controller running out of disk space. A query could be made based on the % Free Space performance counter and an alert raised based on the percentage available.
 
     **Azure Network Watcher and Azure Automation**
 
-    To monitor the status of their VPN Gateway and other network health Litware should enable Azure Network Watcher. Network watcher can monitor the status of their VPN Gateway, and an Azure Automation runbook could be scheduled to check the status and report on issues.
+    To monitor the status of their VPN Gateway and other network health Contoso should enable Azure Network Watcher. Network watcher can monitor the status of their VPN Gateway, and an Azure Automation runbook could be scheduled to check the status and report on issues.
 
 ## Checklist of preferred objection handling
 
@@ -693,7 +693,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     **Potential answer**
     
-    Litware can restructure the way IT budgets are spent and ultimately save funds by rolling out the infrastructure into Azure as opposed to rolling out the infrastructure in the Cheyenne office. By, building out the infrastructure in Azure there is no upfront capital investment. The cost moves to an operating expense in a pay only for what you need and use model. This frees up Litware's capital for other investments which are more strategic to the growth of the company. This is also done in a more professional way in that Azure datacenters are world-class, enterprise-level datacenters providing a server environment that Litware could never build on their own. Also, deploying VMs in Azure provides resiliency at a lower cost than physical hardware.
+    Contoso can restructure the way IT budgets are spent and ultimately save funds by rolling out the infrastructure into Azure as opposed to rolling out the infrastructure in the Cheyenne office. By, building out the infrastructure in Azure there is no upfront capital investment. The cost moves to an operating expense in a pay only for what you need and use model. This frees up Contoso's capital for other investments which are more strategic to the growth of the company. This is also done in a more professional way in that Azure datacenters are world-class, enterprise-level datacenters providing a server environment that Contoso could never build on their own. Also, deploying VMs in Azure provides resiliency at a lower cost than physical hardware.
 
     Also, consider that the cost of downtime might far outweigh the cost of the resiliency being built into the environment.
 
@@ -725,5 +725,5 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
 "By using Azure, we can build out resiliency for all aspects of our environment. It allows for infrastructure, networking, web applications, AD, and other items to be redundant and highly available. With some planning and deployment of resilient resources, I envision our LOB apps and websites will no longer be impacted by outages."
 
----Lewis Franklin, head of infrastructure and enterprise operations, Litware
+---Lewis Franklin, head of infrastructure and enterprise operations, Contoso
 
