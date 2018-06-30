@@ -163,9 +163,10 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 ## Abstract and learning objectives 
 
-The student will assist a large organization in evaluating their current infrastructure deployments in Azure, and help identify single points of failure. Attention will be given to making the customer\'s current deployments more resilient and communicating best practices to ensure future deployments will follow best practices.
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
 
-Attendees will be better able to design resilient applications in Azure for high availability and disaster recovery. Specific attention will be given to:
+At the end of this whiteboard design session, you will be better able to design and use the following services:
+
 
 -   The use of availability sets
 
@@ -174,6 +175,9 @@ Attendees will be better able to design resilient applications in Azure for high
 -   Design principles when provisioning storage to VMs
 
 -   Effective employment of Azure Backup to provide point-in-time recovery
+
+-   SQL Server Always On Availability Groups 
+
 
 ## Step 1: Review the customer case study 
 
