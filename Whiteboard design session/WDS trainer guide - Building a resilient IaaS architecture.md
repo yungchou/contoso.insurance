@@ -247,7 +247,7 @@ Contoso has received multiple complaints from customers at times when they have 
 
 Contoso's business critical applications include:
 
--   The authentication and authorization infrastructure.
+-   The authentication and authorization infrastructure
 
 -   The website with its SQL data tier, supporting both employees, customers and third-party manufacturing plants and factories. Use cases include:
 
@@ -259,17 +259,17 @@ Contoso's business critical applications include:
 
 ### Customer needs 
 
-1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices.
+1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices
 
-2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
+2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
+3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
+4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure
 
-5.  A functional storage policy in place for the anticipation of growth in Azure.
+5.  A functional storage policy in place for the anticipation of growth in Azure
 
-6.  Monitoring option for issues that may arise on the servers and in Azure.
+6.  Monitoring option for issues that may arise on the servers and in Azure
 
 ### Customer objections 
 
@@ -300,7 +300,8 @@ Directions: With all participants at your table, answer the following questions 
 1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
 2.  What customer business needs do you need to address with your solution?
 
-**Design** 
+**Design**
+
 Directions: With all participants at your table, respond to the following questions on a flip chart.
 
 The desired outcome is to have authentication deployed using best practices in both the Cheyenne and the Seattle regions for current and future application migration.
@@ -313,7 +314,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
-    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
+    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
 
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
@@ -331,7 +332,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits
 
 6.  What would you recommend Contoso enable for monitoring their environment?
 
@@ -426,7 +427,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Wrap-up
 
-    -   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution
+   -   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution
 
 ##  Preferred target audience
 
@@ -442,15 +443,15 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 *Virtual Network design in Azure*
 
--   Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
+1. Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
-    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
+    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
 
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
     -   How will you design the address space and subnets to support Contoso's requirements?
 
-        Solution
+*Solution*
 
 -   West Central US and West US 2 will be used due to their proximities to the Cheyenne and Seattle offices. Virtual Network Peering will be implemented for connectivity between the regions.
 
@@ -492,13 +493,13 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 Resilient benefits:
 
--   Providing route-based VPN gateways allows for the connection all three branch offices and the corporate office to connect via VPN. It also allows for the two regions to connect. There is even some room for growth and makes the connectivity resilient in case of some network event at the corporate office or a branch office.
+   -   Providing route-based VPN gateways allows for the connection all three branch offices and the corporate office to connect via VPN. It also allows for the two regions to connect. There is even some room for growth and makes the connectivity resilient in case of some network event at the corporate office or a branch office.
 
--   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
+   -   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
 
--   Document what network security groups and rules should be put in place for protection. What ports would you open and why?
+2. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
-    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow exactly as a firewall rule does. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
+   Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow exactly as a firewall rule does. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
 
 Address Spaces:
 
@@ -566,17 +567,17 @@ For details on restoring ADDS DCs see the following: <https://azure.microsoft.co
 
 Resilient benefits:
 
--   Storing the AD files on a data disk with caching set to None will keep the ADDS database and SYSVOL from any potential corruption due to caching.
+-   Storing the AD files on a data disk with caching set to None will keep the ADDS database and SYSVOL from any potential corruption due to caching
 
--   Adding DCs into an availability set will spread them across fault domains and update domains so that authentication and authorization servers are highly available.
+-   Adding DCs into an availability set will spread them across fault domains and update domains so that authentication and authorization servers are highly available
 
--   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue.
+-   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue
 
--   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database.
+-   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database
 
--   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM.
+-   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM
 
--   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options.
+-   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options
 
 ![The resilient benefits are shown in this image.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image8.png "Resilient Benefits")
 
@@ -598,7 +599,7 @@ Resilient benefits:
 
     -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
 
-    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
+    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric
 
     *SQL Always-On configuration details*
 
@@ -635,7 +636,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     -   Azure Backups of IaaS VMs, SQL and System State data
 
-        Resilient benefits:
+    Resilient benefits:
 
     -   Using managed storage takes the guess work out of VM storage. There is no longer a need to worry about the number of storage accounts or how many VMs use each storage account. Azure does all of this for Contoso.
 
@@ -659,7 +660,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     -   Premium storage account must be used and replicated across to another storage account
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits
 
     Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
