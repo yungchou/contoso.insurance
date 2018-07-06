@@ -496,7 +496,7 @@ Resilient benefits:
    -   Providing route-based VPN gateways allows for the connection all three branch offices and the corporate office to connect via VPN. It also allows for the two regions to connect. There is even some room for growth and makes the connectivity resilient in case of some network event at the corporate office or a branch office.
 
    -   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
-
+   
 2. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow exactly as a firewall rule does. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
