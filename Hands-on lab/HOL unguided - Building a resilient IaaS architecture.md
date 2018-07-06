@@ -30,7 +30,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Overview](#overview)
     - [Solution architecture](#solution-architecture)
     - [Requirements](#requirements)
-        - [Help References](#help-references)
+        - [Help references](#help-references)
     - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
         - [Task 1: Create a VNET in the second region](#task-1-create-a-vnet-in-the-second-region)
             - [Tasks to complete](#tasks-to-complete)
@@ -130,7 +130,7 @@ Deployment of a web app using scale sets, and a highly available SQL Always On d
 
     -   Ensure you reboot after installing the SDK or Azure PowerShell will not work correctly
 
-### Help References
+### Help references
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
@@ -155,11 +155,11 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 
 #### Tasks to complete
 
--   Create a new Virtual network in the West US 2 region named ContosoVNET2 that mirrors ContosoVNET except with a different address space.
+-   Create a new Virtual network in the West US 2 region named ContosoVNET2 that mirrors ContosoVNET except with a different address space
 
 #### Exit criteria
 
--   There should be a new virtual network with two subnets: Apps and Data in the West US 2 region.
+-   There should be a new virtual network with two subnets: Apps and Data in the West US 2 region
 
 ## Exercise 2: Build the DCs in for resiliency
 
@@ -171,25 +171,25 @@ In this exercise, you will deploy Windows Server Active Directory configured for
 
 #### Tasks to complete
 
--   Create two Domain Controllers (DCs) in the first region: ContosoDC01, ContosoDC02.
+-   Create two Domain Controllers (DCs) in the first region: ContosoDC01, ContosoDC02
 
 #### Exit criteria
 
--   The DCs should be configured for resiliency in availability sets and with managed disks.
+-   The DCs should be configured for resiliency in availability sets and with managed disks
 
--   The DCs should also be configured for Azure Backup.
+-   The DCs should also be configured for Azure Backup
 
 ### Task 2: Create the Active Directory deployment in the second region
 
 #### Tasks to complete
 
--   Create two Domain Controllers (DCs) in the second region: ContosoDC03, ContosoDC04.
+-   Create two Domain Controllers (DCs) in the second region: ContosoDC03, ContosoDC04
 
 #### Exit criteria
 
--   The DCs should be configured for resiliency in availability sets and with managed disks.
+-   The DCs should be configured for resiliency in availability sets and with managed disks
 
--   The DCs should also be configured for Azure Backup.
+-   The DCs should also be configured for Azure Backup
 
 ### Task 3: Add data disks to Active Directory domain controllers (both regions)
 
@@ -199,7 +199,7 @@ In this exercise, you will deploy Windows Server Active Directory configured for
 
 #### Exit criteria
 
--   Each DC should have an additional SSD based 1023 GB managed disk attached.
+-   Each DC should have an additional SSD based 1023 GB managed disk attached
 
 ### Task 4: Format data disks on DCs and configure DNS settings across connection
 
@@ -207,7 +207,7 @@ In this exercise, you will deploy Windows Server Active Directory configured for
 
 -   Format the disks as the F: drive on each of the VMs
 
--   Configure the virtual networks in each region to reference the IPs of the new Domain Controllers.
+-   Configure the virtual networks in each region to reference the IPs of the new Domain Controllers
 
 -   Run the following script on the ADVM virtual machine:
 
@@ -215,21 +215,21 @@ In this exercise, you will deploy Windows Server Active Directory configured for
 
 #### Exit criteria
 
--   Each DC should have an additional SSD based 1023 GB managed disk attached and formatted.
+-   Each DC should have an additional SSD based 1023 GB managed disk attached and formatted
 
--   The Virtual Networks in each region should reference the local DCs in each region.
+-   The Virtual Networks in each region should reference the local DCs in each region
 
--   The Set-DnsServerPrimary zone cmdlet should be executed on ADVM.
+-   The Set-DnsServerPrimary zone cmdlet should be executed on ADVM
 
 ### Task 5: Promote DCs as additional domain controllers 
 
 #### Tasks to complete
 
--   Promote the four DCs to join the Contoso.com Active Directory domain.
+-   Promote the four DCs to join the Contoso.com Active Directory domain
 
 #### Exit criteria
 
--   All the DCs should be Domain Controllers.
+-   All the DCs should be Domain Controllers
 
 ### Summary
 
@@ -247,20 +247,20 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 #### Tasks to complete
 
-1.  Navigate to <https://github.com/opsgility/cw-building-resilient-iaas-architecture-sql> and click the **Deploy to Azure Button**. Deploy the template to the ContosoCloudShopRG resource group in the West Central US region.
+-   Navigate to <https://github.com/opsgility/cw-building-resilient-iaas-architecture-sql> and click the **Deploy to Azure Button**. Deploy the template to the ContosoCloudShopRG resource group in the West Central US region.
 
-2.  After the template is deployed, execute the following command on SQLVM-1:
+-   After the template is deployed, execute the following command on SQLVM-1:
     ```
     New-Cluster -Name CLUST-1 -Node SQLVM-1,SQLVM-2,WITNESSVM -StaticAddress 10.0.1.8 
     ```
 
-3.  Enable SQL Server AlwaysOn on SQLVM-1 and SQL VM-2 and change the service login for both to Contoso\\demouser.
+-   Enable SQL Server AlwaysOn on SQLVM-1 and SQL VM-2 and change the service login for both to Contoso\\demouser
 
-4.  Copy the script from: **C:\\HOL\\CreateSQLAG.sql** on the LABVM to C:\\SQATA on SQLVM-1**.** Execute the script in cmd mode.
+-   Copy the script from: **C:\\HOL\\CreateSQLAG.sql** on the LABVM to **C:\\SQATA on SQLVM-1**. Execute the script in cmd mode.
 
 #### Exit criteria
 
--   SQL AlwaysOn Availability groups should be deployed.
+-   SQL AlwaysOn Availability groups should be deployed
 
 ### Task 2: Convert the SQL deployment to Managed Disks 
 
@@ -299,7 +299,7 @@ In this task, you will convert the disks of the SQL deployment to managed disks.
 
 #### Exit criteria
 
--   All the disks for the SQL deployment should be managed.
+-   All the disks for the SQL deployment should be managed
 
 ### Task 3: Build a scalable and resilient web tier
 
@@ -311,7 +311,7 @@ In this task, you will deploy a VM scale set that can automatically scale up or 
 
 #### Exit criteria
 
--   The scale set should be deployed, and you should be able to browse the CloudShop application from the public IP address assigned to the load balancer.
+-   The scale set should be deployed, and you should be able to browse the CloudShop application from the public IP address assigned to the load balancer
 
 ### Summary
 
@@ -327,7 +327,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 #### Tasks to complete
 
--   Create a storage account for SQL server backup data by executing the following PowerShell script on your LABVM.
+-   Create a storage account for SQL server backup data by executing the following PowerShell script on your LABVM
     ```    
     $storageAcctName = "[unique storage account name]"
 
@@ -382,17 +382,17 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
     write-host $enableManagedBackupScript 
     ```
 
--   Copy the generated tSQL code to notepad for later use.
+-   Copy the generated tSQL code to notepad for later use
 
 #### Exit criteria
 
--   A storage account for SQL Server managed back and code to create an identity in SQL Server should be ready.
+-   A storage account for SQL Server managed back and code to create an identity in SQL Server should be ready
 
 ### Task 2: Configure managed backup in SQL Server
 
 #### Tasks to complete
 
--   Execute the following tSQL code on SQLVM-1 to enable the SQL Agent.
+-   Execute the following tSQL code on SQLVM-1 to enable the SQL Agent:
     ```
     EXEC sp_configure 'show advanced options', 1
     GO
@@ -404,9 +404,9 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
     GO
     ```
 
--   Execute the code from the previous task that was copied to notepad on SQLVM-1.
+-   Execute the code from the previous task that was copied to notepad on SQLVM-1
 
--   Execute the following code to create a custom backup schedule.
+-   Execute the following code to create a custom backup schedule:
     ```
     USE msdb;  
     GO  
@@ -420,7 +420,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
         ,@log_backup_freq = '00:05'  
     GO  
     ```
--   Execute the following code to create a backup immediately.
+-   Execute the following code to create a backup immediately:
     ```
     EXEC msdb.managed_backup.sp_backup_on_demand   
     @database_name  = 'AdventureWorks',
@@ -429,7 +429,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 #### Exit criteria
 
--   SQL Server should be configured to backup to an Azure Storage account based on your custom schedule.
+-   SQL Server should be configured to backup to an Azure Storage account based on your custom schedule
 
 -   SQL Server backup data should in the backups container of the Azure Storage Account
 
@@ -439,11 +439,11 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 #### Tasks to complete
 
--   Spike the CPU of the Cloud Shop application by clicking the CPU spike button on the web apps home page.
+-   Spike the CPU of the Cloud Shop application by clicking the CPU spike button on the web apps home page
 
 #### Exit criteria
 
--   After 15-20 minutes new instances should spin up automatically from the auto scale rules.
+-   After 15-20 minutes, new instances should spin up automatically from the auto scale rules
 
 ### Task 2: Validate SQL Always On
 
@@ -453,15 +453,15 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 #### Exit criteria
 
--   **The SQL AlwaysOn cluster should automatically failover to SQLVM-2.**
+-   **The SQL AlwaysOn cluster should automatically failover to SQLVM-2**
 
 ### Task 3: Validate backups are taken 
 
 #### Tasks to complete
 
--   Open the Azure Backup Vaults created earlier and ensure that backup data for the VMs is present.
+-   Open the Azure Backup Vaults created earlier and ensure that backup data for the VMs is present
 
--   Open the container for the SQL Server backup storage account and ensure backup data is present.
+-   Open the container for the SQL Server backup storage account and ensure backup data is present
 
 #### Exit criteria
 
@@ -471,7 +471,7 @@ Duration: 10 minutes
 
 ### Task 1: Delete the resource groups created
 
--   Within the Azure portal, click Resource Groups on the left navigation.
+-   Within the Azure portal, click Resource Groups on the left navigation
 
 -   Delete each of the resource groups created in this lab by clicking them followed by clicking the Delete Resource Group button. You will need to confirm the name of the resource group to delete.
 
