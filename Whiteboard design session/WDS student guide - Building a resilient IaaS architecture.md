@@ -48,7 +48,6 @@ In this whiteboard design session, you will look at how to design for converting
 
 At the end of this whiteboard design session, you will be better able to design and use the following services:
 
-
 -   The use of availability sets
 
 -   The use of Managed Disks
@@ -65,7 +64,9 @@ At the end of this whiteboard design session, you will be better able to design 
 **Outcome** 
 
 Analyze your customer’s needs.
-Time frame: 15 minutes 
+
+Timeframe: 15 minutes
+
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
 1.  Meet your table participants and trainer 
 2.  Read all of the directions for steps 1–3 in the student guide 
@@ -125,7 +126,7 @@ Contoso has received multiple complaints from customers at times when they have 
 
 Contoso's business critical applications include:
 
--   The authentication and authorization infrastructure.
+-   The authentication and authorization infrastructure
 
 -   The website with its SQL data tier, supporting both employees, customers and third-party manufacturing plants and factories. Use cases include:
 
@@ -137,17 +138,17 @@ Contoso's business critical applications include:
 
 ### Customer needs 
 
-1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices.
+1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices
 
-2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
+2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
+3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
+4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure
 
-5.  A functional storage policy in place for the anticipation of growth in Azure.
+5.  A functional storage policy in place for the anticipation of growth in Azure
 
-6.  Monitoring option for issues that may arise on the servers and in Azure.
+6.  Monitoring option for issues that may arise on the servers and in Azure
 
 ### Customer objections 
 
@@ -170,7 +171,7 @@ Contoso's business critical applications include:
 **Outcome** 
 Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
 
-Time frame: 60 minutes
+Timeframe: 60 minutes
 
 **Business needs**
 
@@ -179,6 +180,7 @@ Directions: With all participants at your table, answer the following questions 
 2.  What customer business needs do you need to address with your solution?
 
 **Design** 
+
 Directions: With all participants at your table, respond to the following questions on a flip chart.
 
 The desired outcome is to have authentication deployed using best practices in both the Cheyenne and the Seattle regions for current and future application migration.
@@ -191,7 +193,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
-    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers.
+    -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
 
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
 
@@ -217,9 +219,9 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 Directions: With all participants at your table: 
 
-1.  Identify any customer needs that are not addressed with the proposed solution. 
-2.  Identify the benefits of your solution. 
-3.  Determine how you will respond to the customer’s objections. 
+1.  Identify any customer needs that are not addressed with the proposed solution
+2.  Identify the benefits of your solution.
+3.  Determine how you will respond to the customer’s objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer. 
 
@@ -229,25 +231,25 @@ Prepare a 15-minute chalk-talk style presentation to the customer.
  
 Present a solution to the target customer audience in a 15-minute chalk-talk format.
 
-Time frame: 30 minutes
+Timeframe: 30 minutes
 
 **Presentation** 
 
 Directions:
-1.  Pair with another table.
-2.  One table is the Microsoft team and the other table is the customer.
-3.  The Microsoft team presents their proposed solution to the customer.
-4.  The customer makes one of the objections from the list of objections.
-5.  The Microsoft team responds to the objection.
-6.  The customer team gives feedback to the Microsoft team. 
-7.  Tables switch roles and repeat Steps 2–6.
+1.  Pair with another table
+2.  One table is the Microsoft team and the other table is the customer
+3.  The Microsoft team presents their proposed solution to the customer
+4.  The customer makes one of the objections from the list of objections
+5.  The Microsoft team responds to the objection
+6.  The customer team gives feedback to the Microsoft team.
+7.  Tables switch roles and repeat Steps 2–6
 
 
 ##  Wrap-up 
 
 Timeframe: 15 minutes
 
--   Tables reconvene with the larger group to hear a SME share the preferred solution for the case study.
+Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
 ##  Additional references
 
