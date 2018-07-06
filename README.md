@@ -4,15 +4,17 @@ Contoso, is a leading manufacturer, seller, distributor and servicer of parts fo
 
 Several years ago, under the leadership of Lewis Franklin, head of infrastructure and operations, individual departments started migrating their servers into Azure. The Active Directory Domain Services (ADDS) team has deployed several Domain Controller (DC) Virtual Machines (VM) to a virtual network in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. Some effort was made to follow the guidance of Microsoft on the use of Active Directory (AD) in Azure, but some configuration gaps remain.
 
+## Target audience
+TBD
+
 ## Abstract
 
-## Workshop
+### Workshop
 
 In this workshop, you will look at how an existing IaaS deployment can be redesigned and updated to account for resiliency and in general high availability. Throughout the whiteboard design session and hands-on lab you will look at the various configuration options and services to help build resilient architectures. 
 
 At the end of this workshop, you will be better able to design and use the following services:
 
-
 -   The use of availability sets
 
 -   The use of Managed Disks
@@ -24,13 +26,12 @@ At the end of this workshop, you will be better able to design and use the follo
 -   SQL Server Always On Availability Groups 
 
 
-## Whiteboard Design Session
+### Whiteboard Design Session
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
 
 At the end of this whiteboard design session, you will be better able to design and use the following services:
 
-
 -   The use of availability sets
 
 -   The use of Managed Disks
@@ -42,13 +43,12 @@ At the end of this whiteboard design session, you will be better able to design 
 -   SQL Server Always On Availability Groups 
 
 
-## Hand-on Lab
+### Hands-on Lab
 
 In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture. 
 
 At the end of this workshop, you will be better able to design and use the following services:
 
-
 -   The use of availability sets
 
 -   The use of Managed Disks
@@ -58,8 +58,6 @@ At the end of this workshop, you will be better able to design and use the follo
 -   Effective employment of Azure Backup to provide point-in-time recovery
 
 -   SQL Server Always On Availability Groups 
-
-
 
 ## Azure services and related products
 - Azure VMs
@@ -72,3 +70,9 @@ At the end of this workshop, you will be better able to design and use the follo
 - SQL Server
 - Operations Management Suite
 - Azure Backup
+
+## Azure solutions
+*This is an internal reference and will be updated by project PM.*
+
+## Related references
+- [MCW](https://github.com/Microsoft/MCW)
