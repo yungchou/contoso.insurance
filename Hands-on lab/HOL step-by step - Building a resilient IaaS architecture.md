@@ -31,9 +31,9 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Overview](#overview)
     - [Solution architecture](#solution-architecture)
     - [Requirements](#requirements)
-        - [Help References](#help-references)
+        - [Help references](#help-references)
     - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
-        - [Task 1: Deploy the Lab Environment](#task-1-deploy-the-lab-environment)
+        - [Task 1: Deploy the lab environment](#task-1-deploy-the-lab-environment)
         - [Task 2: Create a VNET in the second region](#task-2-create-a-vnet-in-the-second-region)
         - [Task 3: Configure VNET Peering between region](#task-3-configure-vnet-peering-between-region)
     - [Exercise 2: Build the DCs in for resiliency](#exercise-2-build-the-dcs-in-for-resiliency)
@@ -106,7 +106,7 @@ Deployment of a web app using scale sets, and a highly available SQL Always On d
 
     d.  Ensure you reboot after installing the SDK or Azure PowerShell will not work correctly
 
-### Help References
+### Help references
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
@@ -127,7 +127,7 @@ Duration: 30 minutes
 
 Contoso is planning to deploy infrastructure in multiple regions in Azure to provide infrastructure closer to their employees in each region as well as the ability to provide additional resiliency in the future for certain workloads. In this exercise, you will configure connectivity between the two regions.
 
-### Task 1: Deploy the Lab Environment
+### Task 1: Deploy the lab environment
 
 1.  Login to the Azure portal (<https://portal.azure.com>) with the credentials that you want to deploy the lab environment to
 
