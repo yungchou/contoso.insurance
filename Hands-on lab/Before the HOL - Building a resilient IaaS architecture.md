@@ -1,5 +1,29 @@
+![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
-# Building a resilient IaaS architecture setup
+<div class="MCWHeader1">
+Building a resilient IaaS architecture
+</div>
+
+<div class="MCWHeader2">
+Before the hands-on lab setup guide
+</div>
+
+<div class="MCWHeader3">
+June 2018
+</div>
+
+
+Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
+
+Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
+
+The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+
+© 2018 Microsoft Corporation. All rights reserved.
+
+Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
+
+# Building a resilient IaaS architecture before the hands-on lab setup guide 
 
 ## Requirements
 
@@ -30,15 +54,15 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 2.  Click on **+NEW**, and in the search box, type in **Visual Studio Community 2017 on Windows Server 2016 (x64)** and press Enter. Click the Visual Studio Community 2017 image running on Windows Server 2016 and with the latest update.
 
-3.  In the returned search results, click the image name.
+3.  In the returned search results, click the image name
 
     ![In the Azure Portal, in the Everything blade, the Search field is set to Visual Studio Community 2017 on Windows Server 2016 (x64). In the Results section, Visual Studio Community 2017 on Windows Server 2016 (x64) is selected.](images/Setup/image4.png "Azure Portal, Everything blade")
 
-4.  At the bottom of the page in the Marketplace solution blade, keep the deployment model set to **Resource Manager**, and click **Create**.
+4.  At the bottom of the page in the Marketplace solution blade, keep the deployment model set to **Resource Manager**, and click **Create**
 
     ![In the Marketplace Solution blade, from the Select a deployment model drop-down menu, Resource Manager displays.](images/Setup/image5.png "Marketplace Solution blade")
 
-5.  Set the following configuration on the Basics tab, and click **OK**.
+5.  Set the following configuration on the Basics tab, and click **OK**
 
     -   Name: **LABVM**
 
@@ -56,7 +80,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![Fields in the Basics blade display the previously defined settings.](images/Setup/image6.png "Basics blade")
 
-6.  Choose the **DS1\_V2 Standard** instance size on the Size blade.
+6.  Choose the **DS1\_V2 Standard** instance size on the Size blade
 
 **Note**: You may have to click the View All link to see the instance sizes.
 
@@ -64,19 +88,19 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 **Note**: If the Azure Subscription you are using is [NOT]{.underline} a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMV. If you are using a trial subscription or one that you know has a restriction on the number of cores, stick with the DS1\_V2.
 
-7.  Click **Configure required settings** to specify a storage account for your virtual machine if a storage account name is not automatically selected for you.
+7.  Click **Configure required settings** to specify a storage account for your virtual machine if a storage account name is not automatically selected for you
 
     ![In the Settings blade, Under Storage, Use managed disks is set to No, and Storage account is selected.](images/Setup/image8.png "Settings blade")
 
-8.  Click **Create new**.
+8.  Click **Create new**
 
     ![Screenshot of the Create new button.](images/Setup/image9.png "Create new button")
 
-9.  Specify a unique name for the storage account (all lower letters and alphanumeric characters), and ensure the green checkmark showing the name is valid.
+9.  Specify a unique name for the storage account (all lower letters and alphanumeric characters), and ensure the green checkmark showing the name is valid
 
     ![The checkbox next to the Name field is selected.](images/Setup/image10.png "Name field")
 
-10. Click **OK** to continue.
+10. Click **OK** to continue
 
     ![Screenshot of the OK button.](images/Setup/image11.png "OK button")
 
@@ -118,11 +142,11 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![Local Server is selected in the Server Manager menu.](images/Setup/image18.png "Server Manager menu")
 
-7.  On the right side of the pane, click **On** by **IE Enhanced Security Configuration**.
+7.  On the right side of the pane, click **On** by **IE Enhanced Security Configuration**
 
     ![In the Essentials section, IE Enhanced Security Configuration is set to On, and is selected.](images/Setup/image19.png "Essentials section")
 
-8.  Change to **Off** for Administrators and click **OK**.
+8.  Change to **Off** for Administrators and click **OK**
 
     ![Administrators is set to Off in the IE Enhanced Security Configuration dialog box.](images/Setup/image20.png "IE Enhanced Security Configuration dialog box")
 
@@ -130,9 +154,9 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![In the Internet Explorer 11 dialog box, the option to Use recommended security, privacy, and compatibility settings is selected.](images/Setup/image21.png "Internet Explorer 11 dialog box")
 
-10. If prompted, click **Don't show this again** regarding protected mode.
+10. If prompted, click **Don't show this again** regarding protected mode
 
-11. To download the exercise files for the hands-on lab, paste this URL into the browser.
+11. To download the exercise files for the hands-on lab, paste this URL into the browser
 
     https://cloudworkshop.blob.core.windows.net/resilient-iaas-hackathon/Building_Resilient_Iaas_Hackathon_Student_Files.zip  
 
@@ -140,12 +164,11 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![In the Internet Explorer dialog box, the Save button is selected.](images/Setup/image22.png "Internet Explorer dialog box")
 
-13. Download progress is shown at the bottom of the browser window. When the download is complete, click **Open folder**.
+13. Download progress is shown at the bottom of the browser window. When the download is complete, click **Open folder**
 
     ![On the Download Complete bar, the Open folder button is selected.](images/Setup/image23.png "Download Complete bar")
 
 14. The **Downloads** folder will open, ***Right-click*** the zip file, and click **Extract All**. In the **Extract Compressed (Zipped) Folders** window, enter **C:\\HOL** in the **Files will be extracted to this folder** dialog. Click the **Extract** button.
-
 
 
 ### Summary
