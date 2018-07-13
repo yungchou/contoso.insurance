@@ -696,14 +696,20 @@ In this task, you will convert the disks of the SQL deployment to managed disks.
 
 4.  Once logged in, make sure to set your subscription that is the default for this hands-on lab
 
+    ```
     Get-AzureRMSubscription
     Select-AzureRmSubscription -SubscriptionName ???your subscription name???
+    ```
 
 5.  Once this is completed, run the following command to verify your VMs for the hands-on lab are present.
 
+    ```
     Get-AzureRMVM -ResourceGroupName contosoCloudShopRG
 
+    ```
+    
 6.  Now, move to the scripting pane of the PowerShell ISE tool. Paste this code into the window.
+
     ```
     <#
         The following code converts the existing availability to aligned/managed and then converts the disks to managed as well. 

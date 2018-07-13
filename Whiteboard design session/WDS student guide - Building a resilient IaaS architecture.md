@@ -160,7 +160,7 @@ Contoso's business critical applications include:
 
 4.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
 
-5.  We are very concerned about the disk space issue that occurred earlier with our ADDS DCs and nearly our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
+5.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
 ### Infographic for common scenarios
 

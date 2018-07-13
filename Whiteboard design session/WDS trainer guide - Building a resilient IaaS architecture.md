@@ -609,12 +609,12 @@ Resilient benefits:
 
     SQL Servers will have three drive letters: C:\\, F:\\ and G:\\
 
-    Drive   Type        Purpose
-    ------- ----------- -----------------------------------------------------------
-    C:\\    S10         OS
-    D:\\    Local SSD   TempDB broken into multiple files (match number of cores)
-    F:\\    P20         SQL Database Files
-    G:\\    P20         SQL Database Log Files
+    | Drive  | Type      |  Purpose | 
+    | ------- | ----------- | ----------------------------------------------------------- |
+    | C:\\   | S10       | OS  | 
+    | D:\\   | Local SSD  | TempDB broken into multiple files (match number of cores) |
+    | F:\\   | P20        | SQL Database Files | 
+    | G:\\   | P20        | SQL Database Log Files |
 
 **Note**: Never use the E:\\ drive on an Azure VM as some Azure Regions have Host machines that contain DVD Drives.
 
@@ -676,7 +676,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     Azure alerts also provide a unified view to all your alert rules and ability to manage them a single place; including viewing any unresolved alerts. Learn more about functionality from??[Azure alerts - Overview](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts).
 
-    Alert uses the term??**Log Alerts**??to describe alerts where signal is custom query based on??[Log Analytics](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-tutorial-viewdata)??or??[Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics). The??[new metric alert capability](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts)??provides ability to alert on??[multidimensional metrics](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts)??for specific Azure resources. The alerts for such resource can use additional filters on dimensions creating??**Multi-Dimensional Metric Alerts**.
+    Alert uses the term **Log Alerts** to describe alerts where signal is custom query based on [Log Analytics](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-tutorial-viewdata) or [Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics). The [new metric alert capability](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts) provides ability to alert on [multidimensional metrics](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts) for specific Azure resources. The alerts for such resource can use additional filters on dimensions creating **Multi-Dimensional Metric Alerts**.
 
     Contoso could use Azure Alerts to raise awareness to Contoso staff when an issue occurs such as the VM being restarted, deleted, or any other action they want to be made aware of.
 
@@ -688,7 +688,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     **Azure Network Watcher and Azure Automation**
 
-    To monitor the status of their VPN Gateway and other network health Contoso should enable Azure Network Watcher. Network watcher can monitor the status of their VPN Gateway, and an Azure Automation runbook could be scheduled to check the status and report on issues.
+    To monitor the status of their VPN Gateway and other network health, Contoso should enable Azure Network Watcher. Network watcher can monitor the status of their VPN Gateway, and an Azure Automation runbook could be scheduled to check the status and report on issues.
 
 ## Checklist of preferred objection handling
 
@@ -696,7 +696,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     **Potential answer**
     
-    Contoso can restructure the way IT budgets are spent and ultimately save funds by rolling out the infrastructure into Azure as opposed to rolling out the infrastructure in the Cheyenne office. By, building out the infrastructure in Azure there is no upfront capital investment. The cost moves to an operating expense in a pay only for what you need and use model. This frees up Contoso's capital for other investments which are more strategic to the growth of the company. This is also done in a more professional way in that Azure datacenters are world-class, enterprise-level datacenters providing a server environment that Contoso could never build on their own. Also, deploying VMs in Azure provides resiliency at a lower cost than physical hardware.
+    Contoso can restructure the way IT budgets are spent and ultimately save funds by rolling out the infrastructure into Azure as opposed to rolling out the infrastructure in the Cheyenne office. By building out the infrastructure in Azure there is no upfront capital investment. The cost moves to an operating expense in a pay only for what you need and use model. This frees up Contoso's capital for other investments which are more strategic to the growth of the company. This is also done in a more professional way in that Azure datacenters are world-class, enterprise-level datacenters providing a server environment that Contoso could never build on their own. Also, deploying VMs in Azure provides resiliency at a lower cost than physical hardware.
 
     Also, consider that the cost of downtime might far outweigh the cost of the resiliency being built into the environment.
 
@@ -718,7 +718,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
     
     Azure utilizes one of the largest worldwide networks and Microsoft has invested billions of dollars for the infrastructure and connectivity to be world-class. Should there be performance issues, the applications can be scaled to address the needs of the business. There are resizing options and VM instances that address network performance options as well.
 
-5.  We are very concerned about the disk space issue that occurred earlier with our ADDS DCs and nearly our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
+5.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
     **Potential answer**
     
