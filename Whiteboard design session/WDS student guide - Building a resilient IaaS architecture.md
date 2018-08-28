@@ -44,20 +44,9 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this whiteboard design session, you will be better able to design and use the following services:
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
-
+At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ## Step 1: Review the customer case study 
 
