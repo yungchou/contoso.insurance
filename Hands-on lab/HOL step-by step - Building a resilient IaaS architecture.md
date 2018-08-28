@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-June 2018
+August 2018
 </div>
 
 
@@ -47,7 +47,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 1: Deploy SQL Always-On Cluster](#task-1-deploy-sql-always-on-cluster)
         - [Task 2: Convert the SQL deployment to Managed Disks](#task-2-convert-the-sql-deployment-to-managed-disks)
         - [Task 3: Build a scalable and resilient web tier](#task-3-build-a-scalable-and-resilient-web-tier)
-        - [Summary](#summary-1)
+        - [Summary](#summary)
     - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
         - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
         - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
@@ -161,21 +161,24 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 
     -   Address space: **172.16.0.0/16**
 
-    -   Subnet name: **Apps**
-
-    -   Subnet address range: **172.16.0.0/24**
-
     -   Subscription: **Choose your subscription**
 
     -   Resource group: **Create new -- WUS2RG**
 
     -   Location: **West US 2**
 
-    -   Pin to dashboard: **Check the checkbox**
+    -   Subnet name: **Apps**
+
+    -   Subnet address range: **172.16.0.0/24**
+  
+    -   DDoS protection: **Basic**
+
+    -   Service endpoints: **Disabled**
 
     -   Click the **Create** button to continue
 
-        ![A blade showing the creation of a virtual network in the Azure portal. ](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image29.png "Create virtual network")
+
+        ![A blade showing the creation of a virtual network in the Azure portal.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-24-10-30-06.png "Create virtual network")
 
 5.  Once the deployment is complete, add two more subnets to the virtual network. To do this, select the **Subnets \>** icon in the **Settings** area.\
     ![Under Settings, Subnets is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image30.png "Settings section")
@@ -218,7 +221,7 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 
     ![A screen that shows the name Peering, the virtual network VNET2, and Allow forwarded traffic checked.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image36.png "Add peering")
 
-4.  Open the second virtual network (LitewareVNET2) by clicking **All Services -\> Virtual networks** and clicking the name
+4.  Open the second virtual network (VNET2) by clicking **All Services -\> Virtual networks** and clicking the name
 
 5.  Click on **Peerings** and click **+Add**
 
@@ -256,7 +259,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
 5.  In the left pane, click **+ Create Resource**
 
-6.  In the **New** blade, select **Compute** **\>** **Windows Server 2016**
+6.  In the **New** blade, select **Compute** **\>** **Windows Server 2016 Datacenter**
 
     ![In the New blade, under Azure Marketplace, Compute is selected. Under Featured, Windows Server 2016 Datacenter is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image41.png "New blade")
 
@@ -264,7 +267,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Name: **DC01**
 
-    -   VM disk type: **SSD**
+    -   VM disk type: **Premium SSD**
 
     -   Username: **demouser**
 
@@ -284,7 +287,9 @@ In this task, you will change the disk cache settings on the existing domain con
 
 8.  For the **Size**, select **DS1\_V2**. You may have to select the **View All** option if it is not one of the recommended sizes.
 
-9.  In the **Settings** options, choose the following configuration:
+9.  In the **Settings** options, choose the following configuration (accept the defaults if not specified below):
+  
+    -   Availability set: **Create new, ADAV**
 
     -   Storage Use Managed Disks: **Yes**
 
@@ -292,7 +297,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Subnet: **Choose Identity as the subnet**
 
-    -   Availability set: **Create new, ADAV**
+    -   Select public inbound ports: **RDP (3389)**
 
     -   Auto-shutdown: **Off**
 
@@ -302,9 +307,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
     -   Recovery Services Vault: **Create New -\> BackupVault**
 
-    -   Resource Group: **BackupVaultRG**
-
-    -   Leave all other settings: **Default**
+    -   Resource Group: **Create New -\> BackupVaultRG**
 
     -   Then, click the **OK** button to continue to the **Summary**
 
@@ -351,7 +354,9 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 5.  Click the **Select** button to continue to **Settings**
 
-6.  In the **Settings** options, choose the following configuration:
+6.  In the **Settings** options, choose the following configuration (accept the defaults if not specified below):
+
+    -   Availability set: **Create new, ADAV2**
 
     -   Storage Use Managed Disks: **Yes**
 
@@ -359,7 +364,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Subnet: **Choose Identity as the subnet**
 
-    -   Availability set: **Create new, ADAV2**
+    -   Select public inbound ports: **RDP (3389)**
 
     -   Auto-shutdown: **Off**
 
@@ -370,8 +375,6 @@ In this task, you will deploy Active Directory in the second region, so identity
     -   Recovery Services Vault: **Create New -\> BackupVault2**
 
     -   Resource Group: **Create New -\> BackupVault2RG**
-
-    -   Leave all other settings: **Default**
 
     -   Then, click the **OK** button to continue to the **Summary**
 
@@ -399,7 +402,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     -   Resource group: **Use existing / ADRG**
 
-    -   Account Type: **Premium (SSD)**
+    -   Account Type: **Premium SSD**
 
     -   Source Type: **None (empty disk)**
 
@@ -412,7 +415,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 7.  Perform these same steps for **DC02** naming the disk **DC02-Data-Disk-1**. Also, make sure the Host caching is set to **None**.
 
-8.  Perform Steps 1-4 for **DC03** and **DC04** naming the disks **DC03-Data-Disk-1** and **DC04-Data-Disk1** respectively. Make sure to set the Host caching to **None**.
+8.  Perform the add disk steps for **DC03** and **DC04** naming the disks **DC03-Data-Disk-1** and **DC04-Data-Disk1** respectively. Make sure to set the Host caching to **None**.
 
 ### Task 4: Format data disks on DCs and configure DNS settings across connection
 
@@ -436,7 +439,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 6.  Click on **Disks**, and let the data load. You should now see an **Unknown** partition disk in the list.
 
-    ![In the Disks section, under DC01, the Unknown partition disk is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image56.png "Disks section")
+    ![In the Disks section, under DC01, the Unknown partition disk is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-27-16-27-45.png "Disks section")
 
 7.  Right-click on this disk and choose **New Volume...** from the context menu options
 
@@ -472,7 +475,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![Under Settings, DNS servers is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image63.png "Settings section")
 
-17. Change **DNS servers** to **Custom**, and provide the address of **10.0.2.4** in the **Primary DNS server** box. Click the **Save** icon to commit the changes.
+17. Change **DNS servers** to **Custom**, and provide the address of **10.0.2.4** in the **Add DNS server** box. Click the **Save** icon to commit the changes.
 
     ![In the DNS Servers blade, under DNS servers, the Custom radio button is selected, and the field below it is set to 10.0.2.4. ](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image64.png "DNS Servers blade")
 
@@ -522,13 +525,13 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     > **Note**: While this a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADDC should be demoted gracefully, and if required, a new DC can be added to the ADAVSet and data disk attached for F:\\.
 
-10. Open the settings for VNET2 in the Azure portal. Under DNS servers, add the two new domain controller IP addresses and click **Save**
+10. Open the settings for VNET2 in the Azure portal. Under DNS servers, remove the exiting custom DNS entry and add the two new domain controller IP addresses and click **Save**
 
     ![A screen that shows setting the IP addresses for the two new DNS servers on the virtual network.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image70.png "DNS servers")
 
 ### Summary
 
-In this exercise, you will deploy Windows Server Active Directory configured for resiliency using Azure Managed Disks and Availability Sets in the primary and the failover region.
+In this exercise, you deployed Windows Server Active Directory and configured for resiliency using Azure Managed Disks and Availability Sets in the primary and the failover region.
 
 ## Exercise 3: Build web tier and SQL for resiliency
 
@@ -548,13 +551,13 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and West Cental US as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image72.png "Custom deployment")
 
-3.  Check the two checkboxes for agreeing to terms and conditions and Pin to Dashboard and click Purchase to start the deployment
+3.  Check the checkbox for agreeing to terms and conditions and click Purchase to start the deployment.
 
-    ![A screen with the checkboxes for I agree to the terms and conditions and Pin to dashboard checked and the purchase button highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image73.png "Terms and Conditions")
+    ![A screen with the checkbox for I agree to the terms and conditions checked and the purchase button highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-27-20-21-18.png "Terms and Conditions")
 
-4.  Wait until the template deployment is complete before continuing
+4.  Wait until the template deployment is complete before continuing.
 
-5.  Open a remote desktop connection to the **SQLVM-1** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password demo@pass123
+5.  Open a remote desktop connection to the **SQLVM-1** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
     ![Screenshot of the Connect icon.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image52.png "Connect icon")
 
