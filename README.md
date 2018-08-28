@@ -6,60 +6,28 @@ Several years ago, under the leadership of Lewis Franklin, head of infrastructur
 
 ## Target audience
 
-- Enterprise architects
-- Infrastructure engineers
+- Enterprise Architects
+- Infrastructure Engineers
 
 ## Abstract
 
 ### Workshop
 
-In this workshop, you will look at how an existing IaaS deployment can be redesigned and updated to account for resiliency and in general high availability. Throughout the whiteboard design session and hands-on lab you will look at the various configuration options and services to help build resilient architectures. 
+In this workshop, you will look at how an existing IaaS deployment can be redesigned and updated to account for resiliency and in general high availability. Throughout the whiteboard design session and hands-on lab, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this workshop, you will be better able to design and use the following services:
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
-
+At the end of this workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ### Whiteboard Design Session
 
-In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this whiteboard design session, you will be better able to design and use the following services:
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
-
+At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ### Hands-on Lab
 
-In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture. 
+In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture.
 
-At the end of this workshop, you will be better able to design and use the following services:
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
+At the end of the lab, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ## Azure services and related products
 - Azure VMs
@@ -74,7 +42,7 @@ At the end of this workshop, you will be better able to design and use the follo
 - Azure Backup
 
 ## Azure solutions
-*This is an internal reference and will be updated by project PM.*
+DC Migration
 
 ## Related references
 - [MCW](https://github.com/Microsoft/MCW)
