@@ -573,7 +573,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![In the Administrator: Windows PowerShell window, PowerShell commands display. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image75.png "Administrator: Windows PowerShell window")
 
-9.  Once the PowerShell command has completed, open the **Failover Cluster Manager**, expand the **CLUS-1** cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster
+9.  Once the PowerShell command has completed, open the **Failover Cluster Manager**, expand the **CLUST-1** cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster
 
     ![In Failover Cluster Manager, in the Nodes pane, three Nodes display: SQLVM-1, SQLVM-2, and Witness VM. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
 
@@ -611,7 +611,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 19. Click **Connect** to login to SQL Server
 
-    ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image84.png "Connect to Server dialog box")
+    ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-28-19-36-49.png "Connect to Server dialog box")
 
     > **Note**: Availability Groups require that the databases be in full recovery mode and that an initial backup has been taken. If you deployed via the ARM template this will be done for you.
 
@@ -637,7 +637,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![On the Dashboard, a green checkmark displays next to AdventureWorksAG: hosted by SQLVM - 1 (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQLVM-1 SQLVM-2, AdventureWorks SQLVM-1 and AdventureWorks SQLVM-1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
-25. On the Azure portal, open the settings of the **BackendLB** load balancer in the **contosoSQLRG** resource group
+25. On the Azure portal, open the settings of the **BackendLB** load balancer in the **CloudShopRG** resource group
 
     ![The BackendLB Load balancer option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image90.png "BackendLB option")
 
@@ -649,7 +649,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![In the BackendPool1 blade, the Add a target network IP configuration link is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image92.png "BackendPool1 blade")
 
-28. From the List for Target Virtual Machine select the **SQLVM-2** and the Network IP Configuration **ipconfig1 (10.0.1.7)**
+28. From the List for Target Virtual Machine select the **SQLVM-2** and the Network IP Configuration **ipconfig1 (10.0.1.7)**. Note that your IP address may be different.
 
     ![Fields in the BackendPool1 blade are set to the previously defined settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image93.png "BackendPool1 blade")
 
@@ -673,7 +673,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 31. Connect to **SQLVM-02** and launch **SQL Server Management Studio**
 
-32. Open a Server connection to the **AdventureWorks** listener endpoint to verify connectivity. The listener is like entering a SQL Server's Name, but this is the AOG.
+32. Open a Server connection to the **AdventureWorks** listener endpoint to verify connectivity. The listener is like entering a SQL Server's Name, but this is the Availability Group.
 
     ![The Connect to Server for SQL Server dialog box displays. Server type is Database Engine, Server name is AdventureWorks, and Authentication is Windows Authentication.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image96.png "Connect to Server for SQL Server dialog box")
 
@@ -707,7 +707,7 @@ In this task, you will convert the disks of the SQL deployment to managed disks.
 5.  Once this is completed, run the following command to verify your VMs for the hands-on lab are present.
 
     ```
-    Get-AzureRMVM -ResourceGroupName contosoCloudShopRG
+    Get-AzureRMVM -ResourceGroupName CloudShopRG
 
     ```
     
@@ -715,11 +715,11 @@ In this task, you will convert the disks of the SQL deployment to managed disks.
 
     ```
     <#
-        The following code converts the existing availability to aligned/managed and then converts the disks to managed as well. 
+        The following code converts the existing availability set to aligned/managed and then converts the disks to managed as well. 
         Note: The PlatformFaultDomainCount is set to 2 - this is because the region currently only supports two managed fault domains
     #>
 
-    $rgName = 'contosoCloudShopRG'
+    $rgName = 'CloudShopRG'
 
     $avSetName = 'SQLAVSet'
 
@@ -777,12 +777,12 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 In this task, you will add a 3rd node to the SQL Always-On deployment in a second region that you can then failover with Azure Site Recovery in the event of a failure in the primary region.
 
-1.  From the lab virtual machine, execute the following PowerShell ISE commands to create a new storage account and generate the tSQL needed to configure managed backup for the AdventureWorks database
+1.  From the lab virtual machine, execute the following PowerShell ISE commands to create a new storage account and generate the T-SQL needed to configure managed backup for the AdventureWorks database
 
     ```
     $storageAcctName = "[unique storage account name]"
 
-    $resourceGroupName = "contosoCloudShopRG"
+    $resourceGroupName = "CloudShopRG"
     $containerName= "backups"
     $location = "West Central US"
     $storageSkuName = "Standard_LRS"
@@ -833,7 +833,9 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
     write-host $enableManagedBackupScript 
     ```
 
-2.  Execute the code using PowerShell ISE. Make sure you change the **\$storageAcctName = \"\[unique storage account name\]\"** field to a unique storage account name across Azure prior to execution. Make sure you save the code generated between the **Begin TSQL Script and End TSQL Script** in your PowerShell ISE output after execution into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
+2.  Execute the code using PowerShell ISE. Make sure you change the **\$storageAcctName = \"\[unique storage account name\]\"** field to a unique storage account name across Azure prior to execution. 
+
+3.  Save the T-SQL code generated between the **Begin TSQL Script** and **End TSQL Script** in your PowerShell ISE output after execution into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
 
 ### Task 2: Configure managed backup in SQL Server
 
@@ -856,7 +858,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
     GO
     ```
 
-4.  Paste the code copied to notepad (the code that creates the new SQL identity with a Shared Access Signature) in the previous task into the query window replacing the existing code and click **Execute**
+4.  Paste the T-SQL code you copied in the previous task into the query window replacing the existing code and click **Execute**. This code creates the new SQL identity with a Shared Access Signature for your storage account. 
 
 5.  Paste the code into the query window replacing the existing code and click **Execute** to create a custom backup schedule
 
