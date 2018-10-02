@@ -505,39 +505,43 @@ Address Spaces:
 
 Network Security Groups for the West Central US Virtual Network|
 
-|    |            |
+**Apps Tier NSGs** 
+
+|    |            |       
+|----------|:-------------:|                                                                                                           
+| Name      |       **Priority**  |  **Source**   |    **Protocol**  |  **Source Port Range** |  **Destination** |  **Dest. Port Range** |  **Action** |
+|  HTTP     |        100      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    80         |            ALLOW |
+|  HTTPS    |        110      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    443        |            ALLOW |
+|  RDP      |        120      |      192.168.1.0/23 |  ANY    |        ANY        |             10.0.0.0/24   |    3389       |            ALLOW |
+
+**Data Tier NSGs**
+|    |            |       
 |----------|:-------------:|
-  Apps Tier NSGs                                                                                                                   
-  ---------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name             **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  HTTP             100            ANY              TCP            ANY                     10.0.0.0/24       80                     ALLOW
-  HTTPS            110            ANY              TCP            ANY                     10.0.0.0/24       443                    ALLOW
-  RDP              120            192.168.1.0/23   ANY            ANY                     10.0.0.0/24       3389                   ALLOW
+|  Name     |        **Priority** |  **Source**     |  **Protocol** |  **Source Port Range** |  **Destination**  | **Dest. Port Range** |  **Action** | 
+|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.2.0/24     |  1433                |   ALLOW |
+|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.2.0/24    |   1433                |   ALLOW |
+|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.2.0/24     |  3389                |   ALLOW |
 
-  Data Tier NSGs                                                                                                                   
-  ---------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name             **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  SQLEXT           100            192.168.1.0/23   TCP            ANY                     10.0.2.0/24       1433                   ALLOW
-  SQLINT           110            10.0.0.0/24      TCP            ANY                     10.0.2.0/24       1433                   ALLOW
-  RDP              120            192.168.1.0/23   ANY            ANY                     10.0.2.0/24       3389                   ALLOW
+**Identity Tier NSGs**
 
-  Identity Tier NSGs                                                                                                                   
-  -------------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name                 **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  RDP                  100            192.168.1.0/23   ANY            ANY                     10.0.3.0/24       3389                   ALLOW
-  ADDS Repl            110            192.168.1.10     ANY            ANY                     10.0.3.0/24       ANY                    ALLOW
-  ADDS Repl            120            192.168.1.11     ANY            ANY                     10.0.3.0/24       ANY                    ALLOW
+|    |            |       
+|----------|:-------------:|
+|  Name          |       **Priority** |  **Source**     |  **Protocol** |  **Source Port Range** |  **Destination** |  **Dest. Port Range** |  **Action** |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.3.0/24     |  3389                 |  ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
 
-Network Security Groups for the West US 2 Virtual Network
+**Network Security Groups for the West US 2 Virtual Network**
 
 Since Contoso has not deployed any additional infrastructure to West US 2 the only ports needed are for administration and replication of Active Directory.
 
-  Identity Tier NSGs                                                                                                                   
-  -------------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name                 **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  RDP                  100            192.168.1.0/23   ANY            ANY                     172.16.3.0/24     3389                   ALLOW
-  ADDS Repl            110            192.168.1.10     ANY            ANY                     172.16.3.0/24     ANY                    ALLOW
-  ADDS Repl            120            192.168.1.11     ANY            ANY                     172.16.3.0/24     ANY                    ALLOW
+Identity Tier NSGs       
+|    |            |       
+|----------|:-------------:|                                                                                                         
+|  Name          |       **Priority** |   **Source**    |   **Protocol** |  **Source Port Range** |  **Destination**  | **Dest. Port Range**  | **Action** |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.3.0/24   |  3389         |          ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
 
 Resilient benefits:
 
