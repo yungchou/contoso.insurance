@@ -9,15 +9,15 @@ Whiteboard design session student guide
 </div>
 
 <div class="MCWHeader3">
-June 2018
+August 2018
 </div>
-
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
 Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+
 © 2018 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
@@ -44,20 +44,9 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this whiteboard design session, you will be better able to design and use the following services:
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
-
+At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ## Step 1: Review the customer case study 
 
@@ -68,9 +57,9 @@ Analyze your customer’s needs.
 Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
-1.  Meet your table participants and trainer 
-2.  Read all of the directions for steps 1–3 in the student guide 
-3.  As a table team, review the following customer case study
+1.  Meet your table participants and trainer .
+2.  Read all of the directions for steps 1–3 in the student guide .
+3.  As a table team, review the following customer case study.
  
 ### Customer situation
 
@@ -126,29 +115,29 @@ Contoso has received multiple complaints from customers at times when they have 
 
 Contoso's business critical applications include:
 
--   The authentication and authorization infrastructure
+-   The authentication and authorization infrastructure.
 
 -   The website with its SQL data tier, supporting both employees, customers and third-party manufacturing plants and factories. Use cases include:
 
     -   Employees: Sales lead tracking
 
-    -   Customers: search the catalog of inventory, order parts, schedule repairs and provide support
+    -   Customers: Search the catalog of inventory, order parts, schedule repairs and provide support
 
-    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Contoso
+    -   Third-party manufacturing plants and factories: Supply manufacturing schedules to Contoso
 
 ### Customer needs 
 
-1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices
+1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices.
 
-2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office
+2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency
+3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure
+4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
 
-5.  A functional storage policy in place for the anticipation of growth in Azure
+5.  A functional storage policy in place for the anticipation of growth in Azure.
 
-6.  Monitoring option for issues that may arise on the servers and in Azure
+6.  Monitoring option for issues that may arise on the servers and in Azure.
 
 ### Customer objections 
 
@@ -175,7 +164,7 @@ Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart. 
+Directions: With all participants at your table, answer the following questions and list the answers on a flip chart: 
 1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
 2.  What customer business needs do you need to address with your solution?
 
@@ -219,7 +208,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 Directions: With all participants at your table: 
 
-1.  Identify any customer needs that are not addressed with the proposed solution
+1.  Identify any customer needs that are not addressed with the proposed solution.
 2.  Identify the benefits of your solution.
 3.  Determine how you will respond to the customer’s objections.
 
@@ -236,13 +225,13 @@ Timeframe: 30 minutes
 **Presentation** 
 
 Directions:
-1.  Pair with another table
-2.  One table is the Microsoft team and the other table is the customer
-3.  The Microsoft team presents their proposed solution to the customer
-4.  The customer makes one of the objections from the list of objections
-5.  The Microsoft team responds to the objection
+1.  Pair with another table.
+2.  One table is the Microsoft team and the other table is the customer.
+3.  The Microsoft team presents their proposed solution to the customer.
+4.  The customer makes one of the objections from the list of objections.
+5.  The Microsoft team responds to the objection.
 6.  The customer team gives feedback to the Microsoft team.
-7.  Tables switch roles and repeat Steps 2–6
+7.  Tables switch roles and repeat Steps 2–6.
 
 
 ##  Wrap-up 

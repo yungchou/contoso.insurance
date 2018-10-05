@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-June 2018
+August 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -61,25 +61,25 @@ Thank you for taking time to support the whiteboard design sessions as a trainer
 
 An amazing trainer:
 
--   Creates a safe environment in which learning can take place
+-   Creates a safe environment in which learning can take place.
 
--   Stimulates the participant's thinking
+-   Stimulates the participant's thinking.
 
--   Involves the participant in the learning process
+-   Involves the participant in the learning process.
 
--   Manages the learning process (on time, on topic, and adjusting to benefit participants)
+-   Manages the learning process (on time, on topic, and adjusting to benefit participants).
 
--   Ensures individual participant accountability
+-   Ensures individual participant accountability.
 
--   Ties it all together for the participant
+-   Ties it all together for the participant.
 
--   Provides insight and experience to the learning process
+-   Provides insight and experience to the learning process.
 
--   Effectively leads the whiteboard design session discussion
+-   Effectively leads the whiteboard design session discussion.
 
--   Monitors quality and appropriateness of participant deliverables
+-   Monitors quality and appropriateness of participant deliverables.
 
--   Effectively leads the feedback process
+-   Effectively leads the feedback process.
 
 ## Whiteboard design session flow 
 
@@ -87,7 +87,9 @@ Each whiteboard design session uses the following flow:
 
 **Step 1: Review the customer case study (15 minutes)**
 
-Outcome: Analyze your customer's needs
+Outcome 
+
+Analyze your customer's needs.
 
 -   Customer's background, situation, needs and technical requirements
 
@@ -97,19 +99,23 @@ Outcome: Analyze your customer's needs
 
 **Step 2: Design a proof of concept solution (60 minutes)**
 
-Outcome: Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+Outcome 
 
--   Determine your target customer audience
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
+
+-   Determine your target customer audience.
 
 -   Determine customer's business needs to address your solution
 
--   Design and diagram your solution
+-   Design and diagram your solution.
 
--   Prepare to present your solution
+-   Prepare to present your solution.
 
 **Step 3: Present the solution (30 minutes)**
 
-Outcome: Present solution to your customer.
+Outcome
+
+Present solution to your customer.
 
 -   Present solution
 
@@ -125,15 +131,15 @@ Outcome: Present solution to your customer.
 
 Before conducting your first whiteboard design session:
 
--   Read the Student guide (including the case study) and Trainer guide
+-   Read the Student guide (including the case study) and Trainer guide.
 
 -   Become familiar with all key points and activities.
 
--   Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions
+-   Plan the point you want to stress, which questions you want to drive, transitions, and be ready to answer questions.
 
--   Prior to the whiteboard design session, discuss the case study to pick up more ideas
+-   Prior to the whiteboard design session, discuss the case study to pick up more ideas.
 
--   Make notes for later
+-   Make notes for later.
 
 ## During the whiteboard design session: Tips for an effective whiteboard design session
 
@@ -143,7 +149,7 @@ Before conducting your first whiteboard design session:
 
 When participants are doing activities, you can **look ahead to refresh your memory**.
 
--   **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing
+-   **Adjust activity and whiteboard design session pace** as needed to allow time for presenting, feedback, and sharing.
 
 -   **Add examples, points, and stories** from your own experience. Think about stories you can share that help you make your points clearly and effectively.
 
@@ -163,21 +169,9 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 ## Abstract and learning objectives 
 
-In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session you will look at the various configuration options and services to help build resilient architectures. 
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this whiteboard design session, you will be better able to design and use the following services:
-
-
--   The use of availability sets
-
--   The use of Managed Disks
-
--   Design principles when provisioning storage to VMs
-
--   Effective employment of Azure Backup to provide point-in-time recovery
-
--   SQL Server Always On Availability Groups 
-
+At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
 
 ## Step 1: Review the customer case study 
 
@@ -188,10 +182,10 @@ Analyze your customer’s needs.
 Timeframe: 15 minutes 
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
-1.  Meet your table participants and trainer 
-2.  Read all of the directions for steps 1–3 in the student guide 
-3.  As a table team, review the following customer case study
 
+1.  Meet your table participants and trainer. 
+2.  Read all of the directions for steps 1–3 in the student guide. 
+3.  As a table team, review the following customer case study.
  
 ### Customer situation
 
@@ -247,29 +241,29 @@ Contoso has received multiple complaints from customers at times when they have 
 
 Contoso's business critical applications include:
 
--   The authentication and authorization infrastructure
+-   The authentication and authorization infrastructure.
 
 -   The website with its SQL data tier, supporting both employees, customers and third-party manufacturing plants and factories. Use cases include:
 
     -   Employees: Sales lead tracking
 
-    -   Customers: search the catalog of inventory, order parts, schedule repairs and provide support
+    -   Customers: Search the catalog of inventory, order parts, schedule repairs and provide support
 
-    -   Third-party manufacturing plants and factories: supply manufacturing schedules to Contoso
+    -   Third-party manufacturing plants and factories: Supply manufacturing schedules to Contoso
 
 ### Customer needs 
 
-1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices
+1.  The IT department is using outdated guidance on Azure and they need updated guidance on current architectural and deployment best practices.
 
-2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office
+2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency
+3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure
+4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
 
-5.  A functional storage policy in place for the anticipation of growth in Azure
+5.  A functional storage policy in place for the anticipation of growth in Azure.
 
-6.  Monitoring option for issues that may arise on the servers and in Azure
+6.  Monitoring option for issues that may arise on the servers and in Azure.
 
 ### Customer objections 
 
@@ -290,13 +284,14 @@ Contoso's business critical applications include:
 ## Step 2: Design a proof of concept solution
 
 **Outcome** 
+
 Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
 
 Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart. 
+Directions: With all participants at your table, answer the following questions and list the answers on a flip chart: 
 1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
 2.  What customer business needs do you need to address with your solution?
 
@@ -332,7 +327,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
 6.  What would you recommend Contoso enable for monitoring their environment?
 
@@ -341,10 +336,9 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 Directions: With all participants at your table: 
 
-1.  Identify any customer needs that are not addressed with the proposed solution
-2.  Identify the benefits of your solution
-3.  Determine how you will respond to the customer’s objections
-
+1.  Identify any customer needs that are not addressed with the proposed solution.
+2.  Identify the benefits of your solution.
+3.  Determine how you will respond to the customer’s objections.
 
 ## Step 3: Present the solution
 
@@ -357,13 +351,13 @@ Timeframe: 30 minutes
 **Presentation** 
 
 Directions:
-1.  Pair with another table
-2.  One table is the Microsoft team and the other table is the customer
-3.  The Microsoft team presents their proposed solution to the customer
-4.  The customer makes one of the objections from the list of objections
-5.  The Microsoft team responds to the objection
-6.  The customer team gives feedback to the Microsoft team 
-7.  Tables switch roles and repeat Steps 2–6
+1.  Pair with another table.
+2.  One table is the Microsoft team and the other table is the customer.
+3.  The Microsoft team presents their proposed solution to the customer.
+4.  The customer makes one of the objections from the list of objections.
+5.  The Microsoft team responds to the objection.
+6.  The customer team gives feedback to the Microsoft team. 
+7.  Tables switch roles and repeat Steps 2–6.
 
 ##  Wrap-up 
 
@@ -391,43 +385,43 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Step 1: Review the customer case study
 
--   Check in with your table participants to introduce yourself as the trainer
+-   Check in with your table participants to introduce yourself as the trainer.
 
 -   Ask, "What questions do you have about the customer case study?"
 
--   Briefly review the steps and timeframes of the whiteboard design session
+-   Briefly review the steps and timeframes of the whiteboard design session.
 
--   Ready, set, go! Let the table participants begin
+-   Ready, set, go! Let the table participants begin.
 
 ## Step 2: Design a proof of concept solution
 
--   Check in with your tables to ensure that they are transitioning from step to step on time
+-   Check in with your tables to ensure that they are transitioning from step to step on time.
 
--   Provide some feedback on their responses to the business needs and design
+-   Provide some feedback on their responses to the business needs and design.
 
-    -   Try asking questions first that will lead the participants to discover the answers on their own
+    -   Try asking questions first that will lead the participants to discover the answers on their own.
 
--   Provide feedback for their responses to the customer's objections
+-   Provide feedback for their responses to the customer's objections.
 
-    -   Try asking questions first that will lead the participants to discover the answers on their own
+    -   Try asking questions first that will lead the participants to discover the answers on their own.
 
 ## Step 3: Present the solution
 
--   Determine which table will be paired with your table before Step 3 begins
+-   Determine which table will be paired with your table before Step 3 begins.
 
--   For the first round, assign one table as the Microsoft team and the other table as the customer
+-   For the first round, assign one table as the Microsoft team and the other table as the customer.
 
--   Have the Microsoft team present their solution to the customer team
+-   Have the Microsoft team present their solution to the customer team.
 
-    -   Have the customer team provide one objection for the Microsoft team to respond to
+    -   Have the customer team provide one objection for the Microsoft team to respond to.
 
-    -   The presentation and objections should be no longer than 15 minutes
+    -   The presentation and objections should be no longer than 15 minutes.
 
-    -   If needed, the trainer may also provide feedback
+    -   If needed, the trainer may also provide feedback.
 
 ## Wrap-up
 
-   -   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution
+   -   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution.
 
 ##  Preferred target audience
 
@@ -467,7 +461,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 -   Identity: 10.0.2.0/24
 
-    West US 2
+    West US 2:
 
 -   Apps: 172.16.0.0/24
 
@@ -511,39 +505,43 @@ Address Spaces:
 
 Network Security Groups for the West Central US Virtual Network|
 
-|    |            |
+**Apps Tier NSGs** 
+
+|    |            |       
+|----------|:-------------:|                                                                                                           
+| Name      |       **Priority**  |  **Source**   |    **Protocol**  |  **Source Port Range** |  **Destination** |  **Dest. Port Range** |  **Action** |
+|  HTTP     |        100      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    80         |            ALLOW |
+|  HTTPS    |        110      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    443        |            ALLOW |
+|  RDP      |        120      |      192.168.1.0/23 |  ANY    |        ANY        |             10.0.0.0/24   |    3389       |            ALLOW |
+
+**Data Tier NSGs**
+|    |            |       
 |----------|:-------------:|
-  Apps Tier NSGs                                                                                                                   
-  ---------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name             **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  HTTP             100            ANY              TCP            ANY                     10.0.0.0/24       80                     ALLOW
-  HTTPS            110            ANY              TCP            ANY                     10.0.0.0/24       443                    ALLOW
-  RDP              120            192.168.1.0/23   ANY            ANY                     10.0.0.0/24       3389                   ALLOW
+|  Name     |        **Priority** |  **Source**     |  **Protocol** |  **Source Port Range** |  **Destination**  | **Dest. Port Range** |  **Action** | 
+|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.2.0/24     |  1433                |   ALLOW |
+|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.2.0/24    |   1433                |   ALLOW |
+|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.2.0/24     |  3389                |   ALLOW |
 
-  Data Tier NSGs                                                                                                                   
-  ---------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name             **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  SQLEXT           100            192.168.1.0/23   TCP            ANY                     10.0.2.0/24       1433                   ALLOW
-  SQLINT           110            10.0.0.0/24      TCP            ANY                     10.0.2.0/24       1433                   ALLOW
-  RDP              120            192.168.1.0/23   ANY            ANY                     10.0.2.0/24       3389                   ALLOW
+**Identity Tier NSGs**
 
-  Identity Tier NSGs                                                                                                                   
-  -------------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name                 **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  RDP                  100            192.168.1.0/23   ANY            ANY                     10.0.3.0/24       3389                   ALLOW
-  ADDS Repl            110            192.168.1.10     ANY            ANY                     10.0.3.0/24       ANY                    ALLOW
-  ADDS Repl            120            192.168.1.11     ANY            ANY                     10.0.3.0/24       ANY                    ALLOW
+|    |            |       
+|----------|:-------------:|
+|  Name          |       **Priority** |  **Source**     |  **Protocol** |  **Source Port Range** |  **Destination** |  **Dest. Port Range** |  **Action** |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.3.0/24     |  3389                 |  ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
 
-Network Security Groups for the West US 2 Virtual Network
+**Network Security Groups for the West US 2 Virtual Network**
 
 Since Contoso has not deployed any additional infrastructure to West US 2 the only ports needed are for administration and replication of Active Directory.
 
-  Identity Tier NSGs                                                                                                                   
-  -------------------- -------------- ---------------- -------------- ----------------------- ----------------- ---------------------- ------------
-  Name                 **Priority**   **Source**       **Protocol**   **Source Port Range**   **Destination**   **Dest. Port Range**   **Action**
-  RDP                  100            192.168.1.0/23   ANY            ANY                     172.16.3.0/24     3389                   ALLOW
-  ADDS Repl            110            192.168.1.10     ANY            ANY                     172.16.3.0/24     ANY                    ALLOW
-  ADDS Repl            120            192.168.1.11     ANY            ANY                     172.16.3.0/24     ANY                    ALLOW
+Identity Tier NSGs       
+|    |            |       
+|----------|:-------------:|                                                                                                         
+|  Name          |       **Priority** |   **Source**    |   **Protocol** |  **Source Port Range** |  **Destination**  | **Dest. Port Range**  | **Action** |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.3.0/24   |  3389         |          ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
 
 Resilient benefits:
 
@@ -563,21 +561,22 @@ Resilient benefits:
 
     -   Each Domain Controller will be configured with a Data Disk for the ADDS database and will be configured to back up via Azure Backup for disaster recovery and business continuity. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.
 
-For details on restoring ADDS DCs see the following: <https://azure.microsoft.com/en-us/documentation/articles/backup-azure-restore-vms/#restoring-domain-controller-vms> and <https://technet.microsoft.com/library/virtual_active_directory_domain_controller_virtualization_hyperv(v=ws.10).aspx#backup_and_restore_considerations_for_virtualized_domain_controllers>
+For details on restoring ADDS DCs see the following: 
+<https://azure.microsoft.com/en-us/documentation/articles/backup-azure-restore-vms/#restoring-domain-controller-vms> and <https://technet.microsoft.com/library/virtual_active_directory_domain_controller_virtualization_hyperv(v=ws.10).aspx#backup_and_restore_considerations_for_virtualized_domain_controllers>
 
 Resilient benefits:
 
--   Storing the AD files on a data disk with caching set to None will keep the ADDS database and SYSVOL from any potential corruption due to caching
+-   Storing the AD files on a data disk with caching set to None will keep the ADDS database and SYSVOL from any potential corruption due to caching.
 
--   Adding DCs into an availability set will spread them across fault domains and update domains so that authentication and authorization servers are highly available
+-   Adding DCs into an availability set will spread them across fault domains and update domains so that authentication and authorization servers are highly available.
 
--   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue
+-   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue.
 
--   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database
+-   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database.
 
--   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM
+-   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM.
 
--   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options
+-   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options.
 
 ![The resilient benefits are shown in this image.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image8.png "Resilient Benefits")
 
@@ -599,7 +598,7 @@ Resilient benefits:
 
     -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
 
-    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric
+    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
 
     *SQL Always-On configuration details*
 
@@ -660,7 +659,7 @@ SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server ba
 
     -   Premium storage account must be used and replicated across to another storage account
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
     Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
