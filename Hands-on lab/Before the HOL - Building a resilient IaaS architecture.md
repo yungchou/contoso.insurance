@@ -27,7 +27,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 - [Building a resilient IaaS architecture before the hands-on lab setup guide](#building-a-resilient-iaas-architecture-before-the-hands-on-lab-setup-guide)
     - [Requirements](#requirements)
-    - [Before the hands\-on lab](#before-the-hands-on-lab)
+    - [Before the hands-on lab](#before-the-hands-on-lab)
         - [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
         - [Task 2: Connect to the VM and download the student files](#task-2-connect-to-the-vm-and-download-the-student-files)
         - [Task 3: Install Azure PowerShell](#task-3-install-azure-powershell)
@@ -42,12 +42,12 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 2.  Virtual Machine Built during this hands-on lab or local machine with the following:
 
     - Visual Studio 2017 Community or Enterprise Edition
-    - Latest Azure PowerShell cmdlets
+    - Latest Azure PowerShell cmdlets:
         - <https://azure.microsoft.com/en-us/downloads/>
         - <https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps>
         - Ensure you reboot after installing the SDK or Azure PowerShell may not work correctly.
 
-## Before the hands\-on lab
+## Before the hands-on lab
 
 Duration: 30 minutes
 
@@ -57,7 +57,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 1.  Launch a browser and navigate to <https://portal.azure.com>. Once prompted, login with your Microsoft Azure credentials. If prompted, choose whether your account is an organization account or just a Microsoft Account.
 
-    **Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
+   >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
 
 2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio Community 2017 on Windows Server 2016** and press Enter. Click the Visual Studio Community 2017 image running on Windows Server 2016 and with the latest update.
 
@@ -71,10 +71,10 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 5.  Set the following configuration on the Basics tab:
 
-    -   Subscription: **If you have multiple subscriptions choose the subscription to execute your labs in.**
+    -   Subscription: **If you have multiple subscriptions choose the subscription to execute your labs in**.
     -   Resource Group (create new): **OPSLABRG**
     -   Virutal machine name: **LABVM**
-    -   Location: **Choose the closest Azure region to you.**
+    -   Location: **Choose the closest Azure region to you**.
     -   Size: **DS1\_V2 Standard**
     -   User name: **demouser**
     -   Password: **demo\@pass123**
@@ -82,7 +82,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![Fields in the Basics tab display the previously defined settings.](images/Setup/image6.png "Basics tab")
 
-    **Note**: If the Azure Subscription you are using is [NOT]{.underline} a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
+    >**Note**: If the Azure Subscription you are using is [NOT]{.underline} a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
 
 6. On the **Management** tab, create a new diagnostics storage account with a unique name.
    
@@ -100,7 +100,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![The Deploying Visual Studio Community 2017 notice displays.](images/Setup/image27.png "Deploying Visual Studio Community 2017")
 
-    **Note**: Once the deployment is complete, move on to the next exercise.
+    >**Note**: Once the deployment is complete, move on to the next exercise.
 
 ### Task 2: Connect to the VM and download the student files
 
@@ -117,7 +117,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
     -   User: **demouser**
     -   Password: **demo\@pass123**
 
-4.  You will be presented with a remote desktop connection warning because of a certificate trust issue. Click, **Don\'t ask me again for connections to this computer** followed by **Yes** to continue with the connection.
+4.  You will be presented with a remote desktop connection warning because of a certificate trust issue. Click, **Don't ask me again for connections to this computer** followed by **Yes** to continue with the connection.
 
     ![The Remote Desktop Connection warning window displays with the message that the identity of the remote computer cannot be verified, and asking if you want to continue anyway. the Don\'t ask me again for connections to the computer checkbox is selected.](images/Setup/image16.png "Remote Desktop Connection warning window")
 
@@ -141,7 +141,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![In the Internet Explorer 11 dialog box, the option to Use recommended security, privacy, and compatibility settings is selected.](images/Setup/image21.png "Internet Explorer 11 dialog box")
 
-10. If prompted, click **Don\'t show this again** regarding protected mode.
+10. If prompted, click **Don't show this again** regarding protected mode.
 
 11. To download the exercise files for the hands-on lab, paste this URL into the browser.
 
@@ -151,7 +151,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![In the Internet Explorer dialog box, the Save button is selected.](images/Setup/image22.png "Internet Explorer dialog box")
 
-    **Note**: If you are blocked from downloading the file with a "Your security settings do not allow this file to be downloaded" alert, you will need to adjust the security settings for IE to allow downloads. Click **Settings > Internet Options**, and then select the **Security** tab. Click the **Custom level...** button and enable both **File download** and **Font download**. Click **OK**, and then **OK** again. Re-paste the URL into the browser and download. 
+    >**Note**: If you are blocked from downloading the file with a "Your security settings do not allow this file to be downloaded" alert, you will need to adjust the security settings for IE to allow downloads. Click **Settings > Internet Options**, and then select the **Security** tab. Click the **Custom level...** button and enable both **File download** and **Font download**. Click **OK**, and then **OK** again. Re-paste the URL into the browser and download. 
 
 13. Download progress is shown at the bottom of the browser window. When the download is complete, click **Open folder**.
 
@@ -171,10 +171,10 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     ![The first time you use the PSGallery you will see a message related to an untrusted repository. Answer Yes or Yes to all to complete the installation..](images/Setup/image28.png "PSGallery untrusted repository")
 
-    **Note**: By default, the PowerShell gallery isn't configured as a trusted repository for PowerShellGet. The first time you use the PSGallery you will see a message related to an untrusted repository. Answer *Yes* or *Yes to all* to complete the installation.
+    >**Note**: By default, the PowerShell gallery isn't configured as a trusted repository for PowerShellGet. The first time you use the PSGallery you will see a message related to an untrusted repository. Answer *Yes* or *Yes to all* to complete the installation.
 
 ## Summary
 
-In this exercise, you setup a lab virtual machine,  downloaded the required setup files, and installed Azure PowerShell. 
+In this exercise, you setup a lab virtual machine, downloaded the required setup files, and installed Azure PowerShell. 
 
 You should follow all steps provided *before* attending the Hands-on lab.
