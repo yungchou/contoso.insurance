@@ -54,11 +54,12 @@ At the end of the workshop, you will be better able to design and use availabili
 
 Analyze your customer’s needs.
 
-Time frame: 15 minutes
+Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
-1.  Meet your table participants and trainer .
-2.  Read all of the directions for steps 1–3 in the student guide .
+
+1.  Meet your table participants and trainer.
+2.  Read all of the directions for steps 1–3 in the student guide.
 3.  As a table team, review the following customer case study.
  
 ### Customer situation
@@ -153,9 +154,10 @@ Contoso's business critical applications include:
 ## Step 2: Design a proof of concept solution
 
 **Outcome** 
+
 Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
 
-Time frame: 60 minutes
+Timeframe: 60 minutes
 
 **Business needs**
 
@@ -227,7 +229,6 @@ Directions:
 5.  The Microsoft team responds to the objection.
 6.  The customer team gives feedback to the Microsoft team.
 7.  Tables switch roles and repeat Steps 2–6.
-
 
 ##  Wrap-up 
 
