@@ -57,7 +57,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
 1.  Launch a browser and navigate to <https://portal.azure.com>. Once prompted, login with your Microsoft Azure credentials. If prompted, choose whether your account is an organization account or just a Microsoft Account.
 
-   >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
+    >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
 
 2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio Community 2017 on Windows Server 2016** and press Enter. Click the Visual Studio Community 2017 image running on Windows Server 2016 and with the latest update.
 
