@@ -488,31 +488,28 @@ Address Spaces:
 -   West Central US: 10.0.0.0/16 (Domain Controllers: 10.0.2.4 & 10.0.2.5)
 -   West US 2: 172.16.0.0/16 (Domain Controller: 172.16.2.4)
 
-Network Security Groups for the West Central US Virtual Network|
+Network Security Groups for the West Central US Virtual Network:
 
 **Apps Tier NSGs** 
 
-||||||||
-|:-|-:|-:|-:|-:|-:|-:|-:|   
-| **Name** | **Priority** | **Source** | **Protocol** | **Source Port Range** | **Destination** | **Dest. Port Range** | **Action** |
+| Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
+| :---|---:|---:|---:|---:|---:|---:|---:|   
 |  HTTP     |        100      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    80         |            ALLOW |
 |  HTTPS    |        110      |      ANY            |  TCP    |        ANY        |             10.0.0.0/24   |    443        |            ALLOW |
 |  RDP      |        120      |      192.168.1.0/23 |  ANY    |        ANY        |             10.0.0.0/24   |    3389       |            ALLOW |
 
 **Data Tier NSGs**
 
-||||||||    
-|:-|-:|-:|-:|-:|-:|-:|-:|
-| **Name** | **Priority** | **Source** | **Protocol** | **Source Port Range** | **Destination** | **Dest. Port Range** | **Action** | 
+| Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
+| :---|---:|---:|---:|---:|---:|---:|---:| 
 |  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.2.0/24     |  1433                |   ALLOW |
 |  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.2.0/24    |   1433                |   ALLOW |
 |  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.2.0/24     |  3389                |   ALLOW |
 
 **Identity Tier NSGs**
 
-||||||||    
-|:-|-:|-:|-:|-:|-:|-:|-:|
-| **Name** | **Priority** | **Source** | **Protocol** | **Source Port Range** | **Destination** | **Dest. Port Range** | **Action** |
+| Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
+| :---|---:|---:|---:|---:|---:|---:|---:|
 |  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.3.0/24     |  3389                 |  ALLOW    |
 |  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
 |  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
@@ -523,9 +520,8 @@ Since Contoso has not deployed any additional infrastructure to West US 2 the on
 
 **Identity Tier NSGs**   
     
-||||||||    
-|:-|-:|-:|-:|-:|-:|-:|-:|                                                                                                        
-| **Name** | **Priority** | **Source** | **Protocol** | **Source Port Range** | **Destination** | **Dest. Port Range** | **Action** |
+| Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
+| :---|---:|---:|---:|---:|---:|---:|---:|                                                                                                       
 |  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.3.0/24   |  3389         |          ALLOW    |
 |  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
 |  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
@@ -563,7 +559,7 @@ Resilient benefits:
 
     ![The resilient benefits are shown in this image.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image11.png "Resilient Benefits")
 
-1.  How will you address the needs for resiliency and scalability with the ordering app?
+2.  How will you address the needs for resiliency and scalability with the ordering app?
 
     *Web Server configuration details*
 
