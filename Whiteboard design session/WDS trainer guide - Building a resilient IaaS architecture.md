@@ -561,7 +561,9 @@ Resilient benefits:
 
     *Web Server configuration details*
 
-    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. The servers VMs will be deployed in availability sets in the West Central U.S. region.
+    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. 
+    
+    Contoso's use of an Availability Set for the Web farm VMs should be applauded. Availability Sets provide protection and resiliency against unplanned and planned downtime. We configured the availability set to spread the VMs across **three** fault domains and **five** update domains. To minimize disruption, the application will remain in West Central US. Availability Zones are not available in all Azure regions, however as they are made available to more regions, Contoso can achieve an even higher level of resiliency by moving to them.
     
     To help manage the load, the servers will continue to be deployed behind a load balancer. A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
     
@@ -604,7 +606,26 @@ Resilient benefits:
     For details on Azure Backup for SQL Server IaaS VMs, see the following: 
     - <https://docs.microsoft.com/en-us/azure/backup/backup-azure-sql-database> 
 
-3.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
+3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+
+    *Storage account configuration details*
+
+    Moving beyond using only one storage account is a must for Contoso. The sub-optimal storage configurations at Contoso, such as 40 disks in a single storage account, or creating a single storage account per VM disk, are solved using managed disks. Managed disks remove the scalability limits associated with storage accounts, leaving the number of disks per subscription as the only remaining scale consideration.
+
+    Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated:
+
+    -   Second region deployed with the same workloads
+    -   Utilizing application-level replication (AD and SQL)
+    -   Azure Backups of IaaS VMs, SQL and System State data
+
+    Resilient benefits:
+
+    -   Using managed storage takes the guess work out of VM storage. There is no longer a need to worry about the number of storage accounts or how many VMs use each storage account. Azure does all of this for Contoso.
+    -   Managed storage honors availability sets, so this ensures that VMs in an Availability Sets will not have their storage backend fail for multiple VMs at the same time. Prior to managed disks VMs in an availability set could still have shared a storage stamp in Azure. This meant it was possible to lose the VMs in an availability set due to a storage outage if it was isolated to one stamp. With the honoring of availability sets this is no longer an issue.
+
+    ![The Preferred Storage Approach includes three sets of Premium Managed Disks. The first set of Premium Managed Disks includes a Domain Controller, OS on Drive C, and Database/Logs on drive F. The second set of Premium Managed Disks has a Web VM Scale Set, and the OS on drive C. Data disks are optional. The third set of Premium Managed Disks includes a Legacy App, the OS on drive C, and App Files on drive F. The last set of Premium Managed Disks has SQL Servers, the OS on drive C, Databases on drive F, and Logs on drive G. Storage considerations are also listed: With Premium Pay for size provisioned; LRS Only; Mix Standard and Premium where possible; and Single instance VM use Premium for all disks to ensure 99.9% SLA.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image10.png "Preferred Storage Approach")
+
+4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
     *Legacy Application*
 
@@ -619,13 +640,13 @@ Resilient benefits:
     -   Single instance VM now supported with a 99.9 percent SLA
     -   Premium storage account must be used and replicated across to another storage account
 
-4.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
     Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
     The documentation can be found here: <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits>.
 
-5.  What would you recommend Contoso enable for monitoring their environment?
+6.  What would you recommend Contoso enable for monitoring their environment?
 
     *Monitoring configuration details*
 
