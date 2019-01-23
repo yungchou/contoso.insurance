@@ -234,9 +234,7 @@ For the current ADDS implementation in Azure, the team has deployed a single dom
 
 Additionally, the SQL Server VM and Web site implementation are also housed at the same region. SQL has been deployed on a single VM with multiple disks. One disk is utilized for the data; the other disk is for backup and log file storage. The underlying storage account is configured for geo replication.
 
-They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
-
-Contoso has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
+They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. Although load balancer is helpful in managing the traffic flux, Contoso is concerned that it still does not ensure availability of web servers. 
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image5.png "SQL and Web Server Current Implementation")
 
@@ -563,19 +561,19 @@ Resilient benefits:
 
     *Web Server configuration details*
 
-    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. To help manage the load and provide performance options, the servers will be deployed into a Scale Set within Azure. This will allow Contoso the option to scale-up, scale-out, and even scale-down and scale-in based on the need. It will cease Contoso's practice of scaling manually as it is rife with issues and lacks the automated scaling that can be provided otherwise for resiliency.
-
-    A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
-
-    The web tier does not need to be backed up. When a new instance of the scale set is deployed it will automatically deploy the application from a source repository.
+    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. The servers VMs will be deployed in availability sets in the West Central U.S. region.
     
-    Replication to a secondary region West US 2 for web tier can be enabled to reduce downtime of ordering application in case the primary region is not available due to a region wide outage. In addition to this, Azure Traffic Manager can help further reduce RTO for external customers in case of a disaster.
+    To help manage the load, the servers will continue to be deployed behind a load balancer. A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
+    
+    Replication to a secondary region West US 2 for web tier should be enabled to protect against the region wide outage and make the web tier resilient. In addition to this, Azure Traffic Manager can help further reduce RTO for external customers in case of a disaster.
+        -  For web servers in West Central US, Availability Sets will be configured.
+        -  For web servers in West US 2, Availability Zones will be configured as failover option.
 
     Resilient benefits:
 
     -   Moving the Health Probe from TCP to HTTP on the load balancer gives a deeper more application centric view into the web server health. It will help avoid any intermittent problems that customers experienced in the past.
-    -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
-    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
+    -   Adding web servers into an Availability Set will spread them across fault domains and update domains making them highly available with an SLA of 99.95%.
+    -   Configuring web servers into an Availability Zone will spread them across datacenters within a region making them highly available with an SLA of 99.99% post failover (in case of disaster).
 
     *SQL Always-On configuration details*
 
