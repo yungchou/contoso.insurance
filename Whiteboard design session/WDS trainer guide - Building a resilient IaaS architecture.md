@@ -209,6 +209,11 @@ The web application team has also deployed the Ordering application within the s
 
 Taking their cue from the AD and Web teams, the Database Administrators have also rolled out their SQL servers onto Azure VMs, choosing to host them in the West Central US region as well.
 
+The Marketing department has recently been tasked with moving their server workloads into Azure by rebuilding each application. They have begun building their servers utilizing a single Azure storage account. They have around 40-50 VMs already but anticipate continued growth.
+
+![The current storage account implementation has 40 to 50 virtual machines, with a Single Blob LRS Storage account, made up of 40 to 50 VHDs, one per VM.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image2.png "Storage Account Current Implementation")
+*Figure 2 -- Contoso's Storage Account Configuration*
+
 Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
 While the Azure deployments have served Contoso well so far, they are concerned about expanding workloads for their Seattle datacenter. Janet Lewis, business continuity team director, says, "it appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
@@ -534,7 +539,6 @@ Resilient benefits:
 
     -   Active Directory Domain Service (ADDS) Domain Controllers (DC) are deployed into Azure virtual machines. These are extensions of the on-premises AD DS DCs and allow for resiliency for the authentication and authorization mechanism that Contoso employees use today.
     -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD. 
-    -  Make West Central U.S. region as primary and West US 2 as seconday. Enable replication using Site Recovery from primary to secondary.
         -  For Domain Controllers in West Central US, Availability Sets will be configured.
         -  For Domain Controllers in West US 2, Availability Zones will be configured.
     -   Each Domain Controller will be configured with a Data Disk for the ADDS database and will be configured to back up via Azure Backup for disaster recovery and business continuity. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.
