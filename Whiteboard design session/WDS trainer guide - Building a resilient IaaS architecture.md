@@ -171,7 +171,12 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use availability sets and SQL Server Always on Availability Groups. In addition, you will learn effective employment of Azure Backup and Site Recovery for point-in-time recovery and deployment wide RTO and RPO needs.
+At the end of the workshop, you will be better able to design and use the resiliency concepts:
+- High Availability with protection from hardware/rack failures with Availability sets
+- High Availability and Disaster recovery for database tier using SQL Always ON
+- Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals
+- Data protection using Azure Backup
+
 
 ## Step 1: Review the customer case study 
 
@@ -252,13 +257,15 @@ Contoso's business critical applications include:
 
 2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application to protect from system downtime and/or region wide outage.
+3.  Identify the infrastructure requirements that should be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application in order to protect them from system downtime and/or region wide outage.
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
+4.  An automated mechanism for a quick recovery of the ordering application in the event of disaster.
 
-5.  A functional storage policy in place for the anticipation of growth in Azure.
+5.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
 
-6.  Monitoring option for issues that may arise on the servers and in Azure.
+6.  A functional storage policy in place for the anticipation of growth in Azure.
+
+7.  Monitoring option for issues that may arise on the servers and in Azure.
 
 ### Customer objections 
 
@@ -551,7 +558,7 @@ Resilient benefits:
     -   Adding DCs into an Availability Set will spread them across fault domains and update domains so that authentication and authorization servers are highly available and have an SLA of 99.95%.
     -   Adding DCs into an Availability Zone will spread them across datacenters within a region so that authentication and authorization servers are highly available and have an SLA of 99.99%.
     -   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue.
-    -   Replication across regions also allows for disaster recovery from region wide outage should the need arise and faster recovery of the ADDS database.
+    -   AD native Replication across regions also allows for disaster recovery from region wide outage should the need arise and faster recovery of the ADDS database.
     -   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM.
     -   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options.
 
@@ -574,12 +581,13 @@ Resilient benefits:
     Resilient benefits:
 
     -   Moving the Health Probe from TCP to HTTP on the load balancer gives a deeper more application centric view into the web server health. It will help avoid any intermittent problems that customers experienced in the past.
+    -   Replication across regions also allows for disaster recovery from region wide outage should the need arise and faster recovery of the web tier.
     -   Adding web servers into an Availability Set will spread them across fault domains and update domains making them highly available with an SLA of 99.95%.
     -   Configuring web servers into an Availability Zone will spread them across datacenters within a region making them highly available with an SLA of 99.99% post failover (in case of disaster).
 
     *SQL Always-On configuration details*
 
-    SQL Server is critical to the availability of the applications at Contoso. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. The two servers in West Central US comprise a single primary and a secondary, synchronously replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
+    SQL Server is critical to the availability of the applications at Contoso. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. Two servers will be in West Central US and will comprise a single primary and a secondary will be in West US 2, asynchronous replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
 
     The SQL Servers will use premium managed disks with a database and log files on separate disks. The TempDB will be housed on the local host SSD drive and split to match the number of cores in the VM.
 
@@ -599,14 +607,28 @@ Resilient benefits:
     For details on SQL Server Managed Backup see the following: 
     - <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
 
-    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.png "SQL Server Managed Backup to Microsoft Azure ")
+    ![A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.png "SQL Server Managed Backup to Microsoft Azure ")
 
     An alternative to SQL Service Managed Backup would be Azure Backup. Azure Backup provides a SQL Server backup solution that requires zero infrastructure: no complex backup server, no management agent, and no backup storage to manage. Azure Backup provides centralized management for your backups across all servers that are running SQL Server, or even different workloads.
 
     For details on Azure Backup for SQL Server IaaS VMs, see the following: 
     - <https://docs.microsoft.com/en-us/azure/backup/backup-azure-sql-database> 
 
-3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  How will you automate the solution for a quick recovery of the ordering application in the event of disaster?
+
+    *Azure Site Recovery - Recovery Plan orchestration details*
+    
+    A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster. It gathers machines into recovery groups. You can customize a plan by adding order, instructions, and tasks to it. After a plan is defined, you can run a failover on it.
+    
+    Since you have instances of your application tiers protected in another region West US 2, you can integrate Azure automation runbooks into your recovery plan. Use the customize option in Recovery plans to conduct step wise failover to reduce RTO. First, make the secondary SQL as Active using automation script. Second, failover the web servers and start the machines. Third, configure load balancers on the web servers in the secondary region. You can also have load balancer in the secondary region configured in advance to further reduce RTO.
+    
+    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image12.png "Azure Site Recovery Plan")
+    
+    Ordering application is used not just by internal employees but also by customers for placing orders. The public endpoint that customers use can easily be switched using Azure Traffic Manager DNS level routing. You can also set up Traffic Manager as an optional component for RTO considerations and have it connected to primary and seconday public endpoints.
+    For details on Traffic Manager DNS level routing, see the following:
+    - <https://docs.microsoft.com/en-us/azure/site-recovery/concepts-public-ip-address-with-site-recovery#public-endpoint-switching-with-dns-level-routing> 
+
+4.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
     *Storage account configuration details*
 
@@ -625,7 +647,7 @@ Resilient benefits:
 
     ![The Preferred Storage Approach includes three sets of Premium Managed Disks. The first set of Premium Managed Disks includes a Domain Controller, OS on Drive C, and Database/Logs on drive F. The second set of Premium Managed Disks has a Web VM Scale Set, and the OS on drive C. Data disks are optional. The third set of Premium Managed Disks includes a Legacy App, the OS on drive C, and App Files on drive F. The last set of Premium Managed Disks has SQL Servers, the OS on drive C, Databases on drive F, and Logs on drive G. Storage considerations are also listed: With Premium Pay for size provisioned; LRS Only; Mix Standard and Premium where possible; and Single instance VM use Premium for all disks to ensure 99.9% SLA.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image10.png "Preferred Storage Approach")
 
-4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
+5.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
     *Legacy Application*
 
@@ -640,13 +662,13 @@ Resilient benefits:
     -   Single instance VM now supported with a 99.9 percent SLA
     -   Premium storage account must be used and replicated across to another storage account
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+6.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
     Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
     The documentation can be found here: <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits>.
 
-6.  What would you recommend Contoso enable for monitoring their environment?
+7.  What would you recommend Contoso enable for monitoring their environment?
 
     *Monitoring configuration details*
 
