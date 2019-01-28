@@ -177,7 +177,6 @@ At the end of the workshop, you will be better able to design and use the resili
 - Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals
 - Data protection using Azure Backup
 
-
 ## Step 1: Review the customer case study 
 
 **Outcome** 
@@ -543,7 +542,7 @@ Resilient benefits:
     *AD configuration details*
 
     -   Active Directory Domain Service (ADDS) Domain Controllers (DC) are deployed into Azure virtual machines. These are extensions of the on-premises AD DS DCs and allow for resiliency for the authentication and authorization mechanism that Contoso employees use today.
-    -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD. 
+    -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD.
         -  For Domain Controllers in West Central US, Availability Sets will be configured.
         -  For Domain Controllers in West US 2, Availability Zones will be configured.
     -   Each Domain Controller will be configured with a Data Disk for the ADDS database and will be configured to back up via Azure Backup for disaster recovery and business continuity. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.

@@ -27,16 +27,16 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Building a resilient IaaS architecture whiteboard design session student guide](#building-a-resilient-iaas-architecture-whiteboard-design-session-student-guide)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
-        - [Customer situation](#customer-situation)
-        - [Customer needs](#customer-needs)
-        - [Customer objections](#customer-objections)
-        - [Infographic for common scenarios](#infographic-for-common-scenarios)
-    - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
-    - [Step 3: Present the solution](#step-3-present-the-solution)
-    - [Wrap-up](#wrap-up)
-    - [Additional references](#additional-references)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
+    - [Customer situation](#customer-situation)
+    - [Customer needs](#customer-needs)
+    - [Customer objections](#customer-objections)
+    - [Infographic for common scenarios](#infographic-for-common-scenarios)
+  - [Step 2: Design a proof of concept solution](#step-2-design-a-proof-of-concept-solution)
+  - [Step 3: Present the solution](#step-3-present-the-solution)
+  - [Wrap-up](#wrap-up)
+  - [Additional references](#additional-references)
 
 <!-- /TOC -->
 
@@ -46,7 +46,11 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
+At the end of the workshop, you will be better able to design and use the resiliency concepts:
+- High Availability with protection from hardware/rack failures with Availability sets
+- High Availability and Disaster recovery for database tier using SQL Always ON
+- Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals
+- Data protection using Azure Backup
 
 ## Step 1: Review the customer case study 
 
@@ -109,9 +113,7 @@ For the current ADDS implementation in Azure, the team has deployed a single dom
 
 Additionally, the SQL Server VM and Web site implementation are also housed at the same region. SQL has been deployed on a single VM with multiple disks. One disk is utilized for the data; the other disk is for backup and log file storage. The underlying storage account is configured for geo replication.
 
-They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
-
-Contoso has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
+They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. Although load balancer is helpful in managing the traffic flux, Contoso is concerned that it still does not ensure availability of web servers. 
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image5.png "SQL and Web Server Current Implementation")
 
@@ -129,13 +131,15 @@ Contoso's business critical applications include:
 
 2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
+3.  Identify the infrastructure requirements that should be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application in order to protect them from system downtime and/or region wide outage.
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
+4.  An automated mechanism for a quick recovery of the ordering application in the event of disaster.
 
-5.  A functional storage policy in place for the anticipation of growth in Azure.
+5.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
 
-6.  Monitoring option for issues that may arise on the servers and in Azure.
+6.  A functional storage policy in place for the anticipation of growth in Azure.
+
+7.  Monitoring option for issues that may arise on the servers and in Azure.
 
 ### Customer objections 
 
