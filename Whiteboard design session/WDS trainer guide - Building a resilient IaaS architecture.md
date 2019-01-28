@@ -323,13 +323,15 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 
-3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  How will you automate the solution for a quick recovery of the ordering application in the event of disaster?
 
-4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
+4.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+5.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-6.  What would you recommend Contoso enable for monitoring their environment?
+6.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+
+7.  What would you recommend Contoso enable for monitoring their environment?
 
 **Prepare**
 
