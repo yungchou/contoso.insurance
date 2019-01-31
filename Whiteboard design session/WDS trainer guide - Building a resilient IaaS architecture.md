@@ -577,8 +577,12 @@ Resilient benefits:
     To help manage the load, the servers will continue to be deployed behind a load balancer. A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
     
     Replication to a secondary region West US 2 for web tier should be enabled to protect against the region wide outage and make the web tier resilient. In addition to this, Azure Traffic Manager can help further reduce RTO for external customers in case of a disaster.
-        -  For web servers in West Central US, Availability Sets will be configured.
-        -  For web servers in West US 2, Availability Zones will be configured as failover option.
+     -   For web servers in West Central US, Availability Sets will be configured.
+     -   For web servers in West US 2, Availability Zones will be configured. These web servers will be created post failover.
+
+
+    For details on Azure Site Recovery replication process, see the following:
+    - <https://docs.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture> 
 
     Resilient benefits:
 
@@ -636,9 +640,9 @@ Resilient benefits:
 
     Moving beyond using only one storage account is a must for Contoso. The sub-optimal storage configurations at Contoso, such as 40 disks in a single storage account, or creating a single storage account per VM disk, are solved using managed disks. Managed disks remove the scalability limits associated with storage accounts, leaving the number of disks per subscription as the only remaining scale consideration.
 
-    Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated:
+    Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated with:
 
-    -   Second region deployed with the same workloads
+    -   Enabling replication to Secondary region West US 2 using Azure Site Recovery 
     -   Utilizing application-level replication (AD and SQL)
     -   Azure Backups of IaaS VMs, SQL and System State data
 
@@ -657,12 +661,13 @@ Resilient benefits:
 
     The application will eventually require a re-write to take advantage of the advanced features available in Azure. This could be done once the application was in Azure.
 
-    To be able to achieve the SLA provided in Azure, the disks used for the VM must be premium storage disks. There is a limitation on Azure premium storage accounts such that they only support LRS. As such a mechanism to copy the blob across to another region needs to be setup. A backup of the VM will also need to be scheduled.
+    To be able to achieve the SLA provided in Azure, the disks used for the VM must be premium storage disks. There is a limitation on Azure premium storage accounts such that they only support LRS. As such a mechanism to copy the blob across to another region needs to be setup. This can be achieved with Site Recovery disaster recovery solution. A backup of the VM will also need to be scheduled.
 
     Resilient benefits:
 
     -   Single instance VM now supported with a 99.9 percent SLA
     -   Premium storage account must be used and replicated across to another storage account
+    -   Replication to secondary region will secure this application over and above LRS
 
 6.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
