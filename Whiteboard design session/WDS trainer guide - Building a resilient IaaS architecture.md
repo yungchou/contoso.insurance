@@ -171,7 +171,7 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
+At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack failures with Availability sets, High Availability and Disaster recovery for database tiers using SQL Always ON, Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals, and data protection using Azure Backup.
 
 ## Step 1: Review the customer case study 
 
@@ -234,9 +234,7 @@ For the current ADDS implementation in Azure, the team has deployed a single dom
 
 Additionally, the SQL Server VM and Web site implementation are also housed at the same region. SQL has been deployed on a single VM with multiple disks. One disk is utilized for the data; the other disk is for backup and log file storage. The underlying storage account is configured for geo replication.
 
-They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
-
-Contoso has received multiple complaints from customers at times when they have intermittently received HTTP 500 errors on the website. Upon investigation, it was discovered that a recent deployment failed on one of the servers in the farm and resulted in files not being correctly copied to this server.
+They have deployed a load balancer in front of the web servers and configured a default health probe to monitor the servers in the load balanced pool. Although load balancer is helpful in managing the traffic flux, Contoso is concerned that it still does not ensure availability of web servers. 
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image5.png "SQL and Web Server Current Implementation")
 
@@ -254,25 +252,25 @@ Contoso's business critical applications include:
 
 2.  They need assistance with enabling connectivity and authentication for new infrastructure that will be deployed for the Seattle office.
 
-3.  Identify the infrastructure requirements that should to be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application for scale, backup and resiliency.
+3.  Identify the infrastructure requirements that should be configured to provide redundancy and resiliency to the web servers and the database servers for the ordering application in order to protect them from system downtime and/or region wide outage.
 
-4.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
+4.  An automated mechanism for a quick recovery of the ordering application in the event of disaster.
 
-5.  A functional storage policy in place for the anticipation of growth in Azure.
+5.  A plan for recovery from data corruption or accidental deletion for all of the other infrastructure.
 
-6.  Monitoring option for issues that may arise on the servers and in Azure.
+6.  A functional storage policy in place for the anticipation of growth in Azure.
+
+7.  Monitoring option for issues that may arise on the servers and in Azure.
 
 ### Customer objections 
 
 1.  Cost is a huge concern for us. With looming infrastructure and server replacement costs, we want to avoid any unnecessary expenditures.
 
-2.  The web application needs to have the ability to scale as we grow. What aspect of the cloud will allow this to be a reality?
+2.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
 
-3.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
+3.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
 
-4.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
-
-5.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
+4.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
 ### Infographic for common scenarios
 
@@ -307,8 +305,11 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 *Virtual Network design in Azure*
 
 1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
+
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
+    
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure.
+    
     -   How will you design the address space and subnets to support Contoso's requirements?
 
 2.  Document what network security groups and rules should be put in place for protection. What ports would you open and why?
@@ -319,13 +320,15 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 
-3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  How will you automate the solution for a quick recovery of the ordering application in the event of disaster?
 
-4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
+4.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+5.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
-6.  What would you recommend Contoso enable for monitoring their environment?
+6.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+
+7.  What would you recommend Contoso enable for monitoring their environment?
 
 **Prepare**
 
@@ -541,7 +544,8 @@ Resilient benefits:
     -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD.
         -  For Domain Controllers in West Central US, Availability Sets will be configured.
         -  For Domain Controllers in West US 2, Availability Zones will be configured.
-    -   Each Domain Controller will be configured with a Data Disk for the ADDS database and will be configured to back up via Azure Backup for disaster recovery and business continuity. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.
+    -   All four DCs are in active state as a disaster recovery strategy. In case primary region is unavailable, requests are automatically served by secondary set of DCs.
+    -   Each Domain Controller will be configured with a Data Disk for the ADDS database and will be configured to back up via Azure Backup. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.
 
     For details on restoring ADDS DCs see the following: 
     - <https://azure.microsoft.com/en-us/documentation/articles/backup-azure-restore-vms/#restoring-domain-controller-vms>  
@@ -553,7 +557,7 @@ Resilient benefits:
     -   Adding DCs into an Availability Set will spread them across fault domains and update domains so that authentication and authorization servers are highly available and have an SLA of 99.95%.
     -   Adding DCs into an Availability Zone will spread them across datacenters within a region so that authentication and authorization servers are highly available and have an SLA of 99.99%.
     -   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue.
-    -   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database.
+    -   AD native Replication across regions also allows for disaster recovery from region wide outage should the need arise and faster recovery of the ADDS database.
     -   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM.
     -   Using Azure Backup, even with the caveats on restoring, allows for another layer of redundancy for recovery options.
 
@@ -563,23 +567,30 @@ Resilient benefits:
 
     *Web Server configuration details*
 
-    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. To help manage the load and provide performance options, the servers will be deployed into a Scale Set within Azure. This will allow Contoso the option to scale-up, scale-out, and even scale-down and scale-in based on the need. It will cease Contoso's practice of scaling manually as it is rife with issues and lacks the automated scaling that can be provided otherwise for resiliency.
-
+    The IIS Web Servers will be configured in the Apps Subnet and built on VMs. 
+    
     Contoso's use of an Availability Set for the Web farm VMs should be applauded. Availability Sets provide protection and resiliency against unplanned and planned downtime. We configured the availability set to spread the VMs across **three** fault domains and **five** update domains. To minimize disruption, the application will remain in West Central US. Availability Zones are not available in all Azure regions, however as they are made available to more regions, Contoso can achieve an even higher level of resiliency by moving to them.
+    
+    To help manage the load, the servers will continue to be deployed behind a load balancer. A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
+    
+    Replication to a secondary region West US 2 for web tier should be enabled to protect against the region wide outage and make the web tier resilient. In addition to this, Azure Traffic Manager can help further reduce RTO for external customers in case of a disaster.
+     -   For web servers in West Central US, Availability Sets will be configured.
+     -   For web servers in West US 2, Availability Zones will be configured. These web servers will be created post failover.
 
-    A change of the Health Probe on the Load Balancer to use an HTTP health probe rather than a TCP probe is wise. The HTTP probe will monitor for HTTP code 200, indicating a healthy web site. If anything, other than a 200 is detected (such as the HTTP 500 the customers experienced), then that server will be removed from the rotation until the site is deemed healthy again.
 
-    The web tier does not need to be backed up. When a new instance of the scale set is deployed it will automatically deploy the application from a source repository.
+    For details on Azure Site Recovery replication process, see the following:
+    - <https://docs.microsoft.com/en-us/azure/site-recovery/azure-to-azure-architecture> 
 
     Resilient benefits:
 
     -   Moving the Health Probe from TCP to HTTP on the load balancer gives a deeper more application centric view into the web server health. It will help avoid any intermittent problems that customers experienced in the past.
-    -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
-    -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
+    -   Replication across regions also allows for disaster recovery from region wide outage should the need arise and faster recovery of the web tier.
+    -   Adding web servers into an Availability Set will spread them across fault domains and update domains making them highly available with an SLA of 99.95%.
+    -   Configuring web servers into an Availability Zone will spread them across datacenters within a region making them highly available with an SLA of 99.99% post failover (in case of disaster).
 
     *SQL Always-On configuration details*
 
-    SQL Server is critical to the availability of the applications at Contoso. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. The two servers in West Central US comprise a single primary and a secondary, synchronously replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
+    SQL Server is critical to the availability of the applications at Contoso. SQL will be implemented using a total of three Servers configured using Always-On Availability Groups. Two servers will be in West Central US and will comprise a single primary and a secondary will be in West US 2, asynchronous replica of the database. The two SQL servers will be deployed into an Azure availability set and are configured behind an internal load balancer which will allow client machines to connect to the listener which will direct traffic to the machines that is designated as the primary replica machine.
 
     The SQL Servers will use premium managed disks with a database and log files on separate disks. The TempDB will be housed on the local host SSD drive and split to match the number of cores in the VM.
 
@@ -599,22 +610,36 @@ Resilient benefits:
     For details on SQL Server Managed Backup see the following: 
     - <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
 
-    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.png "SQL Server Managed Backup to Microsoft Azure ")
+    ![A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.PNG "SQL Server Managed Backup to Microsoft Azure ")
 
     An alternative to SQL Service Managed Backup would be Azure Backup. Azure Backup provides a SQL Server backup solution that requires zero infrastructure: no complex backup server, no management agent, and no backup storage to manage. Azure Backup provides centralized management for your backups across all servers that are running SQL Server, or even different workloads.
 
     For details on Azure Backup for SQL Server IaaS VMs, see the following: 
     - <https://docs.microsoft.com/en-us/azure/backup/backup-azure-sql-database> 
 
-3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
+3.  How will you automate the solution for a quick recovery of the ordering application in the event of disaster?
+
+    *Azure Site Recovery - Recovery Plan orchestration details*
+    
+    A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster. It gathers machines into recovery groups. You can customize a plan by adding order, instructions, and tasks to it. After a plan is defined, you can run a failover on it.
+    
+    Since you have instances of your application tiers protected in another region West US 2, you can integrate Azure automation runbooks into your recovery plan. Use the customize option in Recovery plans to conduct step wise failover to reduce RTO. First, make the secondary SQL as Active using automation script. Second, failover the web servers and start the machines. Third, configure load balancers on the web servers in the secondary region. You can also have load balancer in the secondary region configured in advance to further reduce RTO.
+    
+    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image12.PNG "Azure Site Recovery Plan")
+    
+    The ordering application is used not just by internal employees but also by customers for placing orders. The public endpoint that customers use can easily be switched using Azure Traffic Manager DNS level routing. You can also set up Traffic Manager as an optional component for RTO considerations and have it connected to primary and secondary public endpoints.
+    For details on Traffic Manager DNS level routing, see the following:
+    - <https://docs.microsoft.com/en-us/azure/site-recovery/concepts-public-ip-address-with-site-recovery#public-endpoint-switching-with-dns-level-routing> 
+
+4.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
     *Storage account configuration details*
 
     Moving beyond using only one storage account is a must for Contoso. The sub-optimal storage configurations at Contoso, such as 40 disks in a single storage account, or creating a single storage account per VM disk, are solved using managed disks. Managed disks remove the scalability limits associated with storage accounts, leaving the number of disks per subscription as the only remaining scale consideration.
 
-    Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated:
+    Managed disks only are available with the LRS resiliency option; however, the lack of platform replication is mitigated with:
 
-    -   Second region deployed with the same workloads
+    -   Enabling replication to Secondary region West US 2 using Azure Site Recovery 
     -   Utilizing application-level replication (AD and SQL)
     -   Azure Backups of IaaS VMs, SQL and System State data
 
@@ -625,7 +650,7 @@ Resilient benefits:
 
     ![The Preferred Storage Approach includes three sets of Premium Managed Disks. The first set of Premium Managed Disks includes a Domain Controller, OS on Drive C, and Database/Logs on drive F. The second set of Premium Managed Disks has a Web VM Scale Set, and the OS on drive C. Data disks are optional. The third set of Premium Managed Disks includes a Legacy App, the OS on drive C, and App Files on drive F. The last set of Premium Managed Disks has SQL Servers, the OS on drive C, Databases on drive F, and Logs on drive G. Storage considerations are also listed: With Premium Pay for size provisioned; LRS Only; Mix Standard and Premium where possible; and Single instance VM use Premium for all disks to ensure 99.9% SLA.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image10.png "Preferred Storage Approach")
 
-4.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
+5.  How would you address the needs of the legacy application, what storage tier and limitations do you have to work around? What SLA can Azure provide for this single instance VM?
 
     *Legacy Application*
 
@@ -633,20 +658,21 @@ Resilient benefits:
 
     The application will eventually require a re-write to take advantage of the advanced features available in Azure. This could be done once the application was in Azure.
 
-    To be able to achieve the SLA provided in Azure, the disks used for the VM must be premium storage disks. There is a limitation on Azure premium storage accounts such that they only support LRS. As such a mechanism to copy the blob across to another region needs to be setup. A backup of the VM will also need to be scheduled.
+    To be able to achieve the SLA provided in Azure, the disks used for the VM must be premium storage disks. There is a limitation on Azure premium storage accounts such that they only support LRS. As such a mechanism to copy the blob across to another region needs to be setup. This can be achieved with Site Recovery disaster recovery solution. A backup of the VM will also need to be scheduled.
 
     Resilient benefits:
 
     -   Single instance VM now supported with a 99.9 percent SLA
     -   Premium storage account must be used and replicated across to another storage account
+    -   Replication to secondary region will secure this application over and above LRS
 
-5.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
+6.  Provide Contoso with documentation concerning service limitations, quotas, subscription limits.
 
     Contoso should be educated on the key subscription limits that they may encounter, but also be aware of how to find the documentation for these limits because they change often.
 
     The documentation can be found here: <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits>.
 
-6.  What would you recommend Contoso enable for monitoring their environment?
+7.  What would you recommend Contoso enable for monitoring their environment?
 
     *Monitoring configuration details*
 
@@ -680,25 +706,19 @@ Resilient benefits:
 
     Also, consider that the cost of downtime might far outweigh the cost of the resiliency being built into the environment.
 
-2.  The web application needs to have the ability to scale as we grow. What aspect of the cloud will allow this to be a reality?
+2.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
 
     **Potential answer**
     
-    Scale sets is a great choice to provide scaling of the web application. In the future, as the organization continues to grow, Azure Web Apps may also be an option. This would allow for websites to scaled in many ways without the burden of managing VMs.
+    Azure allows for several ways to mirror a production environment and use it for development and testing. Backing up the infrastructure and restoring it to Azure is one way. Another way would be Azure Site Recovery (ASR). ASR can replicate VMs and physical machines to Azure to mirror the production environment.
 
-3.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
-
-    **Potential answer**
-    
-    Azure allows for several ways to mirror a production environment and use it for development and testing. Backing up the infrastructure and restoring it to Azure is one way. Another way would be Azure Site Recovery (ASR). ASR can replicate VMs and physical machines to Azure to mirror the production environment, however at this time ASR does not support VM Scale Sets. If cross region redundancy is a requirement, VMs would be a better choice.
-
-4.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
+3.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
 
     **Potential answer**
     
     Azure utilizes one of the largest worldwide networks and Microsoft has invested billions of dollars for the infrastructure and connectivity to be world-class. Should there be performance issues, the applications can be scaled to address the needs of the business. There are resizing options and VM instances that address network performance options as well.
 
-5.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
+4.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
     **Potential answer**
     
