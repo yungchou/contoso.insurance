@@ -145,13 +145,11 @@ Contoso's business critical applications include:
 
 1.  Cost is a huge concern for us. With looming infrastructure and server replacement costs, we want to avoid any unnecessary expenditures.
 
-2.  The web application needs to have the ability to scale as we grow. What aspect of the cloud will allow this to be a reality?
+2.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
 
-3.  Downtime is becoming more of an issue for us due to development and production environments not being separate. We need to separate these from one another to avoid outages.
+3.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
 
-4.  Bandwidth is becoming an issue for self-hosting our application's ordering system, support website, etc. We are concerned that the cloud maybe constrained as well.
-
-5.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
+4.  We are very concerned about the disk space issue that occurred earlier with our Active Directory Domain Services domain controller and nearly all of our Web Servers and Database Servers. Will this be addressed per the resiliency plan?
 
 ### Infographic for common scenarios
 
@@ -189,7 +187,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
 
-    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
+    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure.
 
     -   How will you design the address space and subnets to support Contoso's requirements?
 
