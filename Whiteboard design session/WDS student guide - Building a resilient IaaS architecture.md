@@ -46,11 +46,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use the resiliency concepts:
-- High Availability with protection from hardware/rack failures with Availability sets
-- High Availability and Disaster recovery for database tier using SQL Always ON
-- Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals
-- Data protection using Azure Backup
+At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack failures with Availability sets, High Availability and Disaster recovery for database tiers using SQL Always ON, Disaster recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals, and data protection using Azure Backup.
 
 ## Step 1: Review the customer case study 
 
