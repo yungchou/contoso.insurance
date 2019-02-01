@@ -309,8 +309,11 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 *Virtual Network design in Azure*
 
 1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
+
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
+    
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure.
+    
     -   How will you design the address space and subnets to support Contoso's requirements?
 
 2.  Document what network security groups and rules should be put in place for protection. What ports would you open and why?
