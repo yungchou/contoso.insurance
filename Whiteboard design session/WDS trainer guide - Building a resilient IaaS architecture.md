@@ -614,7 +614,7 @@ Resilient benefits:
     For details on SQL Server Managed Backup see the following: 
     - <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
 
-    ![A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.png "SQL Server Managed Backup to Microsoft Azure ")
+    ![A recovery plan helps you to define a systematic recovery process in the event of a region wide disaster.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image9.PNG "SQL Server Managed Backup to Microsoft Azure ")
 
     An alternative to SQL Service Managed Backup would be Azure Backup. Azure Backup provides a SQL Server backup solution that requires zero infrastructure: no complex backup server, no management agent, and no backup storage to manage. Azure Backup provides centralized management for your backups across all servers that are running SQL Server, or even different workloads.
 
@@ -629,7 +629,7 @@ Resilient benefits:
     
     Since you have instances of your application tiers protected in another region West US 2, you can integrate Azure automation runbooks into your recovery plan. Use the customize option in Recovery plans to conduct step wise failover to reduce RTO. First, make the secondary SQL as Active using automation script. Second, failover the web servers and start the machines. Third, configure load balancers on the web servers in the secondary region. You can also have load balancer in the secondary region configured in advance to further reduce RTO.
     
-    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image12.png "Azure Site Recovery Plan")
+    ![SQL Server Managed Backup to Microsoft Azure manages and automates SQL Server backups to Microsoft Azure Blob storage. You can choose to allow SQL Server to determine the backup schedule based on the transaction workload of your database. Or, you can use advanced options to define a schedule. The retention settings determine how long the backups are stored in Azure Blob storage. SQL Server Managed Backup to Microsoft Azure supports point in time restore for the retention time period specified.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image12.PNG "Azure Site Recovery Plan")
     
     The ordering application is used not just by internal employees but also by customers for placing orders. The public endpoint that customers use can easily be switched using Azure Traffic Manager DNS level routing. You can also set up Traffic Manager as an optional component for RTO considerations and have it connected to primary and secondary public endpoints.
     For details on Traffic Manager DNS level routing, see the following:
