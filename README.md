@@ -13,9 +13,9 @@ Several years ago, under the leadership of Lewis Franklin, head of infrastructur
 
 ### Workshop
 
-In this workshop, you will look at how an existing IaaS deployment can be redesigned and updated to account for resiliency and in general high availability. Throughout the whiteboard design session and hands-on lab, you will look at the various configuration options and services to help build resilient architectures.
+In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of this workshop, you will be better able to design and use availability sets, Managed Disks, SQL Server Always on Availability Groups, as well as design principles when provisioning storage to VMs. In addition, you'll learn effective employment of Azure Backup to provide point-in-time recovery.
+At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack failures with Availability sets, High Availability and Disaster Recovery for database tiers using SQL Always ON, Disaster Recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals, and data protection using Azure Backup.
 
 ### Whiteboard Design Session
 
