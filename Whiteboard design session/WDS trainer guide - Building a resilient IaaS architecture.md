@@ -581,7 +581,6 @@ Resilient benefits:
     
     -   System state contains the AD database, log files, the Windows registry, and the SYSVOL folder, which are critical in defining and maintaining the state of AD. MARS agent can be used for virtualized DCs, when implemented in-guest as well as on-premises DCs. Backing up an on-premises AD directly to the public cloud not only satisfies the requirement of creating an isolated fault domain for backups but also ensures that the same backup set up works if ever you transition to Azure.
 
-
     ![The resilient benefits are shown in this image.](images/whiteboarddesignsessiontrainerguide-buildingaresilientiaasarchitectureimages/media/image14.png "Resilient Benefits")
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
@@ -631,7 +630,7 @@ Alternatively, you can also use SQL Server Managed Backup to Azure. It manages a
 For details on SQL Server Managed Backup see the following:
 <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
       
-   ![](images/whiteboarddesignsessiontrainerguide-buildingaresilientiaasarchitectureimages/media/image13.png "Azure Backup for SQL Server in IaaS VM")
+   ![](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image13.png "Azure Backup for SQL Server in IaaS VM")
 
 3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
