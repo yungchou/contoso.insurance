@@ -46,7 +46,8 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment to account for resiliency and in general high availability. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack failures with Availability sets, High Availability and Disaster Recovery for database tiers using SQL Always ON, Disaster Recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals, and data protection using Azure Backup.
+At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack failures with Availability sets, High Availability and Disaster Recovery for database tiers using SQL Always ON, Disaster Recovery for virtual machines to another region using Azure Site Recovery to meet RTO and RPO goals. In addition, you'll learn effective employment of Azure Backup to protect and secure your data against corruption and attacks.
+
 
 ## Step 1: Review the customer case study 
 
@@ -72,9 +73,9 @@ Contoso would be considered by most as a classic IT shop, mainly focused on thei
 
 Their ordering system is running in Azure on virtual machines with a SQL Server data tier. For many years Contoso's ordering process was done mainly via phone by their sales team based in one of their offices. Recently, the company has moved to an Internet-based ordering system with Internet Information Services (IIS) web servers in Azure housing the front-end application for the ordering, invoicing, and support options. Customers have complained at times of intermittent problems/errors with the website.
 
-There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Contoso to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a four-hour recovery time objective (RTO) with a recovery point objective (RPO) for the data of 8 hours.
+There have been ongoing stability issues including a critical server running out of disk space. This along with recent stability issues with the ordering system prompted Contoso to perform a business impact analysis of the application. This exercise resulted in an executive mandate for a 4 hours recovery time objective (RTO) with a recovery point objective (RPO) of 6 hours for the data.
 
-In addition to the ordering system, they have a legacy software program where the data is tightly coupled with the application. Because of the time and effort required, a re-write of this application is not planned. The application is being backed up using a disk-to-disk-to-tape approach. The legacy application is running on aging hardware and a decision must be made as to whether to purchase new hardware, re-write the application, or move it as-is to Azure.
+In addition to the ordering system, they have a legacy software program where the data is tightly coupled with the application. This program accesses a file server as well. Because of the time and effort required, a re-write of this application is not planned. The application is being backed up using a disk-to-disk-to-tape approach. The legacy application is running on aging hardware and a decision must be made as to whether to purchase new hardware, re-write the application, or move it as-is to Azure along with the fileserver.
 
 Each of the branch offices are small enough to not require an on-site server infrastructure. These locations have connectivity to the Cheyenne headquarters through a Virtual Private Network (VPN). At times, various branch offices have experienced connectivity issues over the VPN to Cheyenne. While there is some understanding of these occurrences, there is a desire to increase the stability of the connection as growth continues.
 
@@ -263,3 +264,4 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 | Azure Subscription and Service Limits | <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits> |
 | Network Watcher and VPN Gateways | <https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-monitor-with-azure-automation> |
 | High availability with VPN Gateway | <https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable> |
+| Azure Backup documentation	     | <https://docs.microsoft.com/en-us/azure/backup/> |
