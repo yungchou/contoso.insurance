@@ -307,8 +307,11 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 *Virtual Network design in Azure*
 
 1.  Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
+
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
+    
     -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure.
+    
     -   How will you design the address space and subnets to support Contoso's requirements?
 
 2.  Document what network security groups and rules should be put in place for protection. What ports would you open and why?
@@ -442,7 +445,9 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 1. Document and diagram how you will build redundant Virtual Networks for Contoso. Address the following design points:
 
     -   Must allow for connectivity between two regions close to the Cheyenne and Seattle data centers
-    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure
+    
+    -   Address the need for redundancy and resiliency in the site-to-site VPN connectivity from Contoso's offices to Azure.
+    
     -   How will you design the address space and subnets to support Contoso's requirements?
 
 *Solution*
@@ -468,15 +473,21 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 *Virtual Network Gateway configuration details*
 
 -   You need to create multiple S2S VPN connections from each on-premises VPN device to Azure. When you connect multiple VPN devices from the same on-premises network to Azure, you need to create one local network gateway for each VPN device, and one connection from your Azure VPN gateway to the local network gateway.
+
 -   The local network gateways corresponding to your VPN devices must have unique public IP addresses in the \"GatewayIpAddress\" property.
+
 -   BGP is required for this configuration. Each local network gateway representing a VPN device must have a unique BGP peer IP address specified in the \"BgpPeerIpAddress\" property.
+
 -   The AddressPrefix property field in each local network gateway must not overlap. You should specify the \"BgpPeerIpAddress\" in /32 CIDR format in the AddressPrefix field.
+
 -   You should use BGP to advertise the same prefixes of the same on-premises network prefixes to your Azure VPN gateway, and the traffic will be forwarded through these tunnels simultaneously.
+
 -   Each connection is counted against the maximum number of tunnels for your Azure VPN gateway, 10 for Basic and Standard SKUs, and 30 for the HighPerformance SKU.
 
 Resilient benefits:
 
 -   Providing route-based VPN gateways allows for the connection all three branch offices and the corporate office to connect via VPN. It also allows for the two regions to connect. There is even some room for growth and makes the connectivity resilient in case of some network event at the corporate office or a branch office.
+
 -   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
    
 1. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
@@ -530,6 +541,7 @@ Since Contoso has not deployed any additional infrastructure to West US 2 the on
 Resilient benefits:
 
 -   Network security groups provide protection and only allow the traffic defined by the rules through. This protection is a form of resiliency as well.
+
 -   External and internal protection is designed and provided for resiliency and hardening for the environment.
 
 *Design for resiliency in Azure*
@@ -539,10 +551,13 @@ Resilient benefits:
     *AD configuration details*
 
     -   Active Directory Domain Service (ADDS) Domain Controllers (DC) are deployed into Azure virtual machines. These are extensions of the on-premises AD DS DCs and allow for resiliency for the authentication and authorization mechanism that Contoso employees use today.
+    
     -  Configure multiple VMs as Domain Controllers in the West Central U.S. region and two others in the West US 2. ADDS Sites and Services will be configured with the two Azure regional virtual networks as new sites in AD.
         -  For Domain Controllers in West Central US, Availability Sets will be configured.
         -  For Domain Controllers in West US 2, Availability Zones will be configured.
+	
     -   Each Domain Controller will be configured with a Data Disk for the ADDS database. To avoid any issue with the ADDS DB, this data disk needs to be configured with caching set to NONE.
+    
     - 	Back-up the “system state” of two or more domain controllers in a domain-forest using Azure Backup MARS agent (Microsoft Azure Recovery Services Agent). 
 
     For details on restoring ADDS DCs see the following: 
@@ -553,15 +568,21 @@ Resilient benefits:
     Resilient benefits:
 
     -   Storing the AD files on a data disk with caching set to None will keep the ADDS database and SYSVOL from any potential corruption due to caching.
+    
     -   Adding DCs into an Availability Set will spread them across fault domains and update domains so that authentication and authorization servers are highly available and have an SLA of 99.95%.
+    
     -   Adding DCs into an Availability Zone will spread them across datacenters within a region so that authentication and authorization servers are highly available and have an SLA of 99.99%.
+    
     -   Deploying multiple DCs in multiple regions allows for redundancy in each region in the event of a regional Azure issue.
+    
     -   Replication across regions also allows for disaster recovery should the need arise and faster recovery of the ADDS database.
+    
     -   Removing the DC that is not in an availability set helps avoid a single point of failure for that VM.
+    
     -   System state contains the AD database, log files, the Windows registry, and the SYSVOL folder, which are critical in defining and maintaining the state of AD. MARS agent can be used for virtualized DCs, when implemented in-guest as well as on-premises DCs. Backing up an on-premises AD directly to the public cloud not only satisfies the requirement of creating an isolated fault domain for backups but also ensures that the same backup set up works if ever you transition to Azure.
 
 
-    ![The resilient benefits are shown in this image.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image14.png "Resilient Benefits")
+    ![The resilient benefits are shown in this image.](images/whiteboarddesignsessiontrainerguide-buildingaresilientiaasarchitectureimages/media/image14.png "Resilient Benefits")
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 
@@ -578,7 +599,9 @@ Resilient benefits:
     Resilient benefits:
 
     -   Moving the Health Probe from TCP to HTTP on the load balancer gives a deeper more application centric view into the web server health. It will help avoid any intermittent problems that customers experienced in the past.
+    
     -   Providing Scale Sets for the Web farm deployment allows for configurable scaling (up and down) based on Contoso's desires. It allows for this to occur automatically without manual intervention and will help with the issue of deploying manually and then typically not remembering to remove the extra servers when they are no longer needed.
+    
     -   Scale Sets are automatically deployed into availability sets so the servers as they scale will be spread across update and fault domains via the Azure fabric.
 
     *SQL Always-On configuration details*
@@ -596,7 +619,7 @@ Resilient benefits:
     | F:\\   | P20        | SQL Database Files | 
     | G:\\   | P20        | SQL Database Log Files |
 
-    **Note**: Never use the E:\\ drive on an Azure VM as some Azure Regions have Host machines that contain DVD Drives.
+    >**Note**: Never use the E:\\ drive on an Azure VM as some Azure Regions have Host machines that contain DVD Drives.
 
     Azure Backup for SQL Server provides a solution that requires zero-infrastructure: no complex backup server, no management agent, and no backup storage to manage. Azure Backup provides centralized management for your backups across all servers that are running SQL Server, or even different workloads. Businesses can define their backup schedule and retention policy based on their LTR and compliance needs, do point in time restores and automatically detect and protect any new database that gets added in the future. This will help meet Contoso their RPO of 15minutes. 
       
@@ -606,10 +629,9 @@ Resilient benefits:
 Alternatively, you can also use SQL Server Managed Backup to Azure. It manages and automates SQL Server backups to Microsoft Azure Blob storage. 
 
 For details on SQL Server Managed Backup see the following:
-    - <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
+<https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
       
-    (images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image13.png "Azure Backup for SQL Server in IaaS VM")
-
+   ![](images/whiteboarddesignsessiontrainerguide-buildingaresilientiaasarchitectureimages/media/image13.png "Azure Backup for SQL Server in IaaS VM")
 
 3.  Consider storage account resiliency. What would best suit the needs for Contoso virtual machines? LRS, GRS, RA-GRS? Document why you chose the option you did. Should they move to Managed Disks?
 
@@ -626,6 +648,7 @@ For details on SQL Server Managed Backup see the following:
     Resilient benefits:
 
     -   Using managed storage takes the guess work out of VM storage. There is no longer a need to worry about the number of storage accounts or how many VMs use each storage account. Azure does all of this for Contoso.
+    
     -   Managed storage honors availability sets, so this ensures that VMs in an Availability Sets will not have their storage backend fail for multiple VMs at the same time. Prior to managed disks VMs in an availability set could still have shared a storage stamp in Azure. This meant it was possible to lose the VMs in an availability set due to a storage outage if it was isolated to one stamp. With the honoring of availability sets this is no longer an issue.
 
     ![The Preferred Storage Approach includes three sets of Premium Managed Disks. The first set of Premium Managed Disks includes a Domain Controller, OS on Drive C, and Database/Logs on drive F. The second set of Premium Managed Disks has a Web VM Scale Set, and the OS on drive C. Data disks are optional. The third set of Premium Managed Disks includes a Legacy App, the OS on drive C, and App Files on drive F. The last set of Premium Managed Disks has SQL Servers, the OS on drive C, Databases on drive F, and Logs on drive G. Storage considerations are also listed: With Premium Pay for size provisioned; LRS Only; Mix Standard and Premium where possible; and Single instance VM use Premium for all disks to ensure 99.9% SLA.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image10.png "Preferred Storage Approach")
@@ -643,9 +666,12 @@ For details on SQL Server Managed Backup see the following:
     The file server could also be moved to Azure by using an Azure File share which could be accessed by this VM. The file share will need to be backed up too.
   
     Resilient benefits:
-    - Single instance VM now supported with a 99.9 percent SLA    
-    - Premium storage account must be used and replicated across to another storage account    
-    - Azure IaaS VM backup provides application consistent backup for Windows operating systems and file system consistency for               Linux operating systems without the need to shut down virtual machines, making it enterprise ready solution. Azure Backup               transfers snapshots taken on a VM to a secure, reliable Azure Backup vault and can restore the VM in a single click.    
+    - Single instance VM now supported with a 99.9 percent SLA
+    
+    - Premium storage account must be used and replicated across to another storage account   
+    
+    - Azure IaaS VM backup provides application consistent backup for Windows operating systems and file system consistency for               Linux operating systems without the need to shut down virtual machines, making it enterprise ready solution. Azure Backup               transfers snapshots taken on a VM to a secure, reliable Azure Backup vault and can restore the VM in a single click.  
+    
     - Azure backup provides a native backup solution for Azure file shares, to secure your files and be assured that you can go back in       time instantly.
     
     For details on Azure Backup for IaaS VMs and Azure file shares, see the following:	
