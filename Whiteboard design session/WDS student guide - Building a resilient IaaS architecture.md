@@ -104,7 +104,7 @@ The Human Resources department has requested that IT move their server workloads
 
 Richard Wade, infrastructure lead, is researching options for making the overall Azure infrastructure more resilient; including looking at technologies to help recover from an Azure region-wide outage. He also is interested in protecting against data corruption or accidental deletion of data or VMs.
 
-For the current ADDS implementation in Azure, the team has deployed a single domain controller in the West Central US. region. It is running on a Standard D1 instance with with Active Directory deployed on the C: drive.
+For the current ADDS implementation in Azure, the team has deployed a single domain controller in the West Central US region. It is running on a Standard D1 instance with Active Directory deployed on the C: drive.
 
 ![This image represents a single domain controller in the West Central US region.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image4.png "West Central US region - Single Domain Controller")
 
