@@ -570,7 +570,9 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-18. Use In the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repo. The script will deploy the cloudshop database to the database servers.  https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
+18. Use the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
+    
+ https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
     ````
     PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
