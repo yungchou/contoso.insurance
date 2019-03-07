@@ -570,16 +570,23 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-18. In the object explorer, expand SQL1 - Database - Right click Databases - New Database - DatabaseName **Adventureworks** - Select Ok.
+18. Use In the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repo. The script will deploy the cloudshop database to the database servers.  https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
+
+    ````
+    PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
+
+    ````
+
+19. Create another database from using SQL Server management studio. In the object explorer, expand SQL1 - Database - Right click Databases - New Database - DatabaseName **Adventureworks01** - Select Ok.
 
     ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image01.png "Creating a new database")
 
-19. Right click AdventureWorks database - Task - Back Up. Make sure Backup type is **Full** selected. Click Ok to initiate the backup. 
+20. Right click AdventureWorks database - Task - Back Up. Make sure Backup type is **Full** selected. Click Ok to initiate the backup. 
 
     ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image02.png "Creating a new database")
 
 
-20. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **AdventureWorksAG** (Primary), and choose **Show Dashboard**. Your dashboard should look similar to this:
+21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **AdventureWorksAG** (Primary), and choose **Show Dashboard**. Your dashboard should look similar to this:
 
     ![On the Dashboard, a green Check mark displays next to AdventureWorksAG:  (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQL0 SQL1, AdventureWorks SQL0 and AdventureWorks SQL1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
@@ -725,9 +732,9 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 ### Task 2: Validate SQL Always On
 
-1.  Within the Azure portal, click on Virtual Machines and open **SQLVM-1.** Click **Stop** at the top of the blade to shut the virtual machine off.
+1.  Within the Azure portal, click on Virtual Machines and open **SQL0.** Click **Stop** at the top of the blade to shut the virtual machine off.
 
-2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary vm (SQLVM-2) and connect via SQL Server Management Studio to confirm.
+2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary vm (SQL1) and connect via SQL Server Management Studio to confirm.
 
 ### Task 3: Validate backups are taken 
 
