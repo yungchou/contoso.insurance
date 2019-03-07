@@ -587,7 +587,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 In this task, you will deploy a VM scale set that can automatically scale up or down based on the CPU criteria. 
 
-1. Navigate to this JSON file and download the file to your LABVM. https://opsgilitylabs.blob.core.windows.net/studentfiles/CloudShopWeb-deploy.json
+1. Navigate to this JSON file and download the file to your LABVM. https://opsgilitylabs.blob.core.windows.net/studentfiles/cloudshopwebtierdeployment.json
    
 2. In the Azure Portal **Create a resource** - Type Template Deployment in the search field and select the Template Deployment - Build your own Template in the editor - Load File - upload the recently downloaded CloudShopWeb-deploy.json file.
 
