@@ -249,7 +249,7 @@ In this task, you will change the disk cache settings on the existing domain con
     -   Subscription: **Select your subscription**.
     -   Resource group (create new): **EU2ADRG**
     -   Virtual machine name: **DC01**
-    -   Size: **Standard DS1\_v2**
+    -   Size: **Standard D2SV3**
     -   Region: **East US 2**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
@@ -301,7 +301,7 @@ In this task, you will deploy Active Directory in the second region, so identity
     -   Subscription: **Select your subscription**.
     -   Resource group (create new): **CUSADRG**
     -   Virtual machine name: **DC03**
-    -   Size: **Standard DS1\_v2**
+    -   Size: **Standard D2SV3**
     -   Region: **Central US**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
@@ -498,15 +498,13 @@ In this exercise, you will deploy resilient web servers using VM scale sets and 
 
 In this task, you will deploy a SQL Always-On cluster using an ARM template that deploys to your existing Virtual Network and Active Directory infrastructure.
 
-1.  Navigate to https://github.com/opsgility/cw-building-resilient-iaas-architecture and deploy the json file **deploy-SQLAOCloudwitness.json**. 
+1.  Navigate to https://github.com/hansenms/iac/tree/master/sql-alwayson and click **Deploy to Azure** to deploy the template.
    
-2.  In the Azure Portal **Create a resource** - Type Template Deployment in the search field and select the Template Deployment - Build your own Template in the editor - Load File - upload the recently downloaded **deploy-SQLAOCloudwitness.json** file.
-
-3.  Specify the following information
+2.  Specify the following information
    
     Resource group:  **CloudShopRG** 
     Location: **East US 2**
-    Subnet Id: Go to resources.azure.com then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find your data subnet id**. Copy the full subnet ID within the "" quote.
+    Subnet Id: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for Data Subnet**. Copy the full subnet ID in between the **" "** quote.
 
     Admin username **demouser**
     Admin Password **demo@pass123**
@@ -516,61 +514,61 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and East US 2 as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image126.png "Custom deployment")
 
-4.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
+3.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
 
     ![A screen with the checkbox for I agree to the terms and conditions checked and the purchase button highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-27-20-21-18.png "Terms and Conditions")
 
-5.  Wait until the template deployment is complete before continuing. 
+4.  Wait until the template deployment is complete before continuing. 
 
     >**Note**: The deployment may take up to 20 minutes.
 
-6.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
+5.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
     ![Screenshot of the Connect icon.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image52.png "Connect icon")
 
-7.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
+6.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
 
-8.  open the **Failover Cluster Manager**, click connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always on availability group. expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
+7.  open the **Failover Cluster Manager**, click connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always on availability group. expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
     ![In Failover Cluster Manager, in the Nodes pane, two Nodes display: SQL0, SQL1. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
 
-9.  Launch **SQL Server 2017 Configuration Manager** on **SQL0**.
+8.  Launch **SQL Server 2017 Configuration Manager** on **SQL0**.
 
     ![SQL Server 2017 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
 
-10. Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
+9. Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
 
     ![In SQL Server 2017 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-click menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2017 Configuration Manager")
 
-11. Select the **AlwaysOn High Availability** tab, make sure the box for **Enable AlwaysOn Availability Groups** is selected.
+10. Select the **AlwaysOn High Availability** tab, make sure the box for **Enable AlwaysOn Availability Groups** is selected.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image79.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
-12. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
+11. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
     ![On the Confirm Account Change pop-up, the Yes button is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image81.png "Confirm Account Change pop-up")
 
-13. Minimize the RDP Window for **SQL0**.
+12. Minimize the RDP Window for **SQL0**.
 
-14. From the Azure portal, locate **SQL1**, and click **Connect.** Make sure to Sign On using the **contoso\\demouser** domain account.
+13. From the Azure portal, locate **SQL1**, and click **Connect.** Make sure to Sign On using the **contoso\\demouser** domain account.
 
     ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
 
-15. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
+14. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
 
-16. Move back to RDP session with **SQL0**.
+15. Move back to RDP session with **SQL0**.
 
-17. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
+16. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
 
-18. Click **Connect** to login to SQL Server.
+17. Click **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-28-19-36-49.png "Connect to Server dialog box")
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-19. Use the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
+18. Use the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
     
  https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
@@ -596,7 +594,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 In this task, you will deploy a VM scale set that can automatically scale up or down based on the CPU criteria. 
 
-1. Navigate to this JSON file **cloudshopwebtier.json** and download the file to your LABVM. https://github.com/opsgility/cw-building-resilient-iaas-architecture
+1. Navigate to the URL https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
    
 2. In the Azure Portal **Create a resource** - Type Template Deployment in the search field and select the Template Deployment - Build your own Template in the editor - Load File - upload the recently downloaded CloudShopWeb-deploy.json file.
 
@@ -734,7 +732,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 ### Task 2: Validate SQL Always On
 
-1.  Within the Azure portal, click on Virtual Machines and open **SQL0.** Click **Stop** at the top of the blade to shut the virtual machine off.
+1.  Within the Azure portal, click on Virtual Machines and open **SQL0** Click **Stop** at the top of the blade to shut the virtual machine off.
 
 2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary vm (SQL1) and connect via SQL Server Management Studio to confirm.
 
