@@ -502,9 +502,11 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
    
 2.  Specify the following information
    
-    Resource group:  **CloudShopRG** 
-    Location: **East US 2**
-    Subnet Id: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for Data Subnet**. Copy the full subnet ID in between the **" "** quote.
+    Resource group:**CloudShopRG** 
+    
+    Location: **East US 2** 
+    
+    **Subnet Id**: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for Data Subnet**. Copy the full subnet ID in between the **" "** quote.
 
     Admin username **demouser**
     Admin Password **demo@pass123**
@@ -520,7 +522,9 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 4.  Wait until the template deployment is complete before continuing. 
 
-    >**Note**: The deployment may take up to 20 minutes.
+    >**Note**: The deployment may take up to 30 minutes.
+
+    ![Screenshot of the successful deployment of sql tier.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sqltierdeployment.png "Template deployment")
 
 5.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
@@ -570,12 +574,14 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 18. Use the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
     
+    **Note**: You need to pass the parameters below with the powershell script. If you download the script from the url below in your local desktop or any drive, just copy and paste in your powershell window.
+    
  https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
-    ````
+    
     PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
 
-    ````
+    
 
 19. Create another database from using SQL Server management studio. In the object explorer, expand SQL1 - Database - Right click Databases - New Database - DatabaseName **Adventureworks01** - Select Ok.
 
@@ -592,13 +598,12 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 ### Task 2: Build a scalable and resilient web tier
 
-In this task, you will deploy a VM scale set that can automatically scale up or down based on the CPU criteria. 
+In this task, you will deploy a highly available web servers. 
 
 1. Navigate to the URL https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
    
-2. In the Azure Portal **Create a resource** - Type Template Deployment in the search field and select the Template Deployment - Build your own Template in the editor - Load File - upload the recently downloaded CloudShopWeb-deploy.json file.
-
-3.  Specify the existing resource group **CloudShopRG**. 
+2.  Specify the existing resource group **CloudShopRG**. 
+3.  **Subnet ID**: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for App Subnet**. Copy the full subnet ID in between the **" "** quote.
 
 4.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
 
