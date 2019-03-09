@@ -581,18 +581,15 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
     
     PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
 
-    
 
-19. Create another database from using SQL Server management studio. In the object explorer, expand SQL1 - Database - Right click Databases - New Database - DatabaseName **Adventureworks01** - Select Ok.
+**Note**: You may need to wait few minutes to view the newly created adventureworks database in SSMS.
 
-    ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image01.png "Creating a new database")
-
-20. Right click AdventureWorks database - Task - Back Up. Make sure Backup type is **Full** selected. Click Ok to initiate the backup. 
+20. In SSMS - Right click AdventureWorks database - Task - Back Up. Make sure **Backup type** and **Recovery Type** is **Full** selected. Click Ok to initiate the backup. 
 
     ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image02.png "Creating a new database")
 
 
-21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **AdventureWorksAG** (Primary), and choose **Show Dashboard**. Your dashboard should look similar to this:
+21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **Availability Databases** (Primary), - Add Database -  and select Adventure works and continue the prompt to add the database to the availability group. Once completed, Right click the **Availability Groups** - **Show Dashboard**. Your dashboard should look similar to this:
 
     ![On the Dashboard, a green Check mark displays next to AdventureWorksAG:  (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQL0 SQL1, AdventureWorks SQL0 and AdventureWorks SQL1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
@@ -607,9 +604,11 @@ In this task, you will deploy a highly available web servers.
 
 4.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
 
+**Note**: It could take up to 30 minutes to deploy the environment.
+
 ### Summary
 
-In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template.
+In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template. Also you deployed resilient web tier with an external load balancer through an ARM template.
 
 ## Exercise 4: Configure SQL Server Managed Backup 
 
