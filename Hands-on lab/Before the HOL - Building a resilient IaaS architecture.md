@@ -26,12 +26,12 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 **Contents**
 
 - [Building a resilient IaaS architecture before the hands-on lab setup guide](#building-a-resilient-iaas-architecture-before-the-hands-on-lab-setup-guide)
-    - [Requirements](#requirements)
-    - [Before the hands-on lab](#before-the-hands-on-lab)
-        - [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
-        - [Task 2: Connect to the VM and download the student files](#task-2-connect-to-the-vm-and-download-the-student-files)
-        - [Task 3: Install Azure PowerShell](#task-3-install-azure-powershell)
-    - [Summary](#summary)
+  - [Requirements](#requirements)
+  - [Before the hands-on lab](#before-the-hands-on-lab)
+    - [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
+    - [Task 2: Connect to the VM and download the student files](#task-2-connect-to-the-vm-and-download-the-student-files)
+    - [Task 3: Install Azure PowerShell](#task-3-install-azure-powershell)
+  - [Summary](#summary)
 
 # Building a resilient IaaS architecture before the hands-on lab setup guide 
 
@@ -51,7 +51,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 Duration: 30 minutes
 
-In this exercise, you build a Lab VM followed by preparing an Azure infrastructure containing several issues needing to be addressed from a resiliency standpoint. You will create an Active Directory environment, a SQL database tier, and a web tier for a Web Application.
+In this exercise, you deploy a Lab VM and configure the tools needed to complete the rest of your lab.
 
 ### Task 1: Create a Virtual Machine using the Azure portal 
 
@@ -73,7 +73,7 @@ In this exercise, you build a Lab VM followed by preparing an Azure infrastructu
 
     -   Subscription: **If you have multiple subscriptions choose the subscription to execute your labs in**.
     -   Resource Group (create new): **OPSLABRG**
-    -   Virutal machine name: **LABVM**
+    -   Virtual machine name: **LABVM**
     -   Location: **Choose the closest Azure region to you**.
     -   Size: **DS1\_V2 Standard**
     -   User name: **demouser**

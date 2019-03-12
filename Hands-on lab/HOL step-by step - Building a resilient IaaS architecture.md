@@ -27,40 +27,40 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Building a resilient IaaS architecture hands-on lab step-by-step](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Overview](#overview)
-    - [Solution architecture](#solution-architecture)
-    - [Requirements](#requirements)
-        - [Help references](#help-references)
-    - [Exercise 1: Prepare connectivity between regions](#exercise-1--prepare-connectivity-between-regions)
-        - [Task 1: Deploy the lab environment](#task-1--deploy-the-lab-environment)
-        - [Task 2: Create a VNET in the second region](#task-2--create-a-vnet-in-the-second-region)
-        - [Task 3: Configure VNET Peering between Azure regions](#task-3--configure-vnet-peering-between-azure-regions)
-    - [Exercise 2: Build the primary DCs for resiliency](#exercise-2--build-the-primary-dcs-for-resiliency)
-        - [Task 1: Create Resilient Active Directory Deployment](#task-1--create-resilient-active-directory-deployment)
-        - [Task 2: Create the Active Directory deployment in the second Azure region](#task-2--create-the-active-directory-deployment-in-the-second-azure-region)
-        - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3--add-data-disks-to-active-directory-domain-controllers-both-regions)
-        - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4--format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
-        - [Task 5: Promote DCs as additional domain controllers](#task-5--promote-dcs-as-additional-domain-controllers)
-        - [Summary](#summary)
-    - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3--build-web-tier-and-sql-for-resiliency)
-        - [Task 1: Deploy SQL Always-On Cluster](#task-1--deploy-sql-always-on-cluster)
-        - [Task 2: Build a scalable and resilient web tier](#task-2--build-a-scalable-and-resilient-web-tier)
-        - [Summary](#summary)
-    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4--configure-sql-server-managed-backup)
-        - [Task 1: Create an Azure Storage Account](#task-1--create-an-azure-storage-account)
-        - [Task 2: Configure managed backup in SQL Server](#task-2--configure-managed-backup-in-sql-server)
-    - [Exercise 5: Validate resiliency](#exercise-5--validate-resiliency)
-        - [Task 1: Validate resiliency for the CloudShop application](#task-1--validate-resiliency-for-the-cloudshop-application)
-        - [Task 2: Validate SQL Always On](#task-2--validate-sql-always-on)
-        - [Task 3: Validate backups are taken](#task-3--validate-backups-are-taken)
-    - [Exercise 6: Implementing Azure Site Recovery](#exercise-6--implementing-azure-site-recovery)
-        - [Task 1: Configure ASR Protection for Cloud Shop](#task-1--configure-asr-protection-for-cloud-shop)
-        - [Task 2: Creating the Recovery Plan](#task-2--creating-the-recovery-plan)
-        - [Task 3: Creating the Test Fail Over.](#task-3--creating-the-test-fail-over)
-        - [Task 4: Cleaning the Test Fail Over.](#task-4--cleaning-the-test-fail-over)
-    - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete the resource groups created](#task-1--delete-the-resource-groups-created)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Overview](#overview)
+  - [Solution architecture](#solution-architecture)
+  - [Requirements](#requirements)
+    - [Help references](#help-references)
+  - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
+    - [Task 1: Deploy the lab environment](#task-1-deploy-the-lab-environment)
+    - [Task 2: Create a VNET in the second region](#task-2-create-a-vnet-in-the-second-region)
+    - [Task 3: Configure VNET Peering between Azure regions](#task-3-configure-vnet-peering-between-azure-regions)
+  - [Exercise 2: Build the primary DCs for resiliency](#exercise-2-build-the-primary-dcs-for-resiliency)
+    - [Task 1: Create Resilient Active Directory Deployment](#task-1-create-resilient-active-directory-deployment)
+    - [Task 2: Create the Active Directory deployment in the second Azure region](#task-2-create-the-active-directory-deployment-in-the-second-azure-region)
+    - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3-add-data-disks-to-active-directory-domain-controllers-both-regions)
+    - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4-format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
+    - [Task 5: Promote DCs as additional domain controllers](#task-5-promote-dcs-as-additional-domain-controllers)
+    - [Summary](#summary)
+  - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3-build-web-tier-and-sql-for-resiliency)
+    - [Task 1: Deploy SQL Always-On Cluster](#task-1-deploy-sql-always-on-cluster)
+    - [Task 2: Build a scalable and resilient web tier](#task-2-build-a-scalable-and-resilient-web-tier)
+    - [Summary](#summary-1)
+  - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
+    - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
+    - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
+  - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
+    - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
+    - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
+    - [Task 3: Validate backups are taken](#task-3-validate-backups-are-taken)
+  - [Exercise 6: Implementing Azure Site Recovery](#exercise-6-implementing-azure-site-recovery)
+    - [Task 1: Configure ASR Protection for Cloud Shop](#task-1-configure-asr-protection-for-cloud-shop)
+    - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
+    - [Task 3: Creating the Test Fail Over.](#task-3-creating-the-test-fail-over)
+    - [Task 4: Cleaning the Test Fail Over.](#task-4-cleaning-the-test-fail-over)
+  - [After the hands-on lab](#after-the-hands-on-lab)
+    - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
 
 <!-- /TOC -->
 
@@ -572,17 +572,17 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-18. Use the Powershell or Powershell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
+18. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
     
-    **Note**: You need to pass the parameters below with the powershell script. If you download the script from the url below in your local desktop or any drive, just copy and paste in your powershell window.
+    >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the url below in your local desktop or any drive, just copy and paste in your PowerShell window.
     
- https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
+    https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
     
     PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
 
 
-**Note**: You may need to wait few minutes to view the newly created adventureworks database in SSMS.
+    >**Note**: You may need to wait few minutes to view the newly created adventureworks database in SSMS.
 
 20. In SSMS - Right click AdventureWorks database - Task - Back Up. Make sure **Backup type** and **Recovery Type** is **Full** selected. Click Ok to initiate the backup. 
 
@@ -600,11 +600,12 @@ In this task, you will deploy a highly available web servers.
 1. Navigate to the URL https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
    
 2.  Specify the existing resource group **CloudShopRG**. 
+
 3.  **Subnet ID**: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for App Subnet**. Copy the full subnet ID in between the **" "** quote.
 
 4.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
 
-**Note**: It could take up to 30 minutes to deploy the environment.
+    >**Note**: It could take up to 30 minutes to deploy the environment.
 
 ### Summary
 
@@ -724,7 +725,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 ### Task 1: Validate resiliency for the CloudShop application 
 
-1.  In the Azure portal, open the **CloudShopRG** resource group. Click the Load Balancer OPSLB that was created in the previous task.
+1.  In the Azure portal, open the **CloudShopRG** resource group. Click the Load Balancer, **OPSLB**.
 
 2.  Click the **Overview** tab and copy the public IP address to the clipboard, and navigate to it in a different browser tab.
 
@@ -764,7 +765,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
    
 3. Under **FOR ON-PREMISES MACHINES AND AZURE VMS** click **Step 1: Replicate Application**.
 
-    ![An image that depicts Azure Site Recovery.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image03.png "Replicate application Settings")
+    ![An image that depicts Azure Site Recovery. An arrow points to Step 1: Replicate Application.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image03.png "Replicate application Settings")
 
 4. On Step 1 Source, under Source Location choose the azure region where your Cloud Shop deployment exists. Then under Source resource group select the resource group where your Cloud Shop deployment exists (e.g. "CloudShopRG"). Select **Resource Manager** as Azure VM Deployment Model. Click OK.
 
