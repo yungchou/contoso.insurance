@@ -274,7 +274,7 @@ Contoso's business critical applications include:
 
 ### Infographic for common scenarios
 
-![An image that depicts various services in Azure Infrastructrure as a Service that could be used for the solution. Services included are: Virtual Machines, Virtual Networks, VPN Gateways, Hybrid Connectivity, Load Balancers, STorage, Azure Backup, Azure Site Recovery and SQL Server Managed Backup.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image6.png "Common Scenarios")
+![An image that depicts various services in Azure Infrastructure as a Service that could be used for the solution. Services included are: Virtual Machines, Virtual Networks, VPN Gateways, Hybrid Connectivity, Load Balancers, Storage, Azure Backup, Azure Site Recovery and SQL Server Managed Backup.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image6.png "Common Scenarios")
 
 ## Step 2: Design a proof of concept solution
 
@@ -583,7 +583,7 @@ Resilient benefits:
     
     -   System state contains the AD database, log files, the Windows registry, and the SYSVOL folder, which are critical in defining and maintaining the state of AD. MARS agent can be used for virtualized DCs, when implemented in-guest as well as on-premises DCs. Backing up an on-premises AD directly to the public cloud not only satisfies the requirement of creating an isolated fault domain for backups but also ensures that the same backup set up works if ever you transition to Azure.
 
-    ![The resilient benefits are shown in this image.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image14.png "Resilient Benefits")
+    ![Two virtual networks are shown, connected via Virtual Network Peering. The two virtual networks are deployed to different regions. Within each virtual network you have two domain controllers configured in an availability set. Each domain controller storage is configured for resiliency by keeping the AD directory stored on a separate drive from the operating system. A backup vault also is installed to each virtual network. ](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image14.png "Resilient Benefits")
 
 2.  How will you address the needs for resiliency and scalability with the ordering app?
 

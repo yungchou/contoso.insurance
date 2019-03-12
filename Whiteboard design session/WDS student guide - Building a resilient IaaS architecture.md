@@ -150,7 +150,7 @@ Contoso's business critical applications include:
 
 ### Infographic for common scenarios
 
-![An image that depicts various services in Azure Infrastructrure as a Service that could be used for the solution. Services included are: Virtual Machines, Virtual Networks, VPN Gateways, Hybrid Connectivity, Load Balancers, STorage, Azure Backup, Azure Site Recovery and SQL Server Managed Backup.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image6.png "Common Scenarios")
+![An image that depicts various services in Azure Infrastructure as a Service that could be used for the solution. Services included are: Virtual Machines, Virtual Networks, VPN Gateways, Hybrid Connectivity, Load Balancers, Storage, Azure Backup, Azure Site Recovery and SQL Server Managed Backup.](images/Whiteboarddesignsessiontrainerguide-BuildingaresilientIaaSarchitectureimages/media/image6.png "Common Scenarios")
 
 ## Step 2: Design a proof of concept solution
 
