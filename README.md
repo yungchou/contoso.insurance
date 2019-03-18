@@ -38,7 +38,6 @@ At the end of the lab, you will be better able to design and use availability se
 - Azure Web Apps
 - Azure Virtual Networks
 - SQL Server
-- Operations Management Suite
 - Azure Backup
 
 ## Azure solutions
