@@ -75,7 +75,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
     -   Resource Group (create new): **OPSLABRG**
     -   Virtual machine name: **LABVM**
     -   Location: **Choose the closest Azure region to you**.
-    -   Size: **DS1\_V2 Standard**
+    -   Size: **D2S\_V3 Standard**
     -   User name: **demouser**
     -   Password: **demo\@pass123**
     -   Public inbound ports: **RDP (3389)**
