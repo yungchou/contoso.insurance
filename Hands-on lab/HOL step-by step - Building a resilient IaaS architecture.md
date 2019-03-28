@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-November 2018
+March 2019
 </div>
 
 
@@ -18,7 +18,7 @@ Information in this document, including URL and other Internet Web site referenc
 Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -27,36 +27,40 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Building a resilient IaaS architecture hands-on lab step-by-step](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Overview](#overview)
-    - [Solution architecture](#solution-architecture)
-    - [Requirements](#requirements)
-        - [Help references](#help-references)
-    - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
-        - [Task 1: Deploy the lab environment](#task-1-deploy-the-lab-environment)
-        - [Task 2: Create a VNET in the second region](#task-2-create-a-vnet-in-the-second-region)
-        - [Task 3: Configure VNET Peering between Azure regions](#task-3-configure-vnet-peering-between-azure-regions)
-    - [Exercise 2: Build the primary DCs for resiliency](#exercise-2-build-the-primary-dcs-for-resiliency)
-        - [Task 1: Create Resilient Active Directory Deployment](#task-1-create-resilient-active-directory-deployment)
-        - [Task 2: Create the Active Directory deployment in the second Azure region](#task-2-create-the-active-directory-deployment-in-the-second-azure-region)
-        - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3-add-data-disks-to-active-directory-domain-controllers-both-regions)
-        - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4-format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
-        - [Task 5: Promote DCs as additional domain controllers](#task-5-promote-dcs-as-additional-domain-controllers)
-        - [Summary](#summary)
-    - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3-build-web-tier-and-sql-for-resiliency)
-        - [Task 1: Deploy SQL Always-On Cluster](#task-1-deploy-sql-always-on-cluster)
-        - [Task 2: Convert the SQL deployment to Managed Disks](#task-2-convert-the-sql-deployment-to-managed-disks)
-        - [Task 3: Build a scalable and resilient web tier](#task-3-build-a-scalable-and-resilient-web-tier)
-        - [Summary](#summary-1)
-    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
-        - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
-        - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
-    - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
-        - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
-        - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
-        - [Task 3: Validate backups are taken](#task-3-validate-backups-are-taken)
-    - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Overview](#overview)
+  - [Solution architecture](#solution-architecture)
+  - [Requirements](#requirements)
+    - [Help references](#help-references)
+  - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
+    - [Task 1: Deploy the lab environment](#task-1-deploy-the-lab-environment)
+    - [Task 2: Create a VNET in the second region](#task-2-create-a-vnet-in-the-second-region)
+    - [Task 3: Configure VNET Peering between Azure regions](#task-3-configure-vnet-peering-between-azure-regions)
+  - [Exercise 2: Build the primary DCs for resiliency](#exercise-2-build-the-primary-dcs-for-resiliency)
+    - [Task 1: Create Resilient Active Directory Deployment](#task-1-create-resilient-active-directory-deployment)
+    - [Task 2: Create the Active Directory deployment in the second Azure region](#task-2-create-the-active-directory-deployment-in-the-second-azure-region)
+    - [Task 3: Add data disks to Active Directory domain controllers (both regions)](#task-3-add-data-disks-to-active-directory-domain-controllers-both-regions)
+    - [Task 4: Format data disks on DCs and configure DNS settings across connection](#task-4-format-data-disks-on-dcs-and-configure-dns-settings-across-connection)
+    - [Task 5: Promote DCs as additional domain controllers](#task-5-promote-dcs-as-additional-domain-controllers)
+    - [Summary](#summary)
+  - [Exercise 3: Build web tier and SQL for resiliency](#exercise-3-build-web-tier-and-sql-for-resiliency)
+    - [Task 1: Deploy SQL Always-On Cluster](#task-1-deploy-sql-always-on-cluster)
+    - [Task 2: Build a scalable and resilient web tier](#task-2-build-a-scalable-and-resilient-web-tier)
+    - [Summary](#summary-1)
+  - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
+    - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
+    - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
+  - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
+    - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
+    - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
+    - [Task 3: Validate backups are taken](#task-3-validate-backups-are-taken)
+  - [Exercise 6: Implementing Azure Site Recovery](#exercise-6-implementing-azure-site-recovery)
+    - [Task 1: Configure ASR Protection for Cloud Shop](#task-1-configure-asr-protection-for-cloud-shop)
+    - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
+    - [Task 3: Creating the Test Fail Over.](#task-3-creating-the-test-fail-over)
+    - [Task 4: Cleaning the Test Fail Over.](#task-4-cleaning-the-test-fail-over)
+  - [After the hands-on lab](#after-the-hands-on-lab)
+    - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
 
 <!-- /TOC -->
 
@@ -245,7 +249,7 @@ In this task, you will change the disk cache settings on the existing domain con
     -   Subscription: **Select your subscription**.
     -   Resource group (create new): **EU2ADRG**
     -   Virtual machine name: **DC01**
-    -   Size: **Standard DS1\_v2**
+    -   Size: **Standard D2SV3**
     -   Region: **East US 2**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
@@ -266,7 +270,7 @@ In this task, you will change the disk cache settings on the existing domain con
 10. Click the **Management** tab and configure as follows:
 
     - Boot diagnostics: **On**
-    - Diagnostics storage account: **Create new and select a unique name**
+    - Diagnostics storage account: **Create new and select a unique name**.
     - Enable backup: **On**
     - Recovery Services vault: **Create new**
     - Recovery Services vault name: **BackupVault**
@@ -297,7 +301,7 @@ In this task, you will deploy Active Directory in the second region, so identity
     -   Subscription: **Select your subscription**.
     -   Resource group (create new): **CUSADRG**
     -   Virtual machine name: **DC03**
-    -   Size: **Standard DS1\_v2**
+    -   Size: **Standard D2SV3**
     -   Region: **Central US**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
@@ -470,7 +474,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![In the Extensions blade, the status for CustomScriptExtensions is Provisioning succeeded.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image69.png "Extensions blade")
 
-    >**Note**: If this was a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADVM should be demoted gracefully, and if required, a new DC can be added to the ADAV Availability Set and data disk attached for F:\\.
+    >**Note**: If this were a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADVM should be demoted gracefully, and if required, a new DC can be added to the ADAV Availability Set and data disk attached for F:\\.
 
 10. Open the settings for **VNET2** in the Azure portal. Under DNS servers, remove the exiting custom DNS entry and add the two new domain controller IP addresses and click **Save**.
 
@@ -494,11 +498,21 @@ In this exercise, you will deploy resilient web servers using VM scale sets and 
 
 In this task, you will deploy a SQL Always-On cluster using an ARM template that deploys to your existing Virtual Network and Active Directory infrastructure.
 
-1.  Navigate to <https://github.com/opsgility/cw-building-resilient-iaas-architecture-sql> and click the **Deploy to Azure Button**.
+1.  Navigate to https://github.com/hansenms/iac/tree/master/sql-alwayson and click **Deploy to Azure** to deploy the template.
+   
+2.  Specify the following information
+   
+    Resource group:**CloudShopRG** 
+    
+    Location: **East US 2** 
+    
+    **Subnet Id**: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for Data Subnet**. Copy the full subnet ID in between the **" "** quote.
 
-    ![The Deploy to Azure button is highlighted for deploying a sample from GitHub.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image71.png "Sample page")
+    Admin username **demouser**
+    Admin Password **demo@pass123**
+    Domain Name: contoso.com
 
-2.  Specify the resource group name as **CloudShopRG** and ensure the region is set to **East US 2**. Leave the rest of the template parameters with their default values.
+    Leave the rest of the template parameters with their default values.
 
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and East US 2 as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image126.png "Custom deployment")
 
@@ -508,219 +522,94 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 4.  Wait until the template deployment is complete before continuing. 
 
-    >**Note**: The deployment may take up to 20 minutes.
+    >**Note**: The deployment may take up to 30 minutes.
 
-5.  Open a remote desktop connection to the **SQLVM-1** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
+    ![Screenshot of the successful deployment of sql tier.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sqltierdeployment.png "Template deployment")
+
+5.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
     ![Screenshot of the Connect icon.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image52.png "Connect icon")
 
-6.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present, and the Database was restored to the **F:\\Data** directory.
+6.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
 
-7.  Next, run this command from **SQLVM-1** to create a Cluster for the SQL Always-On Group. **Start \> PowerShell \> Enter**, and execute the following commands:
+7.  open the **Failover Cluster Manager**, click connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always on availability group. expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
-    ```powershell
-    New-Cluster -Name CLUST-1 -Node SQLVM-1,SQLVM-2,WITNESSVM -StaticAddress 10.0.1.8
-    ```
+    ![In Failover Cluster Manager, in the Nodes pane, two Nodes display: SQL0, SQL1. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
 
-8.  This will create a three-node cluster with a static IP address. It is also possible to use a wizard for this task, but the resulting cluster will require additional configuration to set the static IP address to be viable in Azure. This is due to the way Azure DHCP distributes IP addresses causing the cluster to receive the same IP address as the node it is executing on resulting in a duplicate IP address and failure of the cluster service.
+8.  Launch **SQL Server 2017 Configuration Manager** on **SQL0**.
 
-    ![In the Administrator: Windows PowerShell window, PowerShell commands display.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image75.png "Administrator: Windows PowerShell window")
+    ![SQL Server 2017 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
 
-9.  Once the PowerShell command has completed, open the **Failover Cluster Manager**, expand the **CLUST-1** cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
+9. Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
 
-    ![In Failover Cluster Manager, in the Nodes pane, three Nodes display: SQLVM-1, SQLVM-2, and Witness VM. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
+    ![In SQL Server 2017 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-click menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2017 Configuration Manager")
 
-10. Launch **SQL Server 2016 Configuration Manager** on **SQLVM-1**.
-
-    ![SQL Server 2016 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
-
-11. Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
-
-    ![In SQL Server 2016 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-click menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2016 Configuration Manager")
-
-12. Select the **AlwaysOn High Availability** tab, check the box for **Enable AlwaysOn Availability Groups**, click **Apply**, and click **OK** on the message that changes will not take effect until after the server is restarted.
+10. Select the **AlwaysOn High Availability** tab, make sure the box for **Enable AlwaysOn Availability Groups** is selected.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image79.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
-13. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
+11. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password. Click **OK** to accept the changes, and click **Yes** to confirm the restart of the server.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
     ![On the Confirm Account Change pop-up, the Yes button is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image81.png "Confirm Account Change pop-up")
 
-14. Minimize the RDP Window for **SQLVM-1**.
+12. Minimize the RDP Window for **SQL0**.
 
-15. From the Azure portal, locate **SQLVM-2**, and click **Connect.** Make sure to Sign On using the **contoso\\demouser** domain account.
+13. From the Azure portal, locate **SQL1**, and click **Connect.** Make sure to Sign On using the **contoso\\demouser** domain account.
 
     ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
 
-16. From the RPD Session on **SQLVM-2**, repeat steps to configure **AlwaysOn High Availability** and **Log On** using SQL 2016 Configuration Manager.
+14. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
 
-17. Move back to RDP session with **SQLVM-1**.
+15. Move back to RDP session with **SQL0**.
 
-18. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
+16. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
 
-19. Click **Connect** to login to SQL Server.
+17. Click **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-28-19-36-49.png "Connect to Server dialog box")
 
-    >**Note**: Availability Groups require that the databases be in full recovery mode and that an initial backup has been taken. The deployment through an ARM template has completed this for you.
+    >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-20. Minimize your **SQLVM-1** RDP Session and then Copy from your **LABVM** the file **C:\\HOL\\CreateAGRegion1.sql** and then back on **SQLVM-1** paste it into the **C:\\SQDATA** directory.
-
-21. Within SQL Server Management Studio, open the **C:\\SQDATA\\CreateAGRegion1.sql** file.
-
-    ![In the SQL Server Management Studio (Administrator) window, on the menu bar, File is selected. On the file menu, Open is selected, and from its menu, File is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image85.png "SQL Server Management Studio (Administrator) window")
-
-22. Select the **Query** menu and click **SQLCMD Mode**.
-
-    ![On the Query tab, SQLCMD Mode is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image86.png "Query tab")
-
-23. Click the **Execute** button to configure the Availability Group.
-
-    ![Screenshot of the Execute button.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image127.png "Execute button")
-
-    >**Note**: Some security messages are expected. This script was generated by the SQL Server New Availability Group Wizard and modified to support AUTOMATIC\_SEEDING. Automatic seeding makes initializing replicas much easier, and the speed of the process is increased significantly. For more details on automatic seeding and performance improvements please refer to SQLCAT's blog: <https://blogs.msdn.microsoft.com/sqlcat/2016/06/28/sqlsweet16-episode-2-availability-groups-automatic-seeding-2/>.
-
-    ![On the Messages tab, Security messages showing Connecting and Disconnecting activity display.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image88.png "Messages tab")
-
-24. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **AdventureWorksAG** (Primary), and choose **Show Dashboard**. Your dashboard should look similar to this:
-
-    ![On the Dashboard, a green checkmark displays next to AdventureWorksAG: hosted by SQLVM - 1 (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQLVM-1 SQLVM-2, AdventureWorks SQLVM-1 and AdventureWorks SQLVM-1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
-
-25. In the Azure portal, open the settings of the **BackendLB** load balancer in the **CloudShopRG** resource group.
-
-    ![The BackendLB Load balancer option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image90.png "BackendLB option")
-
-26. Click on **Backend pools**.
-
-    ![Under Settings, Backend pools is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image91.png "Settings section")
-
-27. Click **BackendPool1** which will open a window showing **SQLVM-1**. Click the **Add a target network IP configuration**.
-
-    ![In the BackendPool1 blade, the Add a target network IP configuration link is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image92.png "BackendPool1 blade")
-
-28. From the List for Target Virtual Machine select the **SQLVM-2** and the Network IP Configuration **ipconfig1**. Note that your IP address may be different.
-
-    ![Fields in the BackendPool1 blade are set to the previously defined settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image93.png "BackendPool1 blade")
-
-29. Click the **Save** to add **SQLVM-2** to the **BackendPool1**.
-
-    ![Under BackendPool1 (2 virtual machines), SQLVM-1 and SQLVM-2 display.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image94.png "BackendPool1 list")
-
-30. Go back to **SQLVM-1** and open an **Administrative PowerShell\_ISE** session (Right click > More > Run as administrator). Execute the following PowerShell to configure your cluster for the probe port.
-
-    ```powershell
-    $ClusterNetworkName = "Cluster Network 1"
-    $IPResourceName = "AdventureWorksAG_10.0.1.9"
-    $ILBIP = "10.0.1.50"
-    Import-Module FailoverClusters
-    Get-ClusterResource $IPResourceName | Set-ClusterParameter -Multiple @{"Address"="$ILBIP";"ProbePort"="59999";"SubnetMask"="255.255.255.255";"Network"="$ClusterNetworkName";"EnableDhcp"=0}
-    Stop-ClusterResource -Name $IPResourceName
-    Start-ClusterResource -Name "AdventureWorksAG"
-    ```
-
-    ![Commands display in the Administrator PowerShell ISE window with the output of the script showing that the cluster resources has been started.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image128.png "Administrator PowerShell ISE window")
-
-31. Connect to **SQLVM-02** and launch **SQL Server Management Studio 17Ad**.
-
-32. Open a Server connection to the **AdventureWorks** listener endpoint to verify connectivity. The listener is like entering a SQL Server's Name, but this is the Availability Group.
-
-    ![The Connect to Server for SQL Server dialog box displays. Server type is Database Engine, Server name is AdventureWorks, and Authentication is Windows Authentication.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image96.png "Connect to Server for SQL Server dialog box")
-
-    ![In Object Explorer, AdventureWorks (SQL Server 13.0.2164.0 - contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image97.png "Object Explorer")
-
-33. After successfully connecting to the AOG listener, disconnect from both SQLVM-1 and SQLVM-2 by using Sign Out from the RDP windows.
-
-### Task 2: Convert the SQL deployment to Managed Disks 
-
-In this task, you will convert the disks of the SQL deployment to managed disks. This task could be automated as part of the template deployment; however, it is important to understand how to migrate existing infrastructure to managed disks.
-
-1.  On **LABVM** open the PowerShell ISE Tool.
-
-    >**Note**: In the next few steps, you will use PowerShell to migrate the disks for the SQL cluster to Managed Disks.
-
-2.  In the execution pane, login to Azure using the **Connect-AzureRmAccount**, and press Enter.
-
-    ```powershell
-    Connect-AzureRmAccount
-    ```
-
-3.  At the Azure login screen, enter your Account and Password.
-
-    ![The Microsoft Azure login screen displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image98.png "Azure login screen")
-
-4.  Once logged in, make sure to set your subscription that is the default for this hands-on lab.
-
-    ```powershell
-    Get-AzureRMSubscription
-    Select-AzureRmSubscription -SubscriptionName <Your subscription name>
-    ```
-
-5.  Once this is completed, run the following command to verify your VMs for the hands-on lab are present.
-
-    ```powershell
-    Get-AzureRMVM -ResourceGroupName CloudShopRG
-    ```
+18. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this GitHub repository. The script will deploy the cloudshop database to the database servers. 
     
-6.  Now, move to the scripting pane of the PowerShell ISE tool. Paste this code into the window.
+    >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the URL below in your local desktop or any drive, just copy and paste in your PowerShell window.
+    
+    https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
-    ```powershell
-    <#
-        The following code converts the existing availability set to aligned/managed and then converts the disks to managed as well. 
-        Note: The PlatformFaultDomainCount is set to 3 - this is because the region currently supports three managed fault domains.
-        Some regions only support 2. Refer to the documentation.
-    #>
+    
+    PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
 
-    $rgName = 'CloudShopRG'
 
-    $avSetName = 'SQLAVSet'
+    >**Note**: You may need to wait few minutes to view the newly created adventureworks database in SSMS.
 
-    $avSet = Get-AzureRmAvailabilitySet -ResourceGroupName $rgName -Name $avSetName
+20. In SSMS - Right click AdventureWorks database - Task - Back Up. Make sure **Backup type** and **Recovery Type** is **Full** selected. Click Ok to initiate the backup. 
 
-    $avSet.PlatformFaultDomainCount = 3
+    ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image02.png "Creating a new database")
 
-    Update-AzureRmAvailabilitySet -AvailabilitySet $avSet -Sku Aligned
 
-    foreach($vmInfo in $avSet.VirtualMachinesReferences)
-    {
-        $vm = Get-AzureRmVM -ResourceGroupName $rgName | Where-Object {$_.Id -eq $vmInfo.id}
+21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **Availability Databases** (Primary), - Add Database -  and select Adventure works and continue the prompt to add the database to the availability group. Once completed, Right click the **Availability Groups** - **Show Dashboard**. Your dashboard should look similar to this:
 
-        Stop-AzureRmVM -ResourceGroupName $rgName -Name $vm.Name -Force
+    ![On the Dashboard, a green Check mark displays next to AdventureWorksAG:  (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQL0 SQL1, AdventureWorks SQL0 and AdventureWorks SQL1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
-        ConvertTo-AzureRmVMManagedDisk -ResourceGroupName $rgName -VMName $vm.Name
-    }
-    ```
+### Task 2: Build a scalable and resilient web tier
 
-    >**Note**: The documentation for the maximum number of fault domains per-region can be found at <https://docs.microsoft.com/en-us/azure/virtual-machines/windows/manage-availability#number-of-fault-domains-per-region>.
+In this task, you will deploy a highly available web servers. 
 
-7.  Next, click the **Run script** button in the PowerShell ISE. This will deallocate all of the machines in the Availability Set SQLAvSet and migrate them to a Managed AVSET and the disk to Managed Disks.
+1. Navigate to the URL: https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
+   
+2.  Specify the existing resource group **CloudShopRG**. 
 
-    >**Note**: This process will take about 10-15 minutes to complete. Do not stop the process or close the ISE.
+3.  **Subnet ID**: Go to **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for App Subnet**. Copy the full subnet ID in between the **" "** quote.
 
-8.  Open the Azure portal and browse to the **CloudShopRG** Resource Group. Notice now, the machines are using Managed Disks, and the disk objects now appear.
+4.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
 
-    ![Four Disk objects display: SQLVM-1, SQLVM-1\_SQL1datadisk1, SQLVM-1\_SQL1datadisk2, and SQLVM-1\_SQLVM-1OSDisk.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image99.png "Disk objects")
-
-### Task 3: Build a scalable and resilient web tier
-
-In this task, you will deploy a VM scale set that can automatically scale up or down based on the CPU criteria. The application the scale set deploys points to the new SQL AlwaysOn availability group created previously.
-
-1.  Navigate to <https://github.com/opsgility/cw-building-resilient-iaas-architecture-ss> and click the **Deploy to Azure Button**.
-
-    ![The Deploy to Azure button is highlighted for deploying a sample from GitHub.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image100.png "Sample screen")
-
-2.  Specify the existing resource group **CloudShopRG** and set the **Instance Count to 2**.
-
-    >**Note**: The instance count is the initial number of servers deployed. The number can change based on the auto scale rules set in the ARM template.
-
-3.  Check the **I agree to the terms and conditions state above** checkbox on the page and click **Purchase**.
-
-4.  While the scale set is deploying, open the ARM template you just deployed by navigating to: <https://github.com/opsgility/cw-building-resilient-iaas-architecture-ss/blob/master/azure-deploy.json>. Review the auto scale settings in the **autoscalewad** resource to understand how the default auto scale settings are configured.
+    >**Note**: It could take up to 30 minutes to deploy the environment.
 
 ### Summary
 
-In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template.
+In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template. Also, you deployed resilient web tier with an external load balancer through an ARM template.
 
 ## Exercise 4: Configure SQL Server Managed Backup 
 
@@ -788,9 +677,9 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 ### Task 2: Configure managed backup in SQL Server
 
-1.  Connect to **SQLVM-1** using remote desktop and launch SQL Server Management Studio and connect to the database instance.
+1.  Connect to **SQL0** using remote desktop and launch SQL Server Management Studio and connect to the database instance.
 
-2.  Right click on **SQLVM-1**, and click **New Query**.
+2.  Right click on **SQL0**, and click **New Query**.
 
     ![A screen showing how to launch the new query pane in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image102.png "Launching the new query pane")
 
@@ -836,33 +725,21 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 ### Task 1: Validate resiliency for the CloudShop application 
 
-1.  In the Azure portal, open the **CloudShopRG** resource group. Click the VM scale set created in the previous task.
+1.  In the Azure portal, open the **CloudShopRG** resource group. Click the Load Balancer, **OPSLB**.
 
-2.  Click the Scaling menu item to review the auto scale settings that were deployed with the ARM template.
+2.  Click the **Overview** tab and copy the public IP address to the clipboard, and navigate to it in a different browser tab.
 
-    ![The scaling menu item under settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image103.png "Scaling")
-
-    ![The screen depicts the auto scale rules deployed by the ARM template.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image104.png "Auto scale settings")
-
-3.  Click the **Overview** tab and copy the public IP address to the clipboard, and navigate to it in a different browser tab.
-
-4.  After the application is loaded, click the Spike CPU button to simulate an auto scale event.
+3.  After the application is loaded, click the Spike CPU button to simulate an auto scale event.
 
     ![A screen that shows the web page that allows for spiking the CPU,.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image105.png "CPU Spike Demo")
 
-5.  After 15-20 minutes, click the instances button to validate that additional instances were added in response to the CPU spike.
-
-    ![The instances icon under settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image106.png "Instances")
-
-    You will see something like the following after a while with new instances starting.
-
-    ![Multiple instances running and in the creating state for the VM scale set.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image107.png "Instance status")
+4.  After 15-20 minutes, refresh the browser and you will see cloud shop site is running and switched from one web server to another one. 
 
 ### Task 2: Validate SQL Always On
 
-1.  Within the Azure portal, click on Virtual Machines and open **SQLVM-1.** Click **Stop** at the top of the blade to shut the virtual machine off.
+1.  Within the Azure portal, click on Virtual Machines and open **SQL0** Click **Stop** at the top of the blade to shut the virtual machine off.
 
-2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary vm (SQLVM-2) and connect via SQL Server Management Studio to confirm.
+2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary VM (SQL1) and connect via SQL Server Management Studio to confirm.
 
 ### Task 3: Validate backups are taken 
 
@@ -877,6 +754,114 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 3.  To validate the SQL Server backup, open the Storage Account created earlier in the Azure portal and click **Blobs** -\> and then **backups**. If the backup has already completed, you will see the backup file in the container.
 
     ![An image that depicts SQL Server backup data in an Azure Storage Account.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image110.png "Backup files in storage")
+
+## Exercise 6: Implementing Azure Site Recovery 
+
+### Task 1: Configure ASR Protection for Cloud Shop
+
+1. In the Azure Portal - Resource Group - BackupVault2RG and open the BackupVault2.
+   
+2. In the **BackupVault2** blade, click on **Site Recovery** under **GETTING STARTED**.
+   
+3. Under **FOR ON-PREMISES MACHINES AND AZURE VMS** click **Step 1: Replicate Application**.
+
+    ![An image that depicts Azure Site Recovery. An arrow points to Step 1: Replicate Application.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image03.png "Replicate application Settings")
+
+4. On Step 1 Source, under Source Location choose the azure region where your Cloud Shop deployment exists. Then under Source resource group select the resource group where your Cloud Shop deployment exists (e.g. "CloudShopRG"). Select **Resource Manager** as Azure VM Deployment Model. Click OK.
+
+    ![An image that depicts Azure Site Recovery settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image04.png "ASR replicate source settings")
+
+5. On Step 2, Select the Virtual Machines (Web and SQL Servers) for the replication.
+
+6. On the Configure settings blade, notice that you can alter the target resource group and virtual network settings, along with the replication policy. Click **Create target resources**. 
+
+    >**Note**: Do not close the blade. It will close by itself after the target resources are created (2-3 minutes).
+
+7. Several Site Recovery jobs will be initiated which are creating the replication policy as well as the target resources to be used during a failover. 
+
+8. If you click on the Enable replication job, you can see additional details of what takes place when protecting a VM. It may take up to 30 minutes to complete the job. You can review it under Monitoring - Site Recovery Jobs at the Recovery Services Vault BackupVault2 blade. 
+   
+    ![An image that depicts Azure Site Recovery settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image05.png "ASR replicate source settings")
+
+9. Once all the Enable replication jobs are successful, click on **Replicated items** under **Protected Items** to view the status of the initial replication.
+    
+10. While waiting for the initial replication/synchronization, move on to the next task.
+
+### Task 2: Creating the Recovery Plan
+
+In this task, you will create the recovery plan that will be used to orchestrate failover actions, such as the order in which failed-over VMs are powered on.
+
+1. Within the properties of the Recovery Services vault, click on **Recovery Plans (Site Recovery)** under Manage. Click on Step 2: Manage Recovery Plans.
+
+    ![An image that depicts Azure Recovery Plan for Site Recovery.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image06.png "ASR Recovery Plan")
+
+2. On the Create recovery plan blade enter the name CloudShopRP. In the Source area select the region where you deployed Cloud Shop. The Target will be automatically selected. Under Allow items with deployment model, select Resource Manager. Click Select items and select the Virtual Machines. Click OK and, back on the Create recovery plan blade, click OK.
+
+    ![An image that depicts Azure Recovery Plan Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image07.png "ASR Recovery Plan settings")
+
+3. After a minute or two, you should see the CloudShopRP on the Recovery plans blade. This recovery plan would bring up both servers at once during a failover. In an N-tier application, it is often best to have the data tier come up first. So, we will edit the recovery plan to accomplish this. Click the CloudShopRP recovery plan.
+   
+4. On the CloudShopRP blade click Customize. Within the Recovery plan blade, click + Group.
+
+    ![An image that depicts Azure Recovery Plan Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image08.png "ASR Recovery Plan settings")
+
+5. Under Group 1: Start click on the ellipse beside WebVM-1 and WebVM-2 and choose Delete machine. Leave only SQL Server in Group-1.
+
+
+6. Click on the ellipse beside Group 2: Start and choose Add protected item and Add Both Web servers. Then save the changes.
+
+    ![An image that depicts Azure Recovery Plan Group Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image09.png "ASR Recovery Plan Group settings")
+
+7. Now go back to the Recovery Services Vault BackupVault2 - Overview blade. Click on Site Recovery. Notice the two servers that make the Cloud Shop application are replicating. Take note of their status. They should be close to 100%. You will not be able to continue until they are finished replicating. 
+   
+   >**Note**: This may take up to an hour.
+
+### Task 3: Creating the Test Fail Over.
+
+1. Within the Azure portal, click on Resource Groups and locate the resource group with -asr added to the end of its name.
+   
+    ![An image that depicts Azure Resource Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image10.png "ASR Resource Group")
+
+2. Click on this resource group and notice the resources created by ASR to support workload protection and failover.
+
+3. Navigate back to the Overview section of your Recovery Services vault via the tile on your dashboard. Under Site Recovery, click on **Replicated items** and ENSURE both Cloud Shop VMs are fully protected before continuing.
+   
+4. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery click on **Recovery Plans**.
+
+    ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image12.png "ASR Recovery plan")
+
+5. Right-click the CloudShopRP and click **Test Failover**.
+
+    ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image13.png "ASR Test failover")
+
+6. On the new Test failover blade, under Choose a recovery point, select Latest processed (low RTO) and under Azure virtual network choose **CloudShopVNET1-asr**. Click OK.
+
+>**Note**: In a 'real-world' recovery test, you should choose an isolated virtual network so as to not impact the production application. 
+
+7. From the Recovery Services vault blade, click Jobs under MONITORING AND REPORTS. In the new blade, under General, select **Site recovery jobs**.
+On the Site recovery jobs blade click on the running job (Test failover).
+
+8. On the Test failover blade, monitor the progress of the failover. Notice each step is executing and you can track the status and execution time. Also notice that the data tier is being started first, then the app tier, as per our recovery plan.
+
+9. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery click back on Recovery plans. Notice the Recovery plan is waiting on your input.
+
+
+10. Under Resource groups in the left-hand navigation bar, navigate to the resource group created for this protected workload, called CloudShopRG1-asr. Note the resources that have been created as a part of the failover action. The compute resources were not provisioned until the failover occurred.
+
+### Task 4: Cleaning the Test Fail Over.
+
+1. In the Azure portal, navigate back to the **Recovery Services Vault** via the dashboard tile. In the **Overview** section of the Recovery Services Vault, under the **Site Recovery tab**, click on **Recovery plans**.
+   
+2. Notice that the recovery plan has a pending job called **Cleanup test failover** pending. Right-click on the **CloudShopRP recovery plan** and select **Cleanup test failover**.
+
+3. In the Test failover cleanup blade, enter notes indicating that the test was successful, and click the checkbox indicating the testing is complete. Then click OK.
+   
+4. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery find the jobs tile and click on In-progress jobs. 
+   
+5. On the Site recovery jobs blade, click on the running job. Monitor the status until the environment is cleaned up (approximately 5 minutes).
+
+6. In the Azure portal navigate to Resource Groups and click on the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually-created public IP address.
+
 
 ## After the hands-on lab
 
