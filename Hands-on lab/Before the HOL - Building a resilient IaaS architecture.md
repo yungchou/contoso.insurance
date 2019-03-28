@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -76,13 +76,13 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
     -   Virtual machine name: **LABVM**
     -   Location: **Choose the closest Azure region to you**.
     -   Size: **D2S\_V3 Standard**
-    -   User name: **demouser**
+    -   Username: **demouser**
     -   Password: **demo\@pass123**
     -   Public inbound ports: **RDP (3389)**
 
     ![Fields in the Basics tab display the previously defined settings.](images/Setup/image6.png "Basics tab")
 
-    >**Note**: If the Azure Subscription you are using is [NOT]{.underline} a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
+    >**Note**: If the Azure Subscription you are using is **NOT** a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
 
 6. On the **Management** tab, create a new diagnostics storage account with a unique name.
    
@@ -119,7 +119,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
 4.  You will be presented with a remote desktop connection warning because of a certificate trust issue. Click, **Don't ask me again for connections to this computer** followed by **Yes** to continue with the connection.
 
-    ![The Remote Desktop Connection warning window displays with the message that the identity of the remote computer cannot be verified, and asking if you want to continue anyway. the Don\'t ask me again for connections to the computer checkbox is selected.](images/Setup/image16.png "Remote Desktop Connection warning window")
+    ![The Remote Desktop Connection warning window displays with the message that the identity of the remote computer cannot be verified, and asking if you want to continue anyway. the Don't ask me again for connections to the computer checkbox is selected.](images/Setup/image16.png "Remote Desktop Connection warning window")
 
 5.  When logging on for the first time, you will see a prompt on the right asking about network discovery. Click **No**.
 
@@ -143,7 +143,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
 10. If prompted, click **Don't show this again** regarding protected mode.
 
-11. To download the exercise files for the hands-on lab, paste this URL into the browser.
+11. To download the exercise files for the hands-on lab, paste this URL into the browser:
 
     https://cloudworkshop.blob.core.windows.net/resilient-iaas-hackathon/Building_Resilient_Iaas_Hackathon_Student_Files.zip  
 
