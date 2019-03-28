@@ -18,7 +18,7 @@ Information in this document, including URL and other Internet Web site referenc
 Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -270,7 +270,7 @@ In this task, you will change the disk cache settings on the existing domain con
 10. Click the **Management** tab and configure as follows:
 
     - Boot diagnostics: **On**
-    - Diagnostics storage account: **Create new and select a unique name**
+    - Diagnostics storage account: **Create new and select a unique name**.
     - Enable backup: **On**
     - Recovery Services vault: **Create new**
     - Recovery Services vault name: **BackupVault**
@@ -474,7 +474,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     ![In the Extensions blade, the status for CustomScriptExtensions is Provisioning succeeded.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image69.png "Extensions blade")
 
-    >**Note**: If this was a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADVM should be demoted gracefully, and if required, a new DC can be added to the ADAV Availability Set and data disk attached for F:\\.
+    >**Note**: If this were a live production environment, there would need to be some additional steps to clean up Region 1 and to configure DNS, Sites and Services, Subnets, etc. Please refer to documentation on running Active Directory Virtualized or in Azure for details. ADVM should be demoted gracefully, and if required, a new DC can be added to the ADAV Availability Set and data disk attached for F:\\.
 
 10. Open the settings for **VNET2** in the Azure portal. Under DNS servers, remove the exiting custom DNS entry and add the two new domain controller IP addresses and click **Save**.
 
@@ -572,9 +572,9 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-18. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this github repository. The script will deploy the cloudshop database to the database servers. 
+18. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this GitHub repository. The script will deploy the cloudshop database to the database servers. 
     
-    >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the url below in your local desktop or any drive, just copy and paste in your PowerShell window.
+    >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the URL below in your local desktop or any drive, just copy and paste in your PowerShell window.
     
     https://github.com/opsgility/cw-building-resilient-iaas-architecture/tree/master/script-extensions 
 
@@ -597,7 +597,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 In this task, you will deploy a highly available web servers. 
 
-1. Navigate to the URL https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
+1. Navigate to the URL: https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
    
 2.  Specify the existing resource group **CloudShopRG**. 
 
@@ -609,7 +609,7 @@ In this task, you will deploy a highly available web servers.
 
 ### Summary
 
-In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template. Also you deployed resilient web tier with an external load balancer through an ARM template.
+In this exercise, you deployed resilient web servers behind a load balancer, and a SQL Always-On Availability Group for database resiliency through an ARM template. Also, you deployed resilient web tier with an external load balancer through an ARM template.
 
 ## Exercise 4: Configure SQL Server Managed Backup 
 
@@ -739,7 +739,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 1.  Within the Azure portal, click on Virtual Machines and open **SQL0** Click **Stop** at the top of the blade to shut the virtual machine off.
 
-2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary vm (SQL1) and connect via SQL Server Management Studio to confirm.
+2.  After the VM is deallocated, refresh the CloudShop application in your browser. If the page loads with data in the dropdown list SQL has successfully failed over the primary node to the secondary. You can login to the secondary VM (SQL1) and connect via SQL Server Management Studio to confirm.
 
 ### Task 3: Validate backups are taken 
 
@@ -775,7 +775,7 @@ In this task, you will add a 3rd node to the SQL Always-On deployment in a secon
 
 6. On the Configure settings blade, notice that you can alter the target resource group and virtual network settings, along with the replication policy. Click **Create target resources**. 
 
-    **Note**: Do not close the blade. It will close by itself after the target resources are created (2-3 minutes).
+    >**Note**: Do not close the blade. It will close by itself after the target resources are created (2-3 minutes).
 
 7. Several Site Recovery jobs will be initiated which are creating the replication policy as well as the target resources to be used during a failover. 
 
@@ -805,7 +805,7 @@ In this task, you will create the recovery plan that will be used to orchestrate
 
     ![An image that depicts Azure Recovery Plan Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image08.png "ASR Recovery Plan settings")
 
-5. Under Group 1: Start click on the ellipse beside WebVM-1 and and WebVM-2 and choose Delete machine. Leave only SQL Server in Group-1.
+5. Under Group 1: Start click on the ellipse beside WebVM-1 and WebVM-2 and choose Delete machine. Leave only SQL Server in Group-1.
 
 
 6. Click on the ellipse beside Group 2: Start and choose Add protected item and Add Both Web servers. Then save the changes.
@@ -814,11 +814,11 @@ In this task, you will create the recovery plan that will be used to orchestrate
 
 7. Now go back to the Recovery Services Vault BackupVault2 - Overview blade. Click on Site Recovery. Notice the two servers that make the Cloud Shop application are replicating. Take note of their status. They should be close to 100%. You will not be able to continue until they are finished replicating. 
    
-   **Note**: This may take up to an hour.
+   >**Note**: This may take up to an hour.
 
 ### Task 3: Creating the Test Fail Over.
 
-1. Within the Azure portal, click on Resource Groups and locate the resource group with -asr added to the end of it's name.
+1. Within the Azure portal, click on Resource Groups and locate the resource group with -asr added to the end of its name.
    
     ![An image that depicts Azure Resource Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image10.png "ASR Resource Group")
 
@@ -836,7 +836,7 @@ In this task, you will create the recovery plan that will be used to orchestrate
 
 6. On the new Test failover blade, under Choose a recovery point, select Latest processed (low RTO) and under Azure virtual network choose **CloudShopVNET1-asr**. Click OK.
 
-**Note**: In a 'real-world' recovery test, you should choose an isolated virtual network so as to not impact the production application. 
+>**Note**: In a 'real-world' recovery test, you should choose an isolated virtual network so as to not impact the production application. 
 
 7. From the Recovery Services vault blade, click Jobs under MONITORING AND REPORTS. In the new blade, under General, select **Site recovery jobs**.
 On the Site recovery jobs blade click on the running job (Test failover).
