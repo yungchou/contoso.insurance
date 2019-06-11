@@ -240,7 +240,7 @@ In this task, you will change the disk cache settings on the existing domain con
 
 5.  In the left pane, click **+ Create a resource**.
 
-6.  In the **New** blade, select **Compute** **\>** **Windows Server 2016 VM**.
+6.  In the **New** blade, select **Windows Server 2016 Datacenter**.
 
     ![In the New blade, under Azure Marketplace, Compute is selected. Under Featured, Windows Server 2016 Datacenter is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image41.png "New blade")
 
@@ -420,7 +420,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
     >**Note**: The Static IP for **DC02** should be 10.0.2.6. **DC03** should be 172.16.2.4 and **DC04** should be 172.16.2.5.
 
-15. In the Azure portal, click **More Services \>** and in the filter, type in **Virtual Networks**. Select **VNET2** from the list.
+15. In the Azure portal, click **All Services \>** and in the filter, type in **Virtual Networks**. Select **VNET2** from the list.
 
 16. In the **Settings** area, select **DNS Servers**.
 
@@ -502,7 +502,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
    
 2.  Specify the following information
    
-    Resource group:**CloudShopRG** 
+    Resource group: **CloudShopRG** 
     
     Location: **East US 2** 
     
@@ -529,8 +529,11 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 5.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
     ![Screenshot of the Connect icon.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image52.png "Connect icon")
+    >**Note**: Use `ADVM` as a jump box to connect to SQL0 on the private IP Address.
 
 6.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
+     
+   
 
 7.  open the **Failover Cluster Manager**, click connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always on availability group. expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
@@ -540,7 +543,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![SQL Server 2017 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
 
-9. Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
+9.  Click **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and select **Properties**.
 
     ![In SQL Server 2017 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-click menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2017 Configuration Manager")
 
@@ -563,16 +566,20 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 14. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
 
 15. Move back to RDP session with **SQL0**.
+    
+16. Navigate to the local C: drive and the two folder directories Data and Logs
+    
+    ![In the Windows Explorer the directories Data and Logs are created.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image129.png "Windows Explorer")
 
-16. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
+17. Launch **SQL Server Management Studio 17**, and connect to the local instance of SQL Server.
 
-17. Click **Connect** to login to SQL Server.
+18. Click **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-28-19-36-49.png "Connect to Server dialog box")
 
     >**Note**: Availability Groups require that the databases be in full recovery mode.
 
-18. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this GitHub repository. The script will deploy the cloudshop database to the database servers. 
+19. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this GitHub repository. The script will deploy the cloudshop database to the database servers. 
     
     >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the URL below in your local desktop or any drive, just copy and paste in your PowerShell window.
     
@@ -589,7 +596,25 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
     ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image02.png "Creating a new database")
 
 
-21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **Availability Databases** (Primary), - Add Database -  and select Adventure works and continue the prompt to add the database to the availability group. Once completed, Right click the **Availability Groups** - **Show Dashboard**. Your dashboard should look similar to this:
+21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **Availability Databases** (Primary), - Add Database -  and select Adventure works and continue the prompt to add the database to the availability group. This will start the wizard.
+    
+22. Click `Next` on the Introduction Page of the Wizard.
+    
+23. Click the check box next to the AdventureWorks database. Then click Next.
+    
+    ![Selecting a Database in the Add Database to an Availability Group Wizard](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image130.png "Adding a Secondary Replica to a SQL Availability Group")
+
+24. On the connect to existing Secondary Replicas page. Click the Connect button using the default credentials. On the Connect to Server box click to the connect button using the default credentials here as well. Once connected click the Next button to continue.
+    
+    ![Connecting to a secondary replica that existed from the cluster created earlier in the process.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image131.png "Connecting Existing Replicas Screen")
+
+25. Use the default of Automatic Seeding and click the Next button. 
+    
+26. On the validation screen your results should all of the status of Success. Click Next and then Finish to conclude the Wizard. Close the wizard by clicking the close button.
+    
+    ![Validation screen showing the results of the availability group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image132.png "Validation Screen")
+
+27. Once completed, Right click the **Availability Groups** - **Show Dashboard**. Your dashboard should look similar to this:
 
     ![On the Dashboard, a green Check mark displays next to AdventureWorksAG:  (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQL0 SQL1, AdventureWorks SQL0 and AdventureWorks SQL1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
@@ -621,7 +646,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 In this task, you will add a 3rd node to the SQL Always-On deployment in a second region that you can then failover with Azure Site Recovery in the event of a failure in the primary region.
 
-1.  From **LABVM**, execute the following PowerShell commands in the PowerShell ISE to create a new storage account and generate the T-SQL needed to configure managed backup for the AdventureWorks database.
+1.  From **LABVM**, execute the following PowerShell commands in the PowerShell ISE to create a new storage account and generate the T-SQL needed to configure managed backup for the AdventureWorks database. You must first login to Azure through the PowerShell console before the execution of the following command.
 
     ```powershell
     $storageAcctName = "[unique storage account name]"

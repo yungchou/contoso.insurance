@@ -59,13 +59,13 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
     >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
 
-2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio Community 2017 on Windows Server 2016** and press Enter. Click the Visual Studio Community 2017 image running on Windows Server 2016 and with the latest update.
+2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio** and press Enter. Click the Visual Studio Community 2017 image on Windows Server 2016 and with the latest release.
 
 3.  In the returned search results, click the image name.
    
     ![In the Azure Portal, in the Everything blade, the Search field is set to Visual Studio Community 2017 on Windows Server 2016 (x64). In the Results section, Visual Studio Community 2017 on Windows Server 2016 (x64) is selected.](images/Setup/image4.png "Azure Portal Everything blade")
 
-4.  At the bottom of the page in the Marketplace solution blade, click **Create**.
+4.  At the top of the page in the Marketplace solution blade, click **Create**.
 
     ![In the Marketplace Solution blade click Create.](images/Setup/image5.png "Marketplace Solution blade")
 
@@ -84,7 +84,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
     >**Note**: If the Azure Subscription you are using is **NOT** a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
 
-6. On the **Management** tab, create a new diagnostics storage account with a unique name.
+6. On the **Management** tab, create a new diagnostics storage account with a unique name. If a storage account is not populated already within the field.
    
    ![Azure portal screenshot of the Management tab in VM create showing a new diagnostics storage account.](images/Setup/image25.png "Management tab")
 
