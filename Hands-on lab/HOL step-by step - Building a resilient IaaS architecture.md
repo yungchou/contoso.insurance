@@ -74,7 +74,7 @@ At the end of the lab, you will be better able to design and use availability se
 
 ## Overview
 
-Contoso has asked you to deploy their infrastructure in a resilient manner to insure their infrastructure will be available for their users and gain an SLA from Microsoft.
+Contoso has asked you to deploy their infrastructure in a resilient manner to ensure their infrastructure will be available for their users and gain an SLA from Microsoft.
 
 ## Solution architecture
 
@@ -301,7 +301,7 @@ In this task, you will deploy Active Directory in the second region, so identity
     -   Subscription: **Select your subscription**.
     -   Resource group (create new): **CUSADRG**
     -   Virtual machine name: **DC03**
-    -   Size: **Standard D2SV3**
+    -   Size: **Standard_D2SV3**
     -   Region: **Central US**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
@@ -462,7 +462,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 
 6.  Choose **Custom Script Extension** by Microsoft Corp., and click the **Create** button to continue.
 
-    ![The Custom Script Extention option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image67.png "Custom Script Extention option")
+    ![The Custom Script Extension option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image67.png "Custom Script Extension option")
 
 7.  Browse to the **C:\\HOL** folder and select the **AddDC.ps1** script by clicking the folder icon for **Script file (Required)**. Then, click the **OK** button to continue.
 
@@ -562,6 +562,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 13. From the Azure portal, locate **SQL1**, and click **Connect.** Make sure to Sign On using the **contoso\\demouser** domain account.
 
     ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
+    >**Note**: Use `ADVM` as a jump box to connect to SQL1 on the private IP Address.
 
 14. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
 
@@ -577,8 +578,6 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2018-08-28-19-36-49.png "Connect to Server dialog box")
 
-    >**Note**: Availability Groups require that the databases be in full recovery mode.
-
 19. Use the PowerShell or PowerShell ISE to deploy the cloudshop database by running the command below. Deploy-cloudshop-db.ps1 script is available in this GitHub repository. The script will deploy the cloudshop database to the database servers. 
     
     >**Note**: You need to pass the parameters below with the PowerShell script. If you download the script from the URL below in your local desktop or any drive, just copy and paste in your PowerShell window.
@@ -589,20 +588,22 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
     PS C:\Users\demouser.SQL0\Desktop> .\deploy-cloudshop-db.ps1  -user "demouser" -password "demo@pass123" -dbsource "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/AdventureWorks2012.bak" -sqlConfigUrl "https://raw.githubusercontent.com/opsgility/cw-building-resilient-iaas-architecture/master/script-extensions/configure-sql.ps1"
 
 
-    >**Note**: You may need to wait few minutes to view the newly created adventureworks database in SSMS.
+    >**Note**: You may need to wait few minutes to view the newly created AdventureWorks database in SSMS.
 
-20. In SSMS - Right click AdventureWorks database - Task - Back Up. Make sure **Backup type** and **Recovery Type** is **Full** selected. Click Ok to initiate the backup. 
+20. SQL Server Availability Groups require that the database be in full recovery mode. To put your database in full recovery mode, open SSMS - Right click AdventureWorks database - Task - Back Up. Make sure **Backup type** and **Recovery Type** is **Full** selected. Click **Ok** to initiate the backup. 
 
     ![New Database creation in Availability Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image02.png "Creating a new database")
 
 
 21. Expand **AlwaysOn High Availability -\> Availability Groups**, right-click **Availability Databases** (Primary), - Add Database -  and select Adventure works and continue the prompt to add the database to the availability group. This will start the wizard.
     
-22. Click `Next` on the Introduction Page of the Wizard.
+22. Click **Next** on the Introduction Page of the Wizard.
     
 23. Click the check box next to the AdventureWorks database. Then click Next.
     
     ![Selecting a Database in the Add Database to an Availability Group Wizard](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image130.png "Adding a Secondary Replica to a SQL Availability Group")
+
+    >**Note**: If your AdventureWorks database does not meet the prerequisites, you should double-check that your database is in full recovery mode and that you have taken a full backup.
 
 24. On the connect to existing Secondary Replicas page. Click the Connect button using the default credentials. On the Connect to Server box click to the connect button using the default credentials here as well. Once connected click the Next button to continue.
     
@@ -620,7 +621,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 ### Task 2: Build a scalable and resilient web tier
 
-In this task, you will deploy a highly available web servers. 
+In this task, you will deploy a highly available web site. 
 
 1. Navigate to the URL: https://github.com/opsgility/cw-building-resilient-iaas-architecture and click to **Deploy to Azure** on the sample for building a resilient IaaS Architecture - Deploy Web Tier.
    
