@@ -1,4 +1,4 @@
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-March 2019
+June 2019
 </div>
 
 
@@ -18,6 +18,7 @@ Information in this document, including URL and other Internet Web site referenc
 Microsoft may have patents, patent applications, trademarks, copyrights, or other intellectual property rights covering subject matter in this document. Except as expressly provided in any written license agreement from Microsoft, the furnishing of this document does not give you any license to these patents, trademarks, copyrights, or other intellectual property.
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
+
 © 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
@@ -321,7 +322,7 @@ In this task, you will deploy Active Directory in the second region, so identity
 6. Click the **Management** tab and configure as follows:
 
     - Boot diagnostics: **On**
-    - Diagnostics storage account: **Create new and select a unique name**
+    - Diagnostics storage account: **Create new and select a unique name**.
     - Enable backup: **On**
     - Recovery Services vault: **Create new**
     - Recovery Services vault name: **BackupVault2**
@@ -531,8 +532,6 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
     >**Note**: Use `ADVM` as a jump box to connect to SQL0 on the private IP Address.
 
 6.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
-     
-   
 
 7.  open the **Failover Cluster Manager**, click connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always on availability group. expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
@@ -567,7 +566,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 15. Move back to RDP session with **SQL0**.
     
-16. Navigate to the local C: drive and the two folder directories Data and Logs
+16. Navigate to the local C: drive and the two folder directories Data and Logs.
     
     ![In the Windows Explorer the directories Data and Logs are created.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image129.png "Windows Explorer")
 
@@ -646,7 +645,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up to an 
 
 In this task, you will add a 3rd node to the SQL Always-On deployment in a second region that you can then failover with Azure Site Recovery in the event of a failure in the primary region.
 
-1.  From **LABVM**, execute the following PowerShell commands in the PowerShell ISE to create a new storage account and generate the T-SQL needed to configure managed backup for the AdventureWorks database. You must first login to Azure through the PowerShell console before the execution of the following command.
+1.  From **LABVM**, execute the following PowerShell commands in the PowerShell ISE to create a new storage account and generate the T-SQL needed to configure managed backup for the AdventureWorks database. You must first login to Azure through the PowerShell console before the execution of the following command:
 
     ```powershell
     $storageAcctName = "[unique storage account name]"
