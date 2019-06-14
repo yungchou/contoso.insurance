@@ -1,4 +1,4 @@
-![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-March 2019
+June 2019
 </div>
 
 
@@ -41,7 +41,6 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 2.  Virtual Machine Built during this hands-on lab or local machine with the following:
 
-    - Visual Studio 2017 Community or Enterprise Edition
     - Latest Azure PowerShell cmdlets:
         - <https://azure.microsoft.com/en-us/downloads/>
         - <https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps>
@@ -59,15 +58,15 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
     >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
 
-2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio Community 2017 on Windows Server 2016** and press Enter. Click the Visual Studio Community 2017 image running on Windows Server 2016 and with the latest update.
+2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio 2019** and press Enter. Click the Visual Studio Community 2019 image on Windows Server 2019 and with the latest release.
 
 3.  In the returned search results, click the image name.
    
-    ![In the Azure Portal, in the Everything blade, the Search field is set to Visual Studio Community 2017 on Windows Server 2016 (x64). In the Results section, Visual Studio Community 2017 on Windows Server 2016 (x64) is selected.](images/Setup/image4.png "Azure Portal Everything blade")
+    ![In the Azure Portal, in the Everything blade, the Search field is set to Visual Studio Community 2019 on Windows Server 2019 (x64). In the Results section, Visual Studio Community 2019 on Windows Server 2019 (x64) is selected.](images/Setup/2019-06-13-17-38-41.png "Azure Portal Everything blade")
 
-4.  At the bottom of the page in the Marketplace solution blade, click **Create**.
+4.  At the top of the page in the Marketplace solution blade, click **Create**.
 
-    ![In the Marketplace Solution blade click Create.](images/Setup/image5.png "Marketplace Solution blade")
+    ![In the Marketplace Solution blade click Create.](images/Setup/2019-06-13-17-40-12.png "Marketplace Solution blade")
 
 5.  Set the following configuration on the Basics tab:
 
@@ -78,27 +77,24 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
     -   Size: **D2S\_V3 Standard**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
-    -   Public inbound ports: **RDP (3389)**
+    -   Public inbound ports: **Allow selected ports**
+    -   Select inbound ports: **RDP**
 
-    ![Fields in the Basics tab display the previously defined settings.](images/Setup/image6.png "Basics tab")
+    ![Fields in the Basics tab display the previously defined settings.](images/Setup/2019-06-13-17-45-08.png "Basics tab")
 
-    >**Note**: If the Azure Subscription you are using is **NOT** a trial Azure subscription, you may want to choose the DS2\_V2 to have more power in this LABMVM. If you are using a trial subscription or one that you know has a restriction on the number of cores, choose the DS1\_V2.
+    >**Note**: If you are using a trial subscription or one that you know has a restriction on the number of cores, you may use a smaller virtual machine size such as DS1\_V2.
 
-6. On the **Management** tab, create a new diagnostics storage account with a unique name.
-   
-   ![Azure portal screenshot of the Management tab in VM create showing a new diagnostics storage account.](images/Setup/image25.png "Management tab")
+6.  Select the **Management** tab. Choose your local time zone and select an auto-shutdown time that will not impact your work on the lab. Click **Review + create**.
 
-   ![Azure portal screenshot of the creation of a new diagnostics storage account.](images/Setup/image24.png "Diagnostics storage blade")
+    ![The management tab with default options shown for shutdown time and time zone.](images/Setup/2019-06-13-17-53-20.png "Management tab")
 
-7. Click the **Review + create** or click on the **Review + create** tab.
+7.  On the **Review + create** tab, click **Create**.
 
-8.  On the **Review + create** tab, click **Create**.
+    ![Azure portal screenshot showing the Review + create tab of the VM create experience.](images/Setup/2019-06-13-17-56-02.png "Review + create")
 
-    ![Azure portal screenshot showing the Review + create tab of the VM create experience.](images/Setup/image26.png "Review + create")
+8.  The deployment should begin provisioning. It may take more than 10 minutes for the virtual machine to complete provisioning.
 
-9.  The deployment should begin provisioning. It may take more than 10 minutes for the virtual machine to complete provisioning.
-
-    ![The Deploying Visual Studio Community 2017 notice displays.](images/Setup/image27.png "Deploying Visual Studio Community 2017")
+    ![The Deploying Visual Studio Community 2019 notice displays.](images/Setup/2019-06-13-17-58-11.png "Deploying Visual Studio Community 2019")
 
     >**Note**: Once the deployment is complete, move on to the next exercise.
 
@@ -106,7 +102,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
 1.  In the Azure portal, browse to **LABVM** and wait for it to show the Status of **Running**. Click **Connect** to establish a new remote desktop session.
 
-    ![On the Azure Portal menu bar, Connect is selected.](images/Setup/image14.png "Azure Portal")
+    ![On the Azure Portal menu bar, Connect is selected.](images/Setup/2019-06-13-18-03-42.png "Azure Portal")
 
 2.  Depending on your remote desktop protocol client and browser configuration, you will either be prompted to open an RDP file, or you will need to download it followed by opening it up separately to connect. You may also be required to click, **Use a different account**.
 
