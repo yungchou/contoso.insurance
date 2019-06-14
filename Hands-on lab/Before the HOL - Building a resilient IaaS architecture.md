@@ -84,7 +84,7 @@ In this exercise, you deploy a Lab VM and configure the tools needed to complete
 
     >**Note**: If you are using a trial subscription or one that you know has a restriction on the number of cores, you may use a smaller virtual machine size such as DS1\_V2.
 
-6.  Select the **Management** tab. Choose your local timezone and select an auto-shutdown time that will not impact your work on the lab. Click **Review + create**.
+6.  Select the **Management** tab. Choose your local time zone and select an auto-shutdown time that will not impact your work on the lab. Click **Review + create**.
 
     ![The management tab with default options shown for shutdown time and time zone.](images/Setup/2019-06-13-17-53-20.png "Management tab")
 
