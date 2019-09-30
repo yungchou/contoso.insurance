@@ -8,10 +8,12 @@
             "allowedValues": [
               "Premium_LRS"
             ]
-          },
-        "subnetId": {
+        },
+        "AppsSubnetId": {
             "type": "string",
-            "defaultValue": "[concat(subscription().id, '/resourceGroups/ContosoRG/providers/Microsoft.Network/virtualNetworks/VNET1/subnets/Apps')]"
+            "metadata": {
+                "description": "Resource ID of the App subnet, where the WebVMs will be deployed"
+            }
         },
         "adminUsername": {
             "defaultValue": "demouser",
@@ -27,6 +29,10 @@
                 "description": "The password for the administrator account of the new VM and domain"
             }
         },
+        "domainName": {
+            "type": "string",
+            "defaultValue": "contoso.com"
+          },
         "CloudShopDownloadUrl": {
             "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/CloudShop.zip",
             "type": "string",
@@ -157,7 +163,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
-                                "id": "[parameters('subnetID')]"
+                                "id": "[parameters('AppsSubnetId')]"
                             },
                             "loadBalancerBackendAddressPools": [
                                 {
@@ -226,9 +232,10 @@
                     "name": "InstallCloudShop",
                     "apiVersion": "2019-03-01",
                     "location": "[resourceGroup().location]",
-                    "tags": {
-                        "displayName": "InstallCloudShop"
-                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebVMName'))]",
+                        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('WebVMName'), 'joindomain')]"
+                    ],
                     "properties": {
                         "publisher": "Microsoft.Compute",
                         "type": "CustomScriptExtension",
@@ -240,10 +247,32 @@
                             ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFolder'), variables('CloudShopInstallScriptFileName'), ' ', variables('CloudShopInstallScriptParameters'))]"
                         }
-                    },
+                    }
+                },
+                {
+                    "type": "extensions",
+                    "name": "joindomain",
+                    "apiVersion": "2019-03-01",
+                    "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebVMName'))]"
-                    ]
+                    ],
+                    "properties": {
+                        "publisher": "Microsoft.Compute",
+                        "type": "JsonADDomainExtension",
+                        "typeHandlerVersion": "1.3",
+                        "autoUpgradeMinorVersion": true,
+                        "settings": {
+                        "Name": "[parameters('domainName')]",
+                        "OUPath": "",
+                        "User": "[concat(parameters('domainName'), '\\', parameters('adminUserName'))]",
+                        "Restart": "true",
+                        "Options": "3"
+                        },
+                        "protectedSettings": {
+                        "Password": "[parameters('adminPassword')]"
+                        }
+                    }
                 }
             ],
             "dependsOn": [
@@ -305,7 +334,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
-                                "id": "[parameters('subnetId')]"
+                                "id": "[parameters('AppsSubnetId')]"
                             },
                             "loadBalancerBackendAddressPools": [
                                 {
@@ -374,9 +403,10 @@
                     "name": "InstallCloudShop",
                     "apiVersion": "2019-03-01",
                     "location": "[resourceGroup().location]",
-                    "tags": {
-                        "displayName": "InstallCloudShop"
-                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebVMName2'))]",
+                        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('WebVMName2'), 'joindomain')]"
+                    ],
                     "properties": {
                         "publisher": "Microsoft.Compute",
                         "type": "CustomScriptExtension",
@@ -388,10 +418,32 @@
                             ],
                             "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFolder'), '/', variables('CloudShopInstallScriptFileName'), ' ', variables('CloudShopInstallScriptParameters'))]"
                         }
-                    },
+                    }
+                },
+                {
+                    "type": "extensions",
+                    "name": "joindomain",
+                    "apiVersion": "2019-03-01",
+                    "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[resourceId('Microsoft.Compute/virtualMachines', parameters('WebVMName2'))]"
-                    ]
+                    ],
+                    "properties": {
+                        "publisher": "Microsoft.Compute",
+                        "type": "JsonADDomainExtension",
+                        "typeHandlerVersion": "1.3",
+                        "autoUpgradeMinorVersion": true,
+                        "settings": {
+                        "Name": "[parameters('domainName')]",
+                        "OUPath": "",
+                        "User": "[concat(parameters('domainName'), '\\', parameters('adminUserName'))]",
+                        "Restart": "true",
+                        "Options": "3"
+                        },
+                        "protectedSettings": {
+                        "Password": "[parameters('adminPassword')]"
+                        }
+                    }
                 }
             ],
             "dependsOn": [

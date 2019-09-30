@@ -2,9 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "subnetId": {
-      "type": "string",
-      "defaultValue": "[concat(subscription().id, '/resourceGroups/ContosoRG/providers/Microsoft.Network/virtualNetworks/VNET1/subnets/Data')]"
+    "DataSubnetId": {
+      "type": "string"
     },
     "nodeIpAddresses": {
       "type": "array",
@@ -113,7 +112,7 @@
               "privateIPAddress": "[parameters('clusterIpAddress')]",
               "privateIPAllocationMethod": "Static",
               "subnet": {
-                "id": "[parameters('subnetId')]"
+                "id": "[parameters('DataSubnetId')]"
               }
             }
           }
@@ -184,7 +183,7 @@
             "value": "[parameters('sqlVmSize')]"
           },
           "subnetId": {
-            "value": "[parameters('subnetId')]"
+            "value": "[parameters('DataSubnetId')]"
           },
           "fixedPrivateIp": {
             "value": "[parameters('nodeIpAddresses')[copyIndex()]]"

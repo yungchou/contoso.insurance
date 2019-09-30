@@ -55,7 +55,7 @@ You should follow all steps provided *before* attending the hands-on lab.
 
 In this task, you will use an Azure Resource Manager template to deploy the LabVM virtual machine. This machine will be pre-configured with Visual Studio 2019 Community Edition, has Azure PowerShell pre-installed, and is pre-loaded with various files which you will use during the lab.
 
-1.  Click the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
+1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
    
     [![Button to deploy the LabVM template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
 
@@ -64,7 +64,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
     - Resource Group: **(Create new) LabRG**
     - Location: **Choose a location close to you**
 
-    Select the checkbox to agree to the terms and conditions, then click **Purchase**.
+    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
     ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM](images/BeforeTheHOL/labvm-deploy.png)
 
@@ -74,7 +74,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 
 In this task, you will use an Azure Resource Manager template to deploy the CloudShop sample application, which you will use in this lab.
 
-1.  Click the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the CloudShop sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
+1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the CloudShop sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
     [![Button to deploy the CloudShop sample application template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
 
@@ -83,7 +83,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Clou
     - Resource Group: **(Create new) ContosoRG**
     - Location: **West US 2**
 
-    Select the checkbox to agree to the terms and conditions, then click **Purchase**.
+    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
     ![The custom deployment screen with ContosoRG as the resource group and East US 2 as the region.](images/BeforeTheHOL/cloudshop-deploy.png "Custom deployment")
     
