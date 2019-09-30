@@ -499,7 +499,7 @@ Address Spaces:
 
 -   On-Premises: 192.168.0.0/16 (Domain Controllers: 192.168.1.10 & 192.168.1.11)
 -   West Central US: 10.0.0.0/16 (Domain Controllers: 10.0.2.4 & 10.0.2.5)
--   West US 2: 172.16.0.0/16 (Domain Controller: 172.16.2.4)
+-   West US 2: 172.16.0.0/16 (Domain Controller: 172.16.2.4 & 172.16.2.5)
 
 Network Security Groups for the West Central US Virtual Network:
 
@@ -515,17 +515,17 @@ Network Security Groups for the West Central US Virtual Network:
 
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:| 
-|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.2.0/24     |  1433                |   ALLOW |
-|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.2.0/24    |   1433                |   ALLOW |
-|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.2.0/24     |  3389                |   ALLOW |
+|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.1.0/24     |  1433                |   ALLOW |
+|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.1.0/24    |   1433                |   ALLOW |
+|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.1.0/24     |  3389                |   ALLOW |
 
 **Identity Tier NSGs**
 
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:|
-|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.3.0/24     |  3389                 |  ALLOW    |
-|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
-|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.2.0/24     |  3389                 |  ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.2.0/24     |  ANY                  |  ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.2.0/24     |  ANY                  |  ALLOW    |
 
 **Network Security Groups for the West US 2 Virtual Network**
 
@@ -535,9 +535,9 @@ Since Contoso has not deployed any additional infrastructure to West US 2 the on
     
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:|                                                                                                       
-|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.3.0/24   |  3389         |          ALLOW    |
-|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
-|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.2.0/24   |  3389         |          ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.2.0/24   |  ANY          |          ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.2.0/24   |  ANY          |          ALLOW    |
 
 Resilient benefits:
 

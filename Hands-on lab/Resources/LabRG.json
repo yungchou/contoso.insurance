@@ -1,0 +1,209 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "demouser",
+      "metadata": {
+        "description": "Username for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "defaultValue": "demo@pass123",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
+    },
+    "studentFilesUrl": {
+      "type": "string",
+      "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/StudentFiles.zip"
+    },
+    "studentFilesDestination": {
+      "type": "string",
+      "defaultValue": "C:\\HOL"
+    }
+  },
+  "variables": {
+    "customScriptFolder": "./lab-resources/",
+    "customScriptUriScriptFileName": "configure-win-vm-image.ps1",
+    "customScriptUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/configure-win-vm-image.ps1",
+    "imagePublisher": "MicrosoftVisualStudio",
+    "imageOffer": "visualstudio2019latest",
+    "imageSku": "vs-2019-comm-latest-ws2019",
+    "imageVersion": "2019.9.18",
+    "OSDiskName": "LabVMOSDisk",
+    "OSDiskType": "Premium_LRS",
+    "nicName": "LabVMNIC",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetName": "Subnet",
+    "subnetPrefix": "10.0.0.0/24",
+    "NSGName": "LabVMNSG",
+    "publicIPAddressName": "LabVMIP",
+    "publicIPAddressType": "Dynamic",
+    "vmName": "LabVM",
+    "vmSize": "Standard_D2S_V3",
+    "virtualNetworkName": "LabVMVNet"
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]"
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[variables('virtualNetworkName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('addressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('subnetName')]",
+            "properties": {
+              "addressPrefix": "[variables('subnetPrefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('NSGName')]",
+      "apiVersion": "2018-08-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "RemoteDesktop",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "VirtualNetwork",
+              "access": "Allow",
+              "priority": 300,
+              "direction": "Inbound",
+              "sourcePortRanges": [],
+              "destinationPortRanges": [],
+              "sourceAddressPrefixes": [],
+              "destinationAddressPrefixes": []
+            }
+          }
+        ]
+      },
+      "dependsOn": []
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('nicName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('publicIPAddressName')]",
+        "[variables('virtualNetworkName')]",
+        "[variables('NSGName')]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+              },
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+              }
+            }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('NSGName'))]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2019-03-01",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('nicName')]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('imagePublisher')]",
+            "offer": "[variables('imageOffer')]",
+            "sku": "[variables('imageSku')]",
+            "version": "[variables('imageVersion')]"
+          },
+          "osDisk": {
+            "name": "[variables('OSDiskName')]",
+            "createOption": "FromImage",
+            "managedDisk": {
+                "storageAccountType": "[variables('OSDiskType')]"
+            }
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": false
+          }
+        }
+      },
+      "resources": [
+        {
+          "name": "CustomScriptExtension1",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2019-03-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+          ],
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.9",
+            "autoUpgradeMinorVersion": false,
+            "settings": {
+              "fileUris": [
+                "[variables('customScriptUri')]"
+              ],
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('customScriptUriScriptFileName'), ' -sourceFileUrl ', parameters('studentFilesUrl'), ' -destinationFolder ', parameters('studentFilesDestination'))]"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
