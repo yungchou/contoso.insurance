@@ -476,9 +476,9 @@ In this task you will verify that the SQL Always-On Availability Group has been 
 
     ![SQL Server 2017 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
 
-5.  Select **SQL Server Services**, right-select **SQL Server (MSSQLSERVER)**, and choose **Properties**.
+5.  Select **SQL Server Services**, right-click **SQL Server (MSSQLSERVER)**, and choose **Properties**.
 
-    ![In SQL Server 2017 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-select menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2017 Configuration Manager")
+    ![In SQL Server 2017 Configuration Manager, in the left pane, under SQL Server Configuration Manager (Local), SQL Server Services is selected. In the right pane, under Name, SQL Server (MSSQLSERVER) is selected, and Properties is selected from its right-click menu.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image78.png "SQL Server 2017 Configuration Manager")
 
 6. Select the **AlwaysOn High Availability** tab, make sure the box for **Enable AlwaysOn Availability Groups** is selected.
 
@@ -524,18 +524,18 @@ In this task, you will deploy the application database to the SQL Always-On data
 
     > **Note:** You may need to wait few minutes to view the newly created AdventureWorks database in SSMS.
 
-5.  SQL Server Availability Groups require that the database be in full recovery mode. In SSMS, right-select the **AdventureWorks** database and choose **Properties**. In the properties window, select **Options** in the left-nav and change the Recovery model to **Full**. Select **OK** to close the window.
+5.  SQL Server Availability Groups require that the database be in full recovery mode. In SSMS, right-click the **AdventureWorks** database and choose **Properties**. In the properties window, select **Options** in the left-nav and change the Recovery model to **Full**. Select **OK** to close the window.
 
     ![Screenshot showing the 'Recovery Mode' for the AdventureWorks database is set to 'Full'](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/recovery-mode.png "Setting the Recovery Mode")
 
-6.  SQL Server Availability Groups also require that a database backup is taken. In SSMS, right-select the **AdventureWorks** database, then select **Tasks**, **Back Up**. Make sure **Backup type** is **Full** and select **Add** to specify the backup file (for example, C:\AdventureWorks.bak). Select **OK** to start the backup and wait for it to complete.
+6.  SQL Server Availability Groups also require that a database backup is taken. In SSMS, right-click the **AdventureWorks** database, then select **Tasks**, **Back Up**. Make sure **Backup type** is **Full** and select **Add** to specify the backup file (for example, C:\AdventureWorks.bak). Select **OK** to start the backup and wait for it to complete.
 
     ![Screenshot showing the Back Up Database settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/db-backup.png "Backup the database")
 
 
-7.  In SSMS, expand **AlwaysOn High Availability -\> Availability Groups**. If **SQLClusterAG (Secondary)** is shown, right-select and choose **Failover...**. Select through the 'Fail Over Availability Group' wizard so this instance becomes the primary.
+7.  In SSMS, expand **AlwaysOn High Availability -\> Availability Groups**. If **SQLClusterAG (Secondary)** is shown, right-click and choose **Failover...**. Select through the 'Fail Over Availability Group' wizard so this instance becomes the primary.
     
-8.  Right-select **SQLClusterAG (Primary)** and choose **Add Database...** to open the 'Add Database to Availability Group' Wizard.
+8.  Right-click **SQLClusterAG (Primary)** and choose **Add Database...** to open the 'Add Database to Availability Group' Wizard.
 
     ![Screenshot showing the option to launch the Add Database to Availability Group wizard.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/add-db-aoag.png "Add Database...")
     
@@ -557,7 +557,7 @@ In this task, you will deploy the application database to the SQL Always-On data
     
     ![Validation screen showing the results of the availability group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image132.png "Validation Screen")
 
-14. Right-select **SQLClusterAG (Primary)** and choose **Show Dashboard**. Your dashboard should look similar to this:
+14. Right-click **SQLClusterAG (Primary)** and choose **Show Dashboard**. Your dashboard should look similar to this:
 
     ![On the Dashboard, a green Check mark displays next to SQLClusterAG:  (Replica role: Primary). The Availability group state is Healthy, and Synchronization state for SQL0 SQL1, AdventureWorks SQL0 and AdventureWorks SQL1 is Synchronized.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image89.png "Dashboard")
 
@@ -651,7 +651,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
    
     > **Note:** Remember to use ADVM as a jump box allowing you to connect to SQL0 on its private IP address **10.0.1.10**.
 
-2.  Launch SQL Server Management Studio and connect to the database instance. Right-select **SQL0**, and select **New Query**.
+2.  Launch SQL Server Management Studio and connect to the database instance. Right-click **SQL0**, and select **New Query**.
 
     ![A screen showing how to launch the new query pane in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image102.png "Launching the new query pane")
 
@@ -667,7 +667,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
     RECONFIGURE
     GO
     ```
-4.  Refresh SQL Server Management Studio. Find SQL Server Agent in the left-nav. If the agent is stopped, right-select it and choose **Start**, then **Yes** at the confirmation prompt.
+4.  Refresh SQL Server Management Studio. Find SQL Server Agent in the left-nav. If the agent is stopped, right-click it and choose **Start**, then **Yes** at the confirmation prompt.
 
     ![A screenshot showing how to start the SQL Server Agent in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sql-agent-start.png "Start SQL Server Agent")
 
@@ -808,7 +808,7 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
 
     ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image12.png "ASR Recovery plan")
 
-5. Right-select the **CloudShopRP** and choose **Test Failover**.
+5. Right-click the **CloudShopRP** and choose **Test Failover**.
 
     ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image13.png "ASR Test failover")
 
@@ -830,7 +830,7 @@ In this task, you will clean up the resources created during the test failover.
 
 1. In the Azure portal, navigate back to the **Recovery Services Vault** via the dashboard tile. In the **Overview** section of the Recovery Services Vault, under the **Site Recovery tab**, select **Recovery plans**.
    
-2. Notice that the recovery plan has a pending job called **Cleanup test failover** pending. Right-select on the **CloudShopRP recovery plan** and choose **Cleanup test failover**.
+2. Notice that the recovery plan has a pending job called **Cleanup test failover** pending. Right-click on the **CloudShopRP recovery plan** and choose **Cleanup test failover**.
 
 3. In the Test failover cleanup blade, enter notes indicating that the test was successful, and select the checkbox indicating the testing is complete. Then select **OK**.
    
