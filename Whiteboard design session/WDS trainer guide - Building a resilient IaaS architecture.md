@@ -716,7 +716,7 @@ https://docs.microsoft.com/en-us/azure/site-recovery/concepts-public-ip-address-
 
     **Azure Alerts**
 
-    Azure alerts also provide a unified view to all your alert rules and ability to manage them a single place; including viewing any unresolved alerts. Learn more about functionality from [Azure alerts - Overview](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts).
+    Azure alerts also provide a unified view to all your alert rules and ability to manage them a single place, including viewing any unresolved alerts. Learn more about functionality from [Azure alerts - Overview](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts).
 
     Alert uses the term **Log Alerts** to describe alerts where a signal is a custom query based on [Log Analytics](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-tutorial-viewdata) or [Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics). The [new metric alert capability](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts) provides ability to alert on [multidimensional metrics](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts) for specific Azure resources. The alerts for such resource can use additional filters on dimensions creating **Multi-Dimensional Metric Alerts**.
 
