@@ -235,7 +235,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
     ![Azure portal screenshot for a new data disk, with size 32 GiB.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/disk-size.png "Create a new disk")
 
-5. Select **OK** to return to the VM create wizard, and confirm that the new disk has host caching set to **None**.
+5. Select **OK** to return to the VM create wizard and confirm that the new disk has host caching set to **None**.
 
     ![Azure portal screenshot highlighting the host caching for the new data disk is 'None'.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/disk-host-caching-none.png "Data disk host caching")
 
@@ -341,7 +341,7 @@ Before promoting our new DCxx VMs to be domain controllers, they need to be conf
 
 5.  Repeat these steps on the remaining 3 DCs (**DC02**, **DC03**, and **DC04**).
 
-    > **Note:** The Static IPs for each Domain Controller should be as shown the the following table:
+    > **Note:** The Static IPs for each Domain Controller should be shown as the following table:
     > |  VM  | IP Address  |
     > |:----:|:-----------:| 
     > | DC01 |  10.0.2.5   |
@@ -484,7 +484,7 @@ In this task you will verify that the SQL Always-On Availability Group has been 
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image79.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
-7. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password (it may be configured correctly already). Select **OK** to accept the changes, and select **Yes** to confirm the restart of the server.
+7. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password (it may be configured correctly already). Select **OK** to accept the changes and select **Yes** to confirm the restart of the server.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
@@ -506,7 +506,7 @@ In this task, you will deploy the application database to the SQL Always-On data
 
 1.  Still on **SQL1**, open Windows Explorer and navigate to the **C:\\** drive. Create two new folders, **C:\\Data** and **C:\\Logs**. These are required when we add our database to the Always-On Availability Group later in this task.
 
-2.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio 17** (SSMS), and and select **Connect** to login to SQL Server.
+2.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio 17** (SSMS) and select **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2019-09-29_17h38_04.png "Connect to Server dialog box")
 
@@ -671,7 +671,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
 
     ![A screenshot showing how to start the SQL Server Agent in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sql-agent-start.png "Start SQL Server Agent")
 
-5.  Paste the T-SQL code you copied in the previous task into the query window replacing the existing code and select **Execute**. This code creates the new SQL identity with a Shared Access Signature for your storage account, and enables managed backup to the storage account.
+5.  Paste the T-SQL code you copied in the previous task into the query window replacing the existing code and select **Execute**. This code creates the new SQL identity with a Shared Access Signature for your storage account and enables managed backup to the storage account.
 
 6.  Paste the code into the query window replacing the existing code and select **Execute** to create a custom backup schedule.
 
@@ -752,7 +752,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
 
     >**Note**: Do not close the blade. It will close by itself after the target resources are created (2-3 minutes).
 
-7. Cick **Enable Replication**. Several Site Recovery jobs will be initiated which are creating the replication policy as well as the target resources to be used during a failover. 
+7. Select **Enable Replication**. Several Site Recovery jobs will be initiated which are creating the replication policy as well as the target resources to be used during a failover. 
 
     ![An image that depicts Azure Site Recovery settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image05.png "ASR replicate source settings")
 
@@ -770,7 +770,7 @@ In this task, you will create the recovery plan that will be used to orchestrate
 
     ![An image that depicts Azure Recovery Plan for Site Recovery.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image06.png "ASR Recovery Plan")
 
-2. On the Create recovery plan blade enter the name **CloudShopRP**. In the Source area select the region where you deployed Cloud Shop. The Target will be automatically selected. Under Allow items with deployment model, select Resource Manager. Select Select items and select the Virtual Machines. Select **OK** and, back on the Create recovery plan blade, select **OK** again.
+2. On the Create recovery plan blade enter the name **CloudShopRP**. In the Source area select the region where you deployed Cloud Shop. The Target will be automatically selected. Under Allow items with deployment model, select Resource Manager. Choose items and select the Virtual Machines. Select **OK** and, back on the Create recovery plan blade, select **OK** again.
 
     ![An image that depicts Azure Recovery Plan Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image07.png "ASR Recovery Plan settings")
 
