@@ -49,24 +49,22 @@ Duration: 25 minutes
 
 In this exercise, you deploy a Lab VM needed to complete the rest of your lab.
 
-You should follow all steps provided *before* attending the hands-on lab.
-
 ### Task 1: Create the LabVM Virtual Machine
 
 In this task, you will use an Azure Resource Manager template to deploy the LabVM virtual machine. This machine will be pre-configured with Visual Studio 2019 Community Edition, has Azure PowerShell pre-installed, and is pre-loaded with various files which you will use during the lab.
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
    
-    [![Button to deploy the LabVM template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
+    ![Button to deploy the LabVM template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
 
-2.  Complete the Custom deployment blade as follows
+2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) LabRG**
-    - Location: **Choose a location close to you**
+    - Location: **Choose a location close to you**.
 
     Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
-    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM](images/BeforeTheHOL/labvm-deploy.png)
+    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png)
 
     You should proceed to the next task **without** waiting for the deployment to complete. This saves time.
 
@@ -76,9 +74,9 @@ In this task, you will use an Azure Resource Manager template to deploy the Clou
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the CloudShop sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
-    [![Button to deploy the CloudShop sample application template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
+    ![Button to deploy the CloudShop sample application template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
 
-2.  Complete the Custom deployment blade as follows
+2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) ContosoRG**
     - Location: **West US 2**
@@ -94,11 +92,11 @@ In this task, you will verify that the LabVM and CloudShop sample application ha
 
 1.  You can check the LabVM deployment status by navigating to the **LabRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the 'Microsoft.Template' deployment. Make sure the template deployment status is **Succeeded** before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'](images/BeforeTheHOL/deployment-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png)
 
 2.  You can check the CloudShop deployment status by navigating to the **ContosoRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template](images/BeforeTheHOL/cloudshop-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png)
 
 3.  Once the CloudShop deployment is successful, validate the application by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
 
@@ -107,5 +105,7 @@ In this task, you will verify that the LabVM and CloudShop sample application ha
 ## Summary
 
 In these lab preparation steps, you set up a lab virtual machine, which includes Visual Studio 2019 Community Edition, Azure PowerShell, and other files used during this lab. You also deployed the CloudShop sample application which you will use in this lab.
+
+You should follow all steps provided *before* attending the hands-on lab.
 
 
