@@ -1,10 +1,10 @@
 # Building a resilient IaaS architecture 
 
-Contoso, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Contoso specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
+Contoso, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Contoso specializes in the data center space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider data center cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
 Several years ago, under the leadership of Lewis Franklin, head of infrastructure and operations, individual departments started migrating their servers into Azure. The Active Directory Domain Services (ADDS) team has deployed several Domain Controller (DC) Virtual Machines (VM) to a virtual network in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. Some effort was made to follow the guidance of Microsoft on the use of Active Directory (AD) in Azure, but some configuration gaps remain.
 
-June 2019
+October 2019
 
 ## Target audience
 
@@ -33,12 +33,12 @@ At the end of the lab, you will be better able to design and use availability se
 
 ## Azure services and related products
 - Azure VMs
+- Azure Virtual Networks
+- Availability Sets
+- Availability Zones
 - Azure Portal
 - Azure PowerShell
-- Azure Storage
-- Azure Active Directory
-- Azure Web Apps
-- Azure Virtual Networks
+- Active Directory
 - SQL Server
 - Azure Backup
 
@@ -52,7 +52,6 @@ DC Migration
 - [Design for resiliency](https://microsoft.sharepoint.com/sites/infopedia/pages/layouts/kcdoc.aspx?k=g01kc-1-30327)
 - [Linux VMs](https://microsoft.sharepoint.com/sites/infopedia/pages/layouts/kcdoc.aspx?k=g01kc-1-30330)
 - [Windows VMs](https://microsoft.sharepoint.com/sites/infopedia/pages/layouts/kcdoc.aspx?k=g01kc-1-30329)
-- [DMZ](https://microsoft.sharepoint.com/sites/infopedia/pages/layouts/kcdoc.aspx?k=g01kc-1-30332)
 - [Resiliency checklist](https://microsoft.sharepoint.com/sites/infopedia/pages/layouts/kcdoc.aspx?k=g01kc-1-30328)
 
 ## Help & Support

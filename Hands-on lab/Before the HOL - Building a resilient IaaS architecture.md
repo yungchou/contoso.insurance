@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-June 2019
+October 2019
 </div>
 
 
@@ -28,9 +28,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 - [Building a resilient IaaS architecture before the hands-on lab setup guide](#building-a-resilient-iaas-architecture-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Task 1: Create a Virtual Machine using the Azure portal](#task-1-create-a-virtual-machine-using-the-azure-portal)
-    - [Task 2: Connect to the VM and download the student files](#task-2-connect-to-the-vm-and-download-the-student-files)
-    - [Task 3: Install Azure PowerShell](#task-3-install-azure-powershell)
+    - [Task 1: Create the LabVM Virtual Machine](#task-1-create-the-labvm-virtual-machine)
+    - [Task 2: Deploy the CloudShop sample application](#task-2-deploy-the-cloudshop-sample-application)
+    - [Task 3: Wait for deployments to complete, and validate](#task-3-wait-for-deployments-to-complete-and-validate)
   - [Summary](#summary)
 
 # Building a resilient IaaS architecture before the hands-on lab setup guide 
@@ -39,138 +39,73 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 1.  Microsoft Azure Subscription
 
-2.  Virtual Machine Built during this hands-on lab or local machine with the following:
+2.  LabVM virtual machine deployed using the instructions below. This is pre-installed with various tools and files you will use during this lab.
 
-    - Latest Azure PowerShell cmdlets:
-        - <https://azure.microsoft.com/en-us/downloads/>
-        - <https://docs.microsoft.com/en-us/powershell/azure/install-azurerm-ps>
-        - Ensure you reboot after installing the SDK or Azure PowerShell may not work correctly.
+3.  CloudShop sample application, also deployed using the instructions below.
 
 ## Before the hands-on lab
 
-Duration: 30 minutes
+Duration: 25 minutes
 
-In this exercise, you deploy a Lab VM and configure the tools needed to complete the rest of your lab.
+In this exercise, you deploy a Lab VM needed to complete the rest of your lab.
 
-### Task 1: Create a Virtual Machine using the Azure portal 
+### Task 1: Create the LabVM Virtual Machine
 
-1.  Launch a browser and navigate to <https://portal.azure.com>. Once prompted, login with your Microsoft Azure credentials. If prompted, choose whether your account is an organization account or just a Microsoft Account.
+In this task, you will use an Azure Resource Manager template to deploy the LabVM virtual machine. This machine will be pre-configured with Visual Studio 2019 Community Edition, has Azure PowerShell pre-installed, and is pre-loaded with various files which you will use during the lab.
 
-    >**Note**: You may need to launch an \"in-private\" session in your browser if you have multiple Microsoft Accounts.
-
-2.  Click on **+ Create a resource**, and in the search box, type in **Visual Studio 2019** and press Enter. Click the Visual Studio Community 2019 image on Windows Server 2019 and with the latest release.
-
-3.  In the returned search results, click the image name.
+1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
    
-    ![In the Azure Portal, in the Everything blade, the Search field is set to Visual Studio Community 2019 on Windows Server 2019 (x64). In the Results section, Visual Studio Community 2019 on Windows Server 2019 (x64) is selected.](images/Setup/2019-06-13-17-38-41.png "Azure Portal Everything blade")
+    [![Button to deploy the LabVM template to Azure.](images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
 
-4.  At the top of the page in the Marketplace solution blade, click **Create**.
+2.  Complete the Custom deployment blade as follows:
 
-    ![In the Marketplace Solution blade click Create.](images/Setup/2019-06-13-17-40-12.png "Marketplace Solution blade")
+    - Resource Group: **(Create new) LabRG**
+    - Location: **Choose a location close to you**.
 
-5.  Set the following configuration on the Basics tab:
+    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
-    -   Subscription: **If you have multiple subscriptions choose the subscription to execute your labs in**.
-    -   Resource Group (create new): **OPSLABRG**
-    -   Virtual machine name: **LABVM**
-    -   Location: **Choose the closest Azure region to you**.
-    -   Size: **D2S\_V3 Standard**
-    -   Username: **demouser**
-    -   Password: **demo\@pass123**
-    -   Public inbound ports: **Allow selected ports**
-    -   Select inbound ports: **RDP**
+    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png)
 
-    ![Fields in the Basics tab display the previously defined settings.](images/Setup/2019-06-13-17-45-08.png "Basics tab")
+    You should proceed to the next task **without** waiting for the deployment to complete. This saves time.
 
-    >**Note**: If you are using a trial subscription or one that you know has a restriction on the number of cores, you may use a smaller virtual machine size such as DS1\_V2.
+### Task 2: Deploy the CloudShop sample application
 
-6.  Select the **Management** tab. Choose your local time zone and select an auto-shutdown time that will not impact your work on the lab. Click **Review + create**.
+In this task, you will use an Azure Resource Manager template to deploy the CloudShop sample application, which you will use in this lab.
 
-    ![The management tab with default options shown for shutdown time and time zone.](images/Setup/2019-06-13-17-53-20.png "Management tab")
+1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the CloudShop sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
-7.  On the **Review + create** tab, click **Create**.
+    [![Button to deploy the CloudShop sample application template to Azure.](images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
 
-    ![Azure portal screenshot showing the Review + create tab of the VM create experience.](images/Setup/2019-06-13-17-56-02.png "Review + create")
+2.  Complete the Custom deployment blade as follows:
 
-8.  The deployment should begin provisioning. It may take more than 10 minutes for the virtual machine to complete provisioning.
+    - Resource Group: **(Create new) ContosoRG**
+    - Location: **West US 2**
 
-    ![The Deploying Visual Studio Community 2019 notice displays.](images/Setup/2019-06-13-17-58-11.png "Deploying Visual Studio Community 2019")
+    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
-    >**Note**: Once the deployment is complete, move on to the next exercise.
+    ![The custom deployment screen with ContosoRG as the resource group and East US 2 as the region.](images/BeforeTheHOL/cloudshop-deploy.png "Custom deployment")
+    
 
-### Task 2: Connect to the VM and download the student files
+### Task 3: Wait for deployments to complete, and validate
 
-1.  In the Azure portal, browse to **LABVM** and wait for it to show the Status of **Running**. Click **Connect** to establish a new remote desktop session.
+In this task, you will verify that the LabVM and CloudShop sample application have been deployed successfully.
 
-    ![On the Azure Portal menu bar, Connect is selected.](images/Setup/2019-06-13-18-03-42.png "Azure Portal")
+1.  You can check the LabVM deployment status by navigating to the **LabRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the 'Microsoft.Template' deployment. Make sure the template deployment status is **Succeeded** before proceeding to the hands-on lab guide.
 
-2.  Depending on your remote desktop protocol client and browser configuration, you will either be prompted to open an RDP file, or you will need to download it followed by opening it up separately to connect. You may also be required to click, **Use a different account**.
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png)
 
-    ![In the Windows Security dialog box, Use a different account is selected.](images/Setup/image15.png "Windows Security dialog box")
+2.  You can check the CloudShop deployment status by navigating to the **ContosoRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
-3.  Login with the credentials specified during creation:
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png)
 
-    -   User: **demouser**
-    -   Password: **demo\@pass123**
+3.  Once the CloudShop deployment is successful, validate the application by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
 
-4.  You will be presented with a remote desktop connection warning because of a certificate trust issue. Click, **Don't ask me again for connections to this computer** followed by **Yes** to continue with the connection.
-
-    ![The Remote Desktop Connection warning window displays with the message that the identity of the remote computer cannot be verified, and asking if you want to continue anyway. the Don't ask me again for connections to the computer checkbox is selected.](images/Setup/image16.png "Remote Desktop Connection warning window")
-
-5.  When logging on for the first time, you will see a prompt on the right asking about network discovery. Click **No**.
-
-    ![On the Networks page, the No button is selected.](images/Setup/image17.png "Networks page")
-
-6.  Notice that Server Manager opens by default. On the left, click **Local Server**.
-
-    ![Local Server is selected in the Server Manager menu.](images/Setup/image18.png "Server Manager menu")
-
-7.  On the right side of the pane, click **On** by **IE Enhanced Security Configuration**.
-
-    ![In the Essentials section, IE Enhanced Security Configuration is set to On, and is selected.](images/Setup/image19.png "Essentials section")
-
-8.  Change to **Off** for Administrators and click **OK**.
-
-    ![Administrators is set to Off in the IE Enhanced Security Configuration dialog box.](images/Setup/image20.png "IE Enhanced Security Configuration dialog box")
-
-9.  In the lower left corner, click Internet Explorer to open it. On first use, you will be prompted about security settings. Accept the defaults by clicking **OK**.
-
-    ![In the Internet Explorer 11 dialog box, the option to Use recommended security, privacy, and compatibility settings is selected.](images/Setup/image21.png "Internet Explorer 11 dialog box")
-
-10. If prompted, click **Don't show this again** regarding protected mode.
-
-11. To download the exercise files for the hands-on lab, paste this URL into the browser:
-
-    https://cloudworkshop.blob.core.windows.net/resilient-iaas-hackathon/Building_Resilient_Iaas_Hackathon_Student_Files.zip  
-
-12. You will be prompted about what you want to do with the file. Select **Save**.
-
-    ![In the Internet Explorer dialog box, the Save button is selected.](images/Setup/image22.png "Internet Explorer dialog box")
-
-    >**Note**: If you are blocked from downloading the file with a "Your security settings do not allow this file to be downloaded" alert, you will need to adjust the security settings for IE to allow downloads. Click **Settings > Internet Options**, and then select the **Security** tab. Click the **Custom level...** button and enable both **File download** and **Font download**. Click **OK**, and then **OK** again. Re-paste the URL into the browser and download. 
-
-13. Download progress is shown at the bottom of the browser window. When the download is complete, click **Open folder**.
-
-    ![On the Download Complete bar, the Open folder button is selected.](images/Setup/image23.png "Download Complete bar")
-
-14. The **Downloads** folder will open, ***Right-click*** the zip file, and click **Extract All**. In the **Extract Compressed (Zipped) Folders** window, enter **C:\\HOL** in the **Files will be extracted to this folder** dialog. Click the **Extract** button.
-
-### Task 3: Install Azure PowerShell
-
-1. Open a PowerShell prompt as an administrator (Right click > More > Run as administrator).
-
-2. Execute the following command:
-
-    ```powershell
-    Install-Module -Name AzureRM -AllowClobber
-    ```
-
-    ![The first time you use the PSGallery you will see a message related to an untrusted repository. Answer Yes or Yes to all to complete the installation..](images/Setup/image28.png "PSGallery untrusted repository")
-
-    >**Note**: By default, the PowerShell gallery isn't configured as a trusted repository for PowerShellGet. The first time you use the PSGallery you will see a message related to an untrusted repository. Answer *Yes* or *Yes to all* to complete the installation.
+    ![The CloudShopDemo window displays. Under Select a product from the list, a product list displays.](images/BeforeTheHOL/cloudshop.png "CloudShopDemo window")
 
 ## Summary
 
-In this exercise, you setup a lab virtual machine, downloaded the required setup files, and installed Azure PowerShell. 
+In these lab preparation steps, you set up a lab virtual machine, which includes Visual Studio 2019 Community Edition, Azure PowerShell, and other files used during this lab. You also deployed the CloudShop sample application which you will use in this lab.
 
-You should follow all steps provided *before* attending the Hands-on lab.
+You should follow all steps provided *before* attending the hands-on lab.
+
+

@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-June 2019
+October 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -377,17 +377,18 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 |    |            |
 |----------|:-------------:|
 | **Description** | **Links** |
-| Microsoft Azure Reference Architectures| <https://docs.microsoft.com/en-us/azure/guidance/guidance-architecture> |
-| High availability checklist | <https://docs.microsoft.com/en-us/azure/resiliency/resiliency-high-availability-checklist> |
-| Azure resiliency technical guidance | <https://azure.microsoft.com/en-us/documentation/articles/resiliency-technical-guidance/> |
-| Introduction to Active Directory Domain Services (AD DS) Virtualization (Level 100) | <https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/introduction-to-active-directory-domain-services-ad-ds-virtualization-level-100> |
-| Running your AD in Windows Azure | <https://channel9.msdn.com/Events/TechDays/Techdays-2014-the-Netherlands/Running-your-Active-Directory-in-Windows-Azure> |
-| Running VMs for an N-tier architecture on Azure | <https://docs.microsoft.com/en-us/azure/guidance/guidance-architecture> |
+| Microsoft Azure Reference Architectures| <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
+| Azure Resiliency Overview | <https://azure.microsoft.com/features/resiliency/> |
+| High availability checklist | <https://docs.microsoft.com/azure/resiliency/resiliency-high-availability-checklist> |
+| Azure resiliency technical guidance | <https://azure.microsoft.com/documentation/articles/resiliency-technical-guidance/> |
+| Introduction to Active Directory Domain Services (AD DS) Virtualization (Level 100) | <https://docs.microsoft.com/windows-server/identity/ad-ds/introduction-to-active-directory-domain-services-ad-ds-virtualization-level-100> |
+| Running your AD in Windows Azure | <https://docs.microsoft.com/azure/architecture/reference-architectures/identity/adds-extend-domain> |
+| Running VMs for an N-tier architecture on Azure | <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
 | Azure Managed Disks | <https://azure.microsoft.com/en-us/services/managed-disks/> <https://docs.microsoft.com/en-us/azure/storage/storage-managed-disks-overview> |
-| Azure Subscription and Service Limits | <https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits> |
-| Network Watcher and VPN Gateways | <https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-monitor-with-azure-automation> |
-| High availability with VPN Gateway | <https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-highlyavailable> |
-| Azure Backup documentation | <https://docs.microsoft.com/en-us/azure/backup/> |
+| Azure Subscription and Service Limits | <https://docs.microsoft.com/azure/azure-subscription-service-limits> |
+| Network Watcher and VPN Gateways | <https://docs.microsoft.com/azure/network-watcher/network-watcher-monitor-with-azure-automation> |
+| High availability with VPN Gateway | <https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-highlyavailable> |
+| Azure Backup documentation | <https://docs.microsoft.com/azure/backup/> |
 
 # Building a resilient IaaS architecture whiteboard design session trainer guide
 
@@ -491,7 +492,7 @@ Resilient benefits:
 
 -   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
    
-1. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
+2. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow in a manner similar to a firewall rule. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
 
@@ -499,7 +500,7 @@ Address Spaces:
 
 -   On-Premises: 192.168.0.0/16 (Domain Controllers: 192.168.1.10 & 192.168.1.11)
 -   West Central US: 10.0.0.0/16 (Domain Controllers: 10.0.2.4 & 10.0.2.5)
--   West US 2: 172.16.0.0/16 (Domain Controller: 172.16.2.4)
+-   West US 2: 172.16.0.0/16 (Domain Controller: 172.16.2.4 & 172.16.2.5)
 
 Network Security Groups for the West Central US Virtual Network:
 
@@ -515,17 +516,17 @@ Network Security Groups for the West Central US Virtual Network:
 
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:| 
-|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.2.0/24     |  1433                |   ALLOW |
-|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.2.0/24    |   1433                |   ALLOW |
-|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.2.0/24     |  3389                |   ALLOW |
+|  SQLEXT   |        100         |   192.168.1.0/23  | TCP       |     ANY                  |   10.0.1.0/24     |  1433                |   ALLOW |
+|  SQLINT   |        110        |    10.0.0.0/24    |  TCP       |     ANY                   |  10.0.1.0/24    |   1433                |   ALLOW |
+|  RDP      |       120         |   192.168.1.0/23  | ANY        |    ANY                   |  10.0.1.0/24     |  3389                |   ALLOW |
 
 **Identity Tier NSGs**
 
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:|
-|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.3.0/24     |  3389                 |  ALLOW    |
-|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
-|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.3.0/24     |  ANY                  |  ALLOW    |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY          |  ANY                   |  10.0.2.0/24     |  3389                 |  ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY          |  ANY                   |  10.0.2.0/24     |  ANY                  |  ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY          |  ANY                   |  10.0.2.0/24     |  ANY                  |  ALLOW    |
 
 **Network Security Groups for the West US 2 Virtual Network**
 
@@ -535,9 +536,9 @@ Since Contoso has not deployed any additional infrastructure to West US 2 the on
     
 | Name | Priority | Source | Protocol | Source Port Range | Destination | Dest. Port Range | Action |
 | :---|---:|---:|---:|---:|---:|---:|---:|                                                                                                       
-|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.3.0/24   |  3389         |          ALLOW    |
-|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
-|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.3.0/24   |  ANY          |          ALLOW    |
+|  RDP           |       100          |  192.168.1.0/23 |  ANY           | ANY                   |  172.16.2.0/24   |  3389         |          ALLOW    |
+|  ADDS Repl     |       110          |  192.168.1.10   |  ANY           | ANY                  |   172.16.2.0/24   |  ANY          |          ALLOW    |
+|  ADDS Repl     |       120          |  192.168.1.11   |  ANY           | ANY                  |   172.16.2.0/24   |  ANY          |          ALLOW    |
 
 Resilient benefits:
 
@@ -715,7 +716,7 @@ https://docs.microsoft.com/en-us/azure/site-recovery/concepts-public-ip-address-
 
     **Azure Alerts**
 
-    Azure alerts also provide a unified view to all your alert rules and ability to manage them a single place; including viewing any unresolved alerts. Learn more about functionality from [Azure alerts - Overview](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts).
+    Azure alerts also provide a unified view to all your alert rules and ability to manage them a single place, including viewing any unresolved alerts. Learn more about functionality from [Azure alerts - Overview](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-unified-alerts).
 
     Alert uses the term **Log Alerts** to describe alerts where a signal is a custom query based on [Log Analytics](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-tutorial-viewdata) or [Application Insights](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics). The [new metric alert capability](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-near-real-time-metric-alerts) provides ability to alert on [multidimensional metrics](https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-metric-charts) for specific Azure resources. The alerts for such resource can use additional filters on dimensions creating **Multi-Dimensional Metric Alerts**.
 
