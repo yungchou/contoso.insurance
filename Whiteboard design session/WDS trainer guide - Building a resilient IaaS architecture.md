@@ -492,7 +492,7 @@ Resilient benefits:
 
 -   Configuring Highly Available VPN can be done using RRAS VPN and Azure VPN Gateways and clustering them for VPN redundancy.
    
-1. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
+2. Document what network security groups and rules should be put in place for protection. What ports would you open and why?
 
    Network security groups (NSG) will be used to help secure the configuration by limiting traffic flow in a manner similar to a firewall rule. NSGs may be applied to either individual network interfaces or to a subnet. In Contoso's case there will be a single NSG applied to each subnet.
 
