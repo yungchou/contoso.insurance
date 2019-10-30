@@ -225,7 +225,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
     ![A screen that shows the basics blade of creating a new VM. The name is DC01, the user name is demouser, the resource group is EU2ADRG, and the location is East US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image113.png "Basics")
 
-3. Select **Next: Disks >** (or select on the **Disks** tab). Under **Data disks** select **Create and attach a new disk**.
+3. Select **Next: Disks >** (or select the **Disks** tab). Under **Data disks** select **Create and attach a new disk**.
 
     ![Azure portal screenshot the 'Create and attach a new disk' link on the VM Create 'Disks' tab.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/create-disk.png "Create and attach a new disk")
 
@@ -290,7 +290,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
     ![Azure portal screenshot the selection of Availability Zones and Zone 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image121.png "Select availability zone")
 
-4. Select **Next: Disks >** (or select on the **Disks** tab). Add a Data Disk, using the same steps as you did for DC01 and DC02.
+4. Select **Next: Disks >** (or select the **Disks** tab). Add a Data Disk, using the same steps as you did for DC01 and DC02.
 
     ![Azure portal screenshot showing part of the Disks tab of the VM create blade, with the data disk for VM DC03.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/DC03-data-disk-create.png "Data Disk")
 
@@ -756,7 +756,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
 
     ![An image that depicts Azure Site Recovery settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image05.png "ASR replicate source settings")
 
-8. If you select on the Enable replication job, you can see additional details of what takes place when protecting a VM. It may take up to 30 minutes to complete the job. You can review it under Monitoring - Site Recovery Jobs at the Recovery Services Vault blade. 
+8. If you select the Enable replication job, you can see additional details of what takes place when protecting a VM. It may take up to 30 minutes to complete the job. You can review it under Monitoring - Site Recovery Jobs at the Recovery Services Vault blade. 
    
 9.  Once all the Enable replication jobs are successful, select **Replicated items** under **Protected Items** to view the status of the initial replication.
     
@@ -780,9 +780,9 @@ In this task, you will create the recovery plan that will be used to orchestrate
 
     ![An image that depicts Azure Recovery Plan Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image08.png "ASR Recovery Plan settings")
 
-5. Under **Group 1: Start**, select on the ellipse beside WebVM-1 and WebVM-2 and choose **Delete machine**. Leave only SQL Server in Group-1.
+5. Under **Group 1: Start**, select the ellipse beside WebVM-1 and WebVM-2 and choose **Delete machine**. Leave only SQL Server in Group-1.
 
-6. Select on the ellipse beside **Group 2: Start** and choose Add protected item and add both web servers. Then **Save** the changes.
+6. Select the ellipse beside **Group 2: Start** and choose Add protected item and add both web servers. Then **Save** the changes.
 
     ![An image that depicts Azure Recovery Plan Group Settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image09.png "ASR Recovery Plan Group settings")
 
@@ -800,7 +800,7 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
    
     ![An image that depicts Azure Resource Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image10.png "ASR Resource Group")
 
-2. Select on this resource group and notice the resources created by ASR to support workload protection and failover.
+2. Select this resource group and notice the resources created by ASR to support workload protection and failover.
 
 3. Navigate back to the Overview section of your Recovery Services vault via the tile on your dashboard. Under Site Recovery, select **Replicated items** and check that both Cloud Shop VMs are fully protected before continuing.
    
@@ -816,7 +816,7 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
 
 >**Note**: In a 'real-world' recovery test, you should choose an isolated virtual network so as to not impact the production application. 
 
-7. From the Recovery Services vault blade, select **Site recovery jobs**. On the Site recovery jobs blade, select on the running job (Test failover).
+7. From the Recovery Services vault blade, select **Site recovery jobs**. On the Site recovery jobs blade, select the running job (Test failover).
 
 8. On the Test failover blade, monitor the progress of the failover. Notice each step is executing and you can track the status and execution time. Also notice that the data tier is being started first, then the app tier, as per our recovery plan.
 
@@ -836,9 +836,9 @@ In this task, you will clean up the resources created during the test failover.
    
 4. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery find the jobs tile and select **In-progress jobs**. 
    
-5. On the Site recovery jobs blade, select on the running job. Monitor the status until the environment is cleaned up (approximately 5 minutes).
+5. On the Site recovery jobs blade, select the running job. Monitor the status until the environment is cleaned up (approximately 5 minutes).
 
-6. In the Azure portal navigate to **Resource Groups** and select on the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually-created public IP address.
+6. In the Azure portal navigate to **Resource Groups** and select the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually-created public IP address.
 
 ## After the hands-on lab
 
