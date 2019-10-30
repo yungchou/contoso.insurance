@@ -43,13 +43,11 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
     - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
     - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
-    - [Summary](#summary)
   - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
     - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
     - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
     - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
     - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
-    - [Summary](#summary-1)
   - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
     - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
     - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
@@ -227,7 +225,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
     ![A screen that shows the basics blade of creating a new VM. The name is DC01, the user name is demouser, the resource group is EU2ADRG, and the location is East US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image113.png "Basics")
 
-3. Select **Next: Disks >** (or select on the **Disks** tab). Under **Data disks** select **Create and attach a new disk**
+3. Select **Next: Disks >** (or select on the **Disks** tab). Under **Data disks** select **Create and attach a new disk**.
 
     ![Azure portal screenshot the 'Create and attach a new disk' link on the VM Create 'Disks' tab.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/create-disk.png "Create and attach a new disk")
 
@@ -259,7 +257,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
 8.  Select the **Review + create** button or select on the **Review + create** tab. There will be a final validation and when this is passed, select the **Create** button to complete the deployment.
 
-9.  Give the deployment a few minutes to build the Availability Set resource. Then, repeat the virtual machine creation steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set, remember to add the data disk, and select the existing resource group, virtual network, and recovery services vault**.
+9.  Give the deployment a few minutes to build the Availability Set resource. Then, repeat the virtual machine creation steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set, **remember to add the data disk, and select the existing resource group, virtual network, and recovery services vault**.
 
     ![Azure portal screenshot showing the Review and create screen for a virtual machine named DC02.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image117.png "Create new VM validation") 
 
@@ -342,6 +340,7 @@ Before promoting our new DCxx VMs to be domain controllers, they need to be conf
 5.  Repeat these steps on the remaining 3 DCs (**DC02**, **DC03**, and **DC04**).
 
     > **Note:** The Static IPs for each Domain Controller should be shown as the following table:
+    
     > |  VM  | IP Address  |
     > |:----:|:-----------:| 
     > | DC01 |  10.0.2.5   |
@@ -445,7 +444,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 5.  Specify the following information:
     
     - Resource group: **CloudShopRG**
-    - Apps Subnet ID: **Resource ID of the Apps subnet in VNET1, from Resource Explorer**
+    - Apps Subnet ID: **Resource ID of the Apps subnet in VNET1, from Resource Explorer**.
     
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and West US 2 as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/web-deploy.png "Custom deployment")
 
@@ -492,7 +491,7 @@ In this task you will verify that the SQL Always-On Availability Group has been 
 
 8. Minimize the RDP Window for **SQL0**.
 
-9. Again using `ADVM` as a jump box, open a Remote Desktop session to SQL1 using the private IP address **10.0.1.11**.
+9. Again, using `ADVM` as a jump box, open a Remote Desktop session to SQL1 using the private IP address **10.0.1.11**.
 
     ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
     >**Note**: Use `ADVM` as a jump box to connect to SQL1 on the private IP Address.
@@ -667,6 +666,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
     RECONFIGURE
     GO
     ```
+
 4.  Refresh SQL Server Management Studio. Find SQL Server Agent in the left-nav. If the agent is stopped, right-click it and choose **Start**, then **Yes** at the confirmation prompt.
 
     ![A screenshot showing how to start the SQL Server Agent in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sql-agent-start.png "Start SQL Server Agent")
@@ -840,10 +840,7 @@ In this task, you will clean up the resources created during the test failover.
 
 6. In the Azure portal navigate to **Resource Groups** and select on the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually-created public IP address.
 
-
 ## After the hands-on lab
-
-You should follow all steps provided *after* attending the hands-on lab.
 
 ### Task 1: Delete the resource groups created
 
@@ -852,6 +849,8 @@ You should follow all steps provided *after* attending the hands-on lab.
 2.  Delete each of the resource groups created in this lab by selecting them followed by the **Delete resource group** button. You will need to confirm the name of the resource group to delete.
 
 3.  To delete the Recovery Services Vaults, you will first need to open the vaults, disable all VM backup and replication, and delete any backup and replicated data. As currently implemented, Azure VM backups are only soft-deleted (they can still be recovered). The vault itself cannot be deleted for 14 days after this soft-delete.
+
+You should follow all steps provided *after* attending the hands-on lab.
 
 
 
