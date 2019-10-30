@@ -55,7 +55,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
    
-    ![Button to deploy the LabVM template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")(https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
+    [![Button to deploy the LabVM template to Azure.](images/BeforeTheHOL/deploy-to-azure.png "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2FLabRG.json)
 
 2.  Complete the Custom deployment blade as follows:
 
@@ -74,7 +74,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Clou
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the CloudShop sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
-    ![Button to deploy the CloudShop sample application template to Azure.](Images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")(https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
+    [![Button to deploy the CloudShop sample application template to Azure.](images/BeforeTheHOL/deploy-to-azure.png "Deploy the CloudShop sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fcloudshop.json)
 
 2.  Complete the Custom deployment blade as follows:
 
