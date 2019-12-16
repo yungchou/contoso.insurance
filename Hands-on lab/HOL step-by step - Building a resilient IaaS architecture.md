@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-October 2019
+December 2019
 </div>
 
 
@@ -43,11 +43,13 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
     - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
     - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
+    - [Summary](#summary)
   - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
     - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
     - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
     - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
     - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
+    - [Summary](#summary-1)
   - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
     - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
     - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
@@ -164,7 +166,7 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 
 ### Task 2: Configure VNet Peering between Azure regions
 
-In this task, you will connect VNET1 (in East US 2) with VNET2 (in Central US) by using global VNet peering.
+In this task, you will connect VNET1 (in West US 2) with VNET2 (in Central US) by using global VNet peering.
 
 1.  Open the new virtual network (VNET2) by selecting **All Services**, then **Virtual networks**, then **VNET2** (if it is not open already).
 
@@ -211,6 +213,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
     -   Availability options: **See below**
     -   Image: **Windows Server 2016 Datacenter**
     -   Size: **Standard D2s v3**
+    -   Azure Spot Instance: **No**
     -   Username: **demouser**
     -   Password: **demo\@pass123**
     -   Confirm password: **demo\@pass123**
@@ -223,7 +226,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
     Once all settings are filled in, the **Basics** tab should look like this:
 
-    ![A screen that shows the basics blade of creating a new VM. The name is DC01, the user name is demouser, the resource group is EU2ADRG, and the location is East US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image113.png "Basics")
+    ![A screen that shows the basics blade of creating a new VM. The name is DC01, the user name is demouser, the resource group is WU2ADRG, and the location is West US 2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image133.png "Basics")
 
 3. Select **Next: Disks >** (or select the **Disks** tab). Under **Data disks** select **Create and attach a new disk**.
 
@@ -250,8 +253,9 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
     - Recovery Services vault: **Create new**
     - Recovery Services vault name: **WU2BackupVault**
     - Resource group (create new): **WU2BackupVaultRG**
+    - Backup Policy: **(new)DailyPolicy**
 
-    ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image116.png "Management settings")
+    ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image134.png "Management settings")
     
     > **Note**: Backup with a Domain Controller is a supported scenario. Care should be taken on restore. For more information see the following: <https://docs.microsoft.com/azure/backup/backup-azure-arm-restore-vms#backup-for-restored-vms>.
 
@@ -259,7 +263,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
 9.  Give the deployment a few minutes to build the Availability Set resource. Then, repeat the virtual machine creation steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set, **remember to add the data disk, and select the existing resource group, virtual network, and recovery services vault**.
 
-    ![Azure portal screenshot showing the Review and create screen for a virtual machine named DC02.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image117.png "Create new VM validation") 
+    ![Azure portal screenshot showing the Review and create screen for a virtual machine named DC02.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image135.png "Create new VM validation") 
 
 ### Task 2: Deploy redundant Domain Controller VMs in the second Azure region
 
@@ -284,7 +288,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
     -   Public inbound ports: **Allow selected ports**
     -   Select inbound ports: **RDP (3389)**
 
-    ![Azure portal screenshot showing the Basics tab of the new VM create blade for DC03.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image120.png "Create new VM")
+    ![Azure portal screenshot showing the Basics tab of the new VM create blade for DC03.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image136.png "Create new VM")
 
 3. For **Availability options**, select **Availability zone**. Select zone **1**.
 
@@ -296,7 +300,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
 5. Select **Next: Networking >** and select the existing virtual network **VNET2** and the **Identity** subnet.
 
-    ![Azure portal screenshot showing the Networking tab of the VM create blade, selecting the virtual network VNET2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image122.png "Networking settings")
+    ![Azure portal screenshot showing the Networking tab of the VM create blade, selecting the virtual network VNET2.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image137.png "Networking settings")
 
 6. Select the **Management** tab and configure as follows:
 
@@ -307,21 +311,22 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
     - Recovery Services vault: **Create new**
     - Recovery Services vault name: **CUSBackupVault**
     - Resource group (create new): **CUSBackupVaultRG**
+    - Backup Policy: **(new)DailyPolicy**
 
-    ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image123.png "Management settings")
+    ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image138.png "Management settings")
     
 7. Select the **Review + create** button or select on the **Review + create** tab. There will be a final validation and when this is passed, select the **Create** button to complete the deployment.
 
 8.  Give the deployment a few seconds to start, then repeat the above steps to create **DC04**, as that will be another Domain Controller in this region. Make sure to place it in Availability Zone **2**, remember to add the data disk, and use the existing resource group, virtual network, and recovery services vault for this region.
 
-    ![Azure portal screenshot showing the review and create tab of the new VM create blade for DC04.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image124.png "Review and create tab")
+    ![Azure portal screenshot showing the review and create tab of the new VM create blade for DC04.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image139.png "Review and create tab")
 
 
 ### Task 3: Configure static internal IP addresses on each Domain Controller VM
 
 Before promoting our new DCxx VMs to be domain controllers, they need to be configured with static internal IP addresses. This option is not currently available when first creating the VM when using the Azure portal, so instead we will set the static IP address for each VM after it has been created.
 
-1.  Go back to the Azure portal dashboard and select **DC01**. Next, select **Networking** followed by the name of the NIC.
+1.  Go back to the Azure portal dashboard and select **DC01** from the virtual machines menu under the favorites heading. Next, select **Networking** followed by the name of the NIC.
 
     ![Under Settings, Networking is selected, and the NIC is highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image58.png "Selecting the NIC for a VM")
 
@@ -550,7 +555,7 @@ In this task, you will deploy the application database to the SQL Always-On data
     
     ![Connecting to a secondary replica that existed from the cluster created earlier in the process.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image131.png "Connecting Existing Replicas Screen")
 
-12. On the **Select Data Synchronization** page, use the default of **Automatic Seeding** and select the **Next** button. 
+12. On the **Select Initial Data Synchronization** page, use the default of **Automatic Seeding** and select the **Next** button. 
     
 13. On the validation screen all results should show **Success**. Select **Next** and then **Finish** to conclude the wizard. Close the wizard with the **Close** button.
     
@@ -720,13 +725,13 @@ In this task, you will configure SQL Server managed backup to the storage accoun
 
 2.  Open each vault and validate that a backup of the VM has occurred.
 
-    ![The screen shows 2 backup items from one of the vaults.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image109.png "Usage")
+    ![The screen shows 2 backup items from one of the vaults.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image140.png "Usage")
 
     >**Note**: Backup storage consumption may be 0 B if a backup has not occurred. The timing of backups is driven by the policy associated with the backup. Only one policy can be assigned to a virtual machine when using the Azure Backup Extension for Virtual Machines.
 
 3.  To validate the SQL Server backup, open the Storage Account created earlier in the Azure portal and select **Blobs** -\> and then **backups**. If the backup has already completed, you will see the backup file in the container.
 
-    ![An image that depicts SQL Server backup data in an Azure Storage Account.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image110.png "Backup files in storage")
+    ![An image that depicts SQL Server backup data in an Azure Storage Account.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image141.png "Backup files in storage")
 
 ## Exercise 6: Implement Azure Site Recovery 
 
@@ -798,7 +803,7 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
 
 1. Within the Azure portal, select **Resource Groups** and locate the resource group with **-asr** added to the end of its name.
    
-    ![An image that depicts Azure Resource Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image10.png "ASR Resource Group")
+    ![An image that depicts Azure Resource Group.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image143.png "ASR Resource Group")
 
 2. Select this resource group and notice the resources created by ASR to support workload protection and failover.
 
@@ -806,7 +811,7 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
    
 4. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery, select **Recovery Plans**.
 
-    ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image12.png "ASR Recovery plan")
+    ![An image that depicts Azure ASR Recovery Plan.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image144.png "ASR Recovery plan")
 
 5. Right-click the **CloudShopRP** and choose **Test Failover**.
 
@@ -823,6 +828,10 @@ In this task, you will execute a test failover of the CloudShop VMs using Azure 
 9. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery, select back on **Recovery plans**. Notice the Recovery plan is waiting on your input.
 
 10. Under **Resource groups** in the left-hand navigation bar, navigate to the resource group created for this protected workload, called **CloudShopRG1-asr**. Note the resources that have been created as a part of the failover action. The compute resources were not provisioned until the failover occurred.
+    
+    ![An image that depicts Azure ASR Test Failover job status.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image145.png "ASR Test failover")
+
+    ![An image that depicts Azure ASR Resources from the Test Failover job executed earlier in the lab.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image146.png "ASR Test failover Resources Results")
 
 ### Task 4: Clean up the Test Failover.
 
