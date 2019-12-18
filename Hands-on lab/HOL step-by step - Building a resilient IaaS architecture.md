@@ -188,7 +188,7 @@ In this task, you will connect VNET1 (in West US 2) with VNET2 (in Central US) b
 
 The existing domain controller ADVM is already configured as the default DNS server for any virtual machines created in VNET1. During the creation of our resilient AD deployment, we also need to use ADVM as the default DNS server for virtual machines in VNET2. To do this, we will change the DNS configuration for VNET2
 
-1.  Return to the Azure portal blade for **VNET2**. In the **Settings** area, select **DNS Servers**. Change **DNS servers** to **Custom**, and provide the address of **10.0.2.4** in the **Add DNS server** box. Select the **Save** icon to commit the changes.
+1.  Return to the Azure portal blade for **VNET2**. In the **Settings** area, select **DNS Servers**. Change **DNS servers** to **Custom** and provide the address of **10.0.2.4** in the **Add DNS server** box. Select the **Save** icon to commit the changes.
 
     ![In the DNS Servers blade, under DNS servers, the Custom radio button is selected, and the field below it is set to 10.0.2.4. ](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image64.png "DNS Servers configuration")
 
@@ -655,7 +655,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
    
     > **Note:** Remember to use ADVM as a jump box allowing you to connect to SQL0 on its private IP address **10.0.1.10**.
 
-2.  Launch SQL Server Management Studio and connect to the database instance. Right-click **SQL0**, and select **New Query**.
+2.  Launch SQL Server Management Studio and connect to the database instance. Right-click **SQL0** and select **New Query**.
 
     ![A screen showing how to launch the new query pane in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image102.png "Launching the new query pane")
 
@@ -841,13 +841,13 @@ In this task, you will clean up the resources created during the test failover.
    
 2. Notice that the recovery plan has a pending job called **Cleanup test failover** pending. Right-click on the **CloudShopRP recovery plan** and choose **Cleanup test failover**.
 
-3. In the Test failover cleanup blade, enter notes indicating that the test was successful, and select the checkbox indicating the testing is complete. Then select **OK**.
+3. In the Test failover cleanup blade, enter notes indicating that the test was successful and select the checkbox indicating the testing is complete. Then select **OK**.
    
 4. Navigate back to the Overview section of the **Recovery Services Vault**. Under Site Recovery find the jobs tile and select **In-progress jobs**. 
    
 5. On the Site recovery jobs blade, select the running job. Monitor the status until the environment is cleaned up (approximately 5 minutes).
 
-6. In the Azure portal navigate to **Resource Groups** and select the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually-created public IP address.
+6. In the Azure portal navigate to **Resource Groups** and select the **CloudShopRG1-asr** resource group. Notice that the virtual machines and network interfaces have all been deleted, leaving only the resources ASR initial created to support protection and the manually created public IP address.
 
 ## After the hands-on lab
 
@@ -857,7 +857,7 @@ In this task, you will clean up the resources created during the test failover.
 
 2.  Delete each of the resource groups created in this lab by selecting them followed by the **Delete resource group** button. You will need to confirm the name of the resource group to delete.
 
-3.  To delete the Recovery Services Vaults, you will first need to open the vaults, disable all VM backup and replication, and delete any backup and replicated data. As currently implemented, Azure VM backups are only soft-deleted (they can still be recovered). The vault itself cannot be deleted for 14 days after this soft-delete.
+3.  To delete the Recovery Services Vaults, you will first need to open the vaults, disable all VM backup and replication and delete any backup and replicated data. As currently implemented, Azure VM backups are only soft deleted (they can still be recovered). The vault itself cannot be deleted for 14 days after this soft delete.
 
 You should follow all steps provided *after* attending the hands-on lab.
 
