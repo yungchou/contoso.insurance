@@ -122,14 +122,23 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 4.  In the **Create virtual network** blade, enter the following information:
 
     - Name: **VNET2**
+  
     - Address space: **172.16.0.0/16**
-    - Subscription: **Choose your subscription**.
+  
+    - Subscription: **Choose your subscription**
+  
     - Resource group (create new): **CUSRG**
+  
     - Location: **(US) Central US**
+  
     - Subnet name: **Apps**
+  
     - Subnet address range: **172.16.0.0/24**
+  
     - DDoS protection: **Basic**
+  
     - Service endpoints: **Disabled**
+  
     - Firewall: **Disabled**
 
     ![A blade showing the creation of a virtual network in the Azure portal.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image112.png "Create virtual network")
@@ -145,7 +154,9 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
     ![Screenshot of the Subnets button.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image31.png "Subnets button")
 
     -   Name: **Data**
+  
     -   Address range (CIDR block): **172.16.1.0/24**
+  
     -   Other settings: **default values**
     
     Select the **OK** button to add this subnet.
@@ -155,7 +166,9 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
 8.  Once the subnet is created successfully, repeat the above steps to create an **Identity** subnet with the following settings:
 
     -   Name: **Identity**
+  
     -   Address range (CIDR block): **172.16.2.0/24**
+  
     -   Other settings: **default values**
 
     ![In the Add subnet blade, the Name field is set to Identity, and Add range (CIDR block) is set to 172.16.2.0/24.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image33.png "Add subnet blade")
@@ -177,7 +190,9 @@ In this task, you will connect VNET1 (in West US 2) with VNET2 (in Central US) b
 3.  Complete the **Add peering** blade as follows (leave other settings at their default values):
    
     - Name of the peering from VNET2 to VNET1: **VNET2TOVNET1** 
+  
     - Virtual network: **VNET1 (ContosoRG)**.
+  
     - Name of the peering from VNET1 to VNET2: **VNET1TOVNET2** 
 
     Select **OK** to create the peering connections joining VNET1 and VNET2.
@@ -207,17 +222,29 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 2.  In the **Create virtual machine** blade, enter the **Basics** information:
 
     -   Subscription: **Select your subscription**.
+  
     -   Resource group: **(Create new) WU2ADRG**
+  
     -   Virtual machine name: **DC01**
+
     -   Region: **West US 2**
+  
     -   Availability options: **See below**
+  
     -   Image: **Windows Server 2016 Datacenter**
-    -   Size: **Standard D2s v3**
+
     -   Azure Spot Instance: **No**
+  
+    -   Size: **Standard D2s v3**
+  
     -   Username: **demouser**
+  
     -   Password: **demo\@pass123**
+  
     -   Confirm password: **demo\@pass123**
+  
     -   Public inbound ports: **Allow selected ports**
+  
     -   Select inbound ports: **RDP (3389)**
 
     For **Availability options**, select **Availability set**. Select **Create new** and enter the name **ADAV** and select **OK**.
@@ -247,12 +274,19 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 7.  Select **Next: Management >** and configure as follows:
 
     - Boot diagnostics: **On**
-    - Diagnostics storage account: **Create new and select a unique name**.
+  
+    - Diagnostics storage account: **Create new and select a unique name, it may already be created**
+  
     - Auto-shutdown: **Off**
+  
     - Enable backup: **On**
+  
     - Recovery Services vault: **Create new**
+  
     - Recovery Services vault name: **WU2BackupVault**
+  
     - Resource group (create new): **WU2BackupVaultRG**
+  
     - Backup Policy: **(new)DailyPolicy**
 
     ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image134.png "Management settings")
@@ -261,7 +295,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
 8.  Select the **Review + create** button or select on the **Review + create** tab. There will be a final validation and when this is passed, select the **Create** button to complete the deployment.
 
-9.  Give the deployment a few minutes to build the Availability Set resource. Then, repeat the virtual machine creation steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set, **remember to add the data disk, and select the existing resource group, virtual network, and recovery services vault**.
+9.  Give the deployment a few minutes to build the Availability Set resource. Then, repeat the virtual machine creation steps to create **DC02**, as that will be another Domain Controller making sure to place it in the **ADAV** availability set, **remember to add a data disk, and select the existing resource group, virtual network, Identity subnet, diagnostic storage account, and recovery services vault**.
 
     ![Azure portal screenshot showing the Review and create screen for a virtual machine named DC02.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image135.png "Create new VM validation") 
 
@@ -275,17 +309,28 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
 2.  In the **Create virtual machine** blade, enter the **Basics** information:
 
-    -   Subscription: **Select your subscription**.
+    -   Subscription: **Select your subscription**
+  
     -   Resource group: **(Create new) CUSADRG**
+  
     -   Virtual machine name: **DC03**
+  
     -   Region: **Central US**
+  
     -   Availability options: **See below**
+  
     -   Image: **Windows Server 2016 Datacenter**
+  
     -   Size: **Standard D2s v3**
+  
     -   Username: **demouser**
+  
     -   Password: **demo\@pass123**
+  
     -   Confirm password: **demo\@pass123**
+  
     -   Public inbound ports: **Allow selected ports**
+  
     -   Select inbound ports: **RDP (3389)**
 
     ![Azure portal screenshot showing the Basics tab of the new VM create blade for DC03.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image136.png "Create new VM")
@@ -294,7 +339,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
     ![Azure portal screenshot the selection of Availability Zones and Zone 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image121.png "Select availability zone")
 
-4. Select **Next: Disks >** (or select the **Disks** tab). Add a Data Disk, using the same steps as you did for DC01 and DC02.
+4. Select **Next: Disks >** (or select the **Disks** tab). Add a Data Disk, using the same steps as you did for **DC01** and **DC02**.
 
     ![Azure portal screenshot showing part of the Disks tab of the VM create blade, with the data disk for VM DC03.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/DC03-data-disk-create.png "Data Disk")
 
@@ -305,19 +350,26 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 6. Select the **Management** tab and configure as follows:
 
     - Boot diagnostics: **On**
-    - Diagnostics storage account: **Create new and select a unique name**.
+
+    - Diagnostics storage account: **Create new and select a unique name. It may already be created for you**.
+  
     - Auto-shutdown: **Off**
+  
     - Enable backup: **On**
+  
     - Recovery Services vault: **Create new**
+  
     - Recovery Services vault name: **CUSBackupVault**
+  
     - Resource group (create new): **CUSBackupVaultRG**
+  
     - Backup Policy: **(new)DailyPolicy**
 
     ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image138.png "Management settings")
     
-7. Select the **Review + create** button or select on the **Review + create** tab. There will be a final validation and when this is passed, select the **Create** button to complete the deployment.
+7. Select the **Review + create** button or select the **Review + create** tab. There will be a final validation and when this is passed, select the **Create** button to complete the deployment.
 
-8.  Give the deployment a few seconds to start, then repeat the above steps to create **DC04**, as that will be another Domain Controller in this region. Make sure to place it in Availability Zone **2**, remember to add the data disk, and use the existing resource group, virtual network, and recovery services vault for this region.
+8.  Give the deployment a few seconds to start, then repeat the above steps to create **DC04**, as that will be another Domain Controller in this region. Make sure to place it in Availability Zone **2**, remember to add a data disk, and use the existing resource group, virtual network, and recovery services vault for this region.
 
     ![Azure portal screenshot showing the review and create tab of the new VM create blade for DC04.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image139.png "Review and create tab")
 
@@ -326,11 +378,11 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
 Before promoting our new DCxx VMs to be domain controllers, they need to be configured with static internal IP addresses. This option is not currently available when first creating the VM when using the Azure portal, so instead we will set the static IP address for each VM after it has been created.
 
-1.  Go back to the Azure portal dashboard and select **DC01** from the virtual machines menu under the favorites heading. Next, select **Networking** followed by the name of the NIC.
+1.  Navigate to the **DC01** virtual machine in the portal. Next, select **Networking**  under **Settings** followed by the name of the NIC.
 
     ![Under Settings, Networking is selected, and the NIC is highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image58.png "Selecting the NIC for a VM")
 
-2.  Select the **IP** **configurations**.
+2.  Select **IP configurations** under **Settings**.
 
     ![Under Settings, IP configurations is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image60.png "Selecting the IP configurations view")
 
@@ -338,7 +390,7 @@ Before promoting our new DCxx VMs to be domain controllers, they need to be conf
 
     ![In the IP Configuration blade, under Name, ipconfig1 is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image61.png "IP Configuration blade")
 
-4.  On the **ipconfig1** blade, change the **Private IP address settings** to **Static**. The IP address should be **10.0.2.5**.  Leave all the other settings at their defaults and select the **Save** button.
+4.  On the **ipconfig1** blade, change the **Private IP address settings** to **Static** assignment. The IP address should be **10.0.2.5**.  Leave all the other settings at their defaults and select the **Save** button.
 
    ![In ipconfig1, the internal IP is set to static, and save is highlighted.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/static-internal-ip.png "IP Configuration blade")
 
@@ -358,7 +410,7 @@ Before promoting our new DCxx VMs to be domain controllers, they need to be conf
 
 In this task, you will use a CustomScriptExtension to execute a PowerShell script on each of the DCxx virtual machines. This script will first mount and format the Data Disk as the 'F' drive. It will then promote the VM to be a Domain Controller, synchronizing the 'contoso.com' domain from the existing ADVM domain controller that was deployed as part of the CloudShop application.
 
-1.  Login to **LABVM** created before the hands-on lab or the machine where you have downloaded the exercise files.
+1.  Login to the **LABVM** created before the hands-on lab or the machine where you have downloaded the exercise files.
 
 2.  Browse to the Azure portal at <https://portal.azure.com/> and log in using your subscription credentials.
 
@@ -370,7 +422,7 @@ In this task, you will use a CustomScriptExtension to execute a PowerShell scrip
 
     ![The Custom Script Extension option displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image67.png "Custom Script Extension option")
 
-5.  Select **Script File** text box to open a file browser. Browse to the **C:\\HOL** folder and select the **AddDC.ps1** script. Under **Arguments (Optional)**, copy and paste the following text:
+5.  Select the **Script File** text box to open file explorer. Browse to the **C:\\HOL** folder and select the **AddDC.ps1** script. Under **Arguments (Optional)**, copy and paste the following text:
 
     ```
     -user demouser@contoso.com -password demo@pass123 -domain contoso.com
@@ -427,12 +479,14 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 2.  Specify the following information:
    
     - Resource group: **(Create new) CloudShopRG** 
+  
     - Location: **West US 2** 
+  
     - Data Subnet ID: **See note below**
     
     Leave the rest of the template parameters with their default values.
 
-    > **Note:** To check the subnet ID, open **resources.azure.com** then go to Subscription - Resource Group - ContosoRG - Providers - Microsoft.Network - VirtualNetworks - **Find subnet id for Data Subnet in VNET1**. Copy the full subnet ID in between the **" "** quotes.
+    > **Note:** To check the subnet ID, open **resources.azure.com** then go to **subscriptions** > **Your subscription** > **resourceGroups** > **ContosoRG** > **providers** > **Microsoft.Network** > **virtualNetworks**. Then find the subnet id for the **Data** subnet in **VNET1**. Copy the full subnet ID in between the **" "** quotes.
 
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and West US 2 as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image126.png "Custom deployment")
 
@@ -449,15 +503,17 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 5.  Specify the following information:
     
     - Resource group: **CloudShopRG**
+  
     - Apps Subnet ID: **Resource ID of the Apps subnet in VNET1, from Resource Explorer**.
     
     ![The custom deployment blade is displayed with CloudShopRG as the resource group and West US 2 as the location.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/web-deploy.png "Custom deployment")
 
 6.  Check the **I agree to the terms and conditions state above** checkbox on the page and select **Purchase**.
 
-7.  While you wait for the deployments to complete, take some time to review the deployment templates (see Resource Groups > CloudShopRG > Deployments, then select a deployment to review progress and inspect the template). In particular:
+7.  While you wait for the deployments to complete, take some time to review the deployment templates (see **Resource Groups** > **CloudShopRG** > **Deployments**, then select a deployment to review progress and inspect the template). In particular:
 
     - Observe how the SQL deployment uses a Copy() loop to deploy 2 VMs, which are placed behind a load balancer. 3 extensions are run on each VM: one to install SQL Server, another to domain join, and a third to configure SQL Server.
+  
     - Observe how the Web VM deployment passes the private front-end IP address of the SQL cluster load-balancer (10.0.1.30) to the Web VM setup script as a parameter, and how that script then injects this address into the Web.config of the web application.
 
 8.  Wait for both deployments to proceed before continuing. This will take around 30-40 minutes.
@@ -466,17 +522,17 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 In this task you will verify that the SQL Always-On Availability Group has been configured correctly.
 
-1.  Open a remote desktop connection to the **SQL0** virtual machine you created in the previous task, and login using the **contoso\\demouser** account with the password **demo@pass123**.
+1.  Open a remote desktop connection to the **ADVM** virtual machine and then open **Remote Desktop Connection** by searching for it in the Start menu. Start a remote desktop connection to the **SQL0** virtual machine you created in the previous task using the ip address, **10.0.1.10**, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
-    > **Note:** Since the SQL0 VM does not have a public IP address, use `ADVM` as a jump box to connect to SQL0 on the private IP address **10.0.1.10**.
+    > **Note:** Since the SQL0 VM does not have a public IP address, `ADVM` serves as a jump box to connect to SQL0 on the private IP address **10.0.1.10**.
 
 2.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
 
-3.  Open the **Failover Cluster Manager**, select connect to the cluster and type **SQLClusterAG**. Cluster manager will connect to the newly deployed Always-On Availability Group. Expand the cluster, select Nodes, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
+3.  Open the **Failover Cluster Manager** from the Start menu and select **Connect to cluster** on the right. Type **SQLClusterAG** and click **OK**. Cluster manager will connect to the newly deployed Always-On Availability Group. Select **Nodes**, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
     ![In Failover Cluster Manager, in the Nodes pane, two Nodes display: SQL0, SQL1. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
 
-4.  Launch **SQL Server 2017 Configuration Manager** on **SQL0**.
+4.  Launch **SQL Server 2017 Configuration Manager** from the Start menu on **SQL0**.
 
     ![SQL Server 2017 Configuration Manager is typed in the search field, and below, SQL Server 2016 Configuration Manager is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image77.png "Search field and results")
 
@@ -488,7 +544,7 @@ In this task you will verify that the SQL Always-On Availability Group has been 
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image79.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
-7. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password (it may be configured correctly already). Select **OK** to accept the changes and select **Yes** to confirm the restart of the server.
+7. On the **Log On** tab, change the service account to **contoso\\demouser** using **demo\@pass123** for the password (it may be configured correctly already). Select **OK** to accept the changes and select **Yes** to confirm the restart of the server if necessary.
 
     ![In the SQL Server (MSSQLSERVER) Properties dialog box, on the Log On tab, in the Account Name field, contoso\\demouser is selected.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image80.png "SQL Server (MSSQLSERVER) Properties dialog box")
 
@@ -501,7 +557,7 @@ In this task you will verify that the SQL Always-On Availability Group has been 
     ![On the Windows Security login page, the contoso\\demouser credentials are called out.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image82.png "Windows Security login page")
     >**Note**: Use `ADVM` as a jump box to connect to SQL1 on the private IP Address.
 
-10. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL 2017 Configuration Manager.
+10. From the RPD Session on **SQL1**, repeat steps to verify the configuration of **AlwaysOn High Availability** and **Log On** using SQL Server 2017 Configuration Manager (steps 4-9).
 
 
 ### Task 3: Deploy the application database to the SQL Always-On cluster
@@ -510,7 +566,7 @@ In this task, you will deploy the application database to the SQL Always-On data
 
 1.  Still on **SQL1**, open Windows Explorer and navigate to the **C:\\** drive. Create two new folders, **C:\\Data** and **C:\\Logs**. These are required when we add our database to the Always-On Availability Group later in this task.
 
-2.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio 17** (SSMS) and select **Connect** to login to SQL Server.
+2.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio 17 (SSMS)** from the Start menu and select **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2019-09-29_17h38_04.png "Connect to Server dialog box")
 
@@ -555,7 +611,7 @@ In this task, you will deploy the application database to the SQL Always-On data
     
     ![Connecting to a secondary replica that existed from the cluster created earlier in the process.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image131.png "Connecting Existing Replicas Screen")
 
-12. On the **Select Initial Data Synchronization** page, use the default of **Automatic Seeding** and select the **Next** button. 
+12. On the **Select Data Synchronization** page, use the default of **Automatic Seeding** and select the **Next** button. 
     
 13. On the validation screen all results should show **Success**. Select **Next** and then **Finish** to conclude the wizard. Close the wizard with the **Close** button.
     
@@ -589,7 +645,7 @@ In this exercise, you will configure SQL Server Managed Backup to back up the ap
 
 In this task, you will create a storage account which will be used to store the database backups. You will also generate a T-SQL script containing the storage account parameters including a Shared Access Signature (SAS) access token.
 
-1.  From **LABVM**, open PowerShell ISE. Log in to your Azure account using
+1.  From **LABVM**, open PowerShell ISE. Log in to your Azure account using the following command.
    
     ```PowerShell
     Login-AzAccount
@@ -645,7 +701,7 @@ In this task, you will create a storage account which will be used to store the 
     Write-Host $enableManagedBackupScript 
     ```
 
-3.  Save the T-SQL code generated between the **Begin TSQL Script** and **End TSQL Script** in your PowerShell ISE output after execution into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
+3.  After execution in the PowerShell output, save the T-SQL code generated between the **Begin TSQL Script** and **End TSQL Script** into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
 
 ### Task 2: Configure managed backup in SQL Server
 
@@ -672,7 +728,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
     GO
     ```
 
-4.  Refresh SQL Server Management Studio. Find SQL Server Agent in the left-nav. If the agent is stopped, right-click it and choose **Start**, then **Yes** at the confirmation prompt.
+4.  Refresh SQL Server Management Studio if necessary. Find SQL Server Agent in the left-nav. If the agent is stopped, right-click it and choose **Start**, then **Yes** at the confirmation prompt.
 
     ![A screenshot showing how to start the SQL Server Agent in SQL Server Management Studio.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/sql-agent-start.png "Start SQL Server Agent")
 

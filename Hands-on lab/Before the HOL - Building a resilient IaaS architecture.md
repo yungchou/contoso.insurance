@@ -60,6 +60,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) LabRG**
+  
     - Location: **Choose a location close to you**.
 
     Select the checkbox to agree to the terms and conditions, then select **Purchase**.
