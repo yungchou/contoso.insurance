@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-December 2019
+March 2020
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -28,42 +28,42 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Building a resilient IaaS architecture hands-on lab step-by-step](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Overview](#overview)
-  - [Solution architecture](#solution-architecture)
-  - [Requirements](#requirements)
-    - [Help references](#help-references)
-  - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
-    - [Task 1: Create a VNet in the second region](#task-1-create-a-vnet-in-the-second-region)
-    - [Task 2: Configure VNet Peering between Azure regions](#task-2-configure-vnet-peering-between-azure-regions)
-    - [Task 3: Configure ADVM as the DNS server for VNET2](#task-3-configure-advm-as-the-dns-server-for-vnet2)
-  - [Exercise 2: Build a resilient Active Directory deployment](#exercise-2-build-a-resilient-active-directory-deployment)
-    - [Task 1: Deploy redundant Domain Controller VMs in the first Azure region](#task-1-deploy-redundant-domain-controller-vms-in-the-first-azure-region)
-    - [Task 2: Deploy redundant Domain Controller VMs in the second Azure region](#task-2-deploy-redundant-domain-controller-vms-in-the-second-azure-region)
-    - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
-    - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
-    - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
-    - [Summary](#summary)
-  - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
-    - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
-    - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
-    - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
-    - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
-    - [Summary](#summary-1)
-  - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
-    - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
-    - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
-  - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
-    - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
-    - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
-    - [Task 3: Validate VM backups are taken](#task-3-validate-vm-backups-are-taken)
-  - [Exercise 6: Implement Azure Site Recovery](#exercise-6-implement-azure-site-recovery)
-    - [Task 1: Configure ASR Protection for CloudShop](#task-1-configure-asr-protection-for-cloudshop)
-    - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
-    - [Task 3: Execute a Test Failover.](#task-3-execute-a-test-failover)
-    - [Task 4: Clean up the Test Failover.](#task-4-clean-up-the-test-failover)
-  - [After the hands-on lab](#after-the-hands-on-lab)
-    - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
+    - [Abstract and learning objectives](#abstract-and-learning-objectives)
+    - [Overview](#overview)
+    - [Solution architecture](#solution-architecture)
+    - [Requirements](#requirements)
+        - [Help references](#help-references)
+    - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
+        - [Task 1: Create a VNet in the second region](#task-1-create-a-vnet-in-the-second-region)
+        - [Task 2: Configure VNet Peering between Azure regions](#task-2-configure-vnet-peering-between-azure-regions)
+        - [Task 3: Configure ADVM as the DNS server for VNET2](#task-3-configure-advm-as-the-dns-server-for-vnet2)
+    - [Exercise 2: Build a resilient Active Directory deployment](#exercise-2-build-a-resilient-active-directory-deployment)
+        - [Task 1: Deploy redundant Domain Controller VMs in the first Azure region](#task-1-deploy-redundant-domain-controller-vms-in-the-first-azure-region)
+        - [Task 2: Deploy redundant Domain Controller VMs in the second Azure region](#task-2-deploy-redundant-domain-controller-vms-in-the-second-azure-region)
+        - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
+        - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
+        - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
+        - [Summary](#summary)
+    - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
+        - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
+        - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
+        - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
+        - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
+        - [Summary](#summary-1)
+    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
+        - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
+        - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
+    - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
+        - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
+        - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
+        - [Task 3: Validate VM backups are taken](#task-3-validate-vm-backups-are-taken)
+    - [Exercise 6: Implement Azure Site Recovery](#exercise-6-implement-azure-site-recovery)
+        - [Task 1: Configure ASR Protection for CloudShop](#task-1-configure-asr-protection-for-cloudshop)
+        - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
+        - [Task 3: Execute a Test Failover.](#task-3-execute-a-test-failover)
+        - [Task 4: Clean up the Test Failover.](#task-4-clean-up-the-test-failover)
+    - [After the hands-on lab](#after-the-hands-on-lab)
+        - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
 
 <!-- /TOC -->
 
