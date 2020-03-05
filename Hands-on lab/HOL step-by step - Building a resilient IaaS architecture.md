@@ -28,42 +28,42 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Building a resilient IaaS architecture hands-on lab step-by-step](#building-a-resilient-iaas-architecture-hands-on-lab-step-by-step)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Overview](#overview)
-    - [Solution architecture](#solution-architecture)
-    - [Requirements](#requirements)
-        - [Help references](#help-references)
-    - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
-        - [Task 1: Create a VNet in the second region](#task-1-create-a-vnet-in-the-second-region)
-        - [Task 2: Configure VNet Peering between Azure regions](#task-2-configure-vnet-peering-between-azure-regions)
-        - [Task 3: Configure ADVM as the DNS server for VNET2](#task-3-configure-advm-as-the-dns-server-for-vnet2)
-    - [Exercise 2: Build a resilient Active Directory deployment](#exercise-2-build-a-resilient-active-directory-deployment)
-        - [Task 1: Deploy redundant Domain Controller VMs in the first Azure region](#task-1-deploy-redundant-domain-controller-vms-in-the-first-azure-region)
-        - [Task 2: Deploy redundant Domain Controller VMs in the second Azure region](#task-2-deploy-redundant-domain-controller-vms-in-the-second-azure-region)
-        - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
-        - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
-        - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
-        - [Summary](#summary)
-    - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
-        - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
-        - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
-        - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
-        - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
-        - [Summary](#summary-1)
-    - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
-        - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
-        - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
-    - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
-        - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
-        - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
-        - [Task 3: Validate VM backups are taken](#task-3-validate-vm-backups-are-taken)
-    - [Exercise 6: Implement Azure Site Recovery](#exercise-6-implement-azure-site-recovery)
-        - [Task 1: Configure ASR Protection for CloudShop](#task-1-configure-asr-protection-for-cloudshop)
-        - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
-        - [Task 3: Execute a Test Failover.](#task-3-execute-a-test-failover)
-        - [Task 4: Clean up the Test Failover.](#task-4-clean-up-the-test-failover)
-    - [After the hands-on lab](#after-the-hands-on-lab)
-        - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Overview](#overview)
+  - [Solution architecture](#solution-architecture)
+  - [Requirements](#requirements)
+    - [Help references](#help-references)
+  - [Exercise 1: Prepare connectivity between regions](#exercise-1-prepare-connectivity-between-regions)
+    - [Task 1: Create a VNet in the second region](#task-1-create-a-vnet-in-the-second-region)
+    - [Task 2: Configure VNet Peering between Azure regions](#task-2-configure-vnet-peering-between-azure-regions)
+    - [Task 3: Configure ADVM as the DNS server for VNET2](#task-3-configure-advm-as-the-dns-server-for-vnet2)
+  - [Exercise 2: Build a resilient Active Directory deployment](#exercise-2-build-a-resilient-active-directory-deployment)
+    - [Task 1: Deploy redundant Domain Controller VMs in the first Azure region](#task-1-deploy-redundant-domain-controller-vms-in-the-first-azure-region)
+    - [Task 2: Deploy redundant Domain Controller VMs in the second Azure region](#task-2-deploy-redundant-domain-controller-vms-in-the-second-azure-region)
+    - [Task 3: Configure static internal IP addresses on each Domain Controller VM](#task-3-configure-static-internal-ip-addresses-on-each-domain-controller-vm)
+    - [Task 4: Format Data Disks and promote new VMs as additional Domain Controllers](#task-4-format-data-disks-and-promote-new-vms-as-additional-domain-controllers)
+    - [Task 5: Update the VNET settings to use the new Domain Controller VMs as the default DNS servers](#task-5-update-the-vnet-settings-to-use-the-new-domain-controller-vms-as-the-default-dns-servers)
+    - [Summary](#summary)
+  - [Exercise 3: Build web tier and SQL Server for resiliency](#exercise-3-build-web-tier-and-sql-server-for-resiliency)
+    - [Task 1: Deploy the SQL and Web VMs](#task-1-deploy-the-sql-and-web-vms)
+    - [Task 2: Verify the SQL Always-On Availability Group configuration](#task-2-verify-the-sql-always-on-availability-group-configuration)
+    - [Task 3: Deploy the application database to the SQL Always-On cluster](#task-3-deploy-the-application-database-to-the-sql-always-on-cluster)
+    - [Task 4: Verify the CloudShop application](#task-4-verify-the-cloudshop-application)
+    - [Summary](#summary-1)
+  - [Exercise 4: Configure SQL Server Managed Backup](#exercise-4-configure-sql-server-managed-backup)
+    - [Task 1: Create an Azure Storage Account](#task-1-create-an-azure-storage-account)
+    - [Task 2: Configure managed backup in SQL Server](#task-2-configure-managed-backup-in-sql-server)
+  - [Exercise 5: Validate resiliency](#exercise-5-validate-resiliency)
+    - [Task 1: Validate resiliency for the CloudShop application](#task-1-validate-resiliency-for-the-cloudshop-application)
+    - [Task 2: Validate SQL Always On](#task-2-validate-sql-always-on)
+    - [Task 3: Validate VM backups are taken](#task-3-validate-vm-backups-are-taken)
+  - [Exercise 6: Implement Azure Site Recovery](#exercise-6-implement-azure-site-recovery)
+    - [Task 1: Configure ASR Protection for CloudShop](#task-1-configure-asr-protection-for-cloudshop)
+    - [Task 2: Creating the Recovery Plan](#task-2-creating-the-recovery-plan)
+    - [Task 3: Execute a Test Failover.](#task-3-execute-a-test-failover)
+    - [Task 4: Clean up the Test Failover.](#task-4-clean-up-the-test-failover)
+  - [After the hands-on lab](#after-the-hands-on-lab)
+    - [Task 1: Delete the resource groups created](#task-1-delete-the-resource-groups-created)
 
 <!-- /TOC -->
 
@@ -528,7 +528,7 @@ In this task you will verify that the SQL Always-On Availability Group has been 
 
 2.  Once connected, open the Windows Explorer, check to make sure the **F:\\** Drive is present.
 
-3.  Open the **Failover Cluster Manager** from the Start menu and select **Connect to cluster** on the right. Type **SQLClusterAG** and click **OK**. Cluster manager will connect to the newly deployed Always-On Availability Group. Select **Nodes**, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
+3.  Open the **Failover Cluster Manager** from the Start menu and select **Connect to cluster** on the right. Type **SQLClusterAG** and select **OK**. Cluster manager will connect to the newly deployed Always-On Availability Group. Select **Nodes**, validate all nodes are online and Assigned Vote and Current Vote are listed as "1" for all nodes of the cluster.
 
     ![In Failover Cluster Manager, in the Nodes pane, two Nodes display: SQL0, SQL1. Their Assigned Votes and Current votes are all 1.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image76.png "Failover Cluster Manager")
 
@@ -578,7 +578,7 @@ In this task, you will deploy the application database to the SQL Always-On data
 
 3.  Still on **SQL1**, open Windows Explorer and navigate to the **C:\\** drive. Create two new folders, **C:\\Data** and **C:\\Logs**. These are required when we add our database to the Always-On Availability Group later in this task.
 
-4.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio 17 (SSMS)** from the Start menu and select **Connect** to login to SQL Server.
+4.  Return to the RDP session with **SQL0**. Launch **SQL Server Management Studio** from the Start menu and select **Connect** to login to SQL Server.
 
     ![The Connect to Server dialog box displays.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/2019-09-29_17h38_04.png "Connect to Server dialog box")
 
@@ -691,7 +691,7 @@ In this task, you will create a storage account which will be used to store the 
 
     $enableManagedBackupScript = @"
     --------------------
-    ---BEGIN TSQL Script
+    ---BEGIN T-SQL Script
     --------------------
     CREATE CREDENTIAL [$containerUrl] 
     WITH IDENTITY = 'Shared Access Signature', 
@@ -706,14 +706,14 @@ In this task, you will create a storage account which will be used to store the 
      @retention_days = 30
        
     --------------------
-    ---END TSQL Script
+    ---END T-SQL Script
     --------------------
     "@
 
     Write-Host $enableManagedBackupScript 
     ```
 
-3.  After execution in the PowerShell output, save the T-SQL code generated between the **Begin TSQL Script** and **End TSQL Script** into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
+3.  After execution in the PowerShell output, save the T-SQL code generated between the **Begin T-SQL Script** and **End T-SQL Script** into a notepad file. This code creates an identity using a Shared Access Signature (SAS) to a container in the storage account and configures managed backup when executed.
 
 ### Task 2: Configure managed backup in SQL Server
 
@@ -761,7 +761,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
         ,@log_backup_freq = '00:05'  
     GO
     ```
-7.  Execute the following tSQL in the query window to generate a backup on-demand. You can also specify Log for \@type.
+7.  Execute the following T-SQL in the query window to generate a backup on-demand. You can also specify Log for \@type.
 
     ```sql
     EXEC msdb.managed_backup.sp_backup_on_demand   
@@ -793,7 +793,7 @@ In this task, you will configure SQL Server managed backup to the storage accoun
 
 1.  In the Azure portal, select All Services and search for and select Recovery Services Vault. You should see the two recovery vaults created as part of the deployment of the Active Directory domain controllers.
 
-2.  Open each vault and validate that a backup of the VM has occurred by clicking **Backup items** under **Protected items**. 
+2.  Open each vault and validate that a backup of the VM has occurred by selecting **Backup items** under **Protected items**. 
 
     ![The screen shows 2 backup items from one of the vaults.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image140.png "Usage")
 

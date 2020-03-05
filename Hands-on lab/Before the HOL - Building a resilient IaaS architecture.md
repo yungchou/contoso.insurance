@@ -65,7 +65,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 
     Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
-    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png)
+    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png "Screenshot of the Azure portal showing the custom template deployment settings for the LabVM")
 
     You should proceed to the next task **without** waiting for the deployment to complete. This saves time.
 
@@ -93,11 +93,11 @@ In this task, you will verify that the LabVM and CloudShop sample application ha
 
 1.  You can check the LabVM deployment status by navigating to the **LabRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the 'Microsoft.Template' deployment. Make sure the template deployment status is **Succeeded** before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png "Screenshot of the Azure portal showing the template deployment status Succeeded")
 
 2.  You can check the CloudShop deployment status by navigating to the **ContosoRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
 3.  Once the CloudShop deployment is successful, validate the application by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
 
