@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-December 2019
+March 2020
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2019 Microsoft Corporation. All rights reserved.
+© 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -60,11 +60,12 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) LabRG**
+  
     - Location: **Choose a location close to you**.
 
     Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
-    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png)
+    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png "Screenshot of the Azure portal showing the custom template deployment settings for the LabVM")
 
     You should proceed to the next task **without** waiting for the deployment to complete. This saves time.
 
@@ -92,11 +93,11 @@ In this task, you will verify that the LabVM and CloudShop sample application ha
 
 1.  You can check the LabVM deployment status by navigating to the **LabRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the 'Microsoft.Template' deployment. Make sure the template deployment status is **Succeeded** before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png "Screenshot of the Azure portal showing the template deployment status Succeeded")
 
 2.  You can check the CloudShop deployment status by navigating to the **ContosoRG** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png)
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/cloudshop-succeeded.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
 3.  Once the CloudShop deployment is successful, validate the application by opening the **CloudShopWeb** virtual machine and navigating your browser to its public IP address.
 

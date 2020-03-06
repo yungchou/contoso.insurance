@@ -4,7 +4,7 @@ Contoso, is a leading manufacturer, seller, distributor and servicer of parts fo
 
 Several years ago, under the leadership of Lewis Franklin, head of infrastructure and operations, individual departments started migrating their servers into Azure. The Active Directory Domain Services (ADDS) team has deployed several Domain Controller (DC) Virtual Machines (VM) to a virtual network in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. Some effort was made to follow the guidance of Microsoft on the use of Active Directory (AD) in Azure, but some configuration gaps remain.
 
-December 2019
+March 2020
 
 ## Target audience
 
