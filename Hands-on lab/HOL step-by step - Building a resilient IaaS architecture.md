@@ -125,7 +125,7 @@ Contoso is planning to deploy infrastructure in multiple regions in Azure to pro
   
     - Address space: **172.16.0.0/16**
   
-    - Subscription: **Choose your subscription**
+    - Subscription: **Choose your subscription**.
   
     - Resource group (create new): **CUSRG**
   
@@ -275,7 +275,7 @@ In this exercise, you will deploy a pair of Windows Server VMs in the primary re
 
     - Boot diagnostics: **On**
   
-    - Diagnostics storage account: **Create new and select a unique name, it may already be created**
+    - Diagnostics storage account: **Create new and select a unique name, it may already be created**.
   
     - Auto-shutdown: **Off**
   
@@ -309,7 +309,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
 
 2.  In the **Create virtual machine** blade, enter the **Basics** information:
 
-    -   Subscription: **Select your subscription**
+    -   Subscription: **Select your subscription**.
   
     -   Resource group: **(Create new) CUSADRG**
   
@@ -363,7 +363,7 @@ In this task, you will deploy a pair of VMs in the second region. These will lat
   
     - Resource group (create new): **CUSBackupVaultRG**
   
-    - Backup Policy: **(new)DailyPolicy**
+    - Backup Policy: **(new) DailyPolicy**
 
     ![Azure portal screenshot showing the Management tab of the VM create blade, selecting the diagnostics and backup settings.](images/Hands-onlabstep-bystep-BuildingaresilientIaaSarchitectureimages/media/image138.png "Management settings")
     
@@ -482,7 +482,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
   
     - Location: **West US 2** 
   
-    - Data Subnet ID: **See note below**
+    - Data Subnet ID: **See note below**.
     
     Leave the rest of the template parameters with their default values.
 
@@ -522,7 +522,7 @@ In this task, you will deploy a SQL Always-On cluster using an ARM template that
 
 In this task you will verify that the SQL Always-On Availability Group has been configured correctly.
 
-1.  Open a remote desktop connection to the **ADVM** virtual machine and then open **Remote Desktop Connection** by searching for it in the Start menu. Start a remote desktop connection to the **SQL0** virtual machine you created in the previous task using the ip address, **10.0.1.10**, and login using the **contoso\\demouser** account with the password **demo@pass123**.
+1.  Open a remote desktop connection to the **ADVM** virtual machine and then open **Remote Desktop Connection** by searching for it in the Start menu. Start a remote desktop connection to the **SQL0** virtual machine you created in the previous task using the IP address, **10.0.1.10**, and login using the **contoso\\demouser** account with the password **demo@pass123**.
 
     > **Note:** Since the SQL0 VM does not have a public IP address, `ADVM` serves as a jump box to connect to SQL0 on the private IP address **10.0.1.10**.
 
