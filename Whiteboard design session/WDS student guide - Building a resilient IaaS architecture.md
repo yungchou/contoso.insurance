@@ -68,7 +68,7 @@ Directions: With all participants in the session, the facilitator/SME presents a
  
 ### Customer situation
 
-Contoso, is a leading manufacturer, seller, distributor and servicer of parts for heating, venting and air-conditioning (HVAC) systems. Their customer base includes some of the largest corporations and independent firms in the US. Contoso specializes in the datacenter space, designing computer room air conditioning (CRAC) units and contracting in the planning of hyper-scale cloud provider datacenter cooling strategies. As such, the research and development group are one of the largest business units in the company. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
+Contoso Insurance (CI), headquartered in Miami, provides insurance solutions across North America. Its products include accident and health insurance, life insurance, travel, home, and auto coverage. CI manages data collection services by sending mobile agents directly to the insured to gather information as part of the data collection process for claims from an insured individual. These mobile agents are based all over the US and are residents of the region in which they work. Mobile agents are managed remotely, and each regional corporate office has a support staff responsible for scheduling their time based on requests that arrive to the system. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
 Contoso would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. This project has been executed under the leadership of Lewis Franklin, head of infrastructure and operations.
 
@@ -76,9 +76,9 @@ Many Contoso applications have an ADDS dependency, and so building a domain cont
 
 ![This image represents a single domain controller in the West Central US region with a site to site VPN gateway connecting the on-premises environment with the cloud.](images/Existing-VPN-AD.png "West Central US region - Single Domain Controller")
 
-For many years Contoso's ordering process was done mainly via phone by their sales team based in one of their offices. This was then upgraded to a web-based Ordering application. The web application team then migrated the Ordering application to Azure using VMs within the same West Central US region. They have deployed a load balancer in front of the web servers and configured a TCP health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
+For many years Contoso's claims process was done mainly via phone by their remote agents. This was then upgraded to a web-based claims application. The web application team then migrated the claims application to Azure using VMs within the same West Central US region. They have deployed a load balancer in front of the web servers and configured a TCP health probe to monitor the servers in the load balanced pool. When they need scalability, they manually configure another web server and often leave it running even after the need for additional capacity has passed.
 
-Taking their cue from the AD and Web teams, the Database Administrators have also rolled out their SQL servers onto Azure VMs, choosing to host them in the West Central US region as well. The Ordering application database has been deployed on a single VM with multiple disks. One disk is utilized for the data; the other disk is for backup and log file storage.
+Taking their cue from the AD and Web teams, the Database Administrators have also rolled out their SQL servers onto Azure VMs, choosing to host them in the West Central US region as well. The claims application database has been deployed on a single VM with multiple disks. One disk is utilized for the data; the other disk is for backup and log file storage.
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Existing-App.png "SQL and Web Server Current Implementation")
 
@@ -86,31 +86,31 @@ Each of the branch offices are small enough to not require an on-site server inf
 
 While the Azure deployments have served Contoso well so far, they are concerned about their reliability:
 
--  Customers have reported intermittent issues with the reliability of the Ordering application. These incidents have been correlated with service health issues of the underlying SQL Server VM.
+-  Agents have reported intermittent issues with the reliability of the claims application. These incidents have been correlated with service health issues of the underlying SQL Server VM.
 
 -  Over a recent three-day holiday weekend, there was an incident with the ADDS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal. Retroactively, checks were made on other Azure VM disk drives and there were several of them that were getting close to capacity due to teams not proactively monitoring their servers. 
 
 -  At times, various branch offices have experienced connectivity issues over the VPN to Cheyenne. While there is some understanding of these occurrences, there is a desire to increase the stability of the connection as growth continues. Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
-These issues prompted Contoso to perform a business impact analysis of the Ordering application. In the resulting report, Janet Lewis, business continuity team director, says, "It appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
+These issues prompted Contoso to perform a business impact analysis of the claims application. In the resulting report, Janet Lewis, business continuity team director, says, "It appears that while services have moved to the cloud, the overall paradigm has not moved from the single datacenter model we have always deployed."
 
-As a result, Lewis's team has been given an executive mandate to implement an Ordering application SLA of at least 99.95% over each calendar month, with proactive monitoring and alerting for key metrics on all critical servers. In addition, the mandate requires a disaster recovery solution in place in the event of a failure of the entire West Central US Azure region. The business has specified a 4 hours recovery time objective (RTO) with a recovery point objective (RPO) of 6 hours for the data. Backup of all critical VMs and databases must also be verified and monitored.
+As a result, Lewis's team has been given an executive mandate to implement an claims application SLA of at least 99.95% over each calendar month, with proactive monitoring and alerting for key metrics on all critical servers. In addition, the mandate requires a disaster recovery solution in place in the event of a failure of the entire West Central US Azure region. The business has specified a 4 hours recovery time objective (RTO) with a recovery point objective (RPO) of 6 hours for the data. Backup of all critical VMs and databases must also be verified and monitored.
 
-In parallel with the above, Jordan North, the Senior Development Lead responsible for the Ordering application, has been working on the next-generation architecture for the Ordering application. He plans to migrate the application from IaaS to PaaS, using Web Apps for the web tier and Azure SQL Database for the database. Aware of the increased focus on resiliency, he is aware that the PaaS migration project will be stalled if it offers a lower level of resilience than the enhanced IaaS implementation. He is therefore looking to implement an equivalent level of high availability, disaster recovery, and backup.
+In parallel with the above, Jordan North, the Senior Development Lead responsible for the claims application, has been working on the next-generation architecture for the claims application. He plans to migrate the application from IaaS to PaaS, using Web Apps for the web tier and Azure SQL Database for the database. Aware of the increased focus on resiliency, he is aware that the PaaS migration project will be stalled if it offers a lower level of resilience than the enhanced IaaS implementation. He is therefore looking to implement an equivalent level of high availability, disaster recovery, and backup.
 
 ### Customer needs 
 
-1.  Redundancy and resiliency for the ADDS domain controller servers, and the web and database servers for the Ordering application, to deliver the 99.95% or greater SLA required by the business.
+1.  Redundancy and resiliency for the ADDS domain controller servers, and the web and database servers for the claims application, to deliver the 99.95% or greater SLA required by the business.
 
 2.  Improved reliability for their VPN connections from branch offices.
 
-3.  An automated mechanism for a quick recovery of the ordering application in the event of disaster impacting the entire West Central US Azure region.
+3.  An automated mechanism for a quick recovery of the claims application in the event of disaster impacting the entire West Central US Azure region.
 
 4.  A plan for recovery from data corruption or accidental deletion for all critical infrastructure components.
 
 5.  A comprehensive solution for monitoring the health of Azure VMs, databases and backups, with proactive alerting of any issues.
 
-6.  An understanding of how to achieve an equivalent level of high availability, disaster recovery and backup for the next-generation PaaS-based implementation of the Ordering application.
+6.  An understanding of how to achieve an equivalent level of high availability, disaster recovery and backup for the next-generation PaaS-based implementation of the claims application.
 
 In addition, Contoso require a detailed understanding of the costs associated with each of the above.
 
@@ -146,7 +146,7 @@ Directions: With all participants at your table, answer the following questions 
 
 Directions: Design the solution architecture by drawing it on the board, and separately provide insight into how you will address the following requirements. Identify the steps needed to implement a proof of concept for the proposed solution(s) as well as what would need to be demonstrated to stakeholders.
 
-1.  How will you provide an SLA in excess of 99.95% (per month) for the overall Ordering application?
+1.  How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
   
     -  Consider each application tier: Web, database, and domain controllers.
 
@@ -154,12 +154,12 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
     -  Identify and eliminate as many single-points-of-failure as you can.
 
-3.  Describe how you will implement a disaster recovery solution for the Ordering application.
+3.  Describe how you will implement a disaster recovery solution for the claims application.
 
     -  Which secondary Azure region will you use?
     -  How will the DR be configured? Consider each component (web, database, AD, VPN)
     -  What process is required to fail over to the secondary site? Consider each component (web, database, AD, VPN). Are all process steps automated?
-    -  What is the impact on customers using the application? How are they routed to the DR site after failover?
+    -  What is the impact on agents using the application? How are they routed to the DR site after failover?
     -  Does the solution meet the RPO and RTO requirements?
 
 4.  How will you protect both VMs and databases from data corruption or accidental deletion?
@@ -168,7 +168,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 5.  How will you monitor and alert on Azure VMs metrics? Does this approach extend to SQL monitoring? What about backup monitoring?
 
-6.  How can the PaaS implementation of the Ordering application achieve an equivalent level of resiliency?
+6.  How can the PaaS implementation of the claims application achieve an equivalent level of resiliency?
 
     - How is high availability provided by the Web Application and SQL Database? Can the SLA target be met?
     - How will the PaaS solution recover from a complete failure of the primary Azure region? Can the RPO and RTO targets be met?
