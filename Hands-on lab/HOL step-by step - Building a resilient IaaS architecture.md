@@ -52,6 +52,8 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 1: Validate High Availability](#task-1-validate-high-availability)
     - [Task 2: Validate Disaster Recovery - Failover IaaS region to region](#task-2-validate-disaster-recovery---failover-iaas-region-to-region)
     - [Task 3: Validate Disaster Recovery - Failback IaaS region to region](#task-3-validate-disaster-recovery---failback-iaas-region-to-region)
+    - [Task 4: Validate VM Backup](#task-4-validate-vm-backup)
+    - [Task 4: Validate SQL Backup](#task-4-validate-sql-backup)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the lab resources](#task-1-delete-the-lab-resources)
 
@@ -966,7 +968,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
 21. Select **Review + Create**. Once validation has completed, select **Create** to provision the Front Door service.
 
-22. Navigate to the Azure Front Door resource. Select the **Frontend host** URL of Azure Front Door, the Policy Connect web application will load. This is connecting to the **WWWEXTLB** External Load Balancer that is in front of **WEBVM1** and **WEBVM2** running in the **Primary** Site in **BCDRIaaSPrimarySite** resource group and connecting to the SQL Always On Listener at the same location.
+22. Navigate to the Azure Front Door resource. Select the **Frontend host** URL of Azure Front Door, the Policy Connect web application will load. This is connecting to the **ContosoWebLBPrimary** External Load Balancer that is in front of **WEBVM1** and **WEBVM2** running in the **Primary** Site in **ContosoRG1** resource group and connecting to the SQL Always On Listener at the same location.
 
     ![The Frontend host link is selected from the Azure Front Door.](images/dr-fd.png "Frontend host link")
 
@@ -1099,15 +1101,15 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 
 1.  In a new browser tab, navigate to **https://shell.azure.com** and open a **PowerShell** session.
 
-2.  Unless you have done so previously, you will need to registere your Azure subscription to use the `Microsoft.SqlVirtualMachine` resource provider. In the Cloud Shell window, execute the following command:
+2.  Unless you have done so previously, you will need to register your Azure subscription to use the `Microsoft.SqlVirtualMachine` resource provider. In the Cloud Shell window, execute the following command:
 
     ```PowerShell
     Register-AzResourceProvider -ProviderNamespace Microsoft.SqlVirtualMachine
     ```
+    ![Azure Cloud Shell screenshot showing the Microsoft.SqlVirtualMachine resource provider registration. The status is 'Registering'.](images/bk-sql-rp1a.png "Register resource provider")
 
-    > **Note:** It may take several minutes to register the resource provider.
+    > **Note:** It may take several minutes to register the resource provider. Wait until the registration is complete before proceeding to the next step. You can check the registration status using `Get-AzResourceProvider -ProviderNamespace Microsoft.SqlVirtualMachine`.
 
-    ![Azure Cloud Shell screenshot showing the Microsoft.SqlVirtualMachine resource provider registration.](images/bk-sql-rp1.png "Register resource provider")
 
 3.  Register **SQLVM1** with the resource provider by executing the following command in the Cloud Shell window:
 
@@ -1164,6 +1166,8 @@ With the SQL virtual machine resources created and the SQL IaaS extension instal
 
     > **Note:** Using AutoProtect backups up the current database and any future databases on this Always On Availability Group.
 
+    > **Note:** You may also want to backup system databases on each of the SQL Servers.
+
 13. On the 'Backup' blade, note that **BCDRAOG\BCDRAOG** is now listed for backup. Leave the policy as the default `HourlyLogBackup` policy. Select **Enable Backup** and wait for the deployment to complete.
 
     ![Azure portal screenshot showing the BCDRAOG database listed for backup, and the HourlyLogBackup settings. The 'Enable Backup' button is highlighted.](images/bk-sql7.png "Enable Backup button")
@@ -1174,13 +1178,27 @@ With the SQL virtual machine resources created and the SQL IaaS extension instal
 
 15.  Wait for the backup configuration job to complete. Use the **Refresh** button to monitor progress. This will take several minutes.
 
+16. Select **Backup items**, then select **SQL in Azure VM**.
 
+    ![Screenshot showing the path to the SQL in Azure VMs in backup items in the Recovery Services Vault.](images/v-bk-sql1.png "Backup items")
 
+17. From the backup items list, note that the **contosoinsurance** database has status **Warning (Initial backup pending)**.
 
+    ![Azure portal screenshot showing the backup status for the contosoinsurance database.](images/bk-sql10.png "Backup status")
 
+18.  Select the **contosoinsurance** database and select **Backup now**
 
+    ![Azure portal screenshot showing the backup now button for the contosoinsurance database.](images/bk-sql11.png "Backup now")
 
+19.  Review the default backup settings, then select **OK** to start the backup.
 
+    ![Azure portal screenshot showing the backup settings for the contosoinsurance database.](images/bk-sql12.png "Backup settings")
+
+20. The backup proces starts. You can monitor progress from the **Backup Job** pane.
+
+    ![Azure portal screenshot showing the Backup Job for the contosoinsurance database.](images/bk-sql13.png "Database Backup Job")
+
+    > **Note:** You can continue to the next step in the lab without waiting for the backup job to complete.
 
 ## Exercise 4: Validate resiliency
 
@@ -1357,8 +1375,113 @@ In this task, you will failback the Contoso application from the DR site in East
 
     > **Note:** This task could have been done using the Azure Automation script during Failback, but most DBAs would prefer a clean failback and then do this manually once they are comfortable with the failback.
 
+### Task 4: Validate VM Backup
 
+In this task, you will validate the backup for the Contoso application WebVMs. You will do this by removing several image files from **WebVM1**, breaking the Contoso application. You will then restore the VM from backup. 
 
+1.  From the Azure portal, locate and shut down **WebVM2**. This forces all traffic to be served by **WebVM1**, which makes the backup/restore verification easier.
+   
+2.  Navigate to **WebVM1** and connect to the VM using Azure Bastion, using username `demouser@contoso.com` and password `Demo!pass123`.
+
+3.  Open Windows Explorer and navigate to the `C:\inetpub\wwwroot\Content` folder. Select the three `.PNG` files and delete them.
+
+    ![Windows Explorer is used to delete PNG files from the Contoso application.](images/v-bk-web1.png "Delete PNG files")
+
+4.  In the Azure portal, locate the **ContosoWebLBPrimaryIP** public IP address in **ContosoRG1**. Copy the DNS name and open it in a new browser tab. Hold down `CTRL` and refresh the browser, to reload the page without using your local browser cache. The Contoso application should be shown with images missing.
+
+    ![Browser screenshot showing the Contoso application with missing images highlighted](images/v-bk-web2.png "Contoso application with missing images")
+
+5.  To restore WebVM1 from backup, Azure Backup requires that a 'staging' storage account be available. To create this account, in the Azure portal select **+ Create a resource**, then **Storage**, and then **Storage account - blob, file, table, queue**.
+
+6.  Complete the 'Create storage account' form as follows, then select **Review + Create** followed by **Create**.
+
+    -   **Resource group:** ContosoRG1
+    -   **Storage account name:** Unique name starting with `backupstaging`
+    -   **Location:** Central US *(this is your primary region)*
+    -   **Performance:** Standard
+    -   **Account kind:** StorageV2 (general purpose v2)
+    -   **Replication:** Locally-redundant storage (LRS)
+    -   **Access tier:** Hot
+
+    ![Screenshot showing the 'Create storage account' blade in the Azure portal](images/v-bk-web3.png "Create storage account")
+
+7.  Before restoring a VM, the existing VM must be shut down. Use the Azure portal to shut down **WebVM1**.
+
+    > **Note:** since WebVM2 is also shut down, this will break the Contoso application. In a real-world scenario, you would keep WebVM2 running while restoring WebVM1.
+
+8.  In the Azure portal, navigate to the **BackupRSV** Recovery Services Vault. Under 'Protected Items', select **Backup items**, then select **Azure Virtual Machine**.
+
+    ![Screenshot showing the Recovery Services Vault, with the links to the Azure Virtual Machine backup item highlighted.](images/v-bk-web4.png "Backup items")
+
+9.  On the Backup items page, select **WebVM1**. On the **WebVM1** page, select **RestoreVM**.
+
+    ![Screenshot showing the WebVM1 backup status page, with the 'Restore VM' button highlighted.](images/v-bk-web5.png "Restore VM button")
+
+10. Complete the Restore Virtual Machine page as follows, then select **Restore**.
+
+    -   **Restore point:** Select the most recent restore point
+    -   **Restore Configuration:** Replace existing
+    -   **Staging Location**: Choose the storage account you created earlier, starting with `backupstaging`
+
+    ![Screenshot showing settings to restore WebVM1, replacing the existing VM.](images/v-bk-web6.png "Restore VM options")
+
+11. In the **BackupRSV** vault, navigate to the **Backup Jobs** view. Note that there are two new jobs shown as 'In progress', one to take a backup of the VM and a second to restore the VM. 
+
+    ![Screenshot showing both backup and restore jobs for WebVM1.](images/v-bk-web7.png "Restore VM Backup Jobs")
+
+12. It will take several minutes for the VM to be restored. Wait for the restore to complete before proceeding with the lab.
+
+13. Once the restore operation is complete, navigate to the **WebVM1** blade in the Azure portal, and **Start** the VM.
+
+14. Wait for the VM to start, then return to your browser tab showing the Contoso application with missing images. Hold down `CTRL` and select **Refresh** to reload the page. The application is displayed with the images restored, showing the restore from backup has been successful. (As an optional step, you can also open a Bastion connection to the VM and check the deleted .PNG files have been restored.)
+
+15. Start **WebVM2**.
+
+### Task 4: Validate SQL Backup
+
+In this task you will validate the ability to restore the Contoso application database from Azure Backup.
+
+1.  In the Azure portal, navigate to the **BackupRSV** in **ContosoRG1**. Under 'Protected items', select **Backup items**, then select **SQL in Azure VM**.
+
+    ![Screenshot showing the path to the SQL in Azure VMs in backup items in the Recovery Services Vault.](images/v-bk-sql1.png "Backup items")
+
+2.  From the backup items list, select the **contosoinsurance** database.
+
+3.  From the **contosoinsurance** blade, select **Restore**.
+    
+    ![Screenshot showing the restore button for the contosoinsurance database backup.](images/v-bk-sql2.png "Restore button")
+
+4.  Review the default settings on the **Restore** blade. By default, the backup will be restored to a new database alongside the existing database on SQLVM1.
+
+    ![Screenshot showing the settings to restore a SQL database from Azure Backup.](images/v-bk-sql3.png "Restore database settings")
+
+    > **Note:** For an Always On Availability Group backup, the option to overwrite the existing database is not available. You must restore to a parallel location.
+
+5.  Select the option to choose your Restore Point. On the 'Select restore point' blade, explore the restore options. Note how the log-based option offers a point-in-time restore, whereas the full & differential option provides backup based on the backup schedule.
+
+    Choose any restore point and select **OK**.
+
+    ![Screenshot showing the options to select a restore point based on logs.](images/v-bk-sql4.png "Select restore point - Logs")
+
+    ![Screenshot showing the options to select a restore point based on scheduled backups.](images/v-bk-sql5.png "Select restore point - Full & Differential")
+
+6.  Under 'Advanced Configuration', select **Configure**. Review the settings but don't change anything. Select **OK** to accept the default configuration
+   
+7.  Select **OK** to start the restore process.
+   
+8.  Navigate to the **Backup Jobs** view. The ContosoInsurance job is 'In progress'. Use the **Refresh** button to monitor the progress and wait for the job to complete.
+
+    ![Screenshot showing the list of backup jobs with the database restore highlighted.](images/v-bk-sql6.png "Database restore backup job")
+
+9.  Navigate to **SQLVM1** and connect to the VM using Azure Bastion, using username `demouser@contoso.com` and password `Demo!pass123`.
+
+10. On SQLVM1, open **SQL Server Management Studio** and connect to SQLVM1.
+
+11. Note that the restored database is present on the server alongside the production database.
+
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql7.png "Restored database")
+
+    > **Note:** You can now either copy data from the restored database to the production database, or add this database to the Always On Availability Group and switch the Web tier to use the restored database.
 
 ## After the hands-on lab
 
