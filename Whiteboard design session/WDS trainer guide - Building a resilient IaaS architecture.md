@@ -490,7 +490,7 @@ The current VPN has single points of failure at the on-premises VPN gateway (RRA
 
 *On-premises gateway:*
 
--   The RRAS VPN servers can be deployed in a cluster ([here's how](https://docs.microsoft.com/windows-server/remote/remote-access/ras/cluster/deploy-remote-access-in-cluster)). Altneratively, the servers could be upgraded to dedicated hardware VPN devices.
+-   The RRAS VPN servers can be deployed in a cluster ([here's how](https://docs.microsoft.com/windows-server/remote/remote-access/ras/cluster/deploy-remote-access-in-cluster)). Alternatively, the servers could be upgraded to dedicated hardware VPN devices.
 
 *ISP Internet connection:* 
 
@@ -534,7 +534,7 @@ Describe how you will implement a disaster recovery solution for the claims appl
 
 *How will the DR be configured? Consider each component (web, database, AD, VPN)*
 
--  Web server VMs: These should be configured for replication and failover using Azure Site Recovery (ASR). The underlying 'landing zone' infrastructure in the secondary region (network, load balancer, etc) should be provisioned in advance, since ASR will only fail over the Web VMs themselves.
+-  Web server VMs: These should be configured for replication and failover using Azure Site Recovery (ASR). The underlying 'landing zone' infrastructure in the secondary region (network, load balancer, etc.) should be provisioned in advance, since ASR will only fail over the Web VMs themselves.
 
 -  SQL Server: There are two approaches for extending the SQL Server infrastructure to the secondary region.
 
@@ -576,7 +576,7 @@ The claims application is an Internet-facing application. The public IP address 
 
 -  The recovery time achieved depends on the time required for ASR to execute the failover. For a VM, ASR has an [RTO SLA of 2 hours](https://docs.microsoft.com/azure/site-recovery/azure-to-azure-common-questions#failover), although usually a recovery is executed in minutes. You can view the recovery plan recovery time for test failovers in the Azure portal. This comfortably exceeds the RTO requirement of 4 hours specified by the business.
 
--  Achieving the 6-hour recovery point objective depends on the replication of data to the secondary site. Of primary concern is the SQL Server database, although the web VMs should also be considered in case they store any state locally. Both ASR repication and SQL Server asynchronous replication occur continuously, and should give an RPO far shorter than the 6 hours specified by the business.
+-  Achieving the 6-hour recovery point objective depends on the replication of data to the secondary site. Of primary concern is the SQL Server database, although the web VMs should also be considered in case they store any state locally. Both ASR replication and SQL Server asynchronous replication occur continuously, and should give an RPO far shorter than the 6 hours specified by the business.
 
 -  Automating the recovery plan using ASR and Azure Automation is critical to keeping the RTO as short as possible. It has the added advantage of making the recovery process more testable and less prone to human error.
 
@@ -668,7 +668,7 @@ How can the PaaS implementation of the claims application achieve an equivalent 
 -  Azure SQL Database also provides built-in high availability. There are two models:
 
    -  Standard availability (used by the Basic, Standard and General Purpose tiers) relies on a stateless compute layer backed by Azure blob storage as a resilient data layer. Heavy workloads can suffer performance degradation during failure due to cold cache process starts.
-   -  Premium availability (used by the Premium and Business Critical tiers) uses technology similar to SQL Server AlwaysOn Availabililty Groups in a 3 to 4 node cluster. This does not suffer performance degradation during failures.
+   -  Premium availability (used by the Premium and Business Critical tiers) uses technology similar to SQL Server AlwaysOn Availability Groups in a 3 to 4 node cluster. This does not suffer performance degradation during failures.
 
     Contoso will need to choose the appropriate tier depending on their performance needs. For more information see [High availability for Azure SQL Database and SQL Managed Instance](https://docs.microsoft.com/azure/azure-sql/database/high-availability-sla).
 
@@ -784,7 +784,7 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 
 This compares with a monthly total for the IaaS implementation of **$4,949.42** (excluding infra costs, on the assumption these are still required for other applications).
 
-The PaaS implementation is roughly the same price. However a cost-only comparison does not take into account the considerable additional benefits of a PaaS-based approach, e.g. reduced mgmt overhead. Overall, the PaaS solutions offers significantly better value.
+The PaaS implementation is roughly the same price. However, a cost-only comparison does not take into account the considerable additional benefits of a PaaS-based approach, e.g. reduced mgmt overhead. Overall, the PaaS solutions offers significantly better value.
 
 *Cost-saving measures*
 
