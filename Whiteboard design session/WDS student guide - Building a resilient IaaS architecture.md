@@ -72,7 +72,7 @@ Contoso Insurance (CI), headquartered in Miami, provides insurance solutions acr
 
 Contoso would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. This project has been executed under the leadership of Lewis Franklin, head of infrastructure and operations.
 
-Many Contoso applications have an ADDS dependency, and so building a domain controller infrastructure was the starting point for Contoso's cloud build-out. For the current ADDS implementation in Azure, the team has deployed a single domain controller VM in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. It is running on a Standard D2 instance with Active Directory deployed on the C: drive.
+Many Contoso applications have an Active Directory Domain Services (AD DS) dependency, and so building a domain controller infrastructure was the starting point for Contoso's cloud build-out. For the current AD DS implementation in Azure, the team has deployed a single domain controller VM in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. It is running on a Standard D2 instance with Active Directory deployed on the C: drive.
 
 ![This image represents a single domain controller in the West Central US region with a site to site VPN gateway connecting the on-premises environment with the cloud.](images/Existing-VPN-AD.png "West Central US region - Single Domain Controller")
 
@@ -88,7 +88,7 @@ While the Azure deployments have served Contoso well so far, they are concerned 
 
 -  Agents have reported intermittent issues with the reliability of the claims application. These incidents have been correlated with service health issues of the underlying SQL Server VM.
 
--  Over a recent three-day holiday weekend, there was an incident with the ADDS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal. Retroactively, checks were made on other Azure VM disk drives and there were several of them that were getting close to capacity due to teams not proactively monitoring their servers. 
+-  Over a recent three-day holiday weekend, there was an incident with the AD DS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal. Retroactively, checks were made on other Azure VM disk drives and there were several of them that were getting close to capacity due to teams not proactively monitoring their servers. 
 
 -  At times, various branch offices have experienced connectivity issues over the VPN to Cheyenne. While there is some understanding of these occurrences, there is a desire to increase the stability of the connection as growth continues. Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
@@ -100,7 +100,7 @@ In parallel with the above, Jordan North, the Senior Development Lead responsibl
 
 ### Customer needs 
 
-1.  Redundancy and resiliency for the ADDS domain controller servers, and the web and database servers for the claims application, to deliver the 99.95% or greater SLA required by the business.
+1.  Redundancy and resiliency for the AD DS domain controller servers, and the web and database servers for the claims application, to deliver the 99.95% or greater SLA required by the business.
 
 2.  Improved reliability for their VPN connections from branch offices.
 

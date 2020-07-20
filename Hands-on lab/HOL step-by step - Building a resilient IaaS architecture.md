@@ -75,7 +75,7 @@ Contoso has asked you to deploy their infrastructure in a resilient manner to en
 
 The following diagram shows the highly resilient application architecture you will build in this lab. Starting with just WebVM1, SQLVM1 and DCVM1, you will first build out a fully-redundant, high-availability environment in Central US. You will then extend this environment to a disaster recovery site in East US 2, and add a backup solution for both the web tier and database tier.
 
-![Diagram showing the DR design for the Ordering application. Two sites, Central US and East US, each show the application footprint, each with web VMs, SQL VMs and domain controller VMs separated into availability zones within each site. Failover for the web VMs is shown using Azure Site Recovery. Failover for the SQL VMs is shown via SQL Server asynchronous replication. The Domain Controller VMs are running active-active..](images/solution-DR.png "Solution architecture")
+![Diagram showing the DR design for the Ordering application. Two sites, Central US and East US, each show the application footprint, each with web VMs, SQL VMs and domain controller VMs separated into availability zones within each site. Failover for the web VMs is shown using Azure Site Recovery. Failover for the SQL VMs is shown via SQL Server asynchronous replication. The Domain Controller VMs are running active-active..](images/solution-dr2.png "Solution architecture")
 
 
 ## Requirements
@@ -102,7 +102,7 @@ Duration: 60 minutes
 
 The Contoso application has been deployed to the Central US region. This initial deployment does not have any redundancy - it uses a single web VM, a single database VM, and a single domain controller VM.
 
-In this exercise, you will convert this deployment into a high-availability architecture by adding redundancy to each tier.
+In this exercise, you will convert this deployment into a highly-availability architecture by adding redundancy to each tier.
 
 ### Task 1: Deploy HA resources
 
@@ -420,6 +420,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and details of the role display.](images/ha-fcm-aogrole.png "Failover Cluster Manager")
 
+You have now successfully set up the SQL Server VMs to use Always On Availability Groups with a Cloud Witness storage account located in another region.
 
 ### Task 4: Configure HA for the Web tier
 
@@ -481,6 +482,8 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
 1.  In a new browser tab, navigate to **https://shell.azure.com**. Open a **PowerShell** session, and create a Cloud Shell storage account if prompted to do so.
 
+    ![Screenshot of the Azure Cloud Shell with URL and PowerShell mode highlighted.](images/dr-cloudshell.png "Azure Cloud Shell")
+
 2.  Execute the following commands. These will create the DR resource group and deploy the DR resources. 
     You can proceed to the following tasks while the template deployment is in progress.
 
@@ -492,8 +495,8 @@ In this task, you will deploy the resources used by the DR environment. First, y
         -Location 'East US 2'
     ```
 
-3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, nagivate to the Azure portal home page, select **Subscriptions**, the **Deployments**. Note that the template includes:
-    -  A DR virtual network, with peering connection to the existing virtual network
+3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, navigate to the Azure portal home page, select **Subscriptions**, the **Deployments**. Note that the template includes:
+    -  A DR virtual network, which is connected using VNet peering to the existing virtual network
     -  Two additional domain controller VMs, **ADVM3** and **ADVM4**
     -  An additional SQL Server VM, **SQLVM3**
     -  Azure Bastion, to enable VM access
@@ -612,7 +615,7 @@ Next, you will create a variable in Azure Automation which contains settings (su
 
 The failover site in East US 2 has been deployed with two additional domain controllers, **ADVM3** and **ADVM4**. These are integrated with the existing `contoso.com` domain hosted on **ADVM1** and **ADVM2** in the primary site. They run in a fully active-active configuration (there is therefore no failover required for this tier).
 
-The configuration of these domain controllers is fully automatic. In this task, you will simply review the configuration to confirm everything is as it should be.
+The configuration of these domain controllers is fully automatic. In this task, you will simply review the rest of the configuration to confirm everything is as it should be.
 
 1.  From the Azure portal home page, select **Subscriptions**, choose your subscription, and select **Deployments**, then open the **Contoso-IaaS-DR** deployment used for the DR site.
 
