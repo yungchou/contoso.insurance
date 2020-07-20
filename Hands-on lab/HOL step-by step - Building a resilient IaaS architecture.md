@@ -1215,7 +1215,7 @@ In this task we will validate high availability for both the Web and SQL tiers.
 
 1.  In the Azure portal, open the **ContosoRG1** resource group. Select the public IP address for the web tier load-balancer, **ContosoWebLBPrimary**. Select the **Overview** tab and copy the DNS name to the clipboard, and navigate to it in a different browser tab.
 
-2.  The Contoso application is shown. Select **Current Policy Offerings** to view the policy list - this shows the database is accessibile. As an additional check, edit an existing policy and save your changes, to show that the database is writable.
+2.  The Contoso application is shown. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes, to show that the database is writable.
 
 3.  Open an Azure Bastion session with **SQLVM1** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
 
@@ -1324,7 +1324,7 @@ In this task, you will validate failover of the Contoso application from Central
 
     > **Note:** You need to wait for the re-protect process to complete before continuing with the failback. You can check the status of the Re-protect using the Site Recovery Jobs area of the BCDRSRV.
     >
-    > ![In the Recovery blade, Reprotect has a status of In progress for two jobs, one for WebVM1 and one for WebVM2.](images/v-dr15.png "Site Recovery jobs")
+    > ![In the Recovery blade, Re-protect has a status of In progress for two jobs, one for WebVM1 and one for WebVM2.](images/v-dr15.png "Site Recovery jobs")
     >
     > Once the jobs are completed, move to the **Replicated items** blade and wait for the **Status** to show as **Protected**. This shows the data synchronization is complete and the Web VMs are ready to fail back.
     >

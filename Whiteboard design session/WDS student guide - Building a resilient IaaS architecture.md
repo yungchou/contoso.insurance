@@ -46,7 +46,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment for resiliency. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use resiliency concepts including high availability with Availability Zones, disaster recovery for virtual machines to another region using Azure Site Recovery, and SQL Server high availability and disaster recovery using AlwaysOn Availability Groups. You will also learn how to assess the availability SLA, RPO and RTO of your design, and how to use Azure Backup to protect and secure your SQL data and VMs against corruption and loss.
+At the end of the workshop, you will be better able to design and use resiliency concepts including high availability with Availability Zones, disaster recovery for virtual machines to another region using Azure Site Recovery, and SQL Server high availability and disaster recovery using Always On Availability Groups. You will also learn how to assess the availability SLA, RPO and RTO of your design, and how to use Azure Backup to protect and secure your SQL data and VMs against corruption and loss.
 
 You will also discuss how to achieve a similar level of resiliency for a PaaS-based implementation the same application, based on Azure App Service and Azure SQL Database. Finally, you will consider the costs associated with both approaches.
 
@@ -124,7 +124,7 @@ In addition, Contoso require a detailed understanding of the costs associated wi
 
 ### Infographic for common scenarios
 
-![Diagram showing a wide range of Azure services: Domain Controller VM, SQL Server VM, Web VM, Load Balancer, Azure Backup, Azure Site Recovery, SQL Server AlwaysOn Availability Groups, Traffic Manager, Availability Zones, Web Apps, Storage, VPN Gateway, SQL Database, Front Door](images/Common-Scenarios.png "Common Scenarios")
+![Diagram showing a wide range of Azure services: Domain Controller VM, SQL Server VM, Web VM, Load Balancer, Azure Backup, Azure Site Recovery, SQL Server Always On Availability Groups, Traffic Manager, Availability Zones, Web Apps, Storage, VPN Gateway, SQL Database, Front Door](images/Common-Scenarios.png "Common Scenarios")
 
 ## Step 2: Design a proof of concept solution
 

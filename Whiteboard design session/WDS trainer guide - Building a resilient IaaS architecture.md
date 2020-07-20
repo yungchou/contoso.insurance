@@ -173,7 +173,7 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment for resiliency. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
-At the end of the workshop, you will be better able to design and use resiliency concepts including high availability with Availability Zones, disaster recovery for virtual machines to another region using Azure Site Recovery, and SQL Server high availability and disaster recovery using AlwaysOn Availability Groups. You will also learn how to assess the availability SLA, RPO and RTO of your design, and how to use Azure Backup to protect and secure your SQL data and VMs against corruption and loss.
+At the end of the workshop, you will be better able to design and use resiliency concepts including high availability with Availability Zones, disaster recovery for virtual machines to another region using Azure Site Recovery, and SQL Server high availability and disaster recovery using Always On Availability Groups. You will also learn how to assess the availability SLA, RPO and RTO of your design, and how to use Azure Backup to protect and secure your SQL data and VMs against corruption and loss.
 
 You will also discuss how to achieve a similar level of resiliency for a PaaS-based implementation the same application, based on Azure App Service and Azure SQL Database. Finally, you will consider the costs associated with both approaches.
 
@@ -251,7 +251,7 @@ In addition, Contoso require a detailed understanding of the costs associated wi
 
 ### Infographic for common scenarios
 
-![Diagram showing a wide range of Azure services: Domain Controller VM, SQL Server VM, Web VM, Load Balancer, Azure Backup, Azure Site Recovery, SQL Server AlwaysOn Availability Groups, Traffic Manager, Availability Zones, Web Apps, Storage, VPN Gateway, SQL Database, Front Door](images/Common-Scenarios.png "Common Scenarios")
+![Diagram showing a wide range of Azure services: Domain Controller VM, SQL Server VM, Web VM, Load Balancer, Azure Backup, Azure Site Recovery, SQL Server Always On Availability Groups, Traffic Manager, Availability Zones, Web Apps, Storage, VPN Gateway, SQL Database, Front Door](images/Common-Scenarios.png "Common Scenarios")
 
 ## Step 2: Design a proof of concept solution
 
@@ -450,7 +450,7 @@ Considering each tier in turn:
 
 *SQL Servers*()
 
--  A second SQL server should be deployed to the primary site, forming a SQL Server AlwaysOn Availability Group. This should be configured with synchronous replication and automatic failover. A storage account can be used as the 'cloud witness'.
+-  A second SQL server should be deployed to the primary site, forming a SQL Server Always On Availability Group. This should be configured with synchronous replication and automatic failover. A storage account can be used as the 'cloud witness'.
 
 -  The servers should be behind an internal Azure load balancer with Direct Server Return (DSR) enabled.
 
@@ -538,8 +538,8 @@ Describe how you will implement a disaster recovery solution for the claims appl
 
 -  SQL Server: There are two approaches for extending the SQL Server infrastructure to the secondary region.
 
-   -  Additional SQL Server VMs can be provisioned, and configured as asynchronous replicas in the same AlwaysOn availability group as the primary site. During failover, a 'forced failover' will promote one of these secondary servers to primary, and the other server should be reconfigured to replicate synchronously from this new primary.
-   -  Alternatively, SQL Server VMs in the secondary site can be configured as a second AlwaysOn Availability Group, with synchronous replication between servers in the secondary site and asynchronous replication between primary and secondary sites (this is known as a 'distributed Availability Group'). This is more complicated to set up.
+   -  Additional SQL Server VMs can be provisioned, and configured as asynchronous replicas in the same Always On availability group as the primary site. During failover, a 'forced failover' will promote one of these secondary servers to primary, and the other server should be reconfigured to replicate synchronously from this new primary.
+   -  Alternatively, SQL Server VMs in the secondary site can be configured as a second Always On Availability Group, with synchronous replication between servers in the secondary site and asynchronous replication between primary and secondary sites (this is known as a 'distributed Availability Group'). This is more complicated to set up.
   
 -  Domain Controller VMs: A pair of domain controller VMs should be provisioned into availability zones in the secondary site, replicating the set up in the primary site. These are required in the event of a failover, and should be kept running rather than only being provisioned in the event of a failover, so they are always up-to-date.
 
@@ -552,7 +552,7 @@ Describe how you will implement a disaster recovery solution for the claims appl
 
 -  Provisioning of the Web VMs in the secondary site is carried out by ASR during failover. Once provisioned, the failover VMs must be integrated with the load-balancer in the secondary region. ASR supports load-balancer configuration as part of the failover settings, however, this only supports internal load-balancers. For a public load-balancer, adding the VMs to the backend pool is an additional post-failover step.
   
--  For the SQL Server database, we will assume the first of the two approaches described earlier is used, with secondary replicas in the failover site replicating asynchronously as part of the same AlwaysOn Availability Group. At the start of the failover, one of the secondary replicas must be promoted to primary ('forced failover') and the other configured to act as a synchronous replica of this primary.
+-  For the SQL Server database, we will assume the first of the two approaches described earlier is used, with secondary replicas in the failover site replicating asynchronously as part of the same Always On Availability Group. At the start of the failover, one of the secondary replicas must be promoted to primary ('forced failover') and the other configured to act as a synchronous replica of this primary.
 
 -  These failover steps can be automated using Azure Automation Runbooks. The Automation Account should be provisioned to a separate Azure region, so it is not impacted by the failover in any way.
 
@@ -668,7 +668,7 @@ How can the PaaS implementation of the claims application achieve an equivalent 
 -  Azure SQL Database also provides built-in high availability. There are two models:
 
    -  Standard availability (used by the Basic, Standard and General Purpose tiers) relies on a stateless compute layer backed by Azure blob storage as a resilient data layer. Heavy workloads can suffer performance degradation during failure due to cold cache process starts.
-   -  Premium availability (used by the Premium and Business Critical tiers) uses technology similar to SQL Server AlwaysOn Availability Groups in a 3 to 4 node cluster. This does not suffer performance degradation during failures.
+   -  Premium availability (used by the Premium and Business Critical tiers) uses technology similar to SQL Server Always On Availability Groups in a 3 to 4 node cluster. This does not suffer performance degradation during failures.
 
     Contoso will need to choose the appropriate tier depending on their performance needs. For more information see [High availability for Azure SQL Database and SQL Managed Instance](https://docs.microsoft.com/azure/azure-sql/database/high-availability-sla).
 
@@ -762,7 +762,7 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 | | | | |
 
 >**Note:**
->-  SQL Server Enterprise licensing is required for AlwaysOn Availability Groups
+>-  SQL Server Enterprise licensing is required for Always On Availability Groups
 >-  Each SQL Server Enterprise license includes one additional license for a DR server. Hence of the 4 SQL VMs, only 2 need the SQL license. This is a substantial saving.
 >-  Data between Availability Zones in the same region will be billed from Feb 1, 2021
 
