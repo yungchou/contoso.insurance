@@ -420,9 +420,7 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Design
 
-**Question 1**
-
-How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
+1. How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
   
 -  Consider each application tier: Web, database, and domain controllers.
 
@@ -448,7 +446,7 @@ Considering each tier in turn:
 
 -  Migrating to VM Scale Sets would allow the Web tier to auto-scale based on demand (rather than the current approach of manually adding VMs and forgetting to remove them later). VM Scale sets support regional deployment spanning availability zones.
 
-*SQL Servers*()
+*SQL Server(s)*
 
 -  A second SQL server should be deployed to the primary site, forming a SQL Server Always On Availability Group. This should be configured with synchronous replication and automatic failover. A storage account can be used as the 'cloud witness'.
 
@@ -476,9 +474,7 @@ Considering each tier in turn:
 -   AD native Replication across regions allows for disaster recovery from region wide outage should the need arise and faster recovery of the AD DS database.
 
 
-**Question 2**
-
-How can you improve the reliability for the Contoso branch office VPN connections?
+2. How can you improve the reliability for the Contoso branch office VPN connections?
 
 -  Identify and eliminate as many single-points-of-failure as you can.
 
@@ -504,7 +500,7 @@ The current VPN has single points of failure at the on-premises VPN gateway (RRA
 
 -   You should use BGP to advertise the same prefixes of the same on-premises network prefixes to your Azure VPN gateway, and the traffic will be forwarded through these tunnels simultaneously.
 
--   Each connection is counted against the maximum number of tunnels for your Azure VPN gateway (max 30 for the non-Basic SKUs)
+-   Each connection is counted against the maximum number of tunnels for your Azure VPN gateway (max 30 for the non-Basic SKUs).
   
 *Azure VPN Gateway:*
 
@@ -512,10 +508,7 @@ The current VPN has single points of failure at the on-premises VPN gateway (RRA
 
 -  An 'Az' SKU should be used to provide protection against failure of individual data centers in the chosen Azure region.
 
-
-**Question 3**
-
-Describe how you will implement a disaster recovery solution for the claims application.
+3. Describe how you will implement a disaster recovery solution for the claims application.
 
 -  Which secondary Azure region will you use?
 -  How will the DR be configured? Consider each component (web, database, AD, VPN)
@@ -532,7 +525,7 @@ Describe how you will implement a disaster recovery solution for the claims appl
 -  The primary region chosen above was Central US (changed from West Central US to gain Availability Zone support). The secondary region should be the appropriate region pair, in this case East US 2.
 
 
-*How will the DR be configured? Consider each component (web, database, AD, VPN)*
+*How will the DR be configured? Consider each component (web, database, AD, VPN)*.
 
 -  Web server VMs: These should be configured for replication and failover using Azure Site Recovery (ASR). The underlying 'landing zone' infrastructure in the secondary region (network, load balancer, etc.) should be provisioned in advance, since ASR will only fail over the Web VMs themselves.
 
@@ -544,7 +537,6 @@ Describe how you will implement a disaster recovery solution for the claims appl
 -  Domain Controller VMs: A pair of domain controller VMs should be provisioned into availability zones in the secondary site, replicating the set up in the primary site. These are required in the event of a failover, and should be kept running rather than only being provisioned in the event of a failover, so they are always up-to-date.
 
 -  VPN: The secondary site should implement VPN connections similar to the primary site. This is required for domain controller replication and so that branch offices can access the secondary site in the event of a failover.
-
 
 *What process is required to fail over to the secondary site? Consider each component (web, database, AD, VPN). Are all process steps automated?*
 
@@ -563,7 +555,6 @@ Describe how you will implement a disaster recovery solution for the claims appl
 
     ![Recovery Plan for claims application is shown in this image.](images/Recovery-Plan.png "Recovery Plan")
     
-
 *What is the impact on agents using the application? How are they routed to the DR site after failover?*
 
 The claims application is an Internet-facing application. The public IP address of the application will change during the failover between Azure regions. Agents using the application must be directed to the new IP address. This can be achieved in one of three ways.
@@ -580,10 +571,7 @@ The claims application is an Internet-facing application. The public IP address 
 
 -  Automating the recovery plan using ASR and Azure Automation is critical to keeping the RTO as short as possible. It has the added advantage of making the recovery process more testable and less prone to human error.
 
-
-**Question 4**
-
-How will you protect both VMs and databases from data corruption or accidental deletion?
+4. How will you protect both VMs and databases from data corruption or accidental deletion?
 
 -  Describe both the solution and the recovery process.
 
@@ -606,9 +594,7 @@ How will you protect both VMs and databases from data corruption or accidental d
 
     For details on SQL Server Managed Backup see <https://docs.microsoft.com/sql/relational-databases/backup-restore/enable-sql-server-managed-backup-to-microsoft-azure?view=sql-server-2017> 
       
-**Question 5**
-
-How will you monitor and alert on Azure VMs metrics? Does this approach extend to SQL monitoring? What about backup monitoring? 
+5. How will you monitor and alert on Azure VMs metrics? Does this approach extend to SQL monitoring? What about backup monitoring? 
 
 **Solution**
 
@@ -650,10 +636,7 @@ How will you monitor and alert on Azure VMs metrics? Does this approach extend t
 
 -  For more information, see [https://docs.microsoft.com/en-us/azure/backup/monitor-azure-backup-with-backup-explorer].
 
-
-**Question 6**
-
-How can the PaaS implementation of the claims application achieve an equivalent level of resiliency?
+6. How can the PaaS implementation of the claims application achieve an equivalent level of resiliency?
 
 - How is high availability provided by the Web Application and SQL Database? Can the SLA target be met?
 - How will the PaaS solution recover from a complete failure of the primary Azure region? Can the RPO and RTO targets be met?
@@ -696,30 +679,28 @@ Yes. See table.
 | SQL DB  | [1 hr (auto) / 30 sec (manual)](https://docs.microsoft.com/en-us/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview)   |  [5 sec](https://docs.microsoft.com/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview)  |
 |         |     |     |
 
-\* Time to start secondary web app and for endpoint failover via Traffic Manager or Front Door health probes
+\* Time to start secondary web app and for endpoint failover via Traffic Manager or Front Door health probes.
 
 *How is backup implemented and executed?*
 
--  The Web App is stateless, hence backup does not apply
+-  The Web App is stateless, hence backup does not apply.
 
 -  Both SQL Database and SQL Managed Instance use SQL Server technology to create full backups every week, differential backups every 12-24 hours, and transaction log backups every 5 to 10 minutes. The frequency of transaction log backups is based on the compute size and the amount of database activity.
 
 -  When you restore a database, the service determines which full, differential, and transaction log backups need to be restored.
 
--  These backups enable database restore to a point in time within the configured retention period. The backups are stored as RA-GRS storage blobs that are replicated to a paired region for protection against outages impacting backup storage in the primary region.
+-  These backups enable databases to restore to a point in time within the configured retention period. The backups are stored as RA-GRS storage blobs that are replicated to a paired region for protection against outages impacting backup storage in the primary region.
 
 -  If your data protection rules require that your backups are available for an extended time (up to 10 years), you can configure long-term retention for both single and pooled databases.
 
 - For full details, see [Automated backups - Azure SQL Database & SQL Managed Instance](https://docs.microsoft.com/azure/azure-sql/database/automated-backups-overview).
 
-## Pricing
+### Pricing
 
-**Question**
+1. Provide an estimate of the costs associated with each aspect of your solution.
 
-Provide an estimate of the costs associated with each aspect of your solution.
-
--  Be sure to cover all aspects of the design, including the primary site, DR solution, backup solution, VPN, and monitoring costs
--  Include a comparison of the IaaS solution and the PaaS solution
+-  Be sure to cover all aspects of the design, including the primary site, DR solution, backup solution, VPN, and monitoring costs.
+-  Include a comparison of the IaaS solution and the PaaS solution.
 -  Have you included all appropriate cost-saving measures?
 
 **Solution**
@@ -784,7 +765,7 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 
 This compares with a monthly total for the IaaS implementation of **$4,949.42** (excluding infra costs, on the assumption these are still required for other applications).
 
-The PaaS implementation is roughly the same price. However, a cost-only comparison does not take into account the considerable additional benefits of a PaaS-based approach, e.g. reduced mgmt overhead. Overall, the PaaS solutions offers significantly better value.
+The PaaS implementation is roughly the same price. However, a cost-only comparison does not take into account the considerable additional benefits of a PaaS-based approach, e.g. reduced management overhead. Overall, the PaaS solutions offers significantly better value.
 
 *Cost-saving measures*
 
