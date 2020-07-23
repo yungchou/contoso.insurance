@@ -37,11 +37,11 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
 
 ## Requirements
 
-1.  Microsoft Azure Subscription
+- Microsoft Azure Subscription
 
-2.  LabVM virtual machine deployed using the instructions below. This is pre-installed with various tools and files you will use during this lab.
+- LabVM virtual machine deployed using the instructions below. This is pre-installed with various tools and files you will use during this lab.
 
-3.  Contoso sample application, also deployed using the instructions below.
+- Contoso sample application, also deployed using the instructions below.
 
 ## Before the hands-on lab
 
