@@ -275,7 +275,7 @@ Directions: Design the solution architecture by drawing it on the board, and sep
 
 1.  How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
   
-    -  Consider each application tier: Web, database, and domain controllers.
+ -  Consider each application tier: Web, database, and domain controllers.
 
 2.  How can you improve the reliability for the Contoso branch office VPN connections?
 
