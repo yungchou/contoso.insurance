@@ -164,11 +164,9 @@ In this task, you will configure the virtual network to include both domain cont
 In this task, you will build a Windows Failover Cluster and configure SQL Always On Availability Groups to create a high-availability database tier.
 
 
-1. From the Azure portal home page, select **+ Create a resource**.
-
-2. Select **Storage** and then select **Storage account - blob, file, table, queue**.
-
-3. Complete the **Create storage account** form using the following details, then select **Review + create**:
+1. From the Azure portal home page, select **+ Create a resource**. Select **Storage** and then select **Storage account - blob, file, table, queue**.
+   
+2. Complete the **Create storage account** form using the following details:
 
     - **Resource group**: Use existing / ContosoRG1
     - **Storage account name:** Unique name starting with `contososqlwitness`
@@ -179,6 +177,12 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     - **Access tier (default)**: Hot
 
     ![Fields in the Create storage account blade are set to the previously defined settings.](images/ha-storage.png "Create storage account blade")
+
+3.  Switch to the **Advanced** tab. Change the **Minimum TLS version** to **Version 1.0**. Then select **Review + Create**, followed by **Create**.
+
+    ![The 'Advanced' tab of the Create storage account blade shows the minimum TLS version as 1.2](images/ha-tls.png)
+
+    > **Note:** To promote use of the latest and most secure standards, by default Azure storage accounts require TLS version 1.2. This storage account will be used as a Cloud Witness for our SQL Server cluster. SQL Server requires TLS version 1.0 for the Cloud Witness.
 
 4.  Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Settings**. Copy the **storage account name** and the **first access key** to notepad - you will need these values later.
 
@@ -285,9 +289,9 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 25. Return to the Azure portal and open a new Azure Bastion session to **SQLVM2**. Launch **SQL Server 2017 Configuration Manager** and repeat the steps above to **Enable SQL AlwaysOn** and change the **Log On** username. Make sure that you have restarted the SQL Service.
 
-26. Return to your session with **SQLVM1**. Use the Start menu to launch **Microsoft SQL Server Management Studio 17** and connect to the local instance of SQL Server. (Located in the Microsoft SQL Server Tools folder).
+26. Return to your session with **SQLVM1**. Use the Start menu to launch **Microsoft SQL Server Management Studio 18** and connect to the local instance of SQL Server. (Located in the Microsoft SQL Server Tools folder).
 
-    ![Screenshot of Microsoft SQL Server Management Studio 17 on the Start menu.](images/image172.png "Microsoft SQL Server Management Studio 17")
+    ![Screenshot of Microsoft SQL Server Management Studio 18 on the Start menu.](images/image172.png "Microsoft SQL Server Management Studio 18")
 
 27. Select **Connect** to sign on to **SQLVM1**.
 
@@ -691,7 +695,7 @@ This task comprises the following steps:
 
     ![A pop-up asks you to confirm that you want to make the changes and restart the service. The Yes button is selected.](images/image171.png "Confirm Account Change pop-up")
 
-10. Return to your session with **SQLVM1**. Open **Microsoft SQL Server Management Studio 17** and connect to the local instance of SQL Server.
+10. Return to your session with **SQLVM1**. Open **Microsoft SQL Server Management Studio 18** and connect to the local instance of SQL Server.
 
 11. Expand the **Always On High Availability** node. Under **Availability Group Listeners**, right-click on **BCDRAOG** and select **Properties**.
 
