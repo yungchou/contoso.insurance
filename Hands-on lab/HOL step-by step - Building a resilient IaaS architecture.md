@@ -437,6 +437,7 @@ In this task, you will configure a high-availability web tier. This comprises tw
     - **Password**: `Demo!pass123`
 
 2.  In **WebVM1**, open Windows Explorer, navigate to **C:\inetpub\wwwroot** and open the **Web.config** file using Notepad.
+    **Note**: If the **Web.config** change does not run, go to **Start**, **Run** and type **iisreset /restart** from command line.
 
 3.  In the **Web.config** file, locate the **\<ConnectionStrings\>** element and replace **SQLVM1** with **BCDRAOG** in the data source. Remember to **Save** the file.
 
