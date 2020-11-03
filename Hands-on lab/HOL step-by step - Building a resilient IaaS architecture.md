@@ -293,7 +293,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of Microsoft SQL Server Management Studio 18 on the Start menu.](images/image172.png "Microsoft SQL Server Management Studio 18")
 
-27. Select **Connect** to sign on to **SQLVM1**.
+27. Select **Connect** to sign on to **SQLVM1**. **Note**: The username for your lab should show **CONTOSO\demouser**.
 
     ![Screenshot of the Connect to Server dialog box.](images/image173.png "Connect to Server dialog box")
 
@@ -321,7 +321,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of the Add replica button.](images/image179.png "Add replica button")
 
-34. On the **Connect to Server** dialog box enter the Server Name of **SQLVM2** and select **Connect**.
+34. On the **Connect to Server** dialog box enter the Server Name of **SQLVM2** and select **Connect**. **Note**: The username for your lab should show **CONTOSO\demouser**.
 
     ![Screenshot of the Connect to Server dialog box for SQLVM2.](images/image180.png "Connect to Server dialog box")
 
@@ -385,7 +385,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Connect / Database Engine is selected in Object Explorer.](images/image200.png "Object Explorer")
 
-49. Enter **BCDRAOG** as the Server Name. This will be connected to the listener of the group that you created.
+49. Enter **BCDRAOG** as the Server Name. This will be connected to the listener of the group that you created. **Note**: The username for your lab should show **CONTOSO\demouser**.
 
     ![In the Connect to Server Dialog box, Server name is BCDRAOG, and the connect button is selected.](images/image201.png "Connect to Server Dialog box")
 
@@ -411,7 +411,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In Object Explorer, Connect / Database Engine is selected.](images/image200.png "Object Explorer")
 
-53. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.0.2.100**. You again will be able to connect to the server which is up and running as the master.
+53. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.0.2.100**. You again will be able to connect to the server which is up and running as the master. **Note**: The username for your lab should show **CONTOSO\demouser**.
 
     ![Fields in the Connect to Server dialog box are set to the previously defined settings.](images/image205.png "Connect to Server dialog box")
 
@@ -437,6 +437,8 @@ In this task, you will configure a high-availability web tier. This comprises tw
     - **Password**: `Demo!pass123`
 
 2.  In **WebVM1**, open Windows Explorer, navigate to **C:\inetpub\wwwroot** and open the **Web.config** file using Notepad.
+
+    > **Note**: If the **Web.config** change does not run, go to **Start**, **Run** and type **iisreset /restart** from command line.
 
 3.  In the **Web.config** file, locate the **\<ConnectionStrings\>** element and replace **SQLVM1** with **BCDRAOG** in the data source. Remember to **Save** the file.
 
