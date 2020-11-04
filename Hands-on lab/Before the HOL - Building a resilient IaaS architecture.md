@@ -63,7 +63,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
   
     - Location: **Choose a location close to you**.
 
-    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
+    Select **Review + Create** and then **Create** to deploy the resources.
 
     ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png "Screenshot of the Azure portal showing the custom template deployment settings for the LabVM")
 
