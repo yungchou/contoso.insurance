@@ -82,7 +82,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
     - Resource Group: **(Create new) ContosoRG1**
     - Location: **Central US**
 
-    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
+    Select **Review + Create** and then **Create** to deploy the resources.
 
     ![The custom deployment screen with ContosoRG1 as the resource group and Central US as the region.](images/BeforeTheHOL/contoso-deploy.png "Custom deployment")
     
