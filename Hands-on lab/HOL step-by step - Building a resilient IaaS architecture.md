@@ -998,7 +998,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
 1.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
 
-    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
+    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-srv-mktpl2.png "Backup and Site Recovery Screen Create Button")
 
 2.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
