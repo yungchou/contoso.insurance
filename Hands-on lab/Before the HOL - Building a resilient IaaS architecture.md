@@ -65,7 +65,7 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 
     Select **Review + Create** and then **Create** to deploy the resources.
 
-    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy.png "Screenshot of the Azure portal showing the custom template deployment settings for the LabVM")
+    ![Screenshot of the Azure portal showing the custom template deployment settings for the LabVM.](images/BeforeTheHOL/labvm-deploy1.png "Screenshot of the Azure portal showing the custom template deployment settings for the LabVM")
 
     You should proceed to the next task **without** waiting for the deployment to complete. This saves time.
 
