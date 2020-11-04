@@ -117,8 +117,9 @@ A template will be used to save time. You will configure each tier in subsequent
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **ContosoRG1** (create new)
+    - Location: Choose a different location than the Before HOL resource group location.
 
-    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
+    Select **Review + Create** and then **Create** to deploy resources.
 
     ![The custom deployment screen with ContosoRG1 as the resource group.](images/ha-deploy.png "Custom deployment")
 
