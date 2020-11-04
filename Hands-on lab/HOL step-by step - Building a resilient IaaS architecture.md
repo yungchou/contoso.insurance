@@ -121,7 +121,7 @@ A template will be used to save time. You will configure each tier in subsequent
 
     Select **Review + Create** and then **Create** to deploy resources.
 
-    ![The custom deployment screen with ContosoRG1 as the resource group.](images/ha-deploy.png "Custom deployment")
+    ![The custom deployment screen with ContosoRG1 as the resource group.](images/ha-deploy1.png "Custom deployment")
 
 3.  While you wait for the HA resources to deploy, take some time review the template contents. You can review the template by navigating to the **ContosoRG1** resource group, selecting **Deployments** in the resource group left-nav, selecting any of the deployments, followed by **template**.
 
