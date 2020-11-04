@@ -97,9 +97,11 @@ In this task, you will verify that the LabVM and Contoso sample application have
 
 2.  You can check the Contoso application deployment status by navigating to the **ContosoRG1** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
-    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/contoso-success.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
+    ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/contoso-success1.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
-3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine and navigating your browser to its public IP address.
+3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine, copying the public IP address, and navigating your browser to enter its public IP address.
+
+    ![Go to WebVM1 in the resource group, locate the public IP address, and copy it into your web browser](images/BeforeTheHOL/contoso-webvmpubip.png "Copy WebVM1 public IP address")
 
     ![The Contoso application window displays, showing a button for 'Current Policy Offerings](images/BeforeTheHOL/contoso-app.png "Contoso application")
 
