@@ -84,7 +84,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 
     Select **Review + Create** and then **Create** to deploy the resources.
 
-    ![The custom deployment screen with ContosoRG1 as the resource group and Central US as the region.](images/BeforeTheHOL/contoso-deploy.png "Custom deployment")
+    ![The custom deployment screen with ContosoRG1 as the resource group and Central US as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
     
 
 ### Task 3: Wait for deployments to complete, and validate
