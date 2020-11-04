@@ -1020,7 +1020,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
 5.  Still in the BackupRSV Properties blade, under **Security Settings**, select **Update**. Under Soft Delete, select **Disabled**, then **Save** your changes and close the Security Settings panel.
 
-    ![Azure portal screenshot showing the backup properties blade of the Recovery Services Vault.](images/bk-config1.png "Recovery Services Vault backup properties")
+    ![Azure portal screenshot showing the security properties blade of the Recovery Services Vault.](images/backup-sec-config.png "Recovery Services Vault security properties")
 
     > **Note:** In a production environment, you should leave Soft Delete enabled. However, for this lab, it is better to disable this feature, since leaving it enabled makes it more difficult to clean up your lab resources once the lab is complete.
 
