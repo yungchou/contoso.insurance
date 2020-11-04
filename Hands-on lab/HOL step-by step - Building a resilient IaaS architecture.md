@@ -116,8 +116,8 @@ A template will be used to save time. You will configure each tier in subsequent
 
 2.  Complete the Custom deployment blade as follows:
 
-    - Resource Group: **ContosoRG1** (create new)
-    - Location: Choose a different location than the Before HOL resource group location.
+    - Resource Group: **ContosoRG1** (existing)
+    - Location: Central US
 
     Select **Review + Create** and then **Create** to deploy resources.
 
