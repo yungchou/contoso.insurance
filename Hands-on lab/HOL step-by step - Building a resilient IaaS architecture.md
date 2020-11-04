@@ -80,7 +80,7 @@ The following diagram shows the highly resilient application architecture you wi
 
 ## Requirements
 
-Complete the steps given in the [Before the HOL - Building a resilient IaaS architecture](./Before%20the%20HOL%20-%20Building%20a%20resilient%20IaaS%20architecture.html) guide before starting this lab.
+Complete the steps given in the [Before the HOL - Building a resilient IaaS architecture](https://github.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Building%20a%20resilient%20IaaS%20architecture.md) guide before starting this lab.
 
 ### Help references
 |    |            |
@@ -117,10 +117,11 @@ A template will be used to save time. You will configure each tier in subsequent
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **ContosoRG1** (existing)
+    - Location: Central US
 
-    Select the checkbox to agree to the terms and conditions, then select **Purchase**.
+    Select **Review + Create** and then **Create** to deploy resources.
 
-    ![The custom deployment screen with ContosoRG1 as the resource group.](images/ha-deploy.png "Custom deployment")
+    ![The custom deployment screen with ContosoRG1 as the resource group.](images/ha-deploy1.png "Custom deployment")
 
 3.  While you wait for the HA resources to deploy, take some time review the template contents. You can review the template by navigating to the **ContosoRG1** resource group, selecting **Deployments** in the resource group left-nav, selecting any of the deployments, followed by **template**.
 
@@ -502,7 +503,8 @@ In this task, you will deploy the resources used by the DR environment. First, y
     -  An additional SQL Server VM, **SQLVM3**
     -  Azure Bastion, to enable VM access
 
-
+    ![Screenshot of the disaster recovery resources for the Web application.](images/webdr-deploy.png "Successful deployment of Web DR resources")
+    
 Next, you will create the Recovery Services Vault used to replicate the Web tier VMs and orchestrate the cross-site failover.
 
 4.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
@@ -557,6 +559,8 @@ Next, you will create the Recovery Services Vault used to replicate the Web tier
 14. Next, navigate back to the **Azure Automation Account** blade and select **Runbooks**, then select **Import a runbook**.
 
     ![The 'Import a runbook' button is highlighted in Azure Automation.](images/dr-rbimp.png "Import a runbook button")
+
+**Note**: You must be connected to the **LABVM** to complete the next steps.
 
 15. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. The Runbook type should default to **PowerShell Workflow**. Notice that the Name can't be changed. This is the name of the Workflow inside of the Runbook script. Select **Create**.
 
@@ -899,7 +903,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 23. Return to the Recovery Services Vault **BCDRRSV** blade and select the **Replicated Items** link under **Protected Items**. You should see **WebVM1** and **WebVM2**. The Replication Health should be **Healthy**. The Status will show the replication progress. Once both VMs show status **Protected**, replication is complete and you will be able to test the failover.
 
-    ![Under Replicated Items, the status for WebVM1 is 97% Synchronized and WebVM2 is now Protected.](images/dr-as-18.png "Replicated Items")
+    ![Under Replicated Items, the status for WebVM1 is 97% Synchronized and WebVM2 is now Protected.](images/dr-asr-18.png "Replicated Items")
 
     > **Note**: It can take up to 30 minutes for the replication to complete.
 
@@ -994,7 +998,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
 1.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
 
-    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
+    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-srv-mktpl2.png "Backup and Site Recovery Screen Create Button")
 
 2.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
@@ -1016,7 +1020,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
 5.  Still in the BackupRSV Properties blade, under **Security Settings**, select **Update**. Under Soft Delete, select **Disabled**, then **Save** your changes and close the Security Settings panel.
 
-    ![Azure portal screenshot showing the backup properties blade of the Recovery Services Vault.](images/bk-config1.png "Recovery Services Vault backup properties")
+    ![Azure portal screenshot showing the security properties blade of the Recovery Services Vault.](images/backup-sec-config.png "Recovery Services Vault security properties")
 
     > **Note:** In a production environment, you should leave Soft Delete enabled. However, for this lab, it is better to disable this feature, since leaving it enabled makes it more difficult to clean up your lab resources once the lab is complete.
 
