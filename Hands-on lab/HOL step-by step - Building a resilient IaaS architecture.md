@@ -116,7 +116,7 @@ A template will be used to save time. You will configure each tier in subsequent
 
 2.  Complete the Custom deployment blade as follows:
 
-    - Resource Group: **ContosoRG1** (existing)
+    - Resource Group: **ContosoRG1** (create new)
 
     Select the checkbox to agree to the terms and conditions, then select **Purchase**.
 
