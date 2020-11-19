@@ -117,7 +117,7 @@ A template will be used to save time. You will configure each tier in subsequent
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **ContosoRG1** (existing)
-    - Location: Central US
+    - Region: Central US
 
     Select **Review + Create** and then **Create** to deploy resources.
 
@@ -165,7 +165,7 @@ In this task, you will configure the virtual network to include both domain cont
 In this task, you will build a Windows Failover Cluster and configure SQL Always On Availability Groups to create a high-availability database tier.
 
 
-1. From the Azure portal home page, select **+ Create a resource**. Select **Storage** and then select **Storage account - blob, file, table, queue**.
+1. From the Azure portal home page, select **+ Create a resource** then select **Storage account**.
    
 2. Complete the **Create storage account** form using the following details:
 
@@ -175,11 +175,10 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     - **Performance**: Standard
     - **Account kind**: StorageV2 (general purpose v2)
     - **Replication**: Zone-redundant storage (ZRS)
-    - **Access tier (default)**: Hot
 
     ![Fields in the Create storage account blade are set to the previously defined settings.](images/ha-storage.png "Create storage account blade")
 
-3.  Switch to the **Advanced** tab. Change the **Minimum TLS version** to **Version 1.0**. Then select **Review + Create**, followed by **Create**.
+3.  Switch to the **Advanced** tab. Change the **Minimum TLS version** to **Version 1.0**. Select **Hot** for **Blob access tier (default)**. Then select **Review + Create**, followed by **Create**.
 
     ![The 'Advanced' tab of the Create storage account blade shows the minimum TLS version as 1.2](images/ha-tls.png)
 
@@ -240,7 +239,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In Failover Cluster Manager, Networks is selected in the tree view, and the network displays in the details pane.](images/ha-fcm-1network.png "Failover Cluster Manager")
 
-14. Right-click **AOGCLUSTER,** then select **More Actions**, **Configure Cluster Quorum Settings**.
+14. Right-click **AOGCLUSTER,** then select **More Actions**, then **Configure Cluster Quorum Settings**.
 
     ![In Failover Cluster Manager, a call out says to right-click the cluster name in the tree view, then select More Actions, and then select Configure Cluster Quorum Settings.](images/image159.png "Failover Cluster Manager")
 
@@ -326,7 +325,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of the Connect to Server dialog box for SQLVM2.](images/image180.png "Connect to Server dialog box")
 
-35. For **SQLVM2**, select Automatic Failover and Availability Mode of Synchronous commit.
+35. For **SQLVM2**, select Automatic Failover and the Availability Mode of **Synchronous commit**.
 
     ![On the Replicas tab, for SQLVM2, the checkbox for Automatic Failover (Up to 3) is selected, and availability mode is set to synchronous commit.](images/image181.png "Specify Replicas Screen")
 
@@ -334,7 +333,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![On the Endpoints tab, the three servers are listed.](images/ha-ag-endpoints.png "Specify Endpoints screen")
 
-37. Next, select **Listener**. Then, select the **Create an availability group listener**.
+37. Next, select **Listener**. Then, select **Create an availability group listener**.
 
     ![On the Listener tab, the radio button for Create an availability group listener is selected.](images/image185.png "Specify Listener screen")
 
@@ -422,7 +421,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     > **Note:** It could take a minute to connect the first time as this is going through the Azure Internal Load Balancer.
 
-55. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting Roles and **BCDRAOG** and viewing the Resources. Notice how the **10.0.2.100** is Online.
+55. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting **Roles** and **BCDRAOG** and viewing the Resources. Notice how the **10.0.2.100** is Online.
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and details of the role display.](images/ha-fcm-aogrole.png "Failover Cluster Manager")
 
@@ -497,25 +496,25 @@ In this task, you will deploy the resources used by the DR environment. First, y
         -Location 'East US 2'
     ```
 
-3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**. Note that the template includes:
+3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**. Click **Contso-IaaS-DR** and note that the template includes:
     -  A DR virtual network, which is connected using VNet peering to the existing virtual network
     -  Two additional domain controller VMs, **ADVM3** and **ADVM4**
     -  An additional SQL Server VM, **SQLVM3**
     -  Azure Bastion, to enable VM access
 
-    ![Screenshot of the disaster recovery resources for the Web application.](images/webdr-deploy.png "Successful deployment of Web DR resources")
+    ![Screenshot of the disaster recovery resources for the Web application.](images/subdeploy.png "Successful deployment of Web DR resources")
     
 Next, you will create the Recovery Services Vault used to replicate the Web tier VMs and orchestrate the cross-site failover.
 
-4.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
+4.  From the Azure portal, select **+Create a resource**, followed by **Storage**, then **Backup and Site Recovery**.
+
+5.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review + Create**, followed by **Create**:
+
+    - **Resource Group**: ContosoRG2
+    - **Vault name**: `BCDRRSV`
+    - **Location**: East US 2 *(your secondary region)*
 
     ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
-
-5.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
-
-    - **Name**: `BCDRRSV`
-    - **Resource Group**: ContosoRG2
-    - **Location**: East US 2 *(your secondary region)*
 
 6.  Once the **BCDRRSV** Recovery Service Vault has been created, open it in the Azure portal and select the **Site Recovery** tab.
 
@@ -635,7 +634,7 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
     ![Azure portal showing the Contoso-IaaS-DR template, with the deployment sequence highlighted.](images/dr-ad.png "DR template")
 
-3.  Navigate to the **ContosoRG2** resource group. Inspect network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.1.3.100** and **10.1.3.101**, respectively.
+3.  Navigate to the **ContosoRG2** resource group. Inspect the network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.1.3.100** and **10.1.3.101**, respectively.
 
     ![Network interface configuration showing a static private IP address for ADVM3.](images/dr-adip.png "Static IPs")
 
