@@ -1230,7 +1230,7 @@ In this task we will validate high availability for both the Web and SQL tiers.
 
 In this task, you will validate failover of the Contoso application from Central US to East US 2. The failover is orchestrated by Azure Site Recovery using the recovery plan you configured earlier. It includes failover of both the web tier (creating new Web VMs from the replicated data) and SQL Server tier (failover to the SQLVM3 asynchronous replica). The failover process is fully automated, with custom steps implemented using Azure Automation runbooks which are triggered by the Recovery Plan.
 
-1.  Using the Azure portal, open the **ContosoRG1** resource group. Navigate to the Front Door resource, locate Frontend Host URL and open it in a new browser tab to ensure that the application is up and running from the Primary Site. Make sure to use **http** rather than **https** as well. 
+1.  Using the Azure portal, open the **ContosoRG1** resource group. Navigate to the Front Door resource, locate the Frontend Host URL and open it in a new browser tab to ensure that the application is up and running from the Primary Site. Make sure to use **http** rather than **https** as well. 
 
     ![The Frontend host link is called out.](images/image318.png "Frontend host")
 
