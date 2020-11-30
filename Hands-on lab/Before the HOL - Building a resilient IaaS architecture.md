@@ -57,11 +57,11 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
    
     [![Button to deploy the LabVM template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fjune-2020-update%2Ftemplates%2Flab-vm.json)
 
-2. Complete the Custom deployment blade as follows:
+2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) LabRG**
   
-    - Region: **Choose a region close to you**.
+    - Location: **Choose a location close to you**.
 
     Select **Review + Create** and then **Create** to deploy the resources.
 
@@ -80,7 +80,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 2.  Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) ContosoRG1**
-    - Region: **Central US**
+    - Location: **Central US**
 
     Select **Review + Create** and then **Create** to deploy the resources.
 
@@ -99,7 +99,7 @@ In this task, you will verify that the LabVM and Contoso sample application have
 
     ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/contoso-success1.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
-3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine, copying the public IP address, and navigating to the public IP address in your browser.
+3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine, copying the public IP address, and navigating your browser to enter its public IP address.
 
     ![Go to WebVM1 in the resource group, locate the public IP address, and copy it into your web browser](images/BeforeTheHOL/contoso-webvmpubip.png "Copy WebVM1 public IP address")
 
