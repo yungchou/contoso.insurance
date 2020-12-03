@@ -22,11 +22,15 @@
             "metadata": {
                 "description": "The FQDN of the Active Directory Domain to be created"
             }
+        },
+        "baseUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/"
         }
     },
     "variables": {
         "vnetName": "VNet1",
-        "baseUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+        "baseUri": "[parameters('baseUri')]"
     },
     "resources": [
         {
@@ -42,6 +46,7 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {"value": "[parameters('baseUri')]"},
                     "VNetName": {
                         "value": "[variables('vnetName')]"
                     }
@@ -62,6 +67,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "ADVMName": {
                         "value": "ADVM1"
                     },
@@ -125,6 +133,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "WebVMName": {
                         "value": "WebVM1"
                     },
@@ -166,6 +177,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "SqlVMName": {
                         "value": "SQLVM1"
                     },

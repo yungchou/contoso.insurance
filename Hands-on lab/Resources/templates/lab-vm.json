@@ -17,19 +17,23 @@
         "description": "Password for the Virtual Machine."
       }
     },
-    "studentFilesUrl": {
+    "studentFile": {
       "type": "string",
-      "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/student-files/studentfiles.zip"
+      "defaultValue": "student-files/studentfiles.zip"
     },
     "studentFilesDestination": {
       "type": "string",
       "defaultValue": "C:\\HOL"
+    },
+    "baseUri": {
+        "type": "string",
+        "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/"
     }
   },
   "variables": {
     "customScriptFolder": "./lab-resources/june-2020-update/scripts/",
     "customScriptUriScriptFileName": "configure-labvm.ps1",
-    "customScriptUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/scripts/configure-labvm.ps1",
+    "customScriptUri": "[concat(parameters('baseUri'),'scripts/configure-labvm.ps1')]",
     "imagePublisher": "MicrosoftVisualStudio",
     "imageOffer": "visualstudio2019latest",
     "imageSku": "vs-2019-comm-latest-ws2019",
@@ -43,6 +47,7 @@
     "NSGName": "LabVMNSG",
     "publicIPAddressName": "LabVMIP",
     "publicIPAddressType": "Dynamic",
+    "studentFilesUrl": "[concat(parameters('baseUri'),parameters('studentFile'))]",
     "vmName": "LabVM",
     "vmSize": "Standard_D2S_V3",
     "virtualNetworkName": "LabVMVNet"
@@ -199,7 +204,7 @@
               "fileUris": [
                 "[variables('customScriptUri')]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('customScriptUriScriptFileName'), ' -sourceFileUrl ', parameters('studentFilesUrl'), ' -destinationFolder ', parameters('studentFilesDestination'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('customScriptUriScriptFileName'), ' -sourceFileUrl ', variables('studentFilesUrl'), ' -destinationFolder ', parameters('studentFilesDestination'))]"
             },
             "protectedSettings": {}
           }

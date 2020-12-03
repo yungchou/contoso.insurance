@@ -57,11 +57,15 @@
       "metadata": {
         "description": "DNS label to use with public IP address"
       }
+    },
+    "baseUri": {
+        "type": "string",
+        "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
     }
   },
   "variables": {
-    "WebDownloadUrl": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/application/ContosoInsuranceIIS.zip",
-    "WebScriptUrl": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/scripts/deploy-webvm.ps1",
+    "WebDownloadUrl": "[concat(parameters('baseUri'),'application/ContosoInsuranceIIS.zip')]",
+    "WebScriptUrl": "[concat(parameters('baseUri'),'scripts/deploy-webvm.ps1')]",
     "ScriptFolder": "./lab-resources/june-2020-update/scripts/",
     "WebScriptFileName": "deploy-webvm.ps1",
     "WebScriptParameters": "[concat(' -zipurl ', variables('WebDownloadUrl'), ' -datasource ', parameters('SQLEndpoint'), '.', parameters('domainToJoin'), ' -password ', parameters('adminPassword'))]",
