@@ -31,7 +31,7 @@
     }
   },
   "variables": {
-    "customScriptFolder": "./lab-resources/june-2020-update/scripts/",
+    "customScriptFolder": "./Resources/scripts/",
     "customScriptUriScriptFileName": "configure-labvm.ps1",
     "customScriptUri": "[concat(parameters('baseUri'),'scripts/configure-labvm.ps1')]",
     "imagePublisher": "MicrosoftVisualStudio",
@@ -204,7 +204,7 @@
               "fileUris": [
                 "[variables('customScriptUri')]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), '/', variables('customScriptUriScriptFileName'), ' -sourceFileUrl ', variables('studentFilesUrl'), ' -destinationFolder ', parameters('studentFilesDestination'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('customScriptFolder'), variables('customScriptUriScriptFileName'), ' -sourceFileUrl ', variables('studentFilesUrl'), ' -destinationFolder ', parameters('studentFilesDestination'))]"
             },
             "protectedSettings": {}
           }
