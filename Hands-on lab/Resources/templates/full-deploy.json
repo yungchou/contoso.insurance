@@ -5,7 +5,7 @@
         "baseUri": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/",
+            "defaultValue": "https://raw.githubusercontent.com/KitSkin/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/",
             "metadata": {
                 "description": "Base URL for the deployments"
             }
