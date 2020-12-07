@@ -46,7 +46,6 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "baseUri": {"value": "[parameters('baseUri')]"},
                     "VNetName": {
                         "value": "[variables('vnetName')]"
                     }

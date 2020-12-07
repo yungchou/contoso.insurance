@@ -54,6 +54,10 @@
         "description": "Use 'true' to create a new domain, 'false' to attach to existing domain"
       }
     },
+    "scriptRoot": {
+        "type": "string",
+        "defaultValue": "./lab-resources/june-2020-update/"
+    },
     "baseUri": {
         "type": "string",
         "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
@@ -71,7 +75,7 @@
     "scriptBase": "[concat(parameters('baseUri'),'scripts/')]",
     "scriptFileName": "[if(parameters('newDomain'), 'deploy-advm-new.ps1', 'deploy-advm-existing.ps1')]",
     "scriptUrl": "[concat(variables('scriptBase'), variables('scriptFileName'))]",
-    "scriptFolder": "./lab-resources/june-2020-update/scripts/",
+    "scriptFolder": "[concat(parameters('scriptRoot'),'scripts/')]",
     "scriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -domain ', parameters('domainName'), ' -password ', parameters('adminPassword'))]"
   },
   "resources": [

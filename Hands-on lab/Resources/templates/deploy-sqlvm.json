@@ -47,6 +47,10 @@
         "description": "(Optional) URL for SQL database backup to be restored into the database"
       }
     },
+    "scriptRoot": {
+        "type": "string",
+        "defaultValue": "./lab-resources/june-2020-update/"
+    },
     "baseUri": {
         "type": "string",
         "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
@@ -55,7 +59,7 @@
   "variables": {
     "SQLScriptUrl1": "[concat(parameters('baseUri'),'scripts/deploy-sqlvm-wrapper.ps1')]",
     "SQLScriptUrl2": "[concat(parameters('baseUri'),'scripts/deploy-sqlvm-wrapped.ps1')]",
-    "ScriptFolder": "./lab-resources/june-2020-update/scripts/",
+    "ScriptFolder": "[concat(parameters('scriptRoot'),'scripts/')]",
     "SQLScriptFileName": "deploy-sqlvm-wrapper.ps1",
     "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'), ' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
     "SQLImagePublisher": "MicrosoftSQLServer",
