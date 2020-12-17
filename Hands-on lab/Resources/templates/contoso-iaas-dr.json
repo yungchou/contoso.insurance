@@ -36,12 +36,16 @@
             "metadata": {
                 "description": "Resource group name of the secondary region (must already exist)"
             }
+        },
+        "baseUri": {
+            "type": "string",
+            "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
         }
     },
     "variables": {
         "vnetNamePrimary": "VNet1",
         "vnetNameSecondary": "VNet2",
-        "baseUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+        "baseUri": "[parameters('baseUri')]"
     },
     "resources": [
         {
