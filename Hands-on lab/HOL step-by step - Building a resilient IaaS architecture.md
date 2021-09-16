@@ -165,7 +165,7 @@ In this task, you will configure the virtual network to include both domain cont
 In this task, you will build a Windows Failover Cluster and configure SQL Always On Availability Groups to create a high-availability database tier.
 
 
-1. From the Azure portal home page, select **+ Create a resource**. Select **Storage** and then select **Storage account - blob, file, table, queue**.
+1. From the Azure portal home page, select **+ Create a resource**. Select **Storage account**.
    
 2. Complete the **Create storage account** form using the following details:
 
@@ -173,7 +173,6 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     - **Storage account name:** Unique name starting with `contososqlwitness`
     - **Location**: Any location in your area that is **NOT** your Primary or Secondary site, for example **West US 2**
     - **Performance**: Standard
-    - **Account kind**: StorageV2 (general purpose v2)
     - **Replication**: Zone-redundant storage (ZRS)
     - **Access tier (default)**: Hot
 
@@ -185,7 +184,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     > **Note:** To promote use of the latest and most secure standards, by default Azure storage accounts require TLS version 1.2. This storage account will be used as a Cloud Witness for our SQL Server cluster. SQL Server requires TLS version 1.0 for the Cloud Witness.
 
-4.  Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Settings**. Copy the **storage account name** and the **first access key** to notepad - you will need these values later.
+4.  Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Security + networking**. Select **Show keys** then copy the **storage account name** and the **first access key** to notepad - you will need these values later.
 
     ![In the Storage account Access keys section, the Storage account name and key1 are called out.](images/ha-storagekey.png "Storage account section")
 
@@ -507,15 +506,15 @@ In this task, you will deploy the resources used by the DR environment. First, y
     
 Next, you will create the Recovery Services Vault used to replicate the Web tier VMs and orchestrate the cross-site failover.
 
-4.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
-
-    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
+4.  From the Azure portal, select **+Create a resource**, then search for and select **Backup and Site Recovery** then select **Create**.
 
 5.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
-    - **Name**: `BCDRRSV`
     - **Resource Group**: ContosoRG2
+    - **Name**: `BCDRRSV`
     - **Location**: East US 2 *(your secondary region)*
+
+    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
 
 6.  Once the **BCDRRSV** Recovery Service Vault has been created, open it in the Azure portal and select the **Site Recovery** tab.
 
