@@ -1146,9 +1146,9 @@ With the SQL virtual machine resources created and the SQL IaaS extension instal
 
     ![Azure portal screenshot showing the Backup 'Getting Started' settings in the Recovery Services Vault, with 'Configure Backup' highlighted.](images/bk-sql4.png "Configure backup button")
 
-11. On the 'Backup' blade, select **Add Resources**.
+11. On the 'Backup' blade, select **Add**.
 
-    ![Azure portal screenshot showing the Backup 'Backup' settings for the SQL backup, with 'Add Resources' highlighted.](images/bk-sql5.png "Add Resources button")
+    ![Azure portal screenshot showing the Backup 'Backup' settings for the SQL backup, with 'Add' highlighted.](images/bk-sql5.png "Add button")
 
 12. On the 'Select items to backup' blade, select the **\>** icon next to the `BCDRAOG\BCDRAOG` entry to show the databases. Note that the ContosoInsurance database is listed. Change the **AutoProtect** setting for BCDRAOG to **ON**, then select **OK**.
 
