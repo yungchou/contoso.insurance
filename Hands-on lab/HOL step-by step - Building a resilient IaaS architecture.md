@@ -791,13 +791,12 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 1. From the Azure portal on **LABVM**, open the **BCDRRSV** Recovery Services Vault located in the **ContosoRG2** resource group.
 
-2. Under **Getting Started**, select **Site Recovery**.  Next, select **Step 1: Replicate Application** in the **For On-Premises Machines and Azure VMs** section. 
+2. Under **Getting Started**, select **Site Recovery**.  Next, select **Step 1: Enable replication** in the **For On-Premises Machines and Azure VMs** section. 
 
-    ![In the ASR blade, Getting Started is highlighted. Under For On-Premises Machines and Azure VMs, Step 1: Replicate Application is selected.](images/dr-asr-1.png "Step 1 selected")
+    ![In the ASR blade, Getting Started is highlighted. Under For On-Premises Machines and Azure VMs, Step 1: Enable replication is selected.](images/dr-asr-1.png "Step 1 selected")
 
 3. On **Step 1 - Source** select the following inputs and then select **Next**:
 
-    - **Source**: Azure
     - **Source Location**: Central US *(Your Primary region)*
     - **Azure virtual machine deployment model**: Resource Manager
     - **Source resource group**: ContosoRG1
@@ -884,7 +883,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![In the Recovery plan blade, the Group 1: Start right-click menu displays, and Add post action is selected.](images/dr-asr-15.png "Recovery plan blade")
 
-19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRWEBFailover**. Select **OK**.
+19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRRunBookWEB**. Select **OK**.
 
     ![Fields in the Insert action blade are set to the ASRWebFailover script.](images/dr-asr-16.png "Insert Action blade")
 
@@ -913,7 +912,7 @@ This can be achieved in either of two ways:
 
 In this task, you will use the Front Door approach to configure a highly available endpoint that directs traffic to either your primary or secondary site, depending on which site is currently available.
 
-1.  You will now build a Front Door to direct traffic to your Primary and Secondary Sites. From the Azure portal, select **+Create a resource**, then **Networking**, then select **Front Door**.
+1.  You will now build a Front Door to direct traffic to your Primary and Secondary Sites. From the Azure portal, select **+Create a resource**, then search for and select **Front Door**. Select **Create**. 
 
     ![Icon for Azure Front Door.](images/dr-fd-icon.png "Azure Front Door icon")
 
@@ -924,7 +923,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     ![Fields in the Create a Front Door blade are set to the previously defined settings.](images/dr-fd-basics.png "Create Front Door 'basics' blade")
 
-3. Select the **plus** icon on the **Frontend hosts** box to set the host name of Front Door. In the **Add a frontend host** pane, enter the following values, then select **Add**:
+3. Select the **plus** icon on the **Frontend/domains** box to set the host name of Front Door. In the **Add a frontend host** pane, enter the following values, then select **Add**:
 
     - **Host name**: Enter a unique name with the prefix of `contosoiaas`.
     - **Session affinity**: Disabled
