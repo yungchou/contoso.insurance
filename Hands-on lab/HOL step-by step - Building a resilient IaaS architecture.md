@@ -1379,7 +1379,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     ![Browser screenshot showing the Contoso application with missing images highlighted.](images/v-bk-web2.png "Contoso application with missing images")
 
-5.  To restore WebVM1 from backup, Azure Backup requires that a 'staging' storage account be available. To create this account, in the Azure portal select **+ Create a resource**, then **Storage**, and then **Storage account - blob, file, table, queue**.
+5.  To restore WebVM1 from backup, Azure Backup requires that a 'staging' storage account be available. To create this account, in the Azure portal select **+ Create a resource**, then search for and select **Storage account**. Select **Create**.
 
 6.  Complete the 'Create storage account' form as follows, then select **Review + Create** followed by **Create**.
 
@@ -1387,9 +1387,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
     -   **Storage account name:** Unique name starting with `backupstaging`.
     -   **Location:** Central US *(this is your primary region)*
     -   **Performance:** Standard
-    -   **Account kind:** StorageV2 (general purpose v2)
     -   **Replication:** Locally-redundant storage (LRS)
-    -   **Access tier:** Hot
 
     ![Screenshot showing the 'Create storage account' blade in the Azure portal.](images/v-bk-web3.png "Create storage account")
 
