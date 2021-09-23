@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-November 2020
+September 2021
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2021 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -165,7 +165,7 @@ In this task, you will configure the virtual network to include both domain cont
 In this task, you will build a Windows Failover Cluster and configure SQL Always On Availability Groups to create a high-availability database tier.
 
 
-1. From the Azure portal home page, select **+ Create a resource**. Select **Storage** and then select **Storage account - blob, file, table, queue**.
+1. From the Azure portal home page, select **+ Create a resource**. Select **Storage account**.
    
 2. Complete the **Create storage account** form using the following details:
 
@@ -173,7 +173,6 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     - **Storage account name:** Unique name starting with `contososqlwitness`
     - **Location**: Any location in your area that is **NOT** your Primary or Secondary site, for example **West US 2**
     - **Performance**: Standard
-    - **Account kind**: StorageV2 (general purpose v2)
     - **Replication**: Zone-redundant storage (ZRS)
     - **Access tier (default)**: Hot
 
@@ -185,7 +184,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     > **Note:** To promote use of the latest and most secure standards, by default Azure storage accounts require TLS version 1.2. This storage account will be used as a Cloud Witness for our SQL Server cluster. SQL Server requires TLS version 1.0 for the Cloud Witness.
 
-4.  Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Settings**. Copy the **storage account name** and the **first access key** to notepad - you will need these values later.
+4.  Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Security + networking**. Select **Show keys** then copy the **storage account name** and the **first access key** to notepad - you will need these values later.
 
     ![In the Storage account Access keys section, the Storage account name and key1 are called out.](images/ha-storagekey.png "Storage account section")
 
@@ -507,15 +506,15 @@ In this task, you will deploy the resources used by the DR environment. First, y
     
 Next, you will create the Recovery Services Vault used to replicate the Web tier VMs and orchestrate the cross-site failover.
 
-4.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
-
-    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
+4.  From the Azure portal, select **+Create a resource**, then search for and select **Backup and Site Recovery** then select **Create**.
 
 5.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
-    - **Name**: `BCDRRSV`
     - **Resource Group**: ContosoRG2
+    - **Name**: `BCDRRSV`
     - **Location**: East US 2 *(your secondary region)*
+
+    ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
 
 6.  Once the **BCDRRSV** Recovery Service Vault has been created, open it in the Azure portal and select the **Site Recovery** tab.
 
@@ -643,7 +642,7 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
     ![The Azure portal shows the DNS settings for VNet2.](images/dr-dns.png "Template status")
 
-5.  Select **Peering** and confirm that the network is peered with VNet1.
+5.  Select **Peerings** and confirm that the network is peered with VNet1.
 
     ![The Azure portal shows VNet2 is peered with VNet1.](images/dr-peer.png "VNet peering")
 
@@ -793,13 +792,12 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 1. From the Azure portal on **LABVM**, open the **BCDRRSV** Recovery Services Vault located in the **ContosoRG2** resource group.
 
-2. Under **Getting Started**, select **Site Recovery**.  Next, select **Step 1: Replicate Application** in the **For On-Premises Machines and Azure VMs** section. 
+2. Under **Getting Started**, select **Site Recovery**.  Next, select **Step 1: Enable replication** in the **For On-Premises Machines and Azure VMs** section. 
 
-    ![In the ASR blade, Getting Started is highlighted. Under For On-Premises Machines and Azure VMs, Step 1: Replicate Application is selected.](images/dr-asr-1.png "Step 1 selected")
+    ![In the ASR blade, Getting Started is highlighted. Under For On-Premises Machines and Azure VMs, Step 1: Enable replication is selected.](images/dr-asr-1.png "Step 1 selected")
 
-3. On **Step 1 - Source** select the following inputs and then select **OK**:
+3. On **Step 1 - Source** select the following inputs and then select **Next**:
 
-    - **Source**: Azure
     - **Source Location**: Central US *(Your Primary region)*
     - **Azure virtual machine deployment model**: Resource Manager
     - **Source resource group**: ContosoRG1
@@ -807,15 +805,15 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![In the Source blade, fields are set to the previously defined settings.](images/dr-asr-2.png "Source blade")
 
-4. On **Step 2 - Virtual Machines**, select **WebVM1** and **WebVM2** and then select **OK**.
+4. On **Step 2 - Virtual Machines**, select **WebVM1** and **WebVM2** and then select **Next**.
 
     ![In the Select virtual machines blade, the check boxes for WebVM1 and WebVM2 are selected.](images/dr-asr-3.png "Select virtual machines blade")
 
-5. On the **Customize target settings** blade, select the **Target location** as **East US 2** (your secondary site Azure region). Then, in the 'Resource group, Network, Storage and Availability' section, select **Customize**.
+5. On the **Replication settings** tab, select the **Target location** as **East US 2** (your secondary site Azure region). Then, in the 'Resource group, Network, Storage and Availability' section, select **Customize**.
 
     ![In the Customize target settings blade, the Target location is set to East US 2 and the customize button highlighted](images/dr-asr-4.png "Configure settings blade")
 
-6. Update the rest of the blade using the following inputs:
+6. Update the blade using the following inputs:
 
     - **Target resource group**: ContosoRG2
     - **Target virtual network**: VNet2
@@ -834,27 +832,23 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![The Extension settings show the existing Automation Account has been selected.](images/dr-asr-7.png "Extension settings")
 
-9. Next, select **Create target resources**.
-
-    ![Screenshot of the Create target resources button.](images/image232.png "Create target resources button")
-
-10. Wait for the validation to complete and resources to be created, then select **Enable replication**.
+9. Next, select **Enable replication**.
 
     ![Screenshot of the Enable replication button.](images/image233.png "Enable replication button")
 
-11. The Azure portal will start the deployment. This will take approximately 10 minutes to complete. You can proceed to the next step without waiting.
+10. The Azure portal will start the deployment. This will take approximately 10 minutes to complete. You can proceed to the next step without waiting.
 
     ![A message is displayed indicating Enabling replication for two vm(s) has successfully completed.](images/image234.png "Enabling replication for two vm(s)")
 
-12. The **BCDRRSV** blade should still have the **Site Recovery** option (under 'Getting started') selected. Select **Step 2: Manage Recovery Plans**.
+11. The **BCDRRSV** blade should still have the **Site Recovery** option (under 'Getting started') selected. Select **Step 2: Manage Recovery Plans**.
 
     ![Click path to Manage Recovery Plans.](images/dr-asr-8.png "Manage Recovery Plans")
 
-13. Select **+Recovery plan**.
+12. Select **+Recovery plan**.
 
     ![On the Recovery Services vault blade top menu, Add a recovery plan is selected.](images/dr-asr-9.png "Add recovery plan")
 
-14. Fill in the **Create recovery plan** blade as follows:
+13. Fill in the **Create recovery plan** blade as follows:
 
     - **Name**: BCDRIaaSPlan
     - **Source**: Central US *(This is your primary region)*
@@ -866,43 +860,43 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     > **Note:** It is **critical** to use the correct recovery plan name `BCDRIaaSPlan`. This must match the name of the Azure Automation variable you created in the first task in this exercise.
 
-15. Select **OK** to create the recovery plan. After a moment, the **BCDRIaaSPlan** Recovery plan will appear. Select it to review.
+14. Select **OK** to create the recovery plan. After a moment, the **BCDRIaaSPlan** Recovery plan will appear. Select it to review.
 
     ![In the Recovery Plans blade, BCDRIaaSPlan is selected.](images/dr-asr-11.png "Recovery plans")
 
-16. When the **BCDRIaaSPlan** loads **notice** that it shows **2 VMs in the Source** which is your **Primary** Site.
+15. When the **BCDRIaaSPlan** loads **notice** that it shows **2 VMs in the Source** which is your **Primary** Site.
 
-    You will now customize the recovery plan to trigger the SQL failover and configure the web tier load-balancer during the failover process, then select **Customize**.
+    You will now customize the recovery plan to trigger the SQL failover and configure the web tier load-balancer during the failover process, select **Customize**.
 
     ![On the BCDSRV blade top menu, Customize is selected. Under Items in recovery plan, the source shows two and the VM icon.](images/dr-asr-12.png "BCDSRV blade")
 
-17. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **All groups failover**, then select **Add pre-action** from the context menu.
+16. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **All groups failover**, then select **Add pre-action** from the context menu.
 
     ![In the Recovery plan blade, the right-click menu for All groups failover displays and Add pre-action is selected.](images/dr-asr-13.png "Recovery plan blade")
 
-18. On the **Insert action** blade, select **Script** and then provide the name `ASRSQLFailover`. Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRSQLFailover**. Select **OK**.
+17. On the **Insert action** blade, select **Script** and then provide the name `ASRSQLFailover`. Ensure that your Azure Automation account is selected and then choose the Runbook name: **ASRRunBookSQL**. Select **OK**.
 
-    ![Fields in the Insert action blade are set to the ASRSQLFailover script.](images/dr-asr-14.png "Insert action blade")
+    ![Fields in the Insert action blade are set to the ASRRunBookSQL script.](images/dr-asr-14.png "Insert action blade")
 
     > **Note:** As noted on the 'Insert action' blade, the ASRSQLFailover runbook will be executed on both failover and failback. The runbook has been written to support both scenarios.
 
-19. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **Group 1: Start**, then select **Add post action** from the context menu.
+18. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **Group 1: Start**, then select **Add post action** from the context menu.
 
     ![In the Recovery plan blade, the Group 1: Start right-click menu displays, and Add post action is selected.](images/dr-asr-15.png "Recovery plan blade")
 
-20. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRWEBFailover**. Select **OK**.
+19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRRunBookWEB**. Select **OK**.
 
     ![Fields in the Insert action blade are set to the ASRWebFailover script.](images/dr-asr-16.png "Insert Action blade")
 
-21. Make sure that your **Pre-steps** are running under **All groups failover** and the **Post-steps** are running under **Group1: Start**. Select **Save**.
+20. Make sure that your **Pre-steps** are running under **All groups failover** and the **Post-steps** are running under **Group1: Start**. Select **Save**.
 
     ![In the Recovery plan blade, both instances of Script: ASRFSQLFailover are called out under both All groups failover: Pre-steps, and Group 1: Post-steps.](images/dr-asr-17.png "Recovery plan blade")
 
-22. After a minute, the portal will provide a successful update notification. This means that your recovery plan is fully configured and ready to failover and back between the primary and secondary regions.
+21. After a minute, the portal will provide a successful update notification. This means that your recovery plan is fully configured and ready to failover and back between the primary and secondary regions.
 
     ![The Updating recovery plan message shows that the update was successfully completed.](images/image253.png "Updating recovery plan message")
 
-23. Return to the Recovery Services Vault **BCDRRSV** blade and select the **Replicated Items** link under **Protected Items**. You should see **WebVM1** and **WebVM2**. The Replication Health should be **Healthy**. The Status will show the replication progress. Once both VMs show status **Protected**, replication is complete and you will be able to test the failover.
+22. Return to the Recovery Services Vault **BCDRRSV** blade and select the **Replicated Items** link under **Protected Items**. You should see **WebVM1** and **WebVM2**. The Replication Health should be **Healthy**. The Status will show the replication progress. Once both VMs show status **Protected**, replication is complete and you will be able to test the failover.
 
     ![Under Replicated Items, the status for WebVM1 is 97% Synchronized and WebVM2 is now Protected.](images/dr-asr-18.png "Replicated Items")
 
@@ -919,7 +913,7 @@ This can be achieved in either of two ways:
 
 In this task, you will use the Front Door approach to configure a highly available endpoint that directs traffic to either your primary or secondary site, depending on which site is currently available.
 
-1.  You will now build a Front Door to direct traffic to your Primary and Secondary Sites. From the Azure portal, select **+Create a resource**, then **Networking**, then select **Front Door**.
+1.  You will now build a Front Door to direct traffic to your Primary and Secondary Sites. From the Azure portal, select **+Create a resource**, then search for and select **Front Door**. Select **Create**. 
 
     ![Icon for Azure Front Door.](images/dr-fd-icon.png "Azure Front Door icon")
 
@@ -930,7 +924,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     ![Fields in the Create a Front Door blade are set to the previously defined settings.](images/dr-fd-basics.png "Create Front Door 'basics' blade")
 
-3. Select the **plus** icon on the **Frontend hosts** box to set the host name of Front Door. In the **Add a frontend host** pane, enter the following values, then select **Add**:
+3. Select the **plus** icon on the **Frontend/domains** box to set the host name of Front Door. In the **Add a frontend host** pane, enter the following values, then select **Add**:
 
     - **Host name**: Enter a unique name with the prefix of `contosoiaas`.
     - **Session affinity**: Disabled
@@ -997,14 +991,14 @@ In this exercise, you will use Azure Backup to enable backup for the Contoso app
 
 Azure Backup and Azure Site Recovery are implemented using the same Azure resource type, the Recovery Services Vault. However, for Azure Backup the vault must be deployed to the same region as the resources being protected, in this case the primary site in Central US. In contrast, for Azure Site Recovery the vault was deployed to the secondary region.  In this task, you will create the vault in the primary region for use by Azure Backup.
 
-1.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Backup and Site Recovery**.
+1.  From the Azure portal, select **+Create a resource**, then search for and select **Backup and Site Recovery** then select **Create**.
 
     ![Screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-srv-mktpl2.png "Backup and Site Recovery Screen Create Button")
 
 2.  Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
-    - **Name**: `BackupRSV`
     - **Resource Group**: ContosoRG1
+    - **Name**: `BackupRSV`
     - **Location**: Central US *(your primary region)*
 
     ![Azure portal screenshot showing the Create Recovery Services Vault blade, with the settings filled in as described.](images/bk-rsv.png "Create Recovery Services Vault")
@@ -1033,12 +1027,12 @@ In this task, you will configure Azure Backup for the Web tier virtual machines.
 
     ![Azure portal screenshot showing the Getting Started - Backup blade of the Azure Portal, with Azure VMs selected.](images/bk-vm1.png "Backup VMs")
 
-2.  On the 'Backup' blade, select **Create a new policy** and fill in the Backup Policy blade as follows:
+2.  On the 'Backup' blade, select **Create a new policy** and fill in the Create Policy blade as follows:
 
     - **Policy name**: `WebVMPolicy`
     - **Backup schedule**: Daily, 9pm, UTC
     - **Retain instant recovery snapshots for**: 2 day(s)
-    - **Retention of daily backup point: Enabled, 180 days
+    - **Retention of daily backup point**: Enabled, 180 days
     - **Retention of weekly backup point**: Enabled, Sunday, 12 weeks
     - **Retention of monthly backup point**: Enabled, First Sunday, 24 months
     - **Retention of yearly backup point**: Enabled, day-based, January 1, 5 years
@@ -1072,7 +1066,7 @@ In this task, you will configure Azure Backup for the Web tier virtual machines.
 
     >**Note:** The backup policy created earlier determines the retention period for scheduled backups. For on-demand backups, the retention period is specified separately.
 
-8.  Close the WebV1 backup status blade. Repeat the above step to trigger an on-demand backup for **WebVM2**.
+8.  Close the WebVM1 backup status blade. Repeat the above step to trigger an on-demand backup for **WebVM2**.
 
 9.  From the **BackupRSV** Recovery Services vault blade, under 'Monitoring', select **Backup Jobs** to load the Backup Jobs blade. This shows the current status of each backup job. The blade should show two completed jobs (configuring backup for WebVM1 and WebVM2), and two in-progress jobs (backup for WebVM1 and WebVM2).
 
@@ -1152,9 +1146,9 @@ With the SQL virtual machine resources created and the SQL IaaS extension instal
 
     ![Azure portal screenshot showing the Backup 'Getting Started' settings in the Recovery Services Vault, with 'Configure Backup' highlighted.](images/bk-sql4.png "Configure backup button")
 
-11. On the 'Backup' blade, select **Add Resources**.
+11. On the 'Backup' blade, select **Add**.
 
-    ![Azure portal screenshot showing the Backup 'Backup' settings for the SQL backup, with 'Add Resources' highlighted.](images/bk-sql5.png "Add Resources button")
+    ![Azure portal screenshot showing the Backup 'Backup' settings for the SQL backup, with 'Add' highlighted.](images/bk-sql5.png "Add button")
 
 12. On the 'Select items to backup' blade, select the **\>** icon next to the `BCDRAOG\BCDRAOG` entry to show the databases. Note that the ContosoInsurance database is listed. Change the **AutoProtect** setting for BCDRAOG to **ON**, then select **OK**.
 
@@ -1386,7 +1380,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     ![Browser screenshot showing the Contoso application with missing images highlighted.](images/v-bk-web2.png "Contoso application with missing images")
 
-5.  To restore WebVM1 from backup, Azure Backup requires that a 'staging' storage account be available. To create this account, in the Azure portal select **+ Create a resource**, then **Storage**, and then **Storage account - blob, file, table, queue**.
+5.  To restore WebVM1 from backup, Azure Backup requires that a 'staging' storage account be available. To create this account, in the Azure portal select **+ Create a resource**, then search for and select **Storage account**. Select **Create**.
 
 6.  Complete the 'Create storage account' form as follows, then select **Review + Create** followed by **Create**.
 
@@ -1394,9 +1388,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
     -   **Storage account name:** Unique name starting with `backupstaging`.
     -   **Location:** Central US *(this is your primary region)*
     -   **Performance:** Standard
-    -   **Account kind:** StorageV2 (general purpose v2)
     -   **Replication:** Locally-redundant storage (LRS)
-    -   **Access tier:** Hot
 
     ![Screenshot showing the 'Create storage account' blade in the Azure portal.](images/v-bk-web3.png "Create storage account")
 

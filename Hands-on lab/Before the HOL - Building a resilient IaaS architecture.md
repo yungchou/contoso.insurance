@@ -9,7 +9,8 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-November 2020
+September 2021
+
 </div>
 
 
@@ -19,7 +20,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2021 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -99,7 +100,7 @@ In this task, you will verify that the LabVM and Contoso sample application have
 
     ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/contoso-success1.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
-3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine, copying the public IP address, and navigating your browser to enter its public IP address.
+3.  Once the Contoso application deployment is successful, validate the application by opening the **WebVM1** virtual machine, copying the public IP address, and navigating to the public IP address in your browser.
 
     ![Go to WebVM1 in the resource group, locate the public IP address, and copy it into your web browser](images/BeforeTheHOL/contoso-webvmpubip.png "Copy WebVM1 public IP address")
 

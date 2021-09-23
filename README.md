@@ -8,7 +8,8 @@ Contoso Insurance (CI), headquartered in Miami, provides insurance solutions acr
 
 Several years ago, under the leadership of Lewis Franklin, head of infrastructure and operations, individual departments started migrating their servers into Azure. The Active Directory Domain Services (ADDS) team has deployed several Domain Controller (DC) Virtual Machines (VM) to a virtual network in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. While the Azure deployments have served Contoso well so far, they are concerned about their reliability.
 
-November 2020
+September 2021
+
 
 ## Target audience
 
