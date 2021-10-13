@@ -1,5 +1,6 @@
-### Let us know how we’re doing!  
-Let us know how we’re doing!  Please take a moment to fill out the [Microsoft Cloud Workshop Survey](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbRyEtIpX7sDdChuWsXhzKJXJUNjFBVkROWDhSSVdYT0dSRkY4UVFCVzZBVy4u) and help us improve our offerings.
+## Microsoft Cloud Workshops - Retirement Survey  
+
+As we look to streamline content and improve training, we are considering retiring the Microsoft Cloud Workshop (MCW) program. Please take a moment to fill out the [Microsoft Cloud Workshop Survey](https://forms.office.com/r/834zwtaNtK) and give us your feedback.
 
 # Building a resilient IaaS architecture 
 
@@ -8,6 +9,7 @@ Contoso Insurance (CI), headquartered in Miami, provides insurance solutions acr
 Several years ago, under the leadership of Lewis Franklin, head of infrastructure and operations, individual departments started migrating their servers into Azure. The Active Directory Domain Services (ADDS) team has deployed several Domain Controller (DC) Virtual Machines (VM) to a virtual network in the West Central US region. This region was chosen due to its proximity to the Cheyenne Headquarters. While the Azure deployments have served Contoso well so far, they are concerned about their reliability.
 
 September 2021
+
 
 ## Target audience
 

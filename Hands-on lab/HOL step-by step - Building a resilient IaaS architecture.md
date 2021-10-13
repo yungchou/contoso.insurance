@@ -73,7 +73,7 @@ Contoso has asked you to deploy their infrastructure in a resilient manner to en
 
 ## Solution architecture
 
-The following diagram shows the highly resilient application architecture you will build in this lab. Starting with just WebVM1, SQLVM1 and DCVM1, you will first build out a fully-redundant, high-availability environment in Central US. You will then extend this environment to a disaster recovery site in East US 2, and add a backup solution for both the web tier and database tier.
+The following diagram shows the highly resilient application architecture you will build in this lab. Starting with just WebVM1, SQLVM1 and DCVM1, you will first build out a fully-redundant, high-availability environment in Central US. You will then extend this environment to a disaster recovery site in East US 2 and add a backup solution for both the web tier and database tier.
 
 ![Diagram showing the DR design for the Ordering application. Two sites, Central US and East US, each show the application footprint, each with web VMs, SQL VMs and domain controller VMs separated into availability zones within each site. Failover for the web VMs is shown using Azure Site Recovery. Failover for the SQL VMs is shown via SQL Server asynchronous replication. The Domain Controller VMs are running active-active..](images/solution-dr2.png "Solution architecture")
 
@@ -559,7 +559,7 @@ Next, you will create the Recovery Services Vault used to replicate the Web tier
 
     ![The 'Import a runbook' button is highlighted in Azure Automation.](images/dr-rbimp.png "Import a runbook button")
 
-**Note**: You must be connected to the **LABVM** to complete the next steps.
+> **Note**: You must be connected to the **LABVM** to complete the next steps.
 
 15. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. The Runbook type should default to **PowerShell Workflow**. Notice that the Name can't be changed. This is the name of the Workflow inside of the Runbook script. Select **Create**.
 
@@ -623,7 +623,8 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
     ![Click path to the 'Contoso-IaaS-DR' deployment.](images/dr-deployment.png "DR deployment")
 
-2.  Select **Template**, and review the template contents. Note the use of `dependsOn` to carefully control the deployment sequence. The resources are deployed as follows:
+2.  Select **Template** and review the template contents. Note the use of `dependsOn` to carefully control the deployment sequence. The resources are deployed as follows:
+
     - The VNet2 virtual network is created
     - VNet2 is peered with VNet1. This creates connectivity between the two networks
     - The DNS settings in VNet2 are updated to point to the domain controllers in VNet1
@@ -913,7 +914,7 @@ There is just one step remaining to complete your DR environment. After a failov
 This can be achieved in either of two ways:
 
 -   Update the DNS record for the user endpoint to point to the new IP address. This can be implemented using Azure Traffic Manager.
--   Direct users to a proxy service, and have that service forward traffic to the currently active endpoint. Azure Front Door provides such a service.
+-   Direct users to a proxy service and have that service forward traffic to the currently active endpoint. Azure Front Door provides such a service.
 
 In this task, you will use the Front Door approach to configure a highly available endpoint that directs traffic to either your primary or secondary site, depending on which site is currently available.
 
@@ -981,7 +982,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     > **Note:** Be sure to use **HTTP** to access the Azure Front Door **frontend host** URL. The lab configurations only supports HTTP for Front Door since WebVM1 and WebVM2 are only set up for HTTP support, not HTTPS (no SSL\TLS).
 
-    > **Note:** If you get a "Our services aren't available right now" error (or a 404 type error) accessing the web application, then continue on with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
+    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, then continue on with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
     >
     > ![Error shown displaying Our services aren't available right now](images/image224-b.png "Error shown displaying Our services aren't available right now")
 
@@ -1338,7 +1339,7 @@ In this task, you will failback the Contoso application from the DR site in East
 
 5.  Confirm also that the Contoso application is also available via the Front Door URL.
 
-6.  Now, that you have successfully failed back, you need to prep ASR for the Failover again. Move back to the **BCDRSRV** Recovery Service Vault using the Azure portal. Select Recovery Plans, and open the **BCDRIaaSPlan**.
+6.  Now, that you have successfully failed back, you need to prep ASR for the Failover again. Move back to the **BCDRSRV** Recovery Service Vault using the Azure portal. Select Recovery Plans and open the **BCDRIaaSPlan**.
 
 7.  Notice that now 2 VMs are shown in the **Source**. Select **Re-protect**, review the configuration and then select **OK**.
 
