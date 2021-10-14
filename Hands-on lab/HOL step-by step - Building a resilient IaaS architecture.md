@@ -192,7 +192,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Azure portal showing path to BackEndPool1 on ContosoSQLLBPrimary.](images/ha-sql-bepool.png "Backend pool")
 
-6.  In the **BackendPool1** blade, select **+ Add** and choose the two SQL VMs. Select **Save**.
+6.  In the **BackendPool1** blade, select **+ Add** and choose the two SQL VMs. Select **Add** to close. Select **Save** to add these SQL VMs to **BackEndPool1**.
 
     ![Azure portal showing SQLVM1 and SQLVM2 being added to the backend pool](images/ha-sql-poolvms.png "Backend pool VMs")
 
@@ -660,110 +660,115 @@ This task comprises the following steps:
 -   Update the failover cluster with the Listener IP address
 
 
-1.  Return to the Azure portal and navigate to the **ContosoSQLLBSecondary** load balancer blade in **ContosoRG2**. Select **Backend pools** and open **BackEndPool1**. Note that the pool is connected to the **VNet2** virtual network. Select **+ Add** and select **SQLVM3**. Select **Save**.
+1.  Return to the Azure portal and navigate to the **ContosoSQLLBSecondary** load balancer blade in **ContosoRG2**. Select **Backend pools** and open **BackEndPool1**. Note that the pool is connected to the **VNet2** virtual network. Select **+ Add**.
 
-    ![Azure portal showing SQLVM3 being added to the ContosoSQLLBSecondary load balancer backend pool.](images/ha-lb.png "Backend pool")
+    ![Azure portal showing where to select Add on the ContosoSQLLBSecondary load balancer backend pool to add a new VM.](images/ha-lb.png "Backend pool")
 
-    > **Note:** For this lab, the DR site is configured with a single SQL Server VM. Using a load balancer is therefore not strictly required. However, it allows the DR site to be extended to include its own HA cluster if required.
+2.   Select **SQLVM3**. Select **Add**.  Select **Save** on **BackEndPool1 to save changes.
 
-2.  Return to your browser tab containing your Bastion session with **SQLVM1**. (If you have closed the tab, reconnect using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.)
+        ![Azure portal showing SQLVM3 being added to the ContosoSQLLBSecondary load balancer backend pool.](images/ha-lb2.png "SQL VM added to backend pool")
 
-3.  On **SQLVM1**, use **Windows PowerShell ISE** to execute the following command. This will add **SQLVM3** as a node in the existing Windows Server Failover Cluster.
+
+        >**Note:** For this lab, the DR site is configured with a single SQL Server VM. Using a load balancer is therefore not strictly required. However, it allows the DR site to be extended to include its own HA cluster if required.
+
+3.  Return to your browser tab containing your Bastion session with **SQLVM1**. (If you have closed the tab, reconnect using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.)
+
+4.  On **SQLVM1**, use **Windows PowerShell ISE** to execute the following command. This will add **SQLVM3** as a node in the existing Windows Server Failover Cluster.
 
     ```PowerShell
     Add-ClusterNode -Name SQLVM3
     ```
 
-4.  Select **Start** and then **Windows Administrative Tools**. Locate and open the **Failover Cluster Manager**. Expand the **AOGCLUSTER** and select **Nodes**. Note that SQLVM3 is now included in the list, with status **Up**.
+5.  Select **Start** and then **Windows Administrative Tools**. Locate and open the **Failover Cluster Manager**. Expand the **AOGCLUSTER** and select **Nodes**. Note that SQLVM3 is now included in the list, with status **Up**.
 
     ![In Failover Cluster Manager, Nodes is selected in the tree view, and three nodes display in the details pane.](images/dr-fcm-3nodes.png "Failover Cluster Manager")
 
 
-5.  Return to the Azure portal. Locate **SQLVM3** and connect to the VM using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.
+6.  Return to the Azure portal. Locate **SQLVM3**, and connect to the VM using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.
 
-6.  On **SQLVM3**, select **Start** and launch **SQL Server 2017 Configuration Manager**.
+7.  On **SQLVM3**, select **Start** and launch **SQL Server 2017 Configuration Manager**.
 
     ![Screenshot of the SQL Server 2017 Configuration Manager option on the Start menu.](images/image166.png "SQL Server 2017 Configuration Manager option")
 
-7.  Select **SQL Server Services**, then right-click **SQL Server (MSSQLSERVER)** and select **Properties**.
+8.  Select **SQL Server Services**, then right-click **SQL Server (MSSQLSERVER)** and select **Properties**.
 
     ![In SQL Server 2017 Configuration Manager, in the left pane, SQL Server Services is selected. In the right pane, SQL Server (MSSQLSERVER) is selected, and from its right-click menu, Properties is selected.](images/image167.png "SQL Server 2017 Configuration Manager")
 
-8.  Select the **AlwaysOn High Availability** tab and check the box for **Enable AlwaysOn Availability Groups**. Select **Apply** and then select **OK** on the message that notifies you that changes won't take effect until after the server is restarted.
+9.  Select the **AlwaysOn High Availability** tab and check the box for **Enable AlwaysOn Availability Groups**. Select **Apply** and then select **OK** on the message that notifies you that changes won't take effect until after the server is restarted.
 
     ![In the SQL Server Properties dialog box, on the AlwaysOn High Availability tab, the Enable AlwaysOn Availability Groups checkbox is checked and the Apply button is selected.](images/image168.png "SQL Server Properties dialog box")
 
     ![A pop-up warns that any changes made will not take effect until the service stops and restarts. The OK button is selected.](images/image169.png "Warning pop-up")
 
-9.  On the **Log On** tab, change the service account to `contoso\demouser` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
+10. On the **Log On** tab, change the service account to `contoso\demouser` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
 
     ![In the SQL Server Properties dialog box, on the Log On tab, fields are set to the previously defined settings. The OK button is selected.](images/ha-sql-logon.png "SQL Server Properties dialog box")
 
     ![A pop-up asks you to confirm that you want to make the changes and restart the service. The Yes button is selected.](images/image171.png "Confirm Account Change pop-up")
 
-10. Return to your session with **SQLVM1**. Open **Microsoft SQL Server Management Studio 18** and connect to the local instance of SQL Server.
+11. Return to your session with **SQLVM1**. Open **Microsoft SQL Server Management Studio 18** and connect to the local instance of SQL Server.
 
-11. Expand the **Always On High Availability** node. Under **Availability Group Listeners**, right-click on **BCDRAOG** and select **Properties**.
+12. Expand the **Always On High Availability** node. Under **Availability Group Listeners**, right-click on **BCDRAOG** and select **Properties**.
 
     ![On the BCDRAOG Listener context menu, 'Properties' is selected.](images/dr-sql-l1.png "Listener properties")
 
-12. On the BCDRAOG Listener properties dialog, select **Add**.
+13. On the BCDRAOG Listener properties dialog, select **Add**.
 
     ![On the BCDRAOG Listener properties dialog, 'Add' is selected.](images/dr-sql-l2.png "Listener - Add")
 
-13. On the Add IP Address dialog, check the subnet is **10.1.2.0** (this is the Data subnet in VNet2). Enter the IP address **10.1.2.100** (this is the frontend IP of the SQL load balancer in VNet2). Select **OK**.
+14. On the Add IP Address dialog, check the subnet is **10.1.2.0** (this is the Data subnet in VNet2). Enter the IP address **10.1.2.100** (this is the frontend IP of the SQL load balancer in VNet2). Select **OK**.
 
     ![On the BCDRAOG Listener Add IP Address dialog, the IP address is entered as specified.](images/dr-sql-l3.png "Listener - IP")
 
-14. On the BCDRAOG Listener properties dialog, two IP addresses should now be shown. Select **OK** to close the dialog and commit the change.
+15. On the BCDRAOG Listener properties dialog, two IP addresses should now be shown. Select **OK** to close the dialog and commit the change.
 
     ![On the BCDRAOG Listener properties dialog, two IP addresses are shown. 'OK' is selected.](images/dr-sql-l4.png "Listener - two IPs")
 
-15. Under **Availability Groups**, right-click on **BCDRAOG (Primary)** and select **Add Replica..** to open the Add Replica wizard.
+16. Under **Availability Groups**, right-click on **BCDRAOG (Primary)** and select **Add Replica..** to open the Add Replica wizard.
 
     ![In Object Explorer, under Always On High Availability the BCDRAOG availability group is selected, and from its right-click menu, Add Replica is selected.](images/dr-sql-addreplica.png "SQL Server Management Studio - Add Replica")
 
-16. Select **Next** on the Wizard.
+17. Select **Next** on the Wizard.
 
     ![On the Add Replica Wizard 'Introduction' page, Next is selected.](images/dr-sql-r1.png "Add Replica wizard")
 
-17. Select **Connect** to connect to SQLVM2, then **Connect** again on the 'Connect to Server' prompt. Then select **Next**.
+18. Select **Connect** to connect to SQLVM2, then **Connect** again on the 'Connect to Server' prompt. Then select **Next**.
 
     ![On the Add Replica Wizard 'Connect to Replicas' page, SQLVM2 is connected and Next is selected.](images/dr-sql-r2.png "Connect to Replicas page")
 
-18. On the **Specify Replicas** page, select **Add Replica...**.
+19. On the **Specify Replicas** page, select **Add Replica...**.
 
     ![Screenshot of the Add replica button.](images/dr-sql-r3.png "Add replica button")
 
-19. On the **Connect to Server** dialog box enter the Server Name of **SQLVM3** and select **Connect**.
+20. On the **Connect to Server** dialog box enter the Server Name of **SQLVM3** and select **Connect**.
 
     ![Screenshot of the Connect to Server dialog box for SQLVM3.](images/dr-sql-connectsqlvm3.png "Connect to Server dialog box")
 
-20. For **SQLVM3**, leave the default settings of 'Asynchronous commit' with 'Automatic Failover' disabled. Select **Next**.
+21. For **SQLVM3**, leave the default settings of 'Asynchronous commit' with 'Automatic Failover' disabled. Select **Next**.
 
     ![The SQLVM3 replica settings are asynchronous commit with automatic failover disabled. The Next button is highlighted.](images/dr-sql-r4.png "SQLVM3 replica settings")
 
-21. On the **Select Data Synchronization** page, make sure that **Automatic seeding** is selected and select **Next**.
+22. On the **Select Data Synchronization** page, make sure that **Automatic seeding** is selected and select **Next**.
 
     ![On the Select Data Synchronization page, the radio button for Automatic seeding is selected. The Next button is selected at the bottom of the form.](images/dr-sql-r5.png "Select Data Synchronization page")
 
-22. On the **Validation** screen, you should see all green, except for a warning for 'Checking the listener configuration'. This will be addressed later. Select **Next**.
+23. On the **Validation** screen, you should see all green, except for a warning for 'Checking the listener configuration'. This will be addressed later. Select **Next**.
 
     ![The Validation screen displays a list of everything it is checking, and the results for each, which all display success except the last one. The Next button is selected.](images/dr-sql-r6.png "Validation screen")
 
-23. On the Summary page select **Finish**.
+24. On the Summary page select **Finish**.
 
     ![On the Summary page, the Finish button is selected.](images/dr-sql-r7.png "Summary page")
 
-24. Once the AOG is built, check each task was successful and select **Close**.
+25. Once the AOG is built, check each task was successful and select **Close**.
 
     ![On the Results page, a message says the wizard has completed successfully, and results for all steps is success. The Close button is selected.](images/dr-sql-r8.png "Results page")
 
-25. Under Availability Groups, right-click **BCDRAOG (Primary)** and then select **Show Dashboard**. You should see that the **SQLVM3** node has been added and is synchronizing.
+26. Under Availability Groups, right-click **BCDRAOG (Primary)** and then select **Show Dashboard**. You should see that the **SQLVM3** node has been added and is synchronizing.
 
     ![Screenshot of the BCDRAOG Dashboard showing SQLVM3 synchronizing.](images/dr-sql-dash.png "BCDRAOG Dashboard")
 
-26. Move back to **PowerShell ISE** on **SQLVM1**. Open a new file, paste in the following script, and select the **Play** button. This will update the Failover cluster with the new Listener IP address that you created.
+27. Move back to **PowerShell ISE** on **SQLVM1**. Open a new file, paste in the following script, and select the **Play** button. This will update the Failover cluster with the new Listener IP address that you created.
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 2"
@@ -777,7 +782,7 @@ This task comprises the following steps:
 
     ![In the Windows PowerShell ISE window, the play button is selected. The script from the lab guide has been executed.](images/dr-ise-listenerip.png "Windows PowerShell ISE window")
 
-27. Move back to Failover Cluster Manager on **SQLVM1**, and select **Roles**, then **BCDRAOG**.  Notice how the **Resources** tab shows that the new IP address **10.1.2.100** has been added and is currently Offline.
+28. Move back to Failover Cluster Manager on **SQLVM1**, and select **Roles**, then **BCDRAOG**.  Notice how the **Resources** tab shows that the new IP address **10.1.2.100** has been added, and is currently Offline.
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and details of the role display.](images/dr-fcm-role.png "Failover Cluster Manager")
 
@@ -826,7 +831,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 7.  Under 'Replication Policy', review the default policy, but do not make any changes.
 
-    ![The Replication Policy settings use default values.](images/dr-asr-6.png "Replication policy")
+    ![The Replication Policy settings use default values.](images/dr-asr-6a.png "Replication policy")
 
 8.  Under 'Extension settings', select **\[+\] Show details**. Change the **Automation Account** to use your existing Automation Account
 
@@ -836,7 +841,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![Screenshot of the Enable replication button.](images/image233.png "Enable replication button")
 
-10. The Azure portal will start the deployment. This will take approximately 10 minutes to complete. You can proceed to the next step without waiting.
+10. The Azure portal will start the deployment. This will take approximately 10 minutes to complete. Wait for replication to complete before moving to the next step.
 
     ![A message is displayed indicating Enabling replication for two vm(s) has successfully completed.](images/image234.png "Enabling replication for two vm(s)")
 
@@ -856,7 +861,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
     - **Allow items with deployment model**: Resource Manager
     - **Select Items**: Select **WebVM1** and **WebVM2**
 
-    ![Fields in the Create recovery plan blade are set to the previously defined settings.](images/dr-asr-10.png "Create recovery plan blade")
+        ![Fields in the Create recovery plan blade are set to the previously defined settings.](images/dr-asr-10a.png "Create recovery plan blade")
 
     > **Note:** It is **critical** to use the correct recovery plan name `BCDRIaaSPlan`. This must match the name of the Azure Automation variable you created in the first task in this exercise.
 
@@ -884,7 +889,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![In the Recovery plan blade, the Group 1: Start right-click menu displays, and Add post action is selected.](images/dr-asr-15.png "Recovery plan blade")
 
-19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then chose the Runbook name: **ASRRunBookWEB**. Select **OK**.
+19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then choose the Runbook name: **ASRRunBookWEB**. Select **OK**.
 
     ![Fields in the Insert action blade are set to the ASRWebFailover script.](images/dr-asr-16.png "Insert Action blade")
 
