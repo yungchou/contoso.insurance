@@ -53,19 +53,19 @@ You will also discuss how to achieve a similar level of resiliency for a PaaS-ba
 
 ## Step 1: Review the customer case study 
 
-**Outcome** 
+**Outcome**
 
-Analyze your customer’s needs.
+Analyze your customer's needs.
 
-Timeframe: 15 minutes 
+Timeframe: 15 minutes
 
-Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
+Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your table participants and trainer. 
+1.  Meet your team members and trainer.
 
-2.  Read all of the directions for steps 1–3 in the student guide. 
+2.  Read all directions for steps 1-3 in the student guide.
 
-3.  As a table team, review the following customer case study.
+3.  As a team, review the following customer case study.
  
 ### Customer situation
 
@@ -129,23 +129,23 @@ In addition, Contoso require a detailed understanding of the costs associated wi
 
 ## Step 2: Design a proof of concept solution
 
-**Outcome** 
+**Outcome**
 
-Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
 Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart: 
+Directions:  With your team, answer the following questions and be prepared to present your solution to others:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
+1.  Who will you present this solution to? Who is your target customer audience? Who are the decision makers?
 
-2.  What customer business concerns do you need to address with your solution?
+2.  What customer business needs do you need to address with your solution?
 
 **Design**
 
-Directions: Design the solution architecture by drawing it on the board, and separately provide insight into how you will address the following requirements. Identify the steps needed to implement a proof of concept for the proposed solution(s) as well as what would need to be demonstrated to stakeholders.
+Directions: With your team, respond to the following questions:
 
 1.  How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
   
@@ -183,32 +183,33 @@ Provide an estimate of the costs associated with each aspect of your solution.
 -  Include a comparison of the IaaS solution and the PaaS solution
 -  Have you included all appropriate cost-saving measures?
 
-
 **Prepare**
 
-Finalize your preparations to present your solution to the customer.
+Directions: As a team:
 
 1.  Identify any customer needs that are not addressed with the proposed solution.
 
-2.  Identify any additional benefits of your solution.
+2.  Identify the benefits of your solution.
 
-3.  Determine how you will respond to the customer’s objections.
+3.  Determine how you will respond to the customer's objections.
 
+Prepare a 15-minute chalk-talk style presentation to the customer.
 
 ## Step 3: Present the solution
 
 **Outcome**
- 
+
 Present a solution to the target customer audience in a 15-minute chalk-talk format.
 
 Timeframe: 30 minutes
 
-**Presentation** 
+**Presentation**
 
 Directions:
-1.  Pair with another table.
 
-2.  One table is the Microsoft team and the other table is the customer.
+1.  Pair with another team.
+
+2.  One group is the Microsoft team, the other is the customer.
 
 3.  The Microsoft team presents their proposed solution to the customer.
 
@@ -216,15 +217,15 @@ Directions:
 
 5.  The Microsoft team responds to the objection.
 
-6.  The customer team gives feedback to the Microsoft team. 
+6.  The customer team gives feedback to the Microsoft team.
 
-7.  Tables switch roles and repeat Steps 2–6.
+7.  Switch roles and repeat Steps 2-6.
 
 ##  Wrap-up 
 
 Timeframe: 15 minutes
 
-Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
+Directions: Reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
 ##  Additional references
 
