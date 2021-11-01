@@ -982,9 +982,11 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     > **Note:** Be sure to use **HTTP** to access the Azure Front Door **frontend host** URL. The lab configurations only supports HTTP for Front Door since WebVM1 and WebVM2 are only set up for HTTP support, not HTTPS (no SSL\TLS).
 
-    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, then continue on with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
+    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, then continue with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
     >
-    > ![Error shown displaying Our services aren't available right now](images/image224-b.png "Error shown displaying Our services aren't available right now")
+    > If you continue to have this issue beyond 15 minutes, ensure that you are using the correct backend host header (Step 5) and using HTTP for both the routing rules and the health probes of the backend pools. (Step 4).
+    >
+    > ![Error shown displaying Our services aren't available right now.](images/image224-b.png "Error shown displaying Our services aren't available right now")
 
 ## Exercise 3: Enable Backup for the Contoso application
 
@@ -1241,6 +1243,12 @@ In this task, you will validate failover of the Contoso application from Central
 
     Keep this browser tab open, you will return to it later in the lab.
 
+    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, then continue with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
+    >
+    > If you continue to have this issue beyond 15 minutes, ensure that you are using the correct backend host header and using HTTP for both the routing rules & the health probes of the backend pools. Also, try accessing the backend systems directly over HTTP to validate they came up as expected.
+    >
+    > ![Error shown displaying Our services aren't available right now.](images/image224-b.png "Error shown displaying Our services aren't available right now")
+
 2.  From a new browser tab, open the Azure portal, then navigate to the **BCDRRSV** Recovery Services Vault located in the **ContosoRG2** resource group.
 
 3.  Select **Recovery Plans (Site Recovery)** in the **Manage** area, then select **BCDRIaaSPlan**.
@@ -1336,6 +1344,8 @@ In this task, you will failback the Contoso application from the DR site in East
     ![Under Job, the list of all jobs have a status of successful.](images/v-dr18.png "Job status")
 
 4.  Confirm that the Contoso application is once again accessible via the **ContosoWebLBPrimaryIP** public IP address, and is **not** available at the **ContosoWebLBSecondaryIP** address. This shows it has been returned to the primary site. Open the **Current Policy Offerings** and edit a policy, to confirm database access. 
+
+    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, verify that you are utilizing the **ContosoWebLBPrimaryIP**.  If it does not come up within ~10 minutes, verify that the backend system is responding.
 
 5.  Confirm also that the Contoso application is also available via the Front Door URL.
 
@@ -1485,4 +1495,4 @@ In this task you will validate the ability to restore the Contoso application da
 
 3.  Delete each of the resource groups created in this lab by selecting them followed by the **Delete resource group** button. You will need to confirm the name of the resource group to delete.
 
-You should follow all steps provided *after* attending the hands-on lab.
+You should follow all steps provided ***after*** attending the hands-on lab.
