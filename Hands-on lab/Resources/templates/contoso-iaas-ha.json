@@ -22,6 +22,17 @@
             "metadata": {
                 "description": "The FQDN of the Active Directory Domain to be created"
             }
+        },
+        "existingDNSServer": {
+            "type": "string",
+            "defaultValue": "10.0.3.100",
+            "metadata": {
+                "description": "Existing DNS server in Virtual Network"
+            }
+        },
+        "baseUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/november-2020-test-fix/Hands-on%20lab/Resources/"
         }
     },
     "variables": {
@@ -29,7 +40,7 @@
         "AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Apps')]",
         "DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Data')]",
         "ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Identity')]",
-        "baseUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+        "baseUri": "[parameters('baseUri')]"
     },
     "resources": [
         {
@@ -45,6 +56,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "ADVMName": {
                         "value": "ADVM2"
                     },
@@ -98,6 +112,32 @@
             }
         },
         {
+            "name": "VirtualNetworkWithDNS",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "dependsOn": [
+                "Microsoft.Resources/deployments/ADVM2"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('baseUri'), 'templates/vnet.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "VNetName": {
+                        "value": "[variables('vnetName')]"
+                    },
+                    "DNSIPs": {
+                        "value": [
+                            "[parameters('existingDNSServer')]",
+                            "[reference('ADVM2').outputs.ADVM1PrivateIP.value]"
+                        ]
+                    }
+                }
+            }
+        },
+        {
             "name": "WebVM2",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2016-09-01",
@@ -110,6 +150,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "WebVMName": {
                         "value": "WebVM2"
                     },
@@ -150,6 +193,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
                     "SqlVMName": {
                         "value": "SQLVM2"
                     },

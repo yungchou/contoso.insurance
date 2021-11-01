@@ -1,4 +1,4 @@
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -9,7 +9,8 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-June 2020
+September 2021
+
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+© 2021 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -179,23 +180,23 @@ You will also discuss how to achieve a similar level of resiliency for a PaaS-ba
 
 ## Step 1: Review the customer case study 
 
-**Outcome** 
+**Outcome**
 
-Analyze your customer’s needs.
+Analyze your customer's needs.
 
-Timeframe: 15 minutes 
+Timeframe: 15 minutes
 
-Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
+Directions:  With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips.
 
-1.  Meet your table participants and trainer. 
+1.  Meet your team members and trainer.
 
-2.  Read all of the directions for steps 1–3 in the student guide. 
+2.  Read all directions for steps 1-3 in the student guide.
 
-3.  As a table team, review the following customer case study.
+3.  As a team, review the following customer case study.
  
 ### Customer situation
 
-Contoso Insurance (CI), headquartered in Miami, provides insurance solutions across North America. Its products include accident and health insurance, life insurance, travel, home, and auto coverage. CI manages data collection services by sending mobile agents directly to the insured to gather information as part of the data collection process for claims from an insured individual. These mobile agents are based all over the US and are residents of the region in which they work. Mobile agents are managed remotely, and each regional corporate office has a support staff responsible for scheduling their time based on requests that arrive to the system. The company's headquarters in in Cheyenne, Wyoming with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
+Contoso Insurance (CI), headquartered in Miami, provides insurance solutions across North America. Its products include accident and health insurance, life insurance, travel, home, and auto coverage. CI manages data collection services by sending mobile agents directly to the insured to gather information as part of the data collection process for claims from an insured individual. These mobile agents are based all over the US and are residents of the region in which they work. Mobile agents are managed remotely, and each regional corporate office has a support staff responsible for scheduling their time based on requests that arrive to the system. The company's headquarters in in Miami, Florida with a second large location in Seattle, Washington along with three smaller branch offices scatted around the United States.
 
 Contoso would be considered by most as a classic IT shop, mainly focused on their infrastructure. Their application development department's skill set is dated, predominantly focused on client/server development. Two years ago, the company began a project to move portions of their infrastructure to Azure to gain efficiencies and eventually exit the hardware obsolescence cycle. This project has been executed under the leadership of Lewis Franklin, head of infrastructure and operations.
 
@@ -255,23 +256,23 @@ In addition, Contoso require a detailed understanding of the costs associated wi
 
 ## Step 2: Design a proof of concept solution
 
-**Outcome** 
+**Outcome**
 
-Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
 Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart: 
+Directions: With your team, answer the following questions and be prepared to present your solution to others:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
+1.  Who will you present this solution to? Who is your target customer audience? Who are the decision makers?
 
-2.  What customer business concerns do you need to address with your solution?
+2.  What customer business needs do you need to address with your solution?
 
 **Design**
 
-Directions: Design the solution architecture by drawing it on the board, and separately provide insight into how you will address the following requirements. Identify the steps needed to implement a proof of concept for the proposed solution(s) as well as what would need to be demonstrated to stakeholders.
+Directions: With your team, respond to the following questions:
 
 1.  How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
   
@@ -309,32 +310,33 @@ Provide an estimate of the costs associated with each aspect of your solution.
 -  Include a comparison of the IaaS solution and the PaaS solution
 -  Have you included all appropriate cost-saving measures?
 
-
 **Prepare**
 
-Finalize your preparations to present your solution to the customer.
+Directions: As a team:
 
 1.  Identify any customer needs that are not addressed with the proposed solution.
 
-2.  Identify any additional benefits of your solution.
+2.  Identify the benefits of your solution.
 
-3.  Determine how you will respond to the customer’s objections.
+3.  Determine how you will respond to the customer's objections.
 
+Prepare a 15-minute chalk-talk style presentation to the customer.
 
 ## Step 3: Present the solution
 
 **Outcome**
- 
+
 Present a solution to the target customer audience in a 15-minute chalk-talk format.
 
 Timeframe: 30 minutes
 
-**Presentation** 
+**Presentation**
 
 Directions:
-1.  Pair with another table.
 
-2.  One table is the Microsoft team and the other table is the customer.
+1.  Pair with another team.
+
+2.  One group is the Microsoft team and the other is the customer.
 
 3.  The Microsoft team presents their proposed solution to the customer.
 
@@ -342,15 +344,15 @@ Directions:
 
 5.  The Microsoft team responds to the objection.
 
-6.  The customer team gives feedback to the Microsoft team. 
+6.  The customer team gives feedback to the Microsoft team.
 
-7.  Tables switch roles and repeat Steps 2–6.
+7.  Switch roles and repeat Steps 2-6.
 
 ##  Wrap-up 
 
 Timeframe: 15 minutes
 
-Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
+Directions: Reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
 ##  Additional references
 
@@ -372,44 +374,43 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ## Step 1: Review the customer case study
 
--   Check in with your table participants to introduce yourself as the trainer.
+-   Check in with your participants to introduce yourself as the trainer.
 
 -   Ask, "What questions do you have about the customer case study?"
 
 -   Briefly review the steps and timeframes of the whiteboard design session.
 
--   Ready, set, go! Let the table participants begin.
-
+-   Ready, set, go! Let participants begin.
 
 ## Step 2: Design a proof of concept solution
 
--   Check in with your tables to ensure that they are transitioning from step to step on time.
+-   Check in with your teams to ensure that they are transitioning from step to step on time.
 
--   Provide some feedback on their responses to the business needs and design.
+-   Provide feedback on their responses to the business needs and design.
 
     -   Try asking questions first that will lead the participants to discover the answers on their own.
-    
+
 -   Provide feedback for their responses to the customer's objections.
 
     -   Try asking questions first that will lead the participants to discover the answers on their own.
 
 ## Step 3: Present the solution
 
--   Determine which table will be paired with your table before Step 3 begins.
+-   Determine which groups will be paired together before Step 3 begins.
 
--   For the first round, assign one table as the Microsoft team and the other table as the customer.
+-   For the first round, assign one group as the presenting team and the other as the customer.
 
--   Have the Microsoft team present their solution to the customer team.
+-   Have the presenting team present their solution to the customer team.
 
-    -   Have the customer team provide one objection for the Microsoft team to respond to.
-    
-    -   The presentation and objections should be no longer than 15 minutes.
-    
+    -   Have the customer team provide one objection for the presenting team to respond to.
+
+    -   The presentation, objections, and feedback should take no longer than 15 minutes.
+
     -   If needed, the trainer may also provide feedback.
 
 ## Wrap-up
 
-   -   Have the table participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution.
+-   Have participants reconvene with the larger session group to hear the facilitator/SME share the following preferred solution.
 
 ##  Preferred target audience
 
@@ -628,7 +629,7 @@ The claims application is an Internet-facing application. The public IP address 
 
    -  Backup Reports provide deeper analysis of backup performance, including storage space consumed and historical trends. This solution is built on Log Analytics. It requires the Recovery Services Vault to be configured to send diagnostic logs to the Log Analytics workspace, and data can take up to 24 hours to surface in the reports.
 
--  Backup alerts can be delivered in two ways: alerts configured directly within the Recovery Services Vault (email only) or alerts based on Log Analytics queries and Azure Monitor. The built-in alerts have several limitations. For this reason, Log Analytics/Azure Monitor alerts should be used. These have the additional advantage of supporting Action Groups.
+-  Backup alerts can be delivered in two ways: alerts configured directly within the Recovery Services Vault (email only), or alerts based on Log Analytics queries and Azure Monitor. The built-in alerts have several limitations. For this reason, Log Analytics/Azure Monitor alerts should be used. These have the additional advantage of supporting Action Groups.
 
 -  Log-based alerts should be configured based on the Azure Backup 'V2' diagnostic data schema. Note that V1 schema is planned for deprecation.
 
@@ -683,7 +684,7 @@ Yes. See table.
 
 *How is backup implemented and executed?*
 
--  The Web App is stateless, hence backup does not apply.
+-  The Web App is stateless; hence backup does not apply.
 
 -  Both SQL Database and SQL Managed Instance use SQL Server technology to create full backups every week, differential backups every 12-24 hours, and transaction log backups every 5 to 10 minutes. The frequency of transaction log backups is based on the compute size and the amount of database activity.
 
