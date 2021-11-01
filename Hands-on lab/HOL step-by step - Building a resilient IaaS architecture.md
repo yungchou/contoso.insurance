@@ -1495,4 +1495,4 @@ In this task you will validate the ability to restore the Contoso application da
 
 3.  Delete each of the resource groups created in this lab by selecting them followed by the **Delete resource group** button. You will need to confirm the name of the resource group to delete.
 
-You should follow all steps provided *after* attending the hands-on lab.
+You should follow all steps provided ***after*** attending the hands-on lab.
