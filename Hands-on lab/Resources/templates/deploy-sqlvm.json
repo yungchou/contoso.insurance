@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "skuSizeVM": {
+      "defaultValue": "D2s_v3",
+      "type": "string",
+      "metadata": {
+        "description": "Size of Virtual Machines to use"
+      },
+      "allowedValues": [
+        "D2s_v3",
+        "D2s_v5",
+        "DC2s_v3"
+      ]
+    },
     "SQLVMName": {
       "type": "string",
       "defaultValue": "SQLVM1",
@@ -47,25 +59,25 @@
         "description": "(Optional) URL for SQL database backup to be restored into the database"
       }
     },
-    "scriptRoot": {
-        "type": "string",
-        "defaultValue": "./lab-resources/june-2020-update/"
+    "resourceFolder": {
+      "type": "string",
+      "defaultValue": "master/Hands-on%20lab/Resources/"
     },
     "baseUri": {
-        "type": "string",
-        "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
     }
   },
   "variables": {
-    "SQLScriptUrl1": "[concat(parameters('baseUri'),'scripts/deploy-sqlvm-wrapper.ps1')]",
-    "SQLScriptUrl2": "[concat(parameters('baseUri'),'scripts/deploy-sqlvm-wrapped.ps1')]",
-    "ScriptFolder": "[concat(parameters('scriptRoot'),'scripts/')]",
+    "SQLScriptUrl1": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapper.ps1')]",
+    "SQLScriptUrl2": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapped.ps1')]",
+    "ScriptFolder": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/')]",
     "SQLScriptFileName": "deploy-sqlvm-wrapper.ps1",
     "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'), ' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
     "SQLImagePublisher": "MicrosoftSQLServer",
     "SQLImageOffer": "SQL2017-WS2016",
     "SQLSKU": "SQLDEV",
-    "SQLVMSize": "Standard_D2s_v3",
+    "SQLVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "SQLVMOSDiskName": "[concat(parameters('SQLVMName'), 'OSDisk')]",
     "SQLVMDataDiskName": "[concat(parameters('SQLVMName'), 'DataDisk1')]",
     "SQLNicName": "[concat(parameters('SQLVMName'), 'NIC')]",
@@ -166,7 +178,7 @@
               "fileUris": [
                 "[concat(variables('SQLScriptUrl1'))]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ScriptFolder'), variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
             }
           }
         },

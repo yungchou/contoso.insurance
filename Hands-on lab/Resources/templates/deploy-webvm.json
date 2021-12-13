@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "skuSizeVM": {
+      "defaultValue": "D2s_v3",
+      "type": "string",
+      "metadata": {
+        "description": "Size of Virtual Machines to use"
+      },
+      "allowedValues": [
+        "D2s_v3",
+        "D2s_v5",
+        "DC2s_v3"
+      ]
+    },
     "WebVMName": {
       "type": "string",
       "defaultValue": "WebVM1",
@@ -58,25 +70,25 @@
         "description": "DNS label to use with public IP address"
       }
     },
-    "scriptRoot": {
-        "type": "string",
-        "defaultValue": "./lab-resources/june-2020-update/"
+    "resourceFolder": {
+      "type": "string",
+      "defaultValue": "master/Hands-on%20lab/Resources/"
     },
     "baseUri": {
-        "type": "string",
-        "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
     }
   },
   "variables": {
-    "WebDownloadUrl": "[concat(parameters('baseUri'),'application/ContosoInsuranceIIS.zip')]",
-    "WebScriptUrl": "[concat(parameters('baseUri'),'scripts/deploy-webvm.ps1')]",
-    "ScriptFolder": "[concat(parameters('scriptRoot'),'scripts/')]",
+    "WebDownloadUrl": "[concat(parameters('baseUri'),parameters('resourceFolder'),'application/ContosoInsuranceIIS.zip')]",
+    "WebScriptUrl": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-webvm.ps1')]",
+    "ScriptFolder": "[concat('./',parameters('resourceFolder'),'scripts/')]",
     "WebScriptFileName": "deploy-webvm.ps1",
     "WebScriptParameters": "[concat(' -zipurl ', variables('WebDownloadUrl'), ' -datasource ', parameters('SQLEndpoint'), '.', parameters('domainToJoin'), ' -password ', parameters('adminPassword'))]",
     "WebVMImagePublisher": "MicrosoftWindowsServer",
     "WebVMImageOffer": "WindowsServer",
     "WebSKU": "2019-Datacenter",
-    "WebVMSize": "Standard_D2s_v3",
+    "WebVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "WebVMNicName": "[concat(parameters('WebVMName'), 'NIC')]",
     "WebVMOSDiskName": "[concat(parameters('WebVMName'), 'OSDisk')]",
     "WebVMIPName": "[concat(parameters('WebVMName'), 'IP')]",
@@ -189,7 +201,7 @@
               "fileUris": [
                 "[concat(variables('WebScriptUrl'))]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ScriptFolder'), variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ',  variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
             }
           }
         },

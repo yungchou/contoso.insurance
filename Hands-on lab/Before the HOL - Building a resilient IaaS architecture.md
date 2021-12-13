@@ -56,7 +56,9 @@ In this task, you will use an Azure Resource Manager template to deploy the LabV
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
    
-    [![Button to deploy the LabVM template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fjune-2020-update%2Ftemplates%2Flab-vm.json)
+    [![Button to deploy the LabVM template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Building-a-resilient-IaaS-architecture%2Fmaster%2FHands-on%20lab%2FResources%2Ftemplates%2Flab-vm.json)
+
+    > **Note**: If you attempt to deploy the template above and it fails stating "requested size for resource *\<resourceID\>* is currently not available in location", you can choose a different VM size from the first screen of the deployment. 
 
 2.  Complete the Custom deployment blade as follows:
 
@@ -76,7 +78,10 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the Contoso sample application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
-    [![Button to deploy the Contoso sample application template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the Contoso sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fjune-2020-update%2Ftemplates%2Fcontoso-iaas.json)
+    [![Button to deploy the Contoso sample application template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the Contoso sample application template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Building-a-resilient-IaaS-architecture%2Fmaster%2FHands-on%20lab%2FResources%2Ftemplates%2Fcontoso-iaas.json)
+    
+    > **Note**: If you attempt to deploy the template above and it fails stating "requested size for resource *\<resourceID\>* is currently not available in location", you can choose a different VM size from the first screen of the deployment. 
+
 
 2.  Complete the Custom deployment blade as follows:
 
