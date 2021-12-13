@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "skuSizeVM": {
+      "defaultValue": "D2s_v3",
+      "type": "string",
+      "metadata": {
+        "description": "Size of Virtual Machines to use"
+      },
+      "allowedValues": [
+        "D2s_v3",
+        "D2s_v5",
+        "DC2s_v3"
+      ]
+    },
     "SQLVMName": {
       "type": "string",
       "defaultValue": "SQLVM1",
@@ -65,7 +77,7 @@
     "SQLImagePublisher": "MicrosoftSQLServer",
     "SQLImageOffer": "SQL2017-WS2016",
     "SQLSKU": "SQLDEV",
-    "SQLVMSize": "Standard_D2s_v3",
+    "SQLVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "SQLVMOSDiskName": "[concat(parameters('SQLVMName'), 'OSDisk')]",
     "SQLVMDataDiskName": "[concat(parameters('SQLVMName'), 'DataDisk1')]",
     "SQLNicName": "[concat(parameters('SQLVMName'), 'NIC')]",

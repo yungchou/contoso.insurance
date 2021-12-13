@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "skuSizeVM": {
+      "defaultValue": "D2s_v3",
+      "type": "string",
+      "metadata": {
+        "description": "Size of Virtual Machines to use"
+      },
+      "allowedValues": [
+        "D2s_v3",
+        "D2s_v5",
+        "DC2s_v3"
+      ]
+    },
     "WebVMName": {
       "type": "string",
       "defaultValue": "WebVM1",
@@ -76,7 +88,7 @@
     "WebVMImagePublisher": "MicrosoftWindowsServer",
     "WebVMImageOffer": "WindowsServer",
     "WebSKU": "2019-Datacenter",
-    "WebVMSize": "Standard_D2s_v3",
+    "WebVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "WebVMNicName": "[concat(parameters('WebVMName'), 'NIC')]",
     "WebVMOSDiskName": "[concat(parameters('WebVMName'), 'OSDisk')]",
     "WebVMIPName": "[concat(parameters('WebVMName'), 'IP')]",

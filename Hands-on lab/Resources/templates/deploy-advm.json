@@ -2,6 +2,18 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "skuSizeVM": {
+      "defaultValue": "D2s_v3",
+      "type": "string",
+      "metadata": {
+        "description": "Size of Virtual Machines to use"
+      },
+      "allowedValues": [
+        "D2s_v3",
+        "D2s_v5",
+        "DC2s_v3"
+      ]
+    },
     "ADVMName": {
       "type": "string",
       "metadata": {
@@ -70,7 +82,7 @@
     "ADVMOSDiskName": "[concat(parameters('ADVMName'), 'OSDisk')]",
     "ADVMDataDiskName": "[concat(parameters('ADVMName'), 'DataDisk1')]",
     "DiskType": "Premium_LRS",
-    "ADVMVmSize": "Standard_D2s_v3",
+    "ADVMVmSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "ADVMNicName": "[concat(parameters('ADVMName'), 'NIC')]",
     "scriptBase": "[concat(parameters('baseUri'),'scripts/')]",
     "scriptFileName": "[if(parameters('newDomain'), 'deploy-advm-new.ps1', 'deploy-advm-existing.ps1')]",
