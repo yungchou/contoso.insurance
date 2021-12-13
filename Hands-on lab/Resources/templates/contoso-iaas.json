@@ -41,7 +41,7 @@
         },
         "resourceFolder": {
             "type": "string",
-            "defaultValue": "Dec-2021-Fix/Hands-on%20lab/Resources/"
+            "defaultValue": "master/Hands-on%20lab/Resources/"
         }
     },
     "variables": {
