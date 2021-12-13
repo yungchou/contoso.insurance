@@ -3,16 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "skuSizeVM": {
-          "defaultValue": "D2s_v3",
-          "type": "string",
-          "metadata": {
-            "description": "Size of Virtual Machines to use"
-          },
-          "allowedValues": [
-            "D2s_v3",
-            "D2s_v5",
-            "DC2s_v3"
-          ]
+            "defaultValue": "D2s_v3",
+            "type": "string",
+            "metadata": {
+                "description": "Size of Virtual Machines to use"
+            },
+            "allowedValues": [
+                "D2s_v3",
+                "D2s_v5",
+                "DC2s_v3"
+            ]
         },
         "adminUsername": {
             "type": "string",
@@ -45,8 +45,7 @@
         }
     },
     "variables": {
-        "vnetName": "VNet1",
-        "baseUri": "[parameters('baseUri')]"
+        "vnetName": "VNet1"
     },
     "resources": [
         {
@@ -58,7 +57,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -78,7 +77,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-advm.json')]",
+                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-advm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -125,7 +124,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet.json')]",
+                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/vnet.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -150,7 +149,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-webvm.json')]",
+                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-webvm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -159,6 +158,9 @@
                     },
                     "baseUri": {
                         "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
                     },
                     "WebVMName": {
                         "value": "WebVM1"
@@ -197,7 +199,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-sqlvm.json')]",
+                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -206,6 +208,9 @@
                     },
                     "baseUri": {
                         "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
                     },
                     "SqlVMName": {
                         "value": "SQLVM1"
@@ -226,7 +231,7 @@
                         "value": "[parameters('domainName')]"
                     },
                     "SQLDownloadUrl": {
-                        "value": "[concat(variables('baseUri'), 'application/ContosoInsurance.bak')]"
+                        "value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
                     }
                 }
             }
@@ -241,7 +246,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/bastion.json')]",
+                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/bastion.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
