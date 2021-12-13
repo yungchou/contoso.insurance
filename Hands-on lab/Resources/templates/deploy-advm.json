@@ -184,7 +184,7 @@
               "fileUris": [
                 "[concat(variables('scriptUrl'))]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFolder'), variables('scriptFileName'), ' ', variables('scriptParameters'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
             }
           }
         }

@@ -201,7 +201,7 @@
               "fileUris": [
                 "[concat(variables('WebScriptUrl'))]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('ScriptFolder'), variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ',  variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
             }
           }
         },
