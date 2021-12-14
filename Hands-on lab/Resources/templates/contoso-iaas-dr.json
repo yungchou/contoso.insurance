@@ -2,6 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "skuSizeVM": {
+            "defaultValue": "D2s_v3",
+            "type": "string",
+            "metadata": {
+                "description": "Size of Virtual Machines to use"
+            },
+            "allowedValues": [
+                "D2s_v3",
+                "D2s_v5",
+                "DC2s_v3"
+            ]
+        },
         "adminUsername": {
             "type": "string",
             "defaultValue": "demouser",
@@ -39,7 +51,11 @@
         },
         "baseUri": {
             "type": "string",
-            "defaultValue": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
+            "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
+        },
+        "resourceFolder": {
+            "type": "string",
+            "defaultValue": "master/Hands-on%20lab/Resources/"
         }
     },
     "variables": {
@@ -134,6 +150,9 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "skuSizeVM": {
+                        "value": "[parameters('skuSizeVM')]"
+                    },
                     "ADVMName": {
                         "value": "ADVM3"
                     },
@@ -176,6 +195,15 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "skuSizeVM": {
+                        "value": "[parameters('skuSizeVM')]"
+                    },
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
+                    },
                     "ADVMName": {
                         "value": "ADVM4"
                     },
@@ -272,6 +300,15 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
+                    "skuSizeVM": {
+                        "value": "[parameters('skuSizeVM')]"
+                    },
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
+                    },
                     "SqlVMName": {
                         "value": "SQLVM3"
                     },

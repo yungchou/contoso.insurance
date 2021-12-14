@@ -69,9 +69,10 @@
     }
   },
   "variables": {
-    "SQLScriptUrl1": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/scripts/deploy-sqlvm-wrapper.ps1",
-    "SQLScriptUrl2": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/scripts/deploy-sqlvm-wrapped.ps1",
+    "SQLScriptUrl1": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapper.ps1')]",
+    "SQLScriptUrl2": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapped.ps1')]",
     "ScriptFolder": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/')]",
+    "SQLScriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('SQLScriptUrl1') ,' -OutFile ', variables('SQLScriptFileName'), ' \"')]",
     "SQLScriptFileName": "deploy-sqlvm-wrapper.ps1",
     "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'), ' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
     "SQLImagePublisher": "MicrosoftSQLServer",
@@ -172,13 +173,10 @@
           "properties": {
             "publisher": "Microsoft.Compute",
             "type": "CustomScriptExtension",
-            "typeHandlerVersion": "1.4",
-            "autoUpgradeMinorVersion": false,
+            "typeHandlerVersion": "1.10",
+            "autoUpgradeMinorVersion": true,
             "settings": {
-              "fileUris": [
-                "[concat(variables('SQLScriptUrl1'))]"
-              ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ./june-2020-update/scripts/', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
+              "commandToExecute": "[concat(variables('SQLScriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
             }
           }
         },

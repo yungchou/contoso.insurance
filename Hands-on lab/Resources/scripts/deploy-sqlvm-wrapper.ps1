@@ -3,9 +3,14 @@ param($user, $password, $dbsource, $scripturl)
 Start-Transcript "C:\deploy-sql-wrapper-log.txt"
 
 # Get the second script
-$script = "D:\script.ps1"
-Write-Output "Download $scripturl to $deployScript"
-Invoke-WebRequest $scripturl -OutFile $script
+If (Test-Path "D:") {
+	$script = "d:\script.ps1"
+} else {
+	$script = "$env:temp\script.ps1"
+}
+Write-Output "Download $scripturl to $script"
+[Net.ServicePointManager]::SecurityProtocol = "Tls12"
+Invoke-WebRequest -URI $scripturl -OutFile $script
 
 Write-Output "Create credential"
 $securePwd =  ConvertTo-SecureString "$password" -AsPlainText -Force
