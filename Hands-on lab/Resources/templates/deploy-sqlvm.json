@@ -178,7 +178,7 @@
               "fileUris": [
                 "[concat(variables('SQLScriptUrl1'))]"
               ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ./june-2020-update/scripts/', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
             }
           }
         },
