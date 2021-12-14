@@ -162,7 +162,7 @@
       },
       "resources": [
         {
-          "name": "InstallDB",
+          "name": "DownloadInstallFile",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2019-03-01",
@@ -175,9 +175,25 @@
             "typeHandlerVersion": "1.4",
             "autoUpgradeMinorVersion": false,
             "settings": {
-              "fileUris": [
-                "[concat(variables('SQLScriptUrl1'))]"
-              ],
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('SQLScriptUrl1') ,' -OutFile ', variables('SQLScriptFileName'), ' \"')]"
+            }
+          }
+        },
+        {
+          "name": "InstallDB",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2019-03-01",
+          "dependsOn": [
+            "[parameters('SQLVMName')]",
+            "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('SQLVMName'), 'DownloadInstallFile')]"
+          ],
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.4",
+            "autoUpgradeMinorVersion": false,
+            "settings": {
               "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
             }
           }
