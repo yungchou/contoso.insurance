@@ -173,8 +173,8 @@
           "properties": {
             "publisher": "Microsoft.Compute",
             "type": "CustomScriptExtension",
-            "typeHandlerVersion": "1.4",
-            "autoUpgradeMinorVersion": false,
+            "typeHandlerVersion": "1.10",
+            "autoUpgradeMinorVersion": true,
             "settings": {
               "commandToExecute": "[concat(variables('SQLScriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('SQLScriptFileName'), ' ', variables('SQLScriptParameters'))]"
             }
