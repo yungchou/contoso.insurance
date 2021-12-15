@@ -496,6 +496,15 @@ In this task, you will deploy the resources used by the DR environment. First, y
         -Location 'East US 2'
     ```
 
+    > **Note:** If your deployment fails with an error *`"The requested size for resource '<resourceID>' is currently not available"`*, add the parameter `-skuSizeVM 'D2s_v5'` to the end of the `New-AzSubscriptionDeployment` and run the command again:
+
+    ```powershell
+    # Only run this command if the previous deployment failed with a error that size was not available
+    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' `
+        -TemplateUri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
+        -Location 'East US 2' -skuSizeVM 'D2s_v5'
+    ```
+
 3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**. Note that the template includes:
     -  A DR virtual network, which is connected using VNet peering to the existing virtual network
     -  Two additional domain controller VMs, **ADVM3** and **ADVM4**
