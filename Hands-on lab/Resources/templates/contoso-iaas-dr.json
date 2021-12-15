@@ -60,8 +60,7 @@
     },
     "variables": {
         "vnetNamePrimary": "VNet1",
-        "vnetNameSecondary": "VNet2",
-        "baseUri": "[parameters('baseUri')]"
+        "vnetNameSecondary": "VNet2"
     },
     "resources": [
         {
@@ -74,7 +73,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet-dr.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -95,7 +94,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/peering.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/peering.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -119,7 +118,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet-dr.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -146,12 +145,18 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-advm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "skuSizeVM": {
                         "value": "[parameters('skuSizeVM')]"
+                    },
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
                     },
                     "ADVMName": {
                         "value": "ADVM3"
@@ -191,7 +196,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-advm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -243,7 +248,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet-dr.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -269,7 +274,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/load-balancers.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/load-balancers.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -296,7 +301,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-sqlvm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -341,7 +346,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/bastion.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/bastion.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {

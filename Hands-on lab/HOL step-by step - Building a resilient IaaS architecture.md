@@ -112,7 +112,7 @@ A template will be used to save time. You will configure each tier in subsequent
 
 1.  Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the additional infrastructure components that will be used to enable high availability for the Contoso application. Log in to the Azure portal using your subscription credentials if you are prompted to do so.
 
-    [![Button to deploy the Contoso High Availability resource template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the Contoso HA resources to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fcloudworkshop.blob.core.windows.net%2Fbuilding-resilient-iaas-architecture%2Flab-resources%2Fjune-2020-update%2Ftemplates%2Fcontoso-iaas-ha.json)
+    [![Button to deploy the Contoso High Availability resource template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the Contoso HA resources to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Building-a-resilient-IaaS-architecture%2Fmaster%2FHands-on%20lab%2FResources%2Ftemplates%2Fcontoso-iaas-ha.json)
 
 2.  Complete the Custom deployment blade as follows:
 
@@ -492,8 +492,17 @@ In this task, you will deploy the resources used by the DR environment. First, y
     New-AzResourceGroup -Name 'ContosoRG2' -Location 'East US 2'
 
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' `
-        -TemplateUri 'https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/templates/contoso-iaas-dr.json' `
+        -TemplateUri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
         -Location 'East US 2'
+    ```
+
+    > **Note:** If your deployment fails with an error *`"The requested size for resource '<resourceID>' is currently not available"`*, add the parameter `-skuSizeVM 'D2s_v5'` to the end of the `New-AzSubscriptionDeployment` and run the command again:
+
+    ```powershell
+    # Only run this command if the previous deployment failed with a error that size was not available
+    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' `
+        -TemplateUri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
+        -Location 'East US 2' -skuSizeVM 'D2s_v5'
     ```
 
 3.  Take a few minutes to review the template while it deploys. To review the template and deployment progress, navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**. Note that the template includes:

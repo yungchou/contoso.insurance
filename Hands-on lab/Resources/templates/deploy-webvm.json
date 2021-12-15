@@ -85,6 +85,7 @@
     "ScriptFolder": "[concat('./',parameters('resourceFolder'),'scripts/')]",
     "WebScriptFileName": "deploy-webvm.ps1",
     "WebScriptParameters": "[concat(' -zipurl ', variables('WebDownloadUrl'), ' -datasource ', parameters('SQLEndpoint'), '.', parameters('domainToJoin'), ' -password ', parameters('adminPassword'))]",
+    "WebScriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('WebScriptUrl') ,' -OutFile ', variables('WebScriptFileName'), ' \"')]",
     "WebVMImagePublisher": "MicrosoftWindowsServer",
     "WebVMImageOffer": "WindowsServer",
     "WebSKU": "2019-Datacenter",
@@ -198,10 +199,7 @@
             "typeHandlerVersion": "1.4",
             "autoUpgradeMinorVersion": true,
             "settings": {
-              "fileUris": [
-                "[concat(variables('WebScriptUrl'))]"
-              ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ',  variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
+              "commandToExecute": "[concat(variables('WebScriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('WebScriptFileName'), ' ', variables('WebScriptParameters'))]"
             }
           }
         },

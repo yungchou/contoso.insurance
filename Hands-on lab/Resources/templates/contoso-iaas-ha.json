@@ -55,8 +55,7 @@
         "vnetName": "VNet1",
         "AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Apps')]",
         "DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Data')]",
-        "ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Identity')]",
-        "baseUri": "[parameters('baseUri')]"
+        "ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Identity')]"
     },
     "resources": [
         {
@@ -68,7 +67,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-advm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -117,7 +116,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/load-balancers.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/load-balancers.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -143,7 +142,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/vnet.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -168,7 +167,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-webvm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-webvm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
@@ -217,7 +216,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('baseUri'), 'templates/deploy-sqlvm.json')]",
+                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
