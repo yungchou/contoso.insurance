@@ -152,6 +152,12 @@
                     "skuSizeVM": {
                         "value": "[parameters('skuSizeVM')]"
                     },
+                    "baseUri": {
+                        "value": "[parameters('baseUri')]"
+                    },
+                    "resourceFolder": {
+                        "value": "[parameters('resourceFolder')]"
+                    },
                     "ADVMName": {
                         "value": "ADVM3"
                     },

@@ -88,6 +88,7 @@
     "scriptFileName": "[if(parameters('newDomain'), 'deploy-advm-new.ps1', 'deploy-advm-existing.ps1')]",
     "scriptUrl": "[concat(variables('scriptBase'), variables('scriptFileName'))]",
     "scriptFolder": "[concat('./',parameters('resourceFolder'),'scripts/')]",
+    "scriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('scriptUrl') ,' -OutFile ', variables('scriptFileName'), ' \"')]",
     "scriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -domain ', parameters('domainName'), ' -password ', parameters('adminPassword'))]"
   },
   "resources": [
@@ -181,10 +182,7 @@
             "typeHandlerVersion": "1.9",
             "autoUpgradeMinorVersion": true,
             "settings": {
-              "fileUris": [
-                "[concat(variables('scriptUrl'))]"
-              ],
-              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
+              "commandToExecute": "[concat(variables('scriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
             }
           }
         }
