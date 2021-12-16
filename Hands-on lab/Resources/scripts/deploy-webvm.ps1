@@ -8,7 +8,11 @@ Install-WindowsFeature -Name "web-server" `
                        -IncludeAllSubFeature
 
 # Download and Unpack the Website
-$downloadedFile = "D:\ContosoInsuranceIIS.zip"
+If (Test-Path "D:") {
+	$downloadedFile = "D:\ContosoInsuranceIIS.zip"
+} else {
+	$downloadedFile = "$env:temp\ContosoInsuranceIIS.ps1"
+}
 $inetpubFolder = "C:\inetpub\wwwroot"
 Invoke-WebRequest $zipurl -OutFile $downloadedFile
 Add-Type -assembly "system.io.compression.filesystem"

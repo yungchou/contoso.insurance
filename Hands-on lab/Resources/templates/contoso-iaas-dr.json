@@ -331,6 +331,9 @@
                     },
                     "domainToJoin": {
                         "value": "[parameters('domainName')]"
+                    },
+                    "SQLDownloadUrl": {
+                        "value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
                     }
                 }
             }
