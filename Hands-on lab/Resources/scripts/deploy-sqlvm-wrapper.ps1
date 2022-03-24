@@ -19,12 +19,18 @@ If ($user -notmatch "[@\\]") {
 } else {
 	$username = $user
 }
+if ($user -match "(?<user>[^@]+)(@(?<dnsDomain>[^@\s]+))") {
+	$dnsDomain = $matches.dnsDomain
+	$ArgumentList = @($password, $dbsource, $dnsDomain)
+} else {
+	$ArgumentList = @($password, $dbsource)
+}
 $credential = New-Object System.Management.Automation.PSCredential($username, $securePwd)
 
 Write-Output "Enable remoting and invoke"
 Enable-PSRemoting -force
 Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress Any
-Invoke-Command -FilePath $script -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $password, $dbsource
+Invoke-Command -FilePath $script -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $ArgumentList
 Disable-PSRemoting -Force
 
 Stop-Transcript
