@@ -86,9 +86,13 @@
     "ADVMNicName": "[concat(parameters('ADVMName'), 'NIC')]",
     "scriptBase": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'scripts/')]",
     "scriptFileName": "[if(parameters('newDomain'), 'deploy-advm-new.ps1', 'deploy-advm-existing.ps1')]",
+    "pauseFileName": "deploy-hold-vm-new.ps1",
+    "pauseWait": 120,
     "scriptUrl": "[concat(variables('scriptBase'), variables('scriptFileName'))]",
+    "pauseUrl": "[concat(variables('scriptBase'), variables('pauseFileName'))]",
     "scriptFolder": "[concat('./',parameters('resourceFolder'),'scripts/')]",
     "scriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('scriptUrl') ,' -OutFile ', variables('scriptFileName'), ' \"')]",
+    "pauseDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('pauseUrl') ,' -OutFile ', variables('pauseFileName'), ' \"')]",
     "scriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -domain ', parameters('domainName'), ' -password ', parameters('adminPassword'))]"
   },
   "resources": [
@@ -183,6 +187,24 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "commandToExecute": "[concat(variables('scriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
+            }
+          }
+        },
+        {
+          "name": "PauseAfterAD",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2019-03-01",
+          "dependsOn": [
+            "InstallAD"
+          ],
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.9",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "commandToExecute": "[concat(variables('pauseDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('pauseFileName'), ' -waitInSeconds ', variables('pauseWait'))]"
             }
           }
         }

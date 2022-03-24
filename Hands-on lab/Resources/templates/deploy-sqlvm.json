@@ -69,12 +69,12 @@
     }
   },
   "variables": {
-    "SQLScriptUrl1": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapper.ps1')]",
-    "SQLScriptUrl2": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/deploy-sqlvm-wrapped.ps1')]",
-    "ScriptFolder": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts/')]",
-    "SQLScriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('SQLScriptUrl1') ,' -OutFile ', variables('SQLScriptFileName'), ' \"')]",
     "SQLScriptFileName": "deploy-sqlvm-wrapper.ps1",
-    "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'), ' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
+    "ScriptFolder": "[concat(parameters('baseUri'),parameters('resourceFolder'),'scripts')]",
+    "SQLScriptUrl1": "[concat(variables('ScriptFolder'), '/', variables('SQLScriptFileName'))]",
+    "SQLScriptUrl2": "[concat(variables('ScriptFolder'), '/deploy-sqlvm-wrapped.ps1')]",
+    "SQLScriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('SQLScriptUrl1') ,' -OutFile ', variables('SQLScriptFileName'), ' \"')]",
+    "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), '@', parameters('domainToJoin'), ' -password ', parameters('adminPassword'), ' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
     "SQLImagePublisher": "MicrosoftSQLServer",
     "SQLImageOffer": "SQL2017-WS2016",
     "SQLSKU": "SQLDEV",
@@ -168,7 +168,8 @@
           "location": "[resourceGroup().location]",
           "apiVersion": "2019-03-01",
           "dependsOn": [
-            "[parameters('SQLVMName')]"
+            "[parameters('SQLVMName')]",
+            "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('SQLVMName'), 'JoinDomain')]"
           ],
           "properties": {
             "publisher": "Microsoft.Compute",
@@ -186,8 +187,7 @@
           "location": "[resourceGroup().location]",
           "apiVersion": "2015-06-15",
           "dependsOn": [
-            "[parameters('SQLVMName')]",
-            "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('SQLVMName'), 'InstallDB')]"
+            "[parameters('SQLVMName')]"
           ],
           "properties": {
             "publisher": "Microsoft.Compute",

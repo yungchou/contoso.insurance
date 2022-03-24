@@ -1,6 +1,14 @@
-param($password, $dbsource)
+param($password,
+    $dbsource,
+    $defaultDnsDomain = "contoso.com",
+    $defaultDomain = $dnsDomain)
 
 Start-Transcript "C:\deploy-sqlvm-log.txt"
+
+# Check domain status
+If ((Get-CimInstance  -ClassName Win32_computersystem).domain -notmatch "\.") {
+    Write-Warning "This computer ($($env:COMPUTERNAME)) is not a member of a domain!"
+}
 
 # Set up data disk
 Write-Output "Setting up data disk"
@@ -62,7 +70,15 @@ New-NetFirewallRule -DisplayName "SQL AG Load Balancer Probe Port" -Direction In
 # See also: https://support.microsoft.com/en-sg/help/811889/how-to-troubleshoot-the-cannot-generate-sspi-context-error-message
 Write-Output "Resetting SPNs"
 $dnsDomain = $env:USERDNSDOMAIN
-$domain = $env:USERDOMAIN
+If ($dnsDomain -match "\.") {
+    # if user account running is using a domain account with a DNS zone, use the user's domain name as well.
+    $domain = $env:USERDOMAIN
+} else {
+    # if user account running is using a local account witouth a DNS zone, use the default DNS domain and domain passed. 
+    $dnsDomain = $defaultDnsDomain
+    $domain = $defaultDomain
+}
+
 $user = $env:USERNAME
 $computer = $env:COMPUTERNAME
 SetSPN -s "MSOLAPSvc.3/$computer.$dnsDomain"    "$domain\$computer$"

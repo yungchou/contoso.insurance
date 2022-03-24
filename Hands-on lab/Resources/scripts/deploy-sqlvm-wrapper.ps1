@@ -14,12 +14,23 @@ Invoke-WebRequest -URI $scripturl -OutFile $script
 
 Write-Output "Create credential"
 $securePwd =  ConvertTo-SecureString "$password" -AsPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$user", $securePwd)
+If ($user -notmatch "[@\\]") {
+	$username = "$env:COMPUTERNAME\$user"
+} else {
+	$username = $user
+}
+if ($user -match "(?<user>[^@]+)(@(?<dnsDomain>[^@\s]+))") {
+	$dnsDomain = $matches.dnsDomain
+	$ArgumentList = @($password, $dbsource, $dnsDomain)
+} else {
+	$ArgumentList = @($password, $dbsource)
+}
+$credential = New-Object System.Management.Automation.PSCredential($username, $securePwd)
 
 Write-Output "Enable remoting and invoke"
 Enable-PSRemoting -force
 Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress Any
-Invoke-Command -FilePath $script -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $password, $dbsource
+Invoke-Command -FilePath $script -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $ArgumentList
 Disable-PSRemoting -Force
 
 Stop-Transcript
