@@ -196,6 +196,7 @@
           "location": "[resourceGroup().location]",
           "apiVersion": "2019-03-01",
           "dependsOn": [
+            "[parameters('ADVMName')]",
             "InstallAD"
           ],
           "properties": {
