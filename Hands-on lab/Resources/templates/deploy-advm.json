@@ -189,27 +189,26 @@
               "commandToExecute": "[concat(variables('scriptDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('scriptFileName'), ' ', variables('scriptParameters'))]"
             }
           }
-        },
-        {
-          "name": "PauseAfterAD",
-          "type": "extensions",
-          "location": "[resourceGroup().location]",
-          "apiVersion": "2019-03-01",
-          "dependsOn": [
-            "[parameters('ADVMName')]",
-            "InstallAD"
-          ],
-          "properties": {
-            "publisher": "Microsoft.Compute",
-            "type": "CustomScriptExtension",
-            "typeHandlerVersion": "1.9",
-            "autoUpgradeMinorVersion": true,
-            "settings": {
-              "commandToExecute": "[concat(variables('pauseDownload'),'; powershell -ExecutionPolicy Unrestricted -File ', variables('pauseFileName'), ' -waitInSeconds ', variables('pauseWait'))]"
-            }
-          }
         }
       ]
+    },
+    {
+      "type": "Microsoft.Resources/deploymentScripts",
+      "apiVersion": "2020-10-01",
+      "name": "pauseDeployment",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[parameters('ADVMName')]"
+      ],
+      "kind": "AzurePowerShell",
+      "properties": {
+        "azPowerShellVersion": "6.4",
+        "scriptContent": "param([int]$waitInSeconds); Write-Output \"Holding for $waitInSeconds seconds to ensure AD start up complete...\"; Start-Sleep -Seconds $waitInSeconds; Write-Output 'Done.'",
+        "arguments": "[concat('-waitInSeconds', ' ', variables('pauseWait'))]",
+        "timeout": "PT1H",
+        "cleanupPreference": "OnSuccess",
+        "retentionInterval": "P1D"
+      }
     }
   ],
   "outputs": {
