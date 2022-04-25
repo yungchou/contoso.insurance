@@ -34,6 +34,11 @@ $backups = "F:\Backup"
 [system.io.directory]::CreateDirectory($data)
 [system.io.directory]::CreateDirectory($backups)
 
+# Make sure SQL Service is started
+$sqlservice = Get-Service -Name MSSQLServer
+Start-Service $sqlservice
+$sqlservice.WaitForStatus('Running', '00:00:30')
+
 # Setup the data, backup and log directories as well as mixed mode authentication
 Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
 Import-Module "sqlps" -DisableNameChecking
