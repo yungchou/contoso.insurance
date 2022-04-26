@@ -15,7 +15,7 @@ Invoke-WebRequest -URI $scripturl -OutFile $script
 Write-Output "Create credential"
 $securePwd =  ConvertTo-SecureString "$password" -AsPlainText -Force
 If ($user -notmatch "[@\\]") {
-	$username = "$env:COMPUTERNAME\$user"
+	$username = "contoso\$user"
 } else {
 	$username = $user
 }

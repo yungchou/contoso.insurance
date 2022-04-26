@@ -46,14 +46,14 @@ Write-Output $sqlservice
 
 # Test making changes in single user mode
 Write-Host "Start server in single user mode"
-Stop-Service -Name MSSQLFDLauncher
-Stop-Service -Name MsDtsServer150
-Stop-Service -Name MSSQLSERVER
-$sqlJob = Start-Job -Name Sql -ScriptBlock {
-    & 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Binn\sqlservr.exe' -m
-}
+#Stop-Service -Name MSSQLFDLauncher
+#Stop-Service -Name MsDtsServer140
+#Stop-Service -Name MSSQLSERVER
+#$sqlJob = Start-Job -Name Sql -ScriptBlock {
+#    & 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Binn\sqlservr.exe' -m
+#}
 
-try{
+#try{
     # Setup the data, backup and log directories as well as mixed mode authentication
     Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
     Import-Module "sqlps" -DisableNameChecking
@@ -64,13 +64,13 @@ try{
     $sqlesq.Settings.DefaultLog = $logs
     $sqlesq.Settings.BackupDirectory = $backups
     $sqlesq.Alter() 
-}
-finally{
-    $sqlJob.StopJob()
-    Start-Service -Name MSSQLSERVER
-    Start-Service -Name MsDtsServer150
-    Start-Service -Name MSSQLFDLauncher
-}
+#}
+#finally{
+#    $sqlJob.StopJob()
+#    Start-Service -Name MSSQLSERVER
+#    Start-Service -Name MsDtsServer140
+#    Start-Service -Name MSSQLFDLauncher
+#}
 
 
 # Restart the SQL Server service
