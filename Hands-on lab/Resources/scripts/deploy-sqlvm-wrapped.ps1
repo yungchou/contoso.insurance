@@ -60,6 +60,8 @@ Write-Host "Start server in single user mode"
     $pwd = ConvertTo-SecureString "Demo!pass123" -AsPlainText -Force
     [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
     $sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') Localhost
+    $sqlesq.ConnectionContext.NonPooledConnection = $true;
+    $sqlesq.ConnectionContext.LoginSecure = $false;
     $sqlesq.ConnectionContext.set_Login("sqlvm1\demouser")
     $sqlesq.ConnectionContext.set_SecurePassword($pwd)
     $sqlesq.ConnectionContext.Connect()
