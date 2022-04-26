@@ -40,7 +40,7 @@ Write-Output $sqlservice
 # Make sure SQL Service is started
 $sqlservice = Get-Service -Name MSSQLServer
 Start-Service $sqlservice
-$sqlservice.WaitForStatus('Running', '00:00:90')
+$sqlservice.WaitForStatus('Running', '00:01:30')
 Write-Output "SQL should be started or it timed out after 90 seconds"
 Write-Output $sqlservice
 
