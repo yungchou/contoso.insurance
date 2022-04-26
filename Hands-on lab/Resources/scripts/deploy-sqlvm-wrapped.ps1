@@ -57,8 +57,12 @@ Write-Host "Start server in single user mode"
     # Setup the data, backup and log directories as well as mixed mode authentication
     Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
     Import-Module "sqlps" -DisableNameChecking
+    $pwd = ConvertTo-SecureString "Demo!pass123" -AsPlainText -Force
     [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
     $sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') Localhost
+    $sqlesq.ConnectionContext.set_Login("sqlvm1\demouser")
+    $sqlesq.ConnectionContext.set_SecurePassword($pwd)
+    $sqlesq.ConnectionContext.Connect()
     $sqlesq.Settings.LoginMode = [Microsoft.SqlServer.Management.Smo.ServerLoginMode]::Mixed
     $sqlesq.Settings.DefaultFile = $data
     $sqlesq.Settings.DefaultLog = $logs
