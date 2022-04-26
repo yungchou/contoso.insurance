@@ -59,7 +59,7 @@ Write-Host "Start server in single user mode"
     Import-Module "sqlps" -DisableNameChecking
     $pwd = ConvertTo-SecureString "Demo!pass123" -AsPlainText -Force
     [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
-    $sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') sqlvm1
+    $sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') Localhost
     $sqlesq.ConnectionContext.NonPooledConnection = $true;
     $sqlesq.ConnectionContext.LoginSecure = $false;
     $sqlesq.ConnectionContext.set_Login("sqlvm1\demouser")
