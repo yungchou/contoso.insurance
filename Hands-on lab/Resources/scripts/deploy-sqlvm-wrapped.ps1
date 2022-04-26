@@ -44,20 +44,38 @@ $sqlservice.WaitForStatus('Running', '00:01:30')
 Write-Output "SQL should be started or it timed out after 90 seconds"
 Write-Output $sqlservice
 
-# Setup the data, backup and log directories as well as mixed mode authentication
-Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
-Import-Module "sqlps" -DisableNameChecking
-[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
-$sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') Localhost
-$sqlesq.Settings.LoginMode = [Microsoft.SqlServer.Management.Smo.ServerLoginMode]::Mixed
-$sqlesq.Settings.DefaultFile = $data
-$sqlesq.Settings.DefaultLog = $logs
-$sqlesq.Settings.BackupDirectory = $backups
-$sqlesq.Alter() 
+# Test making changes in single user mode
+Write-Host "Start server in single user mode"
+Stop-Service -Name MSSQLFDLauncher
+Stop-Service -Name MsDtsServer150
+Stop-Service -Name MSSQLSERVER
+$sqlJob = Start-Job -Name Sql -ScriptBlock {
+    & 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\Binn\sqlservr.exe' -m
+}
+
+try{
+    # Setup the data, backup and log directories as well as mixed mode authentication
+    Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
+    Import-Module "sqlps" -DisableNameChecking
+    [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.SqlServer.Smo")
+    $sqlesq = new-object ('Microsoft.SqlServer.Management.Smo.Server') Localhost
+    $sqlesq.Settings.LoginMode = [Microsoft.SqlServer.Management.Smo.ServerLoginMode]::Mixed
+    $sqlesq.Settings.DefaultFile = $data
+    $sqlesq.Settings.DefaultLog = $logs
+    $sqlesq.Settings.BackupDirectory = $backups
+    $sqlesq.Alter() 
+}
+finally{
+    $sqlJob.StopJob()
+    Start-Service -Name MSSQLSERVER
+    Start-Service -Name MsDtsServer150
+    Start-Service -Name MSSQLFDLauncher
+}
+
 
 # Restart the SQL Server service
-Write-Output "Restart SQL"
-Restart-Service -Name "MSSQLSERVER" -Force
+#Write-Output "Restart SQL"
+#Restart-Service -Name "MSSQLSERVER" -Force
 
 # Re-enable the sa account and set a new password to enable login
 Write-Output "Re-enable 'sa' account, and set password to $password"
