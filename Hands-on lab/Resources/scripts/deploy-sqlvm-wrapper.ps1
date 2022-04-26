@@ -1,36 +1,37 @@
-param($user, $password, $dbsource, $scripturl)
+param($user, $password, $domain, $dbsource, $scripturl)
 
 Start-Transcript "C:\deploy-sql-wrapper-log.txt"
+
 
 # Get the second script
 If (Test-Path "D:") {
 	$script = "d:\script.ps1"
+	$script2 = "d:\script2.ps1"
 } else {
 	$script = "$env:temp\script.ps1"
+	$script2 = "$env:temp\script2.ps1"
 }
-Write-Output "Download $scripturl to $script"
-[Net.ServicePointManager]::SecurityProtocol = "Tls12"
-Invoke-WebRequest -URI $scripturl -OutFile $script
 
+# Download the required SQL Scripts
+powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/scripts/deploy-sqlvm-wrapped.ps1' -OutFile $script"
+powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/scripts/deploy-sqlvm-wrapped2.ps1' -OutFile $script2"
+
+
+# Need to create appropriate credentials, local and domain
 Write-Output "Create credential"
 $securePwd =  ConvertTo-SecureString "$password" -AsPlainText -Force
-If ($user -notmatch "[@\\]") {
-	$username = "$env:COMPUTERNAME\$user"
-} else {
-	$username = $user
-}
-if ($user -match "(?<user>[^@]+)(@(?<dnsDomain>[^@\s]+))") {
-	$dnsDomain = $matches.dnsDomain
-	$ArgumentList = @($password, $dbsource, $dnsDomain)
-} else {
-	$ArgumentList = @($password, $dbsource)
-}
-$credential = New-Object System.Management.Automation.PSCredential($username, $securePwd)
+$localCred = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$user", $securePwd)
+$domainCred = New-Object System.Management.Automation.PSCredential("$user"+"@"+$domain, $securePwd)
+
+# Need to create apprpriate argumentLists
+$ArgumentList = @($password, $dbsource)
+$ArgumentList2 = $ArgumentList = @($password, $dbsource, $dnsDomain)
 
 Write-Output "Enable remoting and invoke"
 Enable-PSRemoting -force
 Set-NetFirewallRule -Name "WINRM-HTTP-In-TCP-PUBLIC" -RemoteAddress Any
-Invoke-Command -FilePath $script -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $ArgumentList
+Invoke-Command -FilePath $script -Credential $localCred -ComputerName $env:COMPUTERNAME -ArgumentList $ArgumentList
+Invoke-Command -FilePath $script2 -Credential $domainCred -ComputerName $env:COMPUTERNAME -ArgumentList $ArgumentList2
 Disable-PSRemoting -Force
 
 Stop-Transcript
