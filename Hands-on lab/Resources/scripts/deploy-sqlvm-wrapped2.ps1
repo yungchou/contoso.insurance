@@ -9,18 +9,17 @@ Start-Transcript "C:\deploy-sqlvm-log2.txt"
 # This is a bit of a hack to make sure it is straight. 
 # See also: https://support.microsoft.com/en-sg/help/811889/how-to-troubleshoot-the-cannot-generate-sspi-context-error-message
 Write-Output "Resetting SPNs"
-$dnsDomain = $env:USERDNSDOMAIN
-If ($dnsDomain -match "\.") {
-    # if user account running is using a domain account with a DNS zone, use the user's domain name as well.
-    $domain = $env:USERDOMAIN
-} else {
-    # if user account running is using a local account witouth a DNS zone, use the default DNS domain and domain passed. 
-    $dnsDomain = $defaultDnsDomain
-    $domain = $defaultDomain
+
+$computer = $env:COMPUTERNAM
+$dnsDomain = $env:USERDOMAIN
+
+if ($dnsDomain.Contains(".")) {
+	$domain = $dnsDomain.Substring(0,$dnsDomain.IndexOf("."))
+}
+else{
+    $domain = $dnsDomain
 }
 
-$user = $env:USERNAME
-$computer = $env:COMPUTERNAME
 SetSPN -s "MSOLAPSvc.3/$computer.$dnsDomain"    "$domain\$computer$"
 SetSPN -s "MSOLAPSvc.3/$computer"               "$domain\$computer$"
 SetSPN -d "MSSQLSvc/$computer.$dnsDomain"       "$domain\$computer$"
