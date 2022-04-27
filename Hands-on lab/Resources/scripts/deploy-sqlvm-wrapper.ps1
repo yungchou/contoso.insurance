@@ -19,9 +19,11 @@ powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityPro
 
 # Need to create appropriate credentials, local and domain
 Write-Output "Create credential"
-$securePwd =  ConvertTo-SecureString "$password" -AsPlainText -Force
-$localCred = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$user", $securePwd)
-$domainCred = New-Object System.Management.Automation.PSCredential("$user"+"@"+$domain, $securePwd)
+$securePwd =  ConvertTo-SecureString $password -AsPlainText -Force
+$localUser = $env:COMPUTERNAME + "\" + $user
+$domainUser = $user + "@" + $domain
+$localCred = New-Object System.Management.Automation.PSCredential($localUser,$securePwd)
+$domainCred = New-Object System.Management.Automation.PSCredential($domainUser,$securePwd)
 
 # Need to create apprpriate argumentLists
 $ArgumentList = @($password, $dbsource)
