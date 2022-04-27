@@ -149,15 +149,11 @@ The initial deployment included a first domain controller VM, **ADVM1**, with st
 
 The HA resources template has added a second domain controller **ADVM2**, with static private IP address **10.0.3.101**. This server has already been promoted to be a domain controller using a CustomScriptExtension (you can review this script if you like, you'll find it linked from the ADVM2 deployment template).
 
-In this task, you will configure the virtual network to include both domain controllers in the DNS settings, and reboot the other VMs to pick up this change.
+In this task, you will reboot all the servers to ensure they have the latest DNS settings.
 
-1. Open the settings for **VNet1** in the Azure portal. Under DNS servers, you will see **Custom** has already been selected, and the **ADVM1** IP address **10.0.3.100** is already configured.  Add the **ADVM2** IP address **10.0.3.101**. Select **Save**.
-
-    ![A screen that shows the IP addresses for the two new DNS servers on the virtual network.](images/ha-dns.png "DNS servers for VNet1")
-
-2. Restart the **ADVM1** and **ADVM2** virtual machines in the **ContosoRG1** resource group so they pick up the new DNS server settings.
+1. Restart the **ADVM1** and **ADVM2** virtual machines in the **ContosoRG1** resource group so they pick up the new DNS server settings.
    
-3. Wait a minute or two for the domain controller VMs to fully boot, then restart the **WebVM1**, **WebVM2**, **SQLVM1** and **SQLVM2** virtual machines, so they also pick up the new DNS server settings.
+2. Wait a minute or two for the domain controller VMs to fully boot, then restart the **WebVM1**, **WebVM2**, **SQLVM1** and **SQLVM2** virtual machines, so they also pick up the new DNS server settings.
 
 
 ### Task 3: Configure HA for the SQL Server tier
