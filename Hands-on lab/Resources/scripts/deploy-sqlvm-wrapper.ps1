@@ -13,8 +13,8 @@ If (Test-Path "D:") {
 }
 
 # Download the required SQL Scripts
-powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/scripts/deploy-sqlvm-wrapped.ps1' -OutFile $script"
-powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/scripts/deploy-sqlvm-wrapped2.ps1' -OutFile $script2"
+powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri '$scripturl/deploy-sqlvm-wrapped.ps1' -OutFile $script"
+powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri '$scripturl/deploy-sqlvm-wrapped2.ps1' -OutFile $script2"
 
 
 # Need to create appropriate credentials, local and domain
