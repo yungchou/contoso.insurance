@@ -36,38 +36,6 @@ SetSPN -d "$spn1" "$spn2"
 $spn2 = $domain + "\" + $user
 SetSPN -s "$spn1" "$spn2"
 
-
-
-SetSPN -s ("MSOLAPSvc.3/" + $computer + "." + $dnsDomain + " " + $domain + "\" + $computer)
-SetSPN -s ("MSOLAPSvc.3/" + $computer + " " + $domain + "\" + $computer)
-SetSPN -d ("MSSQLSvc/" + $computer + "." + $dnsDomain + " " + $domain + "\" + $computer)
-SetSPN -s "MSSQLSvc/$computer.$dnsDomain"
-SetSPN -d "MSSQLSvc/$computer.$dnsDomain`:1433"
-SetSPN -s "MSSQLSvc/$computer.$dnsDomain`:1433"
-
-# For secondary servers, we skip restoring the DB. So check first if DB was specified
-if (($null -ne $dbsource) -and ($dbsource -ne "")) {
-    # Get the Contoso Insurance database backup 
-    $dbdestination = "D:\ContosoInsurance.bak"
-    Write-Output "Download $dbsource to $dbdestination"
-    Invoke-WebRequest $dbsource -OutFile $dbdestination
-    powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri  $dbsource -OutFile $dbdestination"
-
-    # Restore the database from the backup
-    Write-Output "Restore the database from backup"
-    $mdf = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile("ContosoInsurance", "F:\Data\ContosoInsurance.mdf")
-    $ldf = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile("ContosoInsurance_Log", "F:\Logs\ContosoInsurance.ldf")
-    Restore-SqlDatabase -ServerInstance Localhost -Database ContosoInsurance `
-                        -BackupFile $dbdestination -RelocateFile @($mdf,$ldf) -ReplaceDatabase
-
-    # Put the database into full recovery and run a backup (required for SQL AG)
-    Write-Output "Put into full recovery and run backup"
-    Invoke-Sqlcmd -ServerInstance Localhost -Database "master" -Query "ALTER DATABASE ContosoInsurance SET RECOVERY FULL"
-    Backup-SqlDatabase -ServerInstance Localhost -Database ContosoInsurance
-} else {
-    Write-Output "No source database specified"
-}
-
 # Disable IE Enhanced Security Configuration
 Write-Output "Disable IE Enhanced Security"
 $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
