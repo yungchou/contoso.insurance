@@ -2,6 +2,9 @@ param($user, $password, $domain, $dbsource, $scripturl)
 
 Start-Transcript "C:\deploy-sql-wrapper-log.txt"
 
+Write-Output "User $user"
+Write-Output "Domain $domain"
+
 
 # Get the second script
 If (Test-Path "D:") {
@@ -21,9 +24,10 @@ powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityPro
 Write-Output "Create credential"
 $securePwd =  ConvertTo-SecureString $password -AsPlainText -Force
 $localUser = $env:COMPUTERNAME + "\" + $user
-$domainUser = $user + "@" + $domain
+$domainUser = ($user + "@" + $domain)
+Write-Host $domainUser
 $localCred = New-Object System.Management.Automation.PSCredential($localUser,$securePwd)
-$domainCred = New-Object System.Management.Automation.PSCredential($domainUser,$securePwd)
+$domainCred = New-Object System.Management.Automation.PSCredential("demouser@contoso.com",$securePwd)
 
 Write-Output "Local Cred"
 Write-Output $localCred
