@@ -12,6 +12,7 @@ Write-Output "Resetting SPNs"
 
 $computer = $env:COMPUTERNAM
 $dnsDomain = $env:USERDOMAIN
+$user = $env:USERNAME
 
 if ($dnsDomain.Contains(".")) {
 	$domain = $dnsDomain.Substring(0,$dnsDomain.IndexOf("."))
@@ -20,9 +21,26 @@ else{
     $domain = $dnsDomain
 }
 
-SetSPN -s "MSOLAPSvc.3/$computer.$dnsDomain"
-SetSPN -s "MSOLAPSvc.3/$computer"
-SetSPN -d "MSSQLSvc/$computer.$dnsDomain"
+$spn1 = "MSOLAPSvc.3/" + $computer + "." + $dnsDomain
+$spn2 = $domain + "\" + $computer + "$"
+SetSPN -s "$spn1" "$spn2"
+$spn1 = "MSOLAPSvc.3/" + $computer
+SetSPN -s "$spn1" "$spn2"
+$spn1 = "MSSQLSvc/" + $computer + "." + $dnsDomain 
+SetSPN -d "$spn1" "$spn2"
+$spn2 = $domain + "\" + $user
+SetSPN -s "$spn1" "$spn2"
+$spn1 = "MSSQLSvc/" + $computer + "." + $dnsDomain + ":1433"
+$spn2 = $domain + "\" + $computer + "$"
+SetSPN -d "$spn1" "$spn2"
+$spn2 = $domain + "\" + $user
+SetSPN -s "$spn1" "$spn2"
+
+
+
+SetSPN -s ("MSOLAPSvc.3/" + $computer + "." + $dnsDomain + " " + $domain + "\" + $computer)
+SetSPN -s ("MSOLAPSvc.3/" + $computer + " " + $domain + "\" + $computer)
+SetSPN -d ("MSSQLSvc/" + $computer + "." + $dnsDomain + " " + $domain + "\" + $computer)
 SetSPN -s "MSSQLSvc/$computer.$dnsDomain"
 SetSPN -d "MSSQLSvc/$computer.$dnsDomain`:1433"
 SetSPN -s "MSSQLSvc/$computer.$dnsDomain`:1433"
