@@ -20,12 +20,12 @@ else{
     $domain = $dnsDomain
 }
 
-SetSPN -s "MSOLAPSvc.3/$computer.$dnsDomain"    "$domain\$computer$"
-SetSPN -s "MSOLAPSvc.3/$computer"               "$domain\$computer$"
-SetSPN -d "MSSQLSvc/$computer.$dnsDomain"       "$domain\$computer$"
-SetSPN -s "MSSQLSvc/$computer.$dnsDomain"       "$domain\$user"
-SetSPN -d "MSSQLSvc/$computer.$dnsDomain`:1433" "$domain\$computer$"
-SetSPN -s "MSSQLSvc/$computer.$dnsDomain`:1433" "$domain\$user"
+SetSPN -s "MSOLAPSvc.3/$computer.$dnsDomain"
+SetSPN -s "MSOLAPSvc.3/$computer"
+SetSPN -d "MSSQLSvc/$computer.$dnsDomain"
+SetSPN -s "MSSQLSvc/$computer.$dnsDomain"
+SetSPN -d "MSSQLSvc/$computer.$dnsDomain`:1433"
+SetSPN -s "MSSQLSvc/$computer.$dnsDomain`:1433"
 
 # For secondary servers, we skip restoring the DB. So check first if DB was specified
 if (($null -ne $dbsource) -and ($dbsource -ne "")) {
@@ -33,6 +33,7 @@ if (($null -ne $dbsource) -and ($dbsource -ne "")) {
     $dbdestination = "D:\ContosoInsurance.bak"
     Write-Output "Download $dbsource to $dbdestination"
     Invoke-WebRequest $dbsource -OutFile $dbdestination
+    powershell -ExecutionPolicy Unrestricted "[Net.ServicePointManager]::SecurityProtocol = 'Tls12'; Invoke-WebRequest -uri  $dbsource -OutFile $dbdestination"
 
     # Restore the database from the backup
     Write-Output "Restore the database from backup"
