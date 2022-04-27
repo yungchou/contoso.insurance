@@ -289,23 +289,23 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 25. Return to the Azure portal and open a new Azure Bastion session to **SQLVM2**. Launch **SQL Server 2017 Configuration Manager** and repeat the steps above to **Enable SQL AlwaysOn** and change the **Log On** username. Make sure that you have restarted the SQL Service.
 
-26. Return to the Azure portal and open a second Azure Bastion session to **SQLVM2**. This time use `demouser` as the username instead of `demouser@contoso.com`. Launch **SQL Server 2017 Configuration Manager** and repeat the steps above to **Enable SQL AlwaysOn** and change the **Log On** username. Make sure that you have restarted the SQL Service.
+26. Return to the Azure portal and open a second Azure Bastion session to **SQLVM2**. This time use `demouser` as the username instead of `demouser@contoso.com`.
 
-27. Open SQL Server Management Studio and expand **Security** and then **Logins**. You'll notice that only `SQLVM2\demouser` is listed.
+27. Launch SQL Server Management Studio and expand **Security** and then **Logins**. You'll notice that only `SQLVM2\demouser` is listed.
 
-    ![In SQL Server management studio, SQLVM2 is expanded, then Security is expand, then Login is expanded. Only the SQLVM2\demouser account is seen](images/perm-checkdomainuser.png)
+    ![In SQL Server management studio, SQLVM2 is expanded, then Security is expanded, then Login is expanded. Only the SQLVM2\demouser account is seen](images/perm-checkdomainuser.png)
 
-28. Right click on **Logins** and then select **New Login...**
+28. Right-click on **Logins** and then select **New Login...**
 
-    ![The dialog box from right clicking on Logins is shown with an option to select New Login](images/perm-newlogin.png)
+    ![The dialog box from the right-click on Logins is shown with an option to select New Login](images/perm-newlogin.png)
 
-29. In **Login name:** type contoso\demouser, then click **Server Roles**
+29. In **Login name:**, type contoso\demouser, then select **Server Roles**.
 
-    ![The Login-New dialog box is displayed. In the Login name: box the username contoso\demouser has been typed in. From here is is show that you click on the Server Roles tab in the left side navigation](images/perm-newlogin.png)
+    ![The Login-New dialog box is displayed. In the Login name: box, the username contoso\demouser has been typed in. From here, it is shown that you select the Server Roles tab in the left side navigation](images/perm-newlogin.png)
 
-30. Check the box for **sysadmin** and click **OK**. You'll now see `contoso\demouser` listed in the login list.
+30. Check the box for **sysadmin** and select **OK**. You'll now see `contoso\demouser` listed in the login list.
 
-    ![The Server Roles tab is show in the Login - New dialog box. In this dialog box, public remains check and a check is added to the sysadmin option](images/perm-addsysadmin.png)
+    ![The Server Roles tab is shown in the Login - New dialog box. In this dialog box, public remains checked, and a check is added to the sysadmin option](images/perm-addsysadmin.png)
 
 31. Return to your session with **SQLVM1**. Use the Start menu to launch **Microsoft SQL Server Management Studio 18** and connect to the local instance of SQL Server. (Located in the Microsoft SQL Server Tools folder).
 
