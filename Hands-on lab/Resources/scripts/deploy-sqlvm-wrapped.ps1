@@ -35,13 +35,11 @@ $backups = "F:\Backup"
 [system.io.directory]::CreateDirectory($backups)
 
 Write-Output "Starting SQL"
-Write-Output $sqlservice
 
 # Make sure SQL Service is started
 $sqlservice = Get-Service -Name MSSQLServer
 Start-Service $sqlservice
 $sqlservice.WaitForStatus('Running', '00:01:30')
-Write-Output "SQL should be started or it timed out after 90 seconds"
 Write-Output $sqlservice
 
 # Setup the data, backup and log directories as well as mixed mode authentication
