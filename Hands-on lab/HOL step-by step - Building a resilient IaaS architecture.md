@@ -297,7 +297,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 29. In **Login name:**, type contoso\demouser, then select **Server Roles**.
 
-    ![The Login-New dialog box is displayed. In the Login name: box, the username contoso\demouser has been typed in. From here, it is shown that you select the Server Roles tab in the left side navigation.](images/perm-addusername.png)
+    ![The Login-New dialog box is displayed. In the Login name: box, the username contoso\demouser has been typed in. From here, it shows you selected the Server Roles tab in the left side navigation.](images/perm-addusername.png)
 
 30. Check the box for **sysadmin** and select **OK**. You'll now see `contoso\demouser` listed in the login list.
 
