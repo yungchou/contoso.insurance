@@ -211,7 +211,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 9.  On **SQLVM1**, select **Start** and then choose **Windows PowerShell**.
 
-    ![Screenshot of the Windows PowerShell ISE icon.](images/image71.png "Windows PowerShell ISE icon")
+    ![Screenshot of the Windows PowerShell icon.](images/image71.png "Windows PowerShell icon")
 
 10. Copy and paste  the following command into PowerShell ISE and execute it. This will create the Windows Failover Cluster and add all the SQL VMs as nodes in the cluster. It will also assign a static IP address of **10.0.2.99** to the new Cluster named **AOGCLUSTER**.
 
@@ -411,7 +411,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![A call out points to ContosoInsurance (Synchronized) in SQL Management Studio.](images/image202.png "SQL Management Studio")
 
-57. Move back to **PowerShell ISE** on **SQLVM1**. Open a new file, paste in the following script, and select the **Play** button. This will update the Failover cluster with the IP address of the Listener that you created for the AOG.
+57. Move back to **PowerShell** on **SQLVM1**. Open a new file, paste in the following script, and select the **Play** button. This will update the Failover cluster with the IP address of the Listener that you created for the AOG.
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 1"
@@ -423,7 +423,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     Start-ClusterResource -Name "BCDRAOG"
     ```
 
-    ![In the Windows PowerShell ISE window, the play button is selected. The script from the lab guide has been executed.](images/ha-ise-listenerip.png "Windows PowerShell ISE window")
+    ![In the Windows PowerShell window, the script from the lab guide has been executed.](images/ha-ise-listenerip.png "Windows PowerShell window")
 
 58. Move back to SQL Management Studio and select **Connect** and then **Database Engine**.
 
@@ -499,11 +499,11 @@ In this exercise, you will enable a secondary DR site in East US 2. This site wi
 
 In this task, you will deploy the resources used by the DR environment. First, you will deploy a template which will create the network and virtual machines. You will then manually deploy the Recovery Services Vault and Azure Automation account used by Azure Site Recovery.
 
-1.  In a new browser tab, navigate to **https://shell.azure.com**. Open a **PowerShell** session, and create a Cloud Shell storage account if prompted to do so.
+1.  In a new browser tab, navigate to **https://shell.azure.com**, you'll be redirected to **https://portal.azure.com/#cloudshell** automatically. Open a **PowerShell** session, and create a Cloud Shell storage account if prompted to do so.
 
     ![Screenshot of the Azure Cloud Shell with URL and PowerShell mode highlighted.](images/dr-cloudshell.png "Azure Cloud Shell")
 
-2.  Execute the following commands. These will create the DR resource group and deploy the DR resources. 
+2.  Update the **-Location** parameter in each of the commands below to be a different location than **ContosoRG11**. Execute the commands. These commands will create the DR resource group and deploy the DR resources. 
     You can proceed to the following tasks while the template deployment is in progress.
 
     ```PowerShell
@@ -555,7 +555,7 @@ Next, you will create the Recovery Services Vault used to replicate the Web tier
 
 8.  From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Automation**.
 
-9.  Complete the **Add Automation Account** blade using the following inputs and then select **Create**:
+9.  Complete the **Add Automation Account** blade using the following inputs and then select **Review + Create** followed by **Create**:
 
     - **Name**: Enter a Globally unique name starting with `BCDR`.
     - **Resource group**: Use existing / **ContosoRG2**
@@ -566,9 +566,9 @@ Next, you will create the Recovery Services Vault used to replicate the Web tier
 
     > **Note:** Azure Automation accounts are only allowed to be created in certain Azure regions, but they can act on any region in Azure (except Government, China or Germany). It is not a requirement to have your Azure Automation account in the same region as the failover resources, but it **CANNOT** be in your primary region.
 
-10. Once the Azure automation account has been created, open the account and select **Modules gallery** under **Shared Resources**.
+10. Once the Azure automation account has been created, open the account and select **Modules** under **Shared Resources**.
 
-    ![Under Shared Resources, Modules gallery is selected.](images/image46.png "Shared Resources section")
+    ![Under Shared Resources, Modules is selected.](images/image46.png "Shared Resources section")
 
 11. When the Modules load, search for and select **Az.Accounts**, then select **Import**, then **OK**.
 
@@ -588,17 +588,17 @@ Next, you will create the Recovery Services Vault used to replicate the Web tier
 
 > **Note**: You must be connected to the **LABVM** to complete the next steps.
 
-15. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. The Runbook type should default to **PowerShell Workflow**. Notice that the Name can't be changed. This is the name of the Workflow inside of the Runbook script. Select **Create**.
+15.  Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. Set the Runbook type to **PowerShell Workflow**. Update the name to be **ASRSQLFailover**. This is the name of the Workflow inside of the Runbook script. Leave everything else set to the default. Select **Import**.
 
     ![Fields in the 'Import a runbook' blade are set to the previously defined values.](images/dr-rbimp2.png "Import a runbook")
 
-16. Once the Runbook is imported, the runbook editor will load. If you wish, you can review the comments to better understand the runbook. Once you are ready, select **Publish**, followed by **Yes** at the confirmation prompt. This makes the runbook available for use.
+16.  Once the Runbook is imported, the runbook editor will load. If you wish, you can review the comments to better understand the runbook. Once you are ready, select **Publish**, followed by **Yes** at the confirmation prompt. This makes the runbook available for use.
 
     ![On the top menu of the Edit PowerShell Workflow Runbook blade, Publish is selected.](images/dr-rbpub.png "Publish runbook")
 
-17. Repeat the above steps to import and publish the **ASRRunbookWEB.ps1** runbook.
+17.  Repeat the above steps to import and publish the **ASRRunbookWEB.ps1** runbook. Name this Runbook **ASRWEBFailover**.
 
-18. Navigate back to **Runbooks**, and make sure that both Runbooks show as **Published**.
+18.  Navigate back to **Runbooks**, and make sure that both Runbooks show as **Published**.
 
     ![Two runbooks have authoring status as published: ASRSQLFailover, and ASRWEBFailover.](images/image70.png "Runbooks")
 
@@ -700,7 +700,7 @@ This task comprises the following steps:
 
 3.  Return to your browser tab containing your Bastion session with **SQLVM1**. (If you have closed the tab, reconnect using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.)
 
-4.  On **SQLVM1**, use **Windows PowerShell ISE** to execute the following command. This will add **SQLVM3** as a node in the existing Windows Server Failover Cluster.
+4.  On **SQLVM1**, use **Windows PowerShell** to execute the following command. This will add **SQLVM3** as a node in the existing Windows Server Failover Cluster.
 
     ```PowerShell
     Add-ClusterNode -Name SQLVM3
@@ -795,7 +795,7 @@ This task comprises the following steps:
 
     ![Screenshot of the BCDRAOG Dashboard showing SQLVM3 synchronizing.](images/dr-sql-dash.png "BCDRAOG Dashboard")
 
-27. Move back to **PowerShell ISE** on **SQLVM1**. Open a new file, paste in the following script, and select the **Play** button. This will update the Failover cluster with the new Listener IP address that you created.
+27. Move back to **PowerShell** on **SQLVM1**. Paste in the following script, and press **Return**. This will update the Failover cluster with the new Listener IP address that you created.
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 2"
@@ -812,7 +812,6 @@ This task comprises the following steps:
 28. Move back to Failover Cluster Manager on **SQLVM1**, and select **Roles**, then **BCDRAOG**.  Notice how the **Resources** tab shows that the new IP address **10.1.2.100** has been added, and is currently Offline.
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and details of the role display.](images/dr-fcm-role.png "Failover Cluster Manager")
-
 
 ### Task 4: Configure DR for the Web tier
 
