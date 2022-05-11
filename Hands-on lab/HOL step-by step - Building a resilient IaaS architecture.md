@@ -1277,12 +1277,6 @@ In this task, you will validate failover of the Contoso application from Central
 
     Keep this browser tab open, you will return to it later in the lab.
 
-    > **Note:** If you get a "Our services aren't available right now" error (or a 404-type error) accessing the web application, then continue with the lab and come back to this later. Sometime this can take a ~10 minutes for the routing rules to publish before it's "live".
-    >
-    > If you continue to have this issue beyond 15 minutes, ensure that you are using the correct backend host header and using HTTP for both the routing rules & the health probes of the backend pools. Also, try accessing the backend systems directly over HTTP to validate they came up as expected.
-    >
-    > ![Error shown displaying Our services aren't available right now.](images/image224-b.png "Error shown displaying Our services aren't available right now")
-
 2.  From a new browser tab, open the Azure portal, then navigate to the **BCDRRSV** Recovery Services Vault located in the **ContosoRG2** resource group.
 
 3.  Select **Recovery Plans (Site Recovery)** in the **Manage** area, then select **BCDRIaaSPlan**.
@@ -1449,7 +1443,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     ![Screenshot showing the Recovery Services Vault, with the links to the Azure Virtual Machine backup item highlighted.](images/v-bk-web4.png "Backup items")
 
-9.  On the Backup items page, select **WebVM1**. On the **WebVM1** page, select **RestoreVM**.
+9.  On the Backup items page, select **View details** for **WebVM1**. On the **WebVM1** page, select **RestoreVM**.
 
     ![Screenshot showing the WebVM1 backup status page, with the 'Restore VM' button highlighted.](images/v-bk-web5.png "Restore VM button")
 
@@ -1481,7 +1475,7 @@ In this task you will validate the ability to restore the Contoso application da
 
     ![Screenshot showing the path to the SQL in Azure VMs in backup items in the Recovery Services Vault.](images/v-bk-sql1.png "Backup items")
 
-2.  From the backup items list, select the **contosoinsurance** database.
+2.  From the backup items list, select **View details** for the **contosoinsurance** database.
 
 3.  From the **contosoinsurance** blade, select **Restore**.
     
