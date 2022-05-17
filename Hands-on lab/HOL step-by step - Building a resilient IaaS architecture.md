@@ -218,7 +218,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
     New-Cluster -Name AOGCLUSTER -Node SQLVM1,SQLVM2 -StaticAddress 10.0.2.99
     ```
 
-    ![In the PowerShell window, the command is shown after being successfully executed.](images/ha-createfailovercluster.png "PowerShell ISE window")
+    ![In the PowerShell window, the command is shown after being successfully executed.](images/ha-createfailovercluster.png "PowerShell window")
 
     >**Note:** It is possible to use a wizard for this task, but the resulting cluster will require additional configuration to set the static IP address in Azure.
 
