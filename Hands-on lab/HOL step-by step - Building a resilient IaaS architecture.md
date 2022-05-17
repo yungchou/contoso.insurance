@@ -940,7 +940,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     ![Screenshot showing compare offerings with Azure Front Door and Custom create both selected.](images/dr-fd-offerings.png "Azure Front Door Compare Offerings")
 
-3. Complete the **Basics** tab of the **Create a Front Door** blade using the following inputs, then select **Next: Secrets >**:
+3. Complete the **Basics** tab of the **Create a Front Door** blade using the following inputs, then select **Next: Secrets >**.
 
     - **Resource group**: Use existing / **ContosoRG1**
     - **Location**: Automatically assigned based on the region of **ContosoRG1**.
@@ -964,13 +964,13 @@ In this task, you will use the Front Door approach to configure a highly availab
 
 7. Select **Add a new origin group**.
 
-  ![Under Origin group on the Add a new route screen, the link to Add a new origin group is highlighted.](images/dr-fd-addneworigingroup.png "Add a route")
+   ![Under Origin group on the Add a new route screen, the link to Add a new origin group is highlighted.](images/dr-fd-addneworigingroup.png "Add a route")
 
 8. Give the new origin group the name of `ContosoOrigins`.
 
 9. Select **+ Add an origin**.
 
-  ![Under the Add an origin group pane, + Add an origin is highlighted.](images/dr-fd-addorigin.png "Add an origin group")
+   ![Under the Add an origin group pane, + Add an origin is highlighted.](images/dr-fd-addorigin.png "Add an origin group")
 
 10. For adding an origin, use the following values. Leave all other values set to their default. Then select Add.
 
@@ -993,11 +993,11 @@ In this task, you will use the Front Door approach to configure a highly availab
 
 13. Enter the following values in **Add a route**. Leave all other values as default. Select **Add**
 
-  - Name: `ContosoRoute`
-  - Accepted protocols: HTTP only
-  - Redirect: Uncheck **Redirect all traffic to use HTTPS**
-  - Origin group: ensure **ContosoOrigins** is selected
-  - Forwarding protocol: HTTP only
+    - Name: `ContosoRoute`
+    - Accepted protocols: HTTP only
+    - Redirect: Uncheck **Redirect all traffic to use HTTPS**
+    - Origin group: ensure **ContosoOrigins** is selected
+    - Forwarding protocol: HTTP only
 
     ![Screenshot showing the completed add a route pane with all correct values read to select Add.](images/dr-fd-addroutecomplete.png "Add a route")
 
@@ -1112,11 +1112,11 @@ In this task, you will configure Azure Backup for the Web tier virtual machines.
 
 10. Select **View Details** for **WebVM1** to open the backup job view. This backup job view shows the detailed status of the tasks within the backup job.
 
-   ![Azure portal screenshot showing the WebVM1 backup job detailed status. The 'Take snapshot' task is 'In progress', and the 'Transfer data to vault' task is 'Not started'.](images/bk-vm10.png "Backup Job - WebVM1")
+    ![Azure portal screenshot showing the WebVM1 backup job detailed status. The 'Take snapshot' task is 'In progress', and the 'Transfer data to vault' task is 'Not started'.](images/bk-vm10.png "Backup Job - WebVM1")
 
-   > **Note**: To restore from a backup, it suffices that the 'Take Snapshot' task is complete. Transferring the data to the vault does not need to be complete since recent backups can be restored from the snapshot.
+    > **Note**: To restore from a backup, it suffices that the 'Take Snapshot' task is complete. Transferring the data to the vault does not need to be complete since recent backups can be restored from the snapshot.
 
-You can proceed to the next task without waiting for the backup jobs to complete.
+    You can proceed to the next task without waiting for the backup jobs to complete.
 
 
 ### Task 3: Enable Backup for the SQL Server tier
