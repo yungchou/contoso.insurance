@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-September 2021
+May 2022
 
 </div>
 
@@ -50,7 +50,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Wrap-up](#wrap-up-1)
   - [Preferred target audience](#preferred-target-audience)
   - [Design](#design)
-  - [Pricing](#pricing)
+    - [Pricing](#pricing)
   - [Checklist of preferred objection handling](#checklist-of-preferred-objection-handling)
   - [Customer quote (to be read back to the attendees at the end)](#customer-quote-to-be-read-back-to-the-attendees-at-the-end)
 
