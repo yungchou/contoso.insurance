@@ -32,9 +32,10 @@ You will also discuss how to achieve a similar level of resiliency for a PaaS-ba
 
 In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture.
 
-At the end of the lab, you will be better able to design and use availability zones, SQL Server Always on Availability Groups, Azure Site Recovery, Azure Backup, and Azure Front Door to implement a fully resilient IaaS application, including high availability, disaster recovery, as well as backup of both databases and virtual machines.
+At the end of the lab, you will be better able to design and use availability zones, SQL Server Always On Availability Groups, Azure Site Recovery, Azure Backup, and Azure Front Door to implement a fully resilient IaaS application. The training includes content on high availability, disaster recovery, as well as knowledge on how to back up the databases and virtual machines.
 
 ## Azure services and related products
+
 - Azure VMs
 - Availability Sets
 - Availability Zones
