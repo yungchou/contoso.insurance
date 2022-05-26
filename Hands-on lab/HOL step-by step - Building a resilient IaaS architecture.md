@@ -126,11 +126,11 @@ A template will be used to save time. You will configure each tier in subsequent
 
     The template contains five child templates, containing the various resources required for:
 
-    - The ADVM2 virtual machine, which will be a second Domain Controller
-    - The SQLVM2 virtual machine, which will be a second SQL Server
-    - The WebVM2 virtual machine, which will be a second web server
-    - Two load balancers, one for the web tier and one for the SQL tier
-    - The virtual network with the proper DNS configuration in place
+    - The ADVM2 virtual machine, which will be a second Domain Controller.
+    - The SQLVM2 virtual machine, which will be a second SQL Server.
+    - The WebVM2 virtual machine, which will be a second web server.
+    - Two load balancers, one for the web tier and one for the SQL tier.
+    - The virtual network with the proper DNS configuration in place.
 
 4. You can check the HA resource deployment status by navigating to the **ContosoRG1** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the next task.
 
@@ -163,7 +163,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     - **Resource group**: Use existing / ContosoRG1
     - **Storage account name**: Unique name starting with `contososqlwitness`
-    - **Location**: Any location in your area that is **NOT** your Primary or Secondary site, for example **West US 2**
+    - **Location**: Any location in your area that is **NOT** your Primary or Secondary site, for example **West US 3**.
     - **Performance**: Standard
     - **Replication**: Zone-redundant storage (ZRS)
     - **Access tier (default)**: Hot
@@ -172,7 +172,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 3. Switch to the **Advanced** tab. Change the **Minimum TLS version** to **Version 1.0**. Then select **Review + Create**, followed by **Create**.
 
-    ![The 'Advanced' tab of the Create storage account blade shows the minimum TLS version as 1.2.](images/ha-tls.png)
+    ![The 'Advanced' tab of the Create storage account blade shows the minimum TLS version as 1.0.](images/ha-tls.png)
 
     > **Note**: To promote the use of the latest and most secure standards, by default, Azure storage accounts require TLS version 1.2. This storage account will be used as a Cloud Witness for our SQL Server cluster. SQL Server requires TLS version 1.0 for the Cloud Witness.
 
@@ -317,7 +317,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 35. On the **Connect to Server** dialog box, enter the Server Name of **SQLVM2**and select **Connect**. **Note**: The username for your lab should show **CONTOSO\demouser**.
 
-    ![Screenshot of the Connect to Server dialog box for SQLVM2.](images/image180.png "Connect to Server dialog box")
+    ![Image of the Connect to Server dialog box for SQLVM2.](images/image180.png "Connect to Server dialog box")
 
 36. For **SQLVM2**, select Automatic Failover and Availability Mode of Synchronous commit.
 
@@ -499,10 +499,10 @@ In this task, you will deploy the resources used by the DR environment. First, y
     ```
 
 3. Take a few minutes to review the template while it deploys. Navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**  to review the template and deployment progress. Note that the template includes:
-    - A DR virtual network, which is connected using VNet peering to the existing virtual network
-    - Two additional domain controller VMs, **ADVM3** and **ADVM4**
-    - An additional SQL Server VM, **SQLVM3**
-    - Azure Bastion, to enable VM access
+    - A DR virtual network, which is connected using VNet peering to the existing virtual network.
+    - Two additional domain controller VMs, **ADVM3** and **ADVM4**.
+    - An additional SQL Server VM, **SQLVM3**.
+    - Azure Bastion, to enable VM access.
 
     ![Screenshot of the disaster recovery resources for the Web application.](images/webdr-deploy.png "Successful deployment of Web DR resources")
 
