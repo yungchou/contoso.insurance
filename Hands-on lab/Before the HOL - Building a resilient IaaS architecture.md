@@ -85,11 +85,11 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 2. Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) ContosoRG1**
-    - Location: **Central US**
+    - Location: **Choose a location close to you**
 
     Select **Review + Create** and then **Create** to deploy the resources. It usually takes around 20 minutes to deploy the resources.
 
-    ![The custom deployment screen with ContosoRG1 as the resource group and Central US as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
+    ![The custom deployment screen with ContosoRG1 as the resource group and East US 2 as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
 
 ### Task 3: Wait for deployments to complete, and validate
 
