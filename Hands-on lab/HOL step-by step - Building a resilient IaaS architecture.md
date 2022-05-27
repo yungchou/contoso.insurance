@@ -630,7 +630,7 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
 1. From the Azure portal home page, select **Subscriptions**, choose your subscription, select **Deployments**, then open the **Contoso-IaaS-DR** deployment used for the DR site.
 
-    ![Click path to the 'Contoso-IaaS-DR' deployment.](images/dr-deployment.png "DR deployment")
+    ![Image showing the steps taken to view the 'Contoso-IaaS-DR' deployment.](images/dr-deployment.png "DR deployment")
 
 2. Select **Template** and review the template contents. Note the use of `dependsOn` to carefully control the deployment sequence. The resources are deployed as follows:
 
@@ -823,7 +823,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![In the Customize target settings blade, the Target location is set to East US 2, and the customize button is highlighted.](images/dr-asr-4.png "Configure settings blade")
 
-6. Update the blade using the following inputs:
+6. Update the blade using the following:
 
     - **Target resource group**: ContosoRG2
     - **Target virtual network**: VNet2
@@ -838,7 +838,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     ![The Replication Policy settings use default values.](images/dr-asr-6a.png "Replication policy")
 
-8. Under 'Extension settings', select **\[+\] Show details**. Change the **Automation Account** to use your existing Automation Account
+8. Under 'Extension settings', select **\[+\] Show details**. Change the **Automation Account** to use your existing Automation Account.
 
     ![The Extension settings show the existing Automation Account has been selected.](images/dr-asr-7.png "Extension settings")
 
@@ -852,7 +852,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 11. The **BCDRRSV** blade should still have the **Site Recovery** option (under 'Getting started') selected. Select **Step 2: Manage Recovery Plans**.
 
-    ![Click path to Manage Recovery Plans.](images/dr-asr-8.png "Manage Recovery Plans")
+    ![The image shows the path to Manage Recovery Plans.](images/dr-asr-8.png "Manage Recovery Plans")
 
 12. Select **+Recovery plan**.
 
@@ -861,10 +861,10 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 13. Fill in the **Create recovery plan** blade as follows:
 
     - **Name**: BCDRIaaSPlan
-    - **Source**: Central US *(This is your primary region)*
-    - **Target**: East US 2 *(This is your secondary region)*
+    - **Source**: Central US *(This is your primary region.)*
+    - **Target**: East US 2 *(This is your secondary region.)*
     - **Allow items with deployment model**: Resource Manager
-    - **Select Items**: Select **WebVM1** and **WebVM2**
+    - **Select Items**: Select **WebVM1** and **WebVM2**.
 
     ![Fields in the Create recovery plan blade are set to the previously defined settings.](images/dr-asr-10a.png "Create recovery plan blade")
 
@@ -876,39 +876,41 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 15. When the **BCDRIaaSPlan** loads **notice**, it shows **2 VMs in the Source**, which is your **Primary** Site.
 
-    You will now customize the recovery plan to trigger the SQL failover and configure the web tier load-balancer during the failover process; select **Customize**.
+16. You will now customize the recovery plan to trigger the SQL failover and configure the web tier load-balancer during the failover process; select **Customize**.
 
     ![On the BCDSRV blade top menu, Customize is selected. Under Items in recovery plan, the source shows two and the VM icon.](images/dr-asr-12.png "BCDSRV blade")
 
-16. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **All groups failover**, then select **Add pre-action** from the context menu.
+17. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **All groups failover**, then select **Add pre-action** from the context menu.
 
     ![In the Recovery plan blade, the right-click menu for All groups failover displays, and Add pre-action is selected.](images/dr-asr-13.png "Recovery plan blade")
 
-17. On the **Insert action** blade, select **Script** and then provide the name `ASRSQLFailover`. Ensure that your Azure Automation account is selected, and then choose the Runbook name: **ASRSQFailover**. Select **OK**.
+18. On the **Insert action** blade, select **Script** and then provide the name `ASRSQLFailover`. Ensure that your Azure Automation account is selected, and then choose the Runbook name: **ASRSQFailover**. Select **OK**.
+
     > **Note**: If nothing happens, select the **X** in the upper right corner and select **OK** when asked about discarding your changes. You will notice that the script is still added to the recovery plan.
 
     ![Fields in the Insert action blade are set to the ASRRunBookSQL script.](images/dr-asr-14.png "Insert action blade")
 
     > **Note**: As noted on the 'Insert action' blade, the ASRSQLFailover runbook will be executed on both failover and failback. The runbook has been written to support both scenarios.
 
-18. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **Group 1: Start**, then select **Add post action** from the context menu.
+19. Once the **BCDRIaaSPlan** blade loads, select the **ellipsis** next to **Group 1: Start**, then select **Add post action** from the context menu.
 
     ![In the Recovery plan blade, the Group 1: Start right-click menu displays, and Add post action is selected.](images/dr-asr-15.png "Recovery plan blade")
 
-19. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then choose the Runbook name: **ASRWEBFailover**. Select **OK**.
+20. On the **Insert action** blade, select **Script** and then provide the name: **ASRWEBFailover.** Ensure that your Azure Automation account is selected and then choose the Runbook name: **ASRWEBFailover**. Select **OK**.
+    
     > **Note**: If nothing happens, select the **X** in the upper right corner and select **OK** when asked about discarding your changes. You'll notice that the script is still added to the recovery plan.
 
     ![Fields in the Insert action blade are set to the ASRWebFailover script.](images/dr-asr-16.png "Insert Action blade")
 
-20. Make sure that your **Pre-steps** are running under **All groups failover** and the **Post-steps** are running under **Group1: Start**. Select **Save**.
+21. Make sure that your **Pre-steps** are running under **All groups failover** and the **Post-steps** are running under **Group1: Start**. Select **Save**.
 
     ![In the Recovery plan blade, both the ASRFSQLFailover and ASRWEBFailover scripts are called out under All groups failover: Pre-steps, and Group 1: Post-steps.](images/dr-asr-17.png "Recovery plan blade")
 
-21. After a minute, the portal will provide a successful update notification. This means that your recovery plan is fully configured and ready to failover and back between the primary and secondary regions.
+22. After a minute, the portal will provide a successful update notification. This means that your recovery plan is fully configured and ready to failover and back between the primary and secondary regions.
 
     ![The Updating recovery plan message shows that the update was successfully completed.](images/image253.png "Updating recovery plan message")
 
-22. Return to the Recovery Services Vault **BCDRRSV** blade and select the **Replicated Items** link under **Protected Items**. You should see **WebVM1** and **WebVM2**. The Replication Health should be **Healthy**. The Status will show the replication progress. Once both VMs show status **Protected** replication is complete, you will be able to test the failover.
+23. Return to the Recovery Services Vault **BCDRRSV** blade and select the **Replicated Items** link under **Protected Items**. You should see **WebVM1** and **WebVM2**. The Replication Health should be **Healthy**. The Status will show the replication progress. Once both VMs show status **Protected** replication is complete, you will be able to test the failover.
 
     ![Under Replicated Items, the status for WebVM1 is 97% Synchronized and WebVM2 is now Protected.](images/dr-asr-18.png "Replicated Items")
 
@@ -942,12 +944,12 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     ![Fields in the Create a Front Door blade are set to the previously defined settings.](images/dr-fd-basics.png "Create Front Door 'basics' blade")
 
-4. Select **Next: Endpoint >**
+4. Select **Next: Endpoint >**.
 
 5. Select **Add an endpoint** to set the hostname of Front Door. In the **Add an endpoint** pane, enter the following values, then select **Add**:
 
     - **Endpoint name**: `contosoiaas`
-    - **Status**: Leave **Enable this endpoint** selected
+    - **Status**: Leave **Enable this endpoint** selected.
 
     ![Fields in the Add a frontend host pane are set to the previously defined settings.](images/dr-fd-fe.png "Add a frontend host pane.")
 
@@ -967,30 +969,30 @@ In this task, you will use the Front Door approach to configure a highly availab
 
 10. For adding an origin, use the following values. Leave all other values set to their default. Then select Add.
 
-    - Name: `ContosoWebPrimary`
-    - Origin type: Public IP Address
-    - Host name: ContosoWebLBPrimaryIP
-    - Priority: 2
+    - **Name**: `ContosoWebPrimary`
+    - **Origin type**: Public IP Address
+    - **Host name**: ContosoWebLBPrimaryIP
+    - **Priority**: 2
 
     ![Screen shot showing the values entered into the Add an origin pane.](images/dr-fd-neworigin.png "Add an origin")
 
 11. Repeat step 10 and change the values to the following.
 
-    - Name: `ContosoWebSecondary`
-    - Origin type: Public IP Address
-    - Host name
+    - **Name**: `ContosoWebSecondary`
+    - **Origin type**: Public IP Address
+    - **Host name**
 
 12. Update **Interval (in seconds)** to 30. Click Add
 
     ![Showing the completed Add an origin group pane with all fields filled out and ready to select add.](images/dr-fd-addorigingroup.png "Add an origin group")
 
-13. Enter the following values in **Add a route**. Leave all other values as default. Select **Add**
+13. Enter the following values in **Add a route**. Leave all other values as default. Select **Add**.
 
-    - Name: `ContosoRoute`
-    - Accepted protocols: HTTP only
-    - Redirect: Uncheck **Redirect all traffic to use HTTPS**
-    - Origin group: ensure **ContosoOrigins** is selected
-    - Forwarding protocol: HTTP only
+    - **Name**: `ContosoRoute`
+    - **Accepted protocols**: HTTP only
+    - **Redirect**: Uncheck **Redirect all traffic to use HTTPS**.
+    - **Origin group**: Ensure **ContosoOrigins** is selected.
+    - **Forwarding protocol**: HTTP only
 
     ![Screenshot showing the completed add a route pane with all correct values read to select Add.](images/dr-fd-addroutecomplete.png "Add a route")
 
@@ -1060,7 +1062,7 @@ In this task, you will configure Azure Backup for the Web tier virtual machines.
 2. On the 'Configure Backup' blade, Leave **Standard** selected and select **Create a new policy** and fill in the Create Policy blade as follows:
 
     - **Policy name**: `WebVMPolicy`
-    - **Backup schedule**: Daily, 9pm, UTC
+    - **Backup schedule**: Daily, 9:00 PM, UTC
     - **Retain instant recovery snapshots for**: 2 day(s)
     - **Retention of daily backup point**: Enabled, 180 days
     - **Retention of weekly backup point**: Enabled, Sunday, 12 weeks
@@ -1084,7 +1086,7 @@ In this task, you will configure Azure Backup for the Web tier virtual machines.
 
     ![Azure portal screenshot showing how many protected items of various types are enabled. There are 2 Azure VMs protected.](images/bk-vm5.png "Backup items")
 
-6. Select **Azure Virtual Machine**. The 'Backup Items (Azure Virtual Machine' blade loads, listing **WebVM1** and **WebVM2**. In both cases, the 'Last Backup Status is 'Warning (Initial backup pending)'.
+6. Select **Azure Virtual Machine**. The 'Backup Items (Azure Virtual Machine' blade loads, listing **WebVM1** and **WebVM2**). In both cases, the 'Last Backup Status is 'Warning (Initial backup pending)'.
 
     ![Azure portal screenshot showing WebVM1 and WebVM2 listed for backup, with initial backup pending.](images/bk-vm6.png "Backup items (Azure Virtual Machine)")
 
@@ -1184,6 +1186,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
     ![Azure portal screenshot showing available databases to backup. For the BCDRAOG Always On Availability Group, AutoProtect is set to 'ON'.](images/bk-sql6.png "Select items to backup")
 
     > **Note**: Using AutoProtect backups up the current database and any future databases on this Always On Availability Group.
+    > 
     > **Note**: You may also want to backup system databases on each of the SQL Servers.
 
 13. On the 'Backup' blade, note that **BCDRAOG\BCDRAOG** is now listed for backup. Leave the policy as the default `HourlyLogBackup` policy. Select **Enable Backup** and wait for the deployment to complete.
