@@ -1419,7 +1419,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     - **Resource group**: ContosoRG1
     - **Storage account name**: Unique name starting with `backupstaging`.
-    - **Location**: Central US *(this is your primary region)*
+    - **Location**: Central US *(This is your primary region.)*
     - **Performance**: Standard
     - **Replication**: Locally-redundant storage (LRS)
 
