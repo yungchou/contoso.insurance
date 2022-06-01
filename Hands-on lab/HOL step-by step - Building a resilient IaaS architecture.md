@@ -114,7 +114,7 @@ A template will be used to save time. You will configure each tier in subsequent
 2. Complete the Custom deployment blade as follows:
 
     - Resource Group: **ContosoRG1** (existing)
-    - Location: Central US
+    - Location: Location close to you. This will be your primary location.
 
     Select **Review + Create** and then **Create** to deploy resources.
 
@@ -176,7 +176,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     > **Note:** To promote the use of the latest and most secure standards, by default, Azure storage accounts require TLS version 1.2. This storage account will be used as a Cloud Witness for our SQL Server cluster. SQL Server requires TLS version 1.0 for the Cloud Witness.
 
-4. Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Security + networking**. Select **Show keys**, copy the **storage account name** and the **first access key**, and paste them into your text editor of choice - you will need these values later.
+4. Once the storage account is created, navigate to the storage account blade. Select **Access keys** under **Security + networking**. Toggle the **Show/Hide keys button** (Shown as hide keys in the screenshot), copy the **storage account name** and the **first access key**, and paste them into your text editor of choice - you will need these values later.
 
     ![In the Storage account Access keys section, the Storage account name and key1 are called out.](images/ha-storagekey.png "Storage account section")
 
@@ -534,7 +534,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     - **Name**: Enter a Globally unique name starting with `BCDR`.
     - **Resource group**: Use existing / **ContosoRG2**
-    - **Location**: East US 2
+    - **Location**: Any region that support automation **except for** your primary region.
 
     ![Fields in the Add Automation Account blade are set to the previously defined values.](images/dr-aa.png "Add Automation Account blade")
 
@@ -570,7 +570,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     > **Note**: You must be connected to the **LABVM** to complete the next steps.
 
-17. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. Set the Runbook type to **PowerShell Workflow**. Update the name to be **ASRSQLFailover**. This is the name of the Workflow inside the Runbook script. Leave everything else set to the default. Select **Import**.
+17. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. Update the name to be **ASRSQLFailover**. Set the Runbook type to **PowerShell Workflow**. This is the name of the Workflow inside the Runbook script. Leave everything else set to the default. Select **Import**.
 
     ![Fields in the 'Import a runbook' blade are set to the previously defined values.](images/dr-rbimp2.png "Import a runbook")
 
@@ -618,7 +618,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     ![The 'BCDRIaaSPlan' variable is shown in the Automation Account.](images/dr-var.png "Automation Account variables")
 
-24. Before continuing, check that the template deployment you started at the beginning of this task has been completed. Then, from the Azure portal home page, select **Subscriptions**, select your subscription, then select **Deployments**.
+24. Before continuing, check that the template deployment you started at the beginning of this task has been completed successfully. Then, from the Azure portal home page, select **Subscriptions**, select your subscription, then select **Deployments**.
 
     ![The 'Contoso-IaaS-DR' template deployment shows as successful.](images/dr-deploy-ok.png "Template status")
 
@@ -970,7 +970,7 @@ In this task, you will use the Front Door approach to configure a highly availab
     - Name: `ContosoWebPrimary`
     - Origin type: Public IP Address
     - Host name: ContosoWebLBPrimaryIP
-    - Priority: 2
+    - Priority: 1
 
     ![Screen shot showing the values entered into the Add an origin pane.](images/dr-fd-neworigin.png "Add an origin")
 
@@ -978,11 +978,12 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     - Name: `ContosoWebSecondary`
     - Origin type: Public IP Address
-    - Host name
-
+    - Host name: ContosoWebLBSecondaryIP
+    - Priority: 2
+  
 12. Update **Interval (in seconds)** to 30. Click Add
 
-    ![Showing the completed Add an origin group pane with all fields filled out and ready to select add.](images/dr-fd-addorigingroup.png "Add an origin group")
+    ![Showing the completed Add an origin group pane with all fields filled out and ready to select add.](images/dr-fd-addorigingroup.png "Add an origin group to front door")
 
 13. Enter the following values in **Add a route**. Leave all other values as default. Select **Add**
 
@@ -992,11 +993,11 @@ In this task, you will use the Front Door approach to configure a highly availab
     - Origin group: ensure **ContosoOrigins** is selected
     - Forwarding protocol: HTTP only
 
-    ![Screenshot showing the completed add a route pane with all correct values read to select Add.](images/dr-fd-addroutecomplete.png "Add a route")
+    ![Screenshot showing the completed add a route pane with all correct values read to select Add.](images/dr-fd-addroutecomplete.png "Add a route to the origin route")
 
 14. Select **Review + Create**. Once validation has been completed, select **Create** to provision the Front Door service.
 
-    ![Create a front door profile screen completed and ready to create. Completed route and Review + Create are highlighted.](images/dr-fd-profile.png "Create a front door profile")
+    ![Create a front door profile screen completed and ready to create. Completed route and Review + Create are highlighted.](images/dr-fd-profile.png "Create a front door profile completed and ready to create")
 
 15. Navigate to the Azure Front Door resource. Select the **Frontend host** URL of Azure Front Door, and the Policy Connect web application will load. The web application is routing through the **ContosoWebLBPrimary** External Load Balancer configured in front of **WEBVM1** and **WEBVM2** running in the **Primary** Site in **ContosoRG1** resource group and connecting to the SQL AlwaysOn Listener at the same location.
 
@@ -1029,7 +1030,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
     - **Resource Group**: ContosoRG1
     - **Name**: `BackupRSV`
-    - **Location**: Central US *(your primary region)*
+    - **Location**: *your primary region*
 
     ![Azure portal screenshot showing the Create Recovery Services Vault blade, with the settings filled in as described.](images/bk-rsv.png "Create Recovery Services Vault")
 
@@ -1230,7 +1231,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 1. In the Azure portal, open the **ContosoRG1** resource group. Select the public IP address for the web tier load-balancer, **ContosoWebLBPrimary**. Select the **Overview** tab, copy the DNS name to the clipboard, and navigate to it in a different browser tab.
 
-2. The Contoso application is shown. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes to show that the database is writable.
+2. The Contoso application should load in your browser tab. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes to show that the database is writable.
 
 3. Open an Azure Bastion session with **SQLVM1** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
 
@@ -1238,7 +1239,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 4. Using the Azure portal, stop both **WebVM1** and **SQLVM1**. Wait a minute for the VMs to stop.
 
-5. Refresh the blade with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
+5. Refresh the browser tab with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
 
 6. Open an Azure Bastion session with **SQLVM2** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM2** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM2** as the primary replica, and there is a critical warning about **SQLVM1** not being available.
 
@@ -1276,7 +1277,7 @@ In this task, you will validate the failover of the Contoso application from Cen
 
 5. On the warning about No Test Failover, select **I understand the risk, Skip test failover**.
 
-    ![A warning displays that no test failover has been done in the past 180 days and recommends that you do one before a failover. At the bottom, the I understand and skip test failover checkbox is selected.](images/v-dr3.png "Failover warning")
+    ![A warning displays that no test failover has been done in the past 180 days and recommends that you do one before a failover. At the bottom, the I understand and skip test failover checkbox is highlighted.](images/v-dr3.png "Failover warning")
 
 6. Review the Failover direction. Notice that **From** is the **Primary** site, and **To** is the **Secondary** site. Select **OK**.
 
@@ -1346,7 +1347,7 @@ In this task, you will validate the failover of the Contoso application from Cen
 
 ### Task 3: Validate Disaster Recovery - Failback IaaS region to region
 
-In this task, you will failback the Contoso application from the DR site in East US 2 back to the primary site in Central US.
+In this task, you will failback the Contoso application from the DR site in your secondary region back to the primary site (your primary region).
 
 1. Still in the **BCDRRSV** Recovery Services vault, select **Recovery Plans** and re-open the **BCDRIaaSPlan**. Notice that the VMs are still at the Target since they failed over to the secondary site.
 
@@ -1416,7 +1417,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     - **Resource group:** ContosoRG1
     - **Storage account name:** Unique name starting with `backupstaging`.
-    - **Location:** Central US *(this is your primary region)*
+    - **Location:** *your primary region*
     - **Performance:** Standard
     - **Replication:** Locally-redundant storage (LRS)
 
