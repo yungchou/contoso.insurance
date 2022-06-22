@@ -39,7 +39,7 @@ Write-Output "Starting SQL"
 # Make sure SQL Service is started
 $sqlservice = Get-Service -Name MSSQLServer
 Start-Service $sqlservice
-$sqlservice.WaitForStatus('Running', '00:01:30')
+$sqlservice.WaitForStatus('Running', '00:05:00')
 Write-Output $sqlservice
 
 # Setup the data, backup and log directories as well as mixed mode authentication
