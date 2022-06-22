@@ -37,10 +37,6 @@ $backups = "F:\Backup"
 Write-Output "Starting SQL"
 
 # Make sure SQL Service is started
-#$sqlservice = Get-Service -Name MSSQLServer
-#Start-Service $sqlservice
-#$sqlservice.WaitForStatus('Running', '00:05:00')
-#Write-Output $sqlservice
 # Restart the SQL Server service
 Write-Output "Restart SQL"
 Restart-Service -Name "MSSQLSERVER" -Force
