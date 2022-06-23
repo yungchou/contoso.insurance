@@ -37,10 +37,10 @@ $backups = "F:\Backup"
 Write-Output "Starting SQL"
 
 # Make sure SQL Service is started
-$sqlservice = Get-Service -Name MSSQLServer
-Start-Service $sqlservice
-$sqlservice.WaitForStatus('Running', '00:01:30')
-Write-Output $sqlservice
+# Restart the SQL Server service
+Write-Output "Restart SQL"
+Restart-Service -Name "MSSQLSERVER" -Force
+Start-Sleep -Seconds 90
 
 # Setup the data, backup and log directories as well as mixed mode authentication
 Write-Output "Set up data, backup and log directories in SQL, plus mixed-mode auth"
