@@ -28,13 +28,15 @@ At the end of the workshop, you will be better able to design and use resiliency
 
 You will also discuss how to achieve a similar level of resiliency for a PaaS-based implementation the same application, based on Azure App Service and Azure SQL Database. Finally, you will consider the costs associated with both approaches.
 
-Continue to the [Whiteboard design session](https://github.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/tree/master/Whiteboard%20design%20session) folder
+Continue to the [Whiteboard design session](https://github.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/tree/master/Whiteboard%20design%20session) documents folder.
 
 ### Hands-on lab
 
 In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture.
 
 At the end of the lab, you will be better able to design and use availability zones, SQL Server Always On Availability Groups, Azure Site Recovery, Azure Backup, and Azure Front Door to implement a fully resilient IaaS application. The training includes content on high availability, disaster recovery, as well as knowledge on how to back up the databases and virtual machines.
+
+Continue to the [Hands-on lab](https://github.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/tree/master/Hands-on%20lab) documents folder.
 
 ## Azure services and related products
 
