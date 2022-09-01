@@ -20,7 +20,7 @@ In this workshop, you will look at how to design for converting/extending an exi
 
 At the end of the workshop, you will be better able to design and use resiliency concepts including High Availability with protection from hardware/rack and datacenter failures with Availability Zones, High Availability and Disaster Recovery for database tiers using SQL Always ON, Disaster Recovery for virtual machines to another region using Azure Site Recovery, and data protection using Azure Backup.
 
-### Whiteboard Design Session
+### Whiteboard design session
 
 In this whiteboard design session, you will look at how to design for converting/extending an existing IaaS deployment for resiliency. Throughout the whiteboard design session, you will look at the various configuration options and services to help build resilient architectures.
 
@@ -28,7 +28,9 @@ At the end of the workshop, you will be better able to design and use resiliency
 
 You will also discuss how to achieve a similar level of resiliency for a PaaS-based implementation the same application, based on Azure App Service and Azure SQL Database. Finally, you will consider the costs associated with both approaches.
 
-### Hands-on Lab
+Continue to the [Whiteboard design session](https://github.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/tree/master/Whiteboard%20design%20session) folder
+
+### Hands-on lab
 
 In this hands-on lab, you will deploy a pre-configured IaaS environment and then redesign and update it to account for resiliency and in general high availability. Throughout the hands-on lab you will use various configuration options and services to help build a resilient architecture.
 
