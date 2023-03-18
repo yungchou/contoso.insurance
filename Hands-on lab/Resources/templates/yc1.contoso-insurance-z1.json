@@ -37,26 +37,24 @@
       },
       "baseUri": {
           "type": "string",
-/*          "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
-*/
-"defaultValue":"https://raw.githubusercontent.com/yungchou/contoso-insurance"
+          "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance"
       },
       "resourceFolder": {
           "type": "string",
           "defaultValue": "master/Hands-on%20lab/Resources/"
       },
-    "tag4":{
-        "type":"string",
-        "defaultValue":"[utcNow('mmss')]",
-        "metadata":{
-        "description":"tag to make the deployed resource names unique",
-        "hideInput": true
-        }
-    }
+      "tag4":{
+          "type":"string",
+          "defaultValue":"[utcNow('mmss')]",
+          "metadata":{
+            "description":"tag to make the deployed resource names unique",
+            "hideInput": true
+          }
+      }
   },
   "variables": {
-    "L3": "[substring(parameters('tag4'),sub(length(parameters('tag4')),3),3)]",
     "ADDomainName": "[split(parameters('domainName'),'.')[0]]",
+    "L3": "[substring(parameters('tag4'),sub(length(parameters('tag4')),3),3)]",
     "vnetName": "[concat(variables('ADDomainName'),'-vnet',variables('L3'),resourceGroup().location)]",
     "vnetPrefix16":"[concat('10.',variables('L3'))]",
     "dcPrivateIPAddress":"[concat(variables('vnetPrefix16'),'.3.100')]"
@@ -108,7 +106,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "ADVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-dc1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('L3'),'-dc1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -141,7 +139,7 @@
           "properties": {
               "mode": "Incremental",
               "templateLink": {
-                  "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/vnet.json')]",
+                  "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/yc-vnet.json')]",
                   "contentVersion": "1.0.0.0"
               },
               "parameters": {
@@ -180,7 +178,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "WebVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-iis1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('L3'),'-iis1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -198,7 +196,7 @@
                       "value": true
                   },
                   "SQLEndpoint": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('L3'),'-sql1')]"
                   },
                   "domainToJoin": {
                       "value": "[parameters('domainName')]"
@@ -230,7 +228,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "SqlVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('L3'),'-sql1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"

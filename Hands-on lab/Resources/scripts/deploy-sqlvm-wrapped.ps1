@@ -1,7 +1,8 @@
 param($password,
     $dbsource,
     $defaultDnsDomain = "contoso.com",
-    $defaultDomain = $dnsDomain)
+    $defaultDomain = $dnsDomain
+)
 
 Start-Transcript "C:\deploy-sqlvm-log.txt"
 
@@ -20,8 +21,8 @@ $partition | Format-Volume -Confirm:$false -Force
 # Failover clustering
 Write-Output "Installing failover clustering"
 Install-WindowsFeature -Name "Failover-Clustering" `
-                       -IncludeManagementTools `
-                       -IncludeAllSubFeature
+    -IncludeManagementTools `
+    -IncludeAllSubFeature
 
 Install-WindowsFeature RSAT-Clustering-PowerShell
 
@@ -86,13 +87,14 @@ if (($env:COMPUTERNAME) -eq "SQLVM1") {
     $mdf = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile("ContosoInsurance", "F:\Data\ContosoInsurance.mdf")
     $ldf = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile("ContosoInsurance_Log", "F:\Logs\ContosoInsurance.ldf")
     Restore-SqlDatabase -ServerInstance Localhost -Database ContosoInsurance `
-                        -BackupFile $dbdestination -RelocateFile @($mdf,$ldf) -ReplaceDatabase
+        -BackupFile $dbdestination -RelocateFile @($mdf, $ldf) -ReplaceDatabase
 
     # Put the database into full recovery and run a backup (required for SQL AG)
     Write-Output "Put into full recovery and run backup"
     Invoke-Sqlcmd -ServerInstance Localhost -Database "master" -Query "ALTER DATABASE ContosoInsurance SET RECOVERY FULL"
     Backup-SqlDatabase -ServerInstance Localhost -Database ContosoInsurance
-} else {
+}
+else {
     Write-Output "Secondar server, no database restored"
 }
 

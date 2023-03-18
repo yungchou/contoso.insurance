@@ -59,13 +59,13 @@
         "description": "(Optional) URL for SQL database backup to be restored into the database"
       }
     },
-    "resourceFolder": {
-      "type": "string",
-      "defaultValue": "master/Hands-on%20lab/Resources/"
-    },
     "baseUri": {
       "type": "string",
       "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
+    },
+    "resourceFolder": {
+      "type": "string",
+      "defaultValue": "master/Hands-on%20lab/Resources/"
     }
   },
   "variables": {
@@ -81,7 +81,7 @@
     "SQLVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "SQLVMOSDiskName": "[concat(parameters('SQLVMName'), 'OSDisk')]",
     "SQLVMDataDiskName": "[concat(parameters('SQLVMName'), 'DataDisk1')]",
-    "SQLNicName": "[concat(parameters('SQLVMName'), 'NIC')]",
+    "SQLNicName": "[concat(parameters('SQLVMName'), '-NIC')]",
     "DiskType": "Premium_LRS",
     "domainOUPath": "",
     "domainJoinOptions": 3
