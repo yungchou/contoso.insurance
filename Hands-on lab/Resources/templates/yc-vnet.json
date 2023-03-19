@@ -24,7 +24,7 @@
     "address16": {
       "type": "string",
       "metadata": {
-        "description": "10.Tag2"
+        "description": "10.Tag2" 
       },
       "defaultValue": []
     }
