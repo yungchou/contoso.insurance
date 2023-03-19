@@ -16,7 +16,7 @@
       "defaultValue": []
     },
     "VnetPrefix16": {
-      "type": "array",
+      "type": "string",
       "metadata": {
         "description": "10.x"
       },
