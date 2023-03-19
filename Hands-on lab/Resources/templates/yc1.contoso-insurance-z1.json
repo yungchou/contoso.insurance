@@ -54,9 +54,8 @@
   },
   "variables": {
     "ADDomainName": "[split(parameters('domainName'),'.')[0]]",
-    "L2": "[substring(parameters('tag'),sub(length(parameters('tag')),2),2)]",
-    "vnetName": "[concat(variables('ADDomainName'),'-vnet',variables('L2'),resourceGroup().location)]",
-    "vnetPrefix16":"[concat('10.',variables('L2'))]",
+    "vnetName": "[concat('vnet',parameters('tag'),'-',resourceGroup().location)]",
+    "vnetPrefix16":"[concat('10.',parameters('tag'))]",
     "dcPrivateIPAddress":"[concat(variables('vnetPrefix16'),'.3.100')]"
   },
   "resources": [
@@ -106,7 +105,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "ADVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',variables('L2'),'-dc1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-dc1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -178,7 +177,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "WebVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',variables('L2'),'-iis1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-iis1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -196,7 +195,7 @@
                       "value": true
                   },
                   "SQLEndpoint": {
-                      "value": "[concat(variables('ADDomainName'),'-',variables('L2'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
                   },
                   "domainToJoin": {
                       "value": "[parameters('domainName')]"
@@ -228,7 +227,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "SqlVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',variables('L2'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
