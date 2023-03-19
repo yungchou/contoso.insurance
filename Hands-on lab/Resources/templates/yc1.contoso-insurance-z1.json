@@ -54,8 +54,9 @@
   },
   "variables": {
     "ADDomainName": "[split(parameters('domainName'),'.')[0]]",
-    "vnetName": "[concat('vnet',parameters('tag'),'-',resourceGroup().location)]",
-    "vnetPrefix16":"[concat('10.',parameters('tag'))]",
+    "tag2": "[parameters('tag')]",
+    "vnetName": "[concat('vnet',variables('tag2'),'-',resourceGroup().location)]",
+    "vnetPrefix16":"[concat('10.',variables('tag2'))]",
     "dcPrivateIPAddress":"[concat(variables('vnetPrefix16'),'.3.100')]"
   },
   "resources": [
@@ -73,10 +74,13 @@
               },
               "parameters": {
                   "VNetName": {
-                      "value": "[variables('vnetName')]"
+                    "value": "[variables('vnetName')]"
                   },
-                  "VnetPrefix16": {
-                      "value": "[variables('vnetPrefix16')]"
+                  "Tag2": {
+                    "value": "[variables('tag2')]"
+                  },
+                  "address16": {
+                    "value": "[variables('vnetPrefix16')]"
                   }
               }
           }
@@ -105,7 +109,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "ADVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-dc1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('tag2'),'-dc1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -177,7 +181,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "WebVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-iis1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('tag2'),'-iis1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
@@ -195,7 +199,7 @@
                       "value": true
                   },
                   "SQLEndpoint": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('tag2'),'-sql1')]"
                   },
                   "domainToJoin": {
                       "value": "[parameters('domainName')]"
@@ -227,7 +231,7 @@
                       "value": "[parameters('resourceFolder')]"
                   },
                   "SqlVMName": {
-                      "value": "[concat(variables('ADDomainName'),'-',parameters('tag'),'-sql1')]"
+                      "value": "[concat(variables('ADDomainName'),'-',variables('tag2'),'-sql1')]"
                   },
                   "AvailabilityZone": {
                       "value": "1"
