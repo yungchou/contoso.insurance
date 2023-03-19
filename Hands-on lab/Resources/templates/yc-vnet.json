@@ -15,28 +15,33 @@
       },
       "defaultValue": []
     },
-    "tag": {
+    "Tag2": {
+      "type": "string",
+      "metadata":{
+        "description": "10.Tag2"
+      }
+    },
+    "address16": {
       "type": "string",
       "metadata": {
-        "description": "10.tag"
+        "description": "10.Tag2"
       },
       "defaultValue": []
     }
   },
   "variables": {
-    "address16":"[concat('10.',parameters('tag'))]",
-    "NSGName": "[concat('appsNSG',",
+    "NSGName": "[concat('appsNSG',parameters('Tag2'))]",
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-IP')]",
-    "VNetPrefix": "[concat(variables('address16'),'.0.0/16')]", 
+    "VNetPrefix": "[concat(parameters('address16'),'.0.0/16')]", 
     "AppsSubnetName": "Apps",
-    "AppsSubnetPrefix": "[concat(variables('address16'),'.1.0/24')]",
+    "AppsSubnetPrefix": "[concat(parameters('address16'),'.1.0/24')]",
     "DataSubnetName": "Data",
-    "DataSubnetPrefix": "[concat(variables('address16'),'.2.0/24')]",
+    "DataSubnetPrefix": "[concat(parameters('address16'),'.2.0/24')]",
     "ADSubnetName": "Identity",
-    "ADSubnetPrefix": "[concat(variables('address16'),'.3.0/24')]",
+    "ADSubnetPrefix": "[concat(parameters('address16'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "[concat(variables('address16'),'.250.0/24')]"
+    "BastionSubnetPrefix": "[concat(parameters('address16'),'.250.0/24')]"
   },
   "resources": [
     {
