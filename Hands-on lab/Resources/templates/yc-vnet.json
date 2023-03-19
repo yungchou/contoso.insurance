@@ -16,7 +16,7 @@
       "defaultValue": []
     },
     "VnetPrefix16": {
-      "type": "array",
+      "type": "string",
       "metadata": {
         "description": "10.x"
       },
@@ -25,15 +25,15 @@
 
   },
   "variables": {
-    "NSGName": "AppsNSG",
+    "NSGName": "appsNSG",
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-IP')]",
   /*  "VNetPrefix": "10.0.0.0/16", */
-    "AppsSubnetName": "Apps",
+    "AppsSubnetName": "apps",
     "AppsSubnetPrefix": "[concat(parameters('VnetPrefix16'),'.1.0/24')]",
-    "DataSubnetName": "Data",
+    "DataSubnetName": "data",
     "DataSubnetPrefix": "[concat(parameters('VnetPrefix16'),'.2.0/24')]",
-    "ADSubnetName": "Identity",
+    "ADSubnetName": "identity",
     "ADSubnetPrefix": "[concat(parameters('VnetPrefix16'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
     "BastionSubnetPrefix": "[concat(parameters('VnetPrefix16'),'.250.0/24')]"
