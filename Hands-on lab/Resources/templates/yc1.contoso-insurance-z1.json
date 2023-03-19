@@ -55,7 +55,7 @@
   "variables": {
     "ADDomainName": "[split(parameters('domainName'),'.')[0]]",
     "tag2": "[parameters('tag')]",
-    "vnetName": "[concat('vnet',variables('tag2'),'-',resourceGroup().location)]",
+    "vnetName": "[concat(variables('ADDomainName'),'-vnet',variables('tag2'),'-',resourceGroup().location)]",
     "vnetPrefix16":"[concat('10.',variables('tag2'))]",
     "dcPrivateIPAddress":"[concat(variables('vnetPrefix16'),'.3.100')]"
   },

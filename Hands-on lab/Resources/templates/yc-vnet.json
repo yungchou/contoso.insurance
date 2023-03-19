@@ -34,14 +34,14 @@
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-IP')]",
     "VNetPrefix": "[concat(parameters('address16'),'.0.0/16')]", 
-    "AppsSubnetName": "Apps",
+    "AppsSubnetName": "apps",
     "AppsSubnetPrefix": "[concat(parameters('address16'),'.1.0/24')]",
-    "DataSubnetName": "Data",
+    "DataSubnetName": "data",
     "DataSubnetPrefix": "[concat(parameters('address16'),'.2.0/24')]",
-    "ADSubnetName": "Identity",
+    "ADSubnetName": "identity",
     "ADSubnetPrefix": "[concat(parameters('address16'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "[concat(parameters('address16'),'.250.0/24')]"
+    "BastionSubnetPrefix": "[concat(parameters('address16'),'.252.0/24')]"
   },
   "resources": [
     {
