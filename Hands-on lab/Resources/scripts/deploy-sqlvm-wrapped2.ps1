@@ -1,7 +1,8 @@
 param($password,
     $dbsource,
-    $defaultDnsDomain = "contoso.com",
-    $defaultDomain = $dnsDomain)
+    $dnsDomain)
+#    $defaultDnsDomain = "contoso.com",
+#    $defaultDomain = $dnsDomain)
 
 Start-Transcript "C:\deploy-sqlvm-log2.txt"
 
@@ -11,7 +12,7 @@ Start-Transcript "C:\deploy-sqlvm-log2.txt"
 Write-Output "Resetting SPNs"
 
 $computer = $env:COMPUTERNAM
-$dnsDomain = $env:USERDOMAIN
+#$dnsDomain = $env:USERDOMAIN
 $user = $env:USERNAME
 
 if ($dnsDomain.Contains(".")) {
