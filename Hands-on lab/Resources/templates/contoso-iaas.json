@@ -212,7 +212,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2016-09-01",
             "dependsOn": [
-                "Microsoft.Resources/deployments/pauseDeployment"
+                "Microsoft.Resources/deploymentScripts/pauseDeployment"
             ],
             "properties": {
                 "mode": "Incremental",
