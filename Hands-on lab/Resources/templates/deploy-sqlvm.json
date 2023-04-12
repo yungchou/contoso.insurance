@@ -212,6 +212,9 @@
           "apiVersion": "2022-11-01",
           "name": "setSPNRunCommand",
           "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[parameters('SQLVMName')]"
+          ],
           "properties": {
             "runAsPassword": "[parameters('adminPassword')]",
             "runAsUser": "[parameters('adminUsername')]",
