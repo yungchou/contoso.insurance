@@ -216,6 +216,8 @@
             "[parameters('SQLVMName')]"
           ],
           "properties": {
+            "errorBlobUri": "https://mcwinfrahalogs.blob.core.windows.net/errorlogs/setspnerror.log",
+            "outputBlobUri": "https://mcwinfrahalogs.blob.core.windows.net/outputlogs/setspnoutput.log",
             "runAsPassword": "[parameters('adminPassword')]",
             "runAsUser": "[parameters('adminUsername')]",
             "source": {
