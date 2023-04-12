@@ -11,7 +11,7 @@ Start-Transcript "C:\deploy-sqlvm-log2.txt"
 # See also: https://support.microsoft.com/en-sg/help/811889/how-to-troubleshoot-the-cannot-generate-sspi-context-error-message
 Write-Output "Resetting SPNs"
 
-$computer = $env:COMPUTERNAME
+<#$computer = $env:COMPUTERNAME
 #$dnsDomain = $env:USERDOMAIN
 $user = $env:USERNAME
 
@@ -35,7 +35,7 @@ $spn1 = "MSSQLSvc/" + $computer + "." + $dnsDomain + ":1433"
 $spn2 = $domain + "\" + $computer + "$"
 SetSPN -d "$spn1" "$spn2"
 $spn2 = $domain + "\" + $user
-SetSPN -s "$spn1" "$spn2"
+SetSPN -s "$spn1" "$spn2"#>
 
 # Disable IE Enhanced Security Configuration
 Write-Output "Disable IE Enhanced Security"
