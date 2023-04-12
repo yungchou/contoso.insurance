@@ -205,6 +205,20 @@
               "Password": "[parameters('adminPassword')]"
             }
           }
+        },
+        {
+          "type": "Microsoft.Compute/virtualMachines/runCommands",
+            "apiVersion": "2022-11-01",
+            "name": "setSPNRunCommand",
+            "location": "[resourceGroup().location]",
+            "properties": {
+              "runAsPassword": "[parameters('adminPassword')]",
+              "runAsUser": "[parameters('adminUsername')]",
+              "source": {
+                "script": "https://raw.githubusercontent.com/benstegink/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/scripts/setspns.ps1"
+              },
+              "timeoutInSeconds": "900"
+            }
         }
       ]
     }
