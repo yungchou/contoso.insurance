@@ -201,7 +201,7 @@
             "properties": {
                 "azPowerShellVersion": "6.4",
                 "scriptContent": "param([int]$waitInSeconds); Write-Output \"Holding for $waitInSeconds seconds to ensure AD start up complete...\"; Start-Sleep -Seconds $waitInSeconds; Write-Output 'Done.'",
-                "arguments": "[concat('-waitInSeconds', ' 900')]",
+                "arguments": "[concat('-waitInSeconds', ' 60')]",
                 "timeout": "PT1H",
                 "cleanupPreference": "OnSuccess",
                 "retentionInterval": "P1D"

@@ -208,18 +208,18 @@
           }
         },
         {
-          "type": "Microsoft.Compute/virtualMachines/runCommands",
-            "apiVersion": "2022-11-01",
-            "name": "setSPNRunCommand",
-            "location": "[resourceGroup().location]",
-            "properties": {
-              "runAsPassword": "[parameters('adminPassword')]",
-              "runAsUser": "[parameters('adminUsername')]",
-              "source": {
-                "script": "[concat(variables('ScriptFolder'), '/', variables('RunCommandScriptFileName'))]"
-              },
-              "timeoutInSeconds": "900"
-            }
+          "type": "runCommands",
+          "apiVersion": "2022-11-01",
+          "name": "setSPNRunCommand",
+          "location": "[resourceGroup().location]",
+          "properties": {
+            "runAsPassword": "[parameters('adminPassword')]",
+            "runAsUser": "[parameters('adminUsername')]",
+            "source": {
+              "script": "[concat(variables('ScriptFolder'), '/', variables('RunCommandScriptFileName'))]"
+            },
+            "timeoutInSeconds": "900"
+          }
         }
       ]
     }
