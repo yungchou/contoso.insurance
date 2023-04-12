@@ -1,6 +1,5 @@
 $dnsDomain = "contoso.com"
 $computer = $env:COMPUTERNAME
-#$dnsDomain = $env:USERDOMAIN
 $user = $env:USERNAME
 
 if ($dnsDomain.Contains(".")) {
