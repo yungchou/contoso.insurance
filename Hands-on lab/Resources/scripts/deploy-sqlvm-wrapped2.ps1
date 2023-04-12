@@ -15,12 +15,12 @@ $computer = $env:COMPUTERNAME
 #$dnsDomain = $env:USERDOMAIN
 $user = $env:USERNAME
 
-#if ($dnsDomain.Contains(".")) {
-#	$domain = $dnsDomain.Substring(0,$dnsDomain.IndexOf("."))
-#}
-#else{
-#    $domain = $dnsDomain
-#}
+if ($dnsDomain.Contains(".")) {
+	$domain = $dnsDomain.Substring(0,$dnsDomain.IndexOf("."))
+}
+else{
+    $domain = $dnsDomain
+}
 
 $spn1 = "MSOLAPSvc.3/" + $computer + "." + $dnsDomain
 $spn2 = $domain + "\" + $computer + "$"
