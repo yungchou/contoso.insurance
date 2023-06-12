@@ -96,7 +96,7 @@
       "name": "[parameters('VNetName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
-      "apiVersion": "2016-03-30",
+      "apiVersion": "2021-01-01",
       "dependsOn": [
         "[variables('NSGName')]",
         "[variables('NATName')]"
