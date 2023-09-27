@@ -29,17 +29,15 @@ workflow ASRWEBFailover
     ) 
     $connectionName = "AzureRunAsConnection" 
 	    
-Try 
- {
-    #Logging in to Azure...
-
-    "Logging in to Azure..."
-    $Conn = Get-AutomationConnection -Name AzureRunAsConnection 
-     Add-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
-
-    "Selecting Azure subscription..."
-    Select-AzSubscription -SubscriptionId $Conn.SubscriptionID -TenantId $Conn.tenantid 
- }
+	Try 
+	{
+	   #Logging in to Azure...
+	   "Logging in to Azure..."
+	   Connect-AzAccount -Identity
+	   $AzureContext = (Connect-AzAccount -Identity).context
+	   "Selecting Azure subscription..."
+	   Select-AzSubscription -SubscriptionId $AzureContext.Subscription -TenantId $AzureContext.Tenant
+	}
 Catch
  {
       $ErrorMessage = 'Login to Azure subscription failed.'
