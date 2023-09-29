@@ -49,11 +49,10 @@ workflow ASRSQLFailover
     {
         #Log in to Azure
         "Logging in to Azure..."
-        $Conn = Get-AutomationConnection -Name AzureRunAsConnection 
-        Add-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
-
+        Connect-AzAccount -Identity
+        $AzureContext = (Connect-AzAccount -Identity).context
         "Selecting Azure subscription..."
-        Select-AzSubscription -SubscriptionId $Conn.SubscriptionID -TenantId $Conn.tenantid 
+        Select-AzSubscription -SubscriptionId $AzureContext.Subscription -TenantId $AzureContext.Tenant 
     }
     Catch
     {
