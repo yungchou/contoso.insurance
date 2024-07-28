@@ -28,7 +28,7 @@
     "ADSubnetName": "Identity",
     "ADSubnetPrefix": "10.33.3.0/24",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "10.33.4.0/24"
+    "BastionSubnetPrefix": "10.33.254.0/24"
   },
   "resources": [
     {
