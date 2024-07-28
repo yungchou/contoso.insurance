@@ -37,14 +37,14 @@
         },
         "PrimaryRG": {
             "type": "string",
-            "defaultValue": "ContosoRG1",
+            "defaultValue": "contoso.westus3",
             "metadata": {
                 "description": "Resource group name of the primary region (must already exist)"
             }
         },
         "SecondaryRG": {
             "type": "string",
-            "defaultValue": "ContosoRG2",
+            "defaultValue": "contoo.eastus",
             "metadata": {
                 "description": "Resource group name of the secondary region (must already exist)"
             }
@@ -59,8 +59,8 @@
         }
     },
     "variables": {
-        "vnetNamePrimary": "VNet1",
-        "vnetNameSecondary": "VNet2"
+        "vnetNamePrimary": "westus3",
+        "vnetNameSecondary": "eastus"
     },
     "resources": [
         {

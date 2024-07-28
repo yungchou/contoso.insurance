@@ -45,7 +45,7 @@
         }
     },
     "variables": {
-        "vnetName": "VNet1"
+        "vnetName": "westus3"
     },
     "resources": [
         {

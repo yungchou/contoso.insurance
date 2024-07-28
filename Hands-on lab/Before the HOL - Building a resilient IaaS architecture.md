@@ -83,12 +83,12 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 
 2. Complete the Custom deployment blade as follows:
 
-    - Resource Group: **(Create new) ContosoRG1**
+    - Resource Group: **(Create new) contoso.westus3**
     - Location: **Choose a location close to you**
 
     Select **Review + Create** and then **Create** to deploy the resources. It usually takes around 20 minutes to deploy the resources.
 
-    ![The custom deployment screen with ContosoRG1 as the resource group and East US 2 as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
+    ![The custom deployment screen with contoso.westus3 as the resource group and East US 2 as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
 
 ### Task 3: Wait for deployments to complete, and validate
 
@@ -98,7 +98,7 @@ In this task, you will verify that the LabVM and Contoso sample application have
 
     ![Screenshot of the Azure portal showing the template deployment status 'Succeeded'.](images/BeforeTheHOL/deployment-succeeded.png "Screenshot of the Azure portal showing the template deployment status Succeeded")
 
-2. You can check the Contoso application deployment status by navigating to the **ContosoRG1** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
+2. You can check the Contoso application deployment status by navigating to the **contoso.westus3** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the hands-on lab guide.
 
     ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/BeforeTheHOL/contoso-success1.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 

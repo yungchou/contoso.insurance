@@ -25,7 +25,7 @@
         },
         "PrimaryRG": {
             "type": "string",
-            "defaultValue": "ContosoRG2",
+            "defaultValue": "contoo.eastus",
             "metadata": {
                 "description": "Resource group name of the primary region (must already exist)"
             }
@@ -39,8 +39,8 @@
         }
     },
     "variables": {
-        "vnetNamePrimary": "VNet1",
-        "vnetNameSecondary": "VNet2",
+        "vnetNamePrimary": "westus3",
+        "vnetNameSecondary": "eastus",
         "baseUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
     },
     "resources": [
