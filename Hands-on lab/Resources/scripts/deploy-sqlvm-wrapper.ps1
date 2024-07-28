@@ -27,7 +27,7 @@ $localUser = $env:COMPUTERNAME + "\" + $user
 $domainUser = ($user + "@" + $domain)
 Write-Host $domainUser
 $localCred = New-Object System.Management.Automation.PSCredential($localUser,$securePwd)
-$domainCred = New-Object System.Management.Automation.PSCredential("demouser@contoso.com",$securePwd)
+$domainCred = New-Object System.Management.Automation.PSCredential("adadmin@contoso.ins",$securePwd)
 
 Write-Output "Local Cred"
 Write-Output $localCred

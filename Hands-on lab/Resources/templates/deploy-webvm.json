@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "skuSizeVM": {
-      "defaultValue": "D2s_v3",
+      "defaultValue": "D2s_v5",
       "type": "string",
       "metadata": {
         "description": "Size of Virtual Machines to use"
@@ -33,7 +33,7 @@
     },
     "adminUsername": {
       "type": "string",
-      "defaultValue": "demouser",
+      "defaultValue": "adadmin",
       "metadata": {
         "description": "The name of the administrator account of the new VMs"
       }
@@ -76,7 +76,7 @@
     },
     "baseUri": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/"
+      "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/master/"
     }
   },
   "variables": {

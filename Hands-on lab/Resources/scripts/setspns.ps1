@@ -1,4 +1,4 @@
-$dnsDomain = "contoso.com"
+$dnsDomain = "contoso.ins"
 $computer = $env:COMPUTERNAME
 $user = $env:USERNAME
 

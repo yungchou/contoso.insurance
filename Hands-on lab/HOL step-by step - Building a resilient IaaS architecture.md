@@ -196,7 +196,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 8. Ensure the Authentication Type is set to **VM Password**. Connect to the machine using the following credentials:
 
-    - **Username**: `demouser@contoso.com`
+    - **Username**: `adadmin@contoso.ins`
     - **Password**: `Demo!pass123`
 
     > **Note**: When using Azure Bastion to connect to a VM using domain credentials, the username must be specified in the format `user@domain-fqdn` and **not** in the format `domain\user`.
@@ -275,7 +275,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![A pop-up warns that any changes will not take effect until the service stops and restarts. The OK button is selected.](images/image169.png "Warning pop-up")
 
-25. On the **Log On** tab, change the service account to `contoso\demouser` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
+25. On the **Log On** tab, change the service account to `contoso\adadmin` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
 
     ![In the SQL Server Properties dialog box, on the Log On tab, fields are set to the previously defined settings. The OK button is selected.](images/ha-sql-logon.png "SQL Server Properties dialog box")
 
@@ -287,7 +287,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of Microsoft SQL Server Management Studio 18 on the Start menu.](images/image172.png "Microsoft SQL Server Management Studio 18")
 
-28. Select **Connect** to sign on to **SQLVM1**. **Note**: The username for your lab should show **CONTOSO\demouser**.
+28. Select **Connect** to sign on to **SQLVM1**. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
     ![Screenshot of the Connect to Server dialog box.](images/image173.png "Connect to Server dialog box")
 
@@ -315,7 +315,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of the Add replica button.](images/image179.png "Add replica button")
 
-35. On the **Connect to Server** dialog box, enter the Server Name of **SQLVM2**and select **Connect**. **Note**: The username for your lab should show **CONTOSO\demouser**.
+35. On the **Connect to Server** dialog box, enter the Server Name of **SQLVM2**and select **Connect**. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
     ![Image of the Connect to Server dialog box for SQLVM2.](images/image180.png "Connect to Server dialog box")
 
@@ -379,7 +379,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Connect / Database Engine is selected in Object Explorer.](images/image200.png "Object Explorer")
 
-50. Enter **BCDRAOG** as the Server Name. This will be connected to the listener of the group that you created. **Note**: The username for your lab should show **CONTOSO\demouser**.
+50. Enter **BCDRAOG** as the Server Name. This will be connected to the listener of the group that you created. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
     ![In the Connect to Server Dialog box, the Server name is BCDRAOG, and the connect button is selected.](images/image201.png "Connect to Server Dialog box")
 
@@ -407,7 +407,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In Object Explorer, Connect / Database Engine is selected.](images/image200.png "Object Explorer")
 
-54. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.33.2.100**. You again will be able to connect to the server, which is up and running as the master. **Note**: The username for your lab should show **CONTOSO\demouser**.
+54. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.33.2.100**. You again will be able to connect to the server, which is up and running as the master. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
     ![Fields in the Connect to Server dialog box are set to the previously defined settings.](images/image205.png "Connect to Server dialog box")
 
@@ -429,7 +429,7 @@ In this task, you will configure a high-availability web tier. This comprises tw
 
 1. In the Azure portal, navigate to **WebVM1**, select **Connect** followed by **Bastion**, and connect to the VM using the following credentials:
 
-    - **Username**: `demouser@contoso.com`
+    - **Username**: `adadmin@contoso.ins`
     - **Password**: `Demo!pass123`
 
 2. In **WebVM1**, open Windows Explorer, navigate to **C:\inetpub\wwwroot** and open the **Web.config** file using Notepad.
@@ -438,7 +438,7 @@ In this task, you will configure a high-availability web tier. This comprises tw
 
 3. In the **Web.config** file, locate the **\<ConnectionStrings\>** element and replace **SQLVM1** with **BCDRAOG** in the data source. Remember to **Save** the file.
 
-    ![Notepad is editing the web.config file. The data source is updated to BCDRAOG.contoso.com.](images/ha-webconfig.png "Web.config file")
+    ![Notepad is editing the web.config file. The data source is updated to BCDRAOG.contoso.ins.](images/ha-webconfig.png "Web.config file")
 
 4. Repeat the above steps to make the same change on **WebVM2**.
 
@@ -543,7 +543,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
 9. Once Bastion has been deployed, connect with the demo username and password.
 
-    - Username: `demouser` (no domain)
+    - Username: `adadmin` (no domain)
     - Password: `Demo!pass123`
 
 10. From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Automation**. If it doesn't show up, you may have to search for it.
@@ -624,7 +624,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
 ### Task 2: Inspect DR for the Domain Controller tier
 
-The failover site in the secondary region has been deployed with two additional domain controllers, **ADVM3** and **ADVM4**. These are integrated with the existing `contoso.com` domain hosted on **ADVM1** and **ADVM2** in the primary site. They run in a fully active-active configuration (therefore, no failover is required for this tier).
+The failover site in the secondary region has been deployed with two additional domain controllers, **ADVM3** and **ADVM4**. These are integrated with the existing `contoso.ins` domain hosted on **ADVM1** and **ADVM2** in the primary site. They run in a fully active-active configuration (therefore, no failover is required for this tier).
 
 The configuration of these domain controllers is fully automatic. In this task, you will simply review the rest of the configuration to confirm everything is as it should be.
 
@@ -678,7 +678,7 @@ This task comprises the following steps:
 
     > **Note**: For this lab, the DR site is configured with a single SQL Server VM. Using a load balancer is therefore not strictly required. However, it allows the DR site to be extended to include its own HA cluster if needed.
 
-3. Return to your browser tab containing your Bastion session with **SQLVM1**. (If you have closed the tab, reconnect using Azure Bastion with username `demouser@contoso.com` and password `Demo!pass123`.)
+3. Return to your browser tab containing your Bastion session with **SQLVM1**. (If you have closed the tab, reconnect using Azure Bastion with username `adadmin@contoso.ins` and password `Demo!pass123`.)
 
 4. On **SQLVM1**, use **Windows PowerShell** to execute the following command. This command will add **SQLVM3** as a node in the existing Windows Server Failover Cluster.
 
@@ -690,7 +690,7 @@ This task comprises the following steps:
 
     ![In Failover Cluster Manager, Nodes is selected in the tree view, and three nodes are displayed in the details pane.](images/dr-fcm-3nodes.png "Failover Cluster Manager")
 
-6. Return to the Azure portal. Locate **SQLVM3**, and connect to the VM using Azure Bastion with the username `demouser@contoso.com` and the password `Demo!pass123`.
+6. Return to the Azure portal. Locate **SQLVM3**, and connect to the VM using Azure Bastion with the username `adadmin@contoso.ins` and the password `Demo!pass123`.
 
 7. On **SQLVM3**, select **Start** and launch **SQL Server 2017 Configuration Manager**.
 
@@ -706,7 +706,7 @@ This task comprises the following steps:
 
     ![A pop-up warns that any changes will not take effect until the service stops and restarts. The OK button is selected.](images/image169.png "Warning pop-up")
 
-10. On the **Log On** tab, change the service account to `contoso\demouser` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
+10. On the **Log On** tab, change the service account to `contoso\adadmin` with the password `Demo!pass123`. Select **OK** to accept the changes, and then select **Yes** to confirm the restart of the server.
 
     ![In the SQL Server Properties dialog box, on the Log On tab, fields are set to the previously defined settings. The OK button is selected.](images/ha-sql-logon.png "SQL Server Properties dialog box")
 
@@ -1233,7 +1233,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 2. The Contoso application should load in your browser tab. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes to show that the database is writable.
 
-3. Open an Azure Bastion session with **SQLVM1** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
+3. Open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
 
    ![SQL Server Management Studio screenshot showing SQLVM1 as the primary replica.](images/v-sql1.png "SQLVM1 as Primary")
 
@@ -1241,7 +1241,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 5. Refresh the browser tab with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
 
-6. Open an Azure Bastion session with **SQLVM2** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM2** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM2** as the primary replica, and there is a critical warning about **SQLVM1** not being available.
+6. Open an Azure Bastion session with **SQLVM2** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM2** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM2** as the primary replica, and there is a critical warning about **SQLVM1** not being available.
 
    ![SQL Server Management Studio screenshot showing SQLVM2 as the primary replica, with warnings.](images/v-sql2.png "SQLVM2 as Primary")
 
@@ -1249,7 +1249,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 8. Refresh the blade with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
 
-9. Re-open an Azure Bastion session with **SQLVM1** (with username `demouser@contoso.com` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica, and there is a critical warning about **SQLVM2** not being available.
+9. Re-open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica, and there is a critical warning about **SQLVM2** not being available.
 
     ![SQL Server Management Studio screenshot showing SQLVM1 as the primary replica, with warnings.](images/v-sql1b.png "SQLVM1 as Primary")
 
@@ -1373,7 +1373,7 @@ In this task, you will failback the Contoso application from the DR site in your
 
 8. As previously, the portal will submit a deployment. This process will take some time. You can proceed with the lab without waiting.
 
-9. Next, you need to reset the SQL Always On Availability Group environment to ensure a proper failover. Use Azure Bastion to connect to **SQLVM1** with username `demouser@contoso.com` and password `Demo!pass123`.
+9. Next, you need to reset the SQL Always On Availability Group environment to ensure a proper failover. Use Azure Bastion to connect to **SQLVM1** with username `adadmin@contoso.ins` and password `Demo!pass123`.
 
 10. Once connected to **SQLVM1**, open SQL Server Management Studio and Connect to **SQLVM1**. Expand the **Always On Availability Group**s and then right-click on **BCDRAOG** and select **Show Dashboard**.
 
@@ -1401,7 +1401,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
 1. From the Azure portal, locate and shut down **WebVM2**. This forces all traffic to be served by **WebVM1**, making the backup/restore verification easier.
 
-2. Navigate to **WebVM1** and connect to the VM using Azure Bastion, using username `demouser@contoso.com` and password `Demo!pass123`.
+2. Navigate to **WebVM1** and connect to the VM using Azure Bastion, using username `adadmin@contoso.ins` and password `Demo!pass123`.
 
 3. Open Windows Explorer and navigate to the `C:\inetpub\wwwroot\Content` folder. Select the three `.PNG` files and delete them.
 
@@ -1491,7 +1491,7 @@ In this task, you will validate the ability to restore the Contoso application d
 
     ![Screenshot showing the list of backup jobs with the database restore highlighted.](images/v-bk-sql6.png "Database restore backup job")
 
-9. Navigate to **SQLVM1** and connect to the VM using Azure Bastion, using username `demouser@contoso.com` and password `Demo!pass123`.
+9. Navigate to **SQLVM1** and connect to the VM using Azure Bastion, using username `adadmin@contoso.ins` and password `Demo!pass123`.
 
 10. On SQLVM1, open **SQL Server Management Studio** and connect to SQLVM1.
 
