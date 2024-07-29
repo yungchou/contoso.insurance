@@ -79,7 +79,7 @@ The following diagram shows the highly resilient application architecture you wi
 
 ## Requirements
 
-Complete the steps given in the [Before the HOL - Building a resilient IaaS architecture](https://github.com/yunfchou/contoso.insurance/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Building%20a%20resilient%20IaaS%20architecture.md) guide before starting this lab.
+Complete the steps given in the [Before the HOL - Building a resilient IaaS architecture](https://github.com/yungchou/contoso.insurance/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Building%20a%20resilient%20IaaS%20architecture.md) guide before starting this lab.
 
 ### Help references
 
@@ -498,7 +498,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
     New-AzResourceGroup -Name 'contoso.eastus2' -Location 'East US 2'
 
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' `
-        -TemplateUri 'https://raw.githubusercontent.com/yunfchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
+        -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
         -Location 'East US 2'
     ```
 
@@ -507,7 +507,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
     ```powershell
     # Only run this command if the previous deployment failed with an error that size was not available
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' `
-        -TemplateUri 'https://raw.githubusercontent.com/yunfchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
+        -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
         -Location 'East US 2' -skuSizeVM 'D2as_v4'
     ```
 
