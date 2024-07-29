@@ -10,8 +10,8 @@
     }
   },
   "variables": {
-    "BastionIPName": "PrimaryBastionIP",
-    "BastionName": "PrimaryBastion"
+    "BastionName": "[concat(resourceGroup().location,'-Bastion')]",
+    "BastionIPName": "[concat(variables('BastionName','-PIP')]"
   },
   "resources": [
     {
