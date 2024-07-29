@@ -3,14 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "skuSizeVM": {
-            "defaultValue": "D2s_v5",
+            "defaultValue": "D2s_v5", 
             "type": "string",
             "metadata": {
                 "description": "Size of Virtual Machines to use"
             },
             "allowedValues": [
-                "D2s_v3",
-                "D2s_v5",
+                "D2as_v4", "D2as_v5",
+                "D2s_v5", "E2as_v4", "E2as_v5",
                 "DC2s_v3"
             ]
         },
