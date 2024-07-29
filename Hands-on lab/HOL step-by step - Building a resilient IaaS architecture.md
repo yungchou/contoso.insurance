@@ -526,7 +526,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 5. Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
     - **Resource Group**: contoso.eastus2
-    - **Name**: `BCDRRSV`
+    - **Name**: `RSV-eastus2`
     - **Location**: *The same region you used for contoso.eastus2*
 
     ![A screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
