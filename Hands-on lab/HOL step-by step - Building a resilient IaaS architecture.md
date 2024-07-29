@@ -299,7 +299,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![On the New Availability Group Wizard begin page, Next is selected.](images/image175.png "New Availability Group Wizard ")
 
-31. Provide the name **BCDRAOG** for the **Availability group name**, then select **Next**.
+31. Provide the name **sqlAlwaysOn** for the **Availability group name**, then select **Next**.
 
     ![The Specify availability group options form displays the previous availability group name.](images/image176.png "Specify availability group options page")
 
@@ -333,7 +333,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 39. Add the following details:
 
-    - **Listener DNS Name**: BCDRAOG
+    - **Listener DNS Name**: sqlAlwaysOn
     - **Port**: 1433
     - **Network Mode**: Static IP
 
@@ -367,23 +367,23 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![On the New Availability Group Results page, a message says the wizard has completed successfully, and the results for all steps are a success. The Close button is selected.](images/ha-ag-results.png "New Availability Group Results page")
 
-47. Move back to **SQL Management Studio** on **SQLVM1** and expand the **Always On High Availability** item in the tree view. Under Availability Groups, expand the **BCDRAOG (Primary)** item and the sub-folders under it.
+47. Move back to **SQL Management Studio** on **SQLVM1** and expand the **Always On High Availability** item in the tree view. Under Availability Groups, expand the **sqlAlwaysOn (Primary)** item and the sub-folders under it.
 
     ![In SQL Management Studio, Always On High Availability is expanded in the tree view.](images/ha-ag-explorer.png "SQL Management Studio")
 
-48. Right-click **BCDRAOG (Primary)** and then select **Show Dashboard**. You should see that all the nodes have been added and are now "Green".
+48. Right-click **sqlAlwaysOn (Primary)** and then select **Show Dashboard**. You should see that all the nodes have been added and are now "Green".
 
-    ![Screenshot of the BCDRAOG Dashboard indicating the status of all SQL Server VMs as healthy.](images/ha-ag-dashboard.png "BCDRAOG Dashboard")
+    ![Screenshot of the sqlAlwaysOn Dashboard indicating the status of all SQL Server VMs as healthy.](images/ha-ag-dashboard.png "sqlAlwaysOn Dashboard")
 
 49. Next, select **Connect** and then **Database Engine** in SQL Management Studio.
 
     ![Connect / Database Engine is selected in Object Explorer.](images/image200.png "Object Explorer")
 
-50. Enter **BCDRAOG** as the Server Name. This will be connected to the listener of the group that you created. **Note**: The username for your lab should show **CONTOSO\adadmin**.
+50. Enter **sqlAlwaysOn** as the Server Name. This will be connected to the listener of the group that you created. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
-    ![In the Connect to Server Dialog box, the Server name is BCDRAOG, and the connect button is selected.](images/image201.png "Connect to Server Dialog box")
+    ![In the Connect to Server Dialog box, the Server name is sqlAlwaysOn, and the connect button is selected.](images/image201.png "Connect to Server Dialog box")
 
-51. Once connected to the **BCDRAOG**, you can select **Databases** and will be able to see the database there. Notice that you do not know directly which server this is running on.
+51. Once connected to the **sqlAlwaysOn**, you can select **Databases** and will be able to see the database there. Notice that you do not know directly which server this is running on.
 
     ![A call-out points to ContosoInsurance (Synchronized) in SQL Management Studio.](images/image202.png "SQL Management Studio")
 
@@ -393,12 +393,12 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 1"
-    $IPResourceName = "BCDRAOG_10.33.2.100"
+    $IPResourceName = "sqlAlwaysOn_10.33.2.100"
     $ILBIP = "10.33.2.100"
     Import-Module FailoverClusters
     Get-ClusterResource $IPResourceName | Set-ClusterParameter -Multiple @{"Address"="$ILBIP";"ProbePort"="59999";"SubnetMask"="255.255.255.255";"Network"="$ClusterNetworkName";"EnableDhcp"=0}
     Stop-ClusterResource -Name $IPResourceName
-    Start-ClusterResource -Name "BCDRAOG"
+    Start-ClusterResource -Name "sqlAlwaysOn"
     ```
 
     ![In the Windows PowerShell window, the script from the lab guide has been executed.](images/ha-ise-listenerip.png "Windows PowerShell window")
@@ -417,9 +417,9 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     > **Note**: It could take a minute to connect the first time as this goes through the Azure Internal Load Balancer.
 
-56. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting Roles and **BCDRAOG** and viewing the Resources. Notice how the **10.33.2.100** is Online.
+56. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting Roles and **sqlAlwaysOn** and viewing the Resources. Notice how the **10.33.2.100** is Online.
 
-    ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and details of the role are displayed.](images/ha-fcm-aogrole.png "Failover Cluster Manager")
+    ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, sqlAlwaysOn is selected, and details of the role are displayed.](images/ha-fcm-aogrole.png "Failover Cluster Manager")
 
 You have now successfully set up the SQL Server VMs to use Always On Availability Groups with a Cloud Witness storage account located in another region.
 
@@ -436,9 +436,9 @@ In this task, you will configure a high-availability web tier. This comprises tw
 
     > **Note**: If the **Web.config** change does not run, go to **Start**, **Run** and type **iisreset /restart** from command line.
 
-3. In the **Web.config** file, locate the **\<ConnectionStrings\>** element and replace **SQLVM1** with **BCDRAOG** in the data source. Remember to **Save** the file.
+3. In the **Web.config** file, locate the **\<ConnectionStrings\>** element and replace **SQLVM1** with **sqlAlwaysOn** in the data source. Remember to **Save** the file.
 
-    ![Notepad is editing the web.config file. The data source is updated to BCDRAOG.contoso.ins.](images/ha-webconfig.png "Web.config file")
+    ![Notepad is editing the web.config file. The data source is updated to sqlAlwaysOn.contoso.ins.](images/ha-webconfig.png "Web.config file")
 
 4. Repeat the above steps to make the same change on **WebVM2**.
 
@@ -597,18 +597,18 @@ In this task, you will deploy the resources used by the DR environment. First, y
     ```json
     {
         "PrimarySiteRG": "contoso.centralus",
-        "PrimarySiteSQLVM1Name": "SQLVM1",
-        "PrimarySiteSQLVM2Name": "SQLVM2",
-        "PrimarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM1\\DEFAULT\\AvailabilityGroups\\BCDRAOG",
-        "PrimarySiteVNetName": "VNet1",
+        "PrimarySiteSQLVM1Name": "ci-sql-1",
+        "PrimarySiteSQLVM2Name": "ci-sql-2",
+        "PrimarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM1\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
+        "PrimarySiteVNetName": "centralus",
         "PrimarySiteWebSubnetName": "Apps",
-        "PrimarySiteWebLBName": "ContosoWebLBPrimary",
+        "PrimarySiteWebLBName": "External-IIS-LB-Primary",
         "SecondarySiteRG": "contoso.eastus2",
-        "SecondarySiteSQLVMName": "SQLVM3",
-        "SecondarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM3\\DEFAULT\\AvailabilityGroups\\BCDRAOG",
-        "SecondarySiteVNetName": "VNet2",
+        "SecondarySiteSQLVMName": "ci-sql-3",
+        "SecondarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM3\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
+        "SecondarySiteVNetName": "eastus2",
         "SecondarySiteWebSubnetName": "Apps",
-        "SecondarySiteWebLBName": "ContosoWebLBSecondary"
+        "SecondarySiteWebLBName": "External-IIS-LB-Secondary"
     }
     ```
 
@@ -714,25 +714,25 @@ This task comprises the following steps:
 
 11. Return to your session with **SQLVM1**. Open **Microsoft SQL Server Management Studio 19** and connect to the local instance of SQL Server.
 
-12. Expand the **Always On High Availability** node. Under **Availability Group Listeners**, right-click on **BCDRAOG** and select **Properties**.
+12. Expand the **Always On High Availability** node. Under **Availability Group Listeners**, right-click on **sqlAlwaysOn** and select **Properties**.
 
-    ![On the BCDRAOG Listener context menu, 'Properties' is selected.](images/dr-sql-l1.png "Listener properties")
+    ![On the sqlAlwaysOn Listener context menu, 'Properties' is selected.](images/dr-sql-l1.png "Listener properties")
 
-13. On the BCDRAOG Listener properties dialog, select **Add**.
+13. On the sqlAlwaysOn Listener properties dialog, select **Add**.
 
-    ![On the BCDRAOG Listener properties dialog, 'Add' is selected.](images/dr-sql-l2.png "Listener - Add")
+    ![On the sqlAlwaysOn Listener properties dialog, 'Add' is selected.](images/dr-sql-l2.png "Listener - Add")
 
 14. On the Add IP Address dialog, check the subnet is **10.1.2.0** (this is the Data subnet in VNet2). Enter the IP address **10.1.2.100** (this is the frontend IP of the SQL load balancer in VNet2). Select **OK**.
 
-    ![On the BCDRAOG Listener Add IP Address dialog, the IP address is entered as specified.](images/dr-sql-l3.png "Listener - IP")
+    ![On the sqlAlwaysOn Listener Add IP Address dialog, the IP address is entered as specified.](images/dr-sql-l3.png "Listener - IP")
 
-15. Two IP addresses should be shown on the BCDRAOG Listener properties dialog. Select **OK** to close the dialog and commit the change.
+15. Two IP addresses should be shown on the sqlAlwaysOn Listener properties dialog. Select **OK** to close the dialog and commit the change.
 
-    ![On the BCDRAOG Listener properties dialog, two IP addresses are shown. 'OK' is selected.](images/dr-sql-l4.png "Listener - two IPs")
+    ![On the sqlAlwaysOn Listener properties dialog, two IP addresses are shown. 'OK' is selected.](images/dr-sql-l4.png "Listener - two IPs")
 
-16. Under **Availability Groups**, right-click on **BCDRAOG (Primary)** and select **Add Replica..** to open the Add Replica wizard.
+16. Under **Availability Groups**, right-click on **sqlAlwaysOn (Primary)** and select **Add Replica..** to open the Add Replica wizard.
 
-    ![In Object Explorer, under Always On High Availability, the BCDRAOG availability group is selected, and from its right-click menu, Add Replica is selected.](images/dr-sql-addreplica.png "SQL Server Management Studio - Add Replica")
+    ![In Object Explorer, under Always On High Availability, the sqlAlwaysOn availability group is selected, and from its right-click menu, Add Replica is selected.](images/dr-sql-addreplica.png "SQL Server Management Studio - Add Replica")
 
 17. Select **Next** on the wizard.
 
@@ -770,9 +770,9 @@ This task comprises the following steps:
 
     ![On the Results page, a message says the wizard has completed successfully, and the results for all steps are a success. The Close button is selected.](images/dr-sql-r8.png "Results page")
 
-26. Under Availability Groups, right-click **BCDRAOG (Primary)** and then select **Show Dashboard**. You should see that the **SQLVM3** node has been added and is synchronizing.
+26. Under Availability Groups, right-click **sqlAlwaysOn (Primary)** and then select **Show Dashboard**. You should see that the **SQLVM3** node has been added and is synchronizing.
 
-    ![Screenshot of the BCDRAOG Dashboard showing SQLVM3 synchronizing.](images/dr-sql-dash.png "BCDRAOG Dashboard")
+    ![Screenshot of the sqlAlwaysOn Dashboard showing SQLVM3 synchronizing.](images/dr-sql-dash.png "sqlAlwaysOn Dashboard")
 
 27. Move back to **PowerShell** on **SQLVM1**. Paste in the following script, and press **Return**. This script will update the Failover cluster with the new Listener IP address you created.
 
@@ -780,19 +780,19 @@ This task comprises the following steps:
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 2"
-    $IPResourceName = "BCDRAOG_10.1.2.100"
+    $IPResourceName = "sqlAlwaysOn_10.1.2.100"
     $ILBIP = "10.1.2.100"
     Import-Module FailoverClusters
     Get-ClusterResource $IPResourceName | Set-ClusterParameter -Multiple @{"Address"="$ILBIP";"ProbePort"="59999";"SubnetMask"="255.255.255.255";"Network"="$ClusterNetworkName";"EnableDhcp"=0}
     Stop-ClusterResource -Name $IPResourceName
-    Start-ClusterResource -Name "BCDRAOG"
+    Start-ClusterResource -Name "sqlAlwaysOn"
     ```
 
     ![In the Windows PowerShell window, the script from the lab guide has been executed.](images/dr-ise-listenerip.png "Windows PowerShell window")
 
-28. Move back to Failover Cluster Manager on **SQLVM1**, select **Roles**, then **BCDRAOG**. Notice how the **Resources** tab shows that the new IP address **10.1.2.100** has been added and is currently Offline.
+28. Move back to Failover Cluster Manager on **SQLVM1**, select **Roles**, then **sqlAlwaysOn**. Notice how the **Resources** tab shows that the new IP address **10.1.2.100** has been added and is currently Offline.
 
-    ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, BCDRAOG is selected, and the Resources tab is selected, displaying the offline IP address.](images/dr-fcm-role.png "Failover Cluster Manager")
+    ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, sqlAlwaysOn is selected, and the Resources tab is selected, displaying the offline IP address.](images/dr-fcm-role.png "Failover Cluster Manager")
 
 ### Task 4: Configure DR for the Web tier
 
@@ -1179,17 +1179,17 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 
     ![Azure portal screenshot showing the Backup 'Backup' settings for the SQL backup, with 'Add' highlighted.](images/bk-sql5.png "Add button")
 
-12. On the 'Select items to backup' blade, select the **\>** icon next to the `BCDRAOG\BCDRAOG` entry to show the databases. Note that the ContosoInsurance database is listed. Change the **AutoProtect** setting for BCDRAOG to **ON**, then select **OK**.
+12. On the 'Select items to backup' blade, select the **\>** icon next to the `sqlAlwaysOn\sqlAlwaysOn` entry to show the databases. Note that the ContosoInsurance database is listed. Change the **AutoProtect** setting for sqlAlwaysOn to **ON**, then select **OK**.
 
-    ![Azure portal screenshot showing available databases to backup. For the BCDRAOG Always On Availability Group, AutoProtect is set to 'ON'.](images/bk-sql6.png "Select items to backup")
+    ![Azure portal screenshot showing available databases to backup. For the sqlAlwaysOn Always On Availability Group, AutoProtect is set to 'ON'.](images/bk-sql6.png "Select items to backup")
 
     > **Note**: Using AutoProtect backups up the current database and any future databases on this Always On Availability Group.
     > 
     > **Note**: You may also want to backup system databases on each of the SQL Servers.
 
-13. On the 'Backup' blade, note that **BCDRAOG\BCDRAOG** is now listed for backup. Leave the policy as the default `HourlyLogBackup` policy. Select **Enable Backup** and wait for the deployment to complete.
+13. On the 'Backup' blade, note that **sqlAlwaysOn\sqlAlwaysOn** is now listed for backup. Leave the policy as the default `HourlyLogBackup` policy. Select **Enable Backup** and wait for the deployment to complete.
 
-    ![Azure portal screenshot showing the BCDRAOG database listed for backup and the HourlyLogBackup settings. The 'Enable Backup' button is highlighted.](images/bk-sql7.png "Enable Backup button")
+    ![Azure portal screenshot showing the sqlAlwaysOn database listed for backup and the HourlyLogBackup settings. The 'Enable Backup' button is highlighted.](images/bk-sql7.png "Enable Backup button")
 
 14. In the **BackupRSV** Recovery Service Vault, navigate to the **Backup Jobs** view. You should see a backup configuration job in progress for the ContosoInsurance database. (If this job does not show immediately, wait two or three minutes and select **Refresh**.)
 
@@ -1233,7 +1233,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 2. The Contoso application should load in your browser tab. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes to show that the database is writable.
 
-3. Open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
+3. Open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the sqlAlwaysOn availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica.
 
    ![SQL Server Management Studio screenshot showing SQLVM1 as the primary replica.](images/v-sql1.png "SQLVM1 as Primary")
 
@@ -1241,7 +1241,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 5. Refresh the browser tab with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
 
-6. Open an Azure Bastion session with **SQLVM2** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM2** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM2** as the primary replica, and there is a critical warning about **SQLVM1** not being available.
+6. Open an Azure Bastion session with **SQLVM2** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM2** using Windows Authentication. Locate the sqlAlwaysOn availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM2** as the primary replica, and there is a critical warning about **SQLVM1** not being available.
 
    ![SQL Server Management Studio screenshot showing SQLVM2 as the primary replica, with warnings.](images/v-sql2.png "SQLVM2 as Primary")
 
@@ -1249,7 +1249,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 8. Refresh the blade with the Contoso application. The application still works. Confirm again that the database is writable by changing one of the policies.
 
-9. Re-open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the BCDRAOG availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica, and there is a critical warning about **SQLVM2** not being available.
+9. Re-open an Azure Bastion session with **SQLVM1** (with username `adadmin@contoso.ins` and password `Demo!pass123`). Open **SQL Server Management Studio** and connect to **SQLVM1** using Windows Authentication. Locate the sqlAlwaysOn availability group, right-click and select **Show Dashboard**. Note that the dashboard shows **SQLVM1** as the primary replica, and there is a critical warning about **SQLVM2** not being available.
 
     ![SQL Server Management Studio screenshot showing SQLVM1 as the primary replica, with warnings.](images/v-sql1b.png "SQLVM1 as Primary")
 
@@ -1317,7 +1317,7 @@ In this task, you will validate the failover of the Contoso application from Cen
 
     ![The Contoso Insurance PolicyConnect webpage displays. The URL is from Azure Front Door.](images/dr-fd-app.png "Contoso Insurance PolicyConnect webpage")
 
-    > **Optional task**: You can log in to **SQLVM3** and open the SQL Management Studio to review the Failed over **BCDRAOG**. You will see that **SQLVM3**, which is running in the **Secondary** site, is now the Primary Replica.
+    > **Optional task**: You can log in to **SQLVM3** and open the SQL Management Studio to review the Failed over **sqlAlwaysOn**. You will see that **SQLVM3**, which is running in the **Secondary** site, is now the Primary Replica.
 
 15. Now that you have successfully tested failover, you need to configure ASR for failback. Move back to the **BCDRSRV** Recovery Service Vault using the Azure portal. Select **Recovery Plans** on the ASR dashboard. The **BCDRIaaSPlan** will show as **Failover completed.**
 
@@ -1375,15 +1375,15 @@ In this task, you will failback the Contoso application from the DR site in your
 
 9. Next, you need to reset the SQL Always On Availability Group environment to ensure a proper failover. Use Azure Bastion to connect to **SQLVM1** with username `adadmin@contoso.ins` and password `Demo!pass123`.
 
-10. Once connected to **SQLVM1**, open SQL Server Management Studio and Connect to **SQLVM1**. Expand the **Always On Availability Group**s and then right-click on **BCDRAOG** and select **Show Dashboard**.
+10. Once connected to **SQLVM1**, open SQL Server Management Studio and Connect to **SQLVM1**. Expand the **Always On Availability Group**s and then right-click on **sqlAlwaysOn** and select **Show Dashboard**.
 
 11. Notice that all the Replica partners are now Synchronous Commit with Automatic Failover Mode. You need to manually reset **SQLVM3** to be **Asynchronous** with **Manual Failover**.
 
     ![The Availability group dashboard displays with SQLVM3 and its properties called out.](images/image400.png "Availability group dashboard")
 
-12. Right-click the **BCDRAOG** and select **Properties**.
+12. Right-click the **sqlAlwaysOn** and select **Properties**.
 
-    ![In Object Explorer, the right-click menu for BCDRAOG displays with Properties selected.](images/image401.png "Object Explorer")
+    ![In Object Explorer, the right-click menu for sqlAlwaysOn displays with Properties selected.](images/image401.png "Object Explorer")
 
 13. Change **SQLVM3** to **Asynchronous** and **Manual Failover** and select **OK**.
 

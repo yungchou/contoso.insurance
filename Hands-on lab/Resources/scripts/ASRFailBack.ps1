@@ -4,7 +4,7 @@ Microsoft Cloud Workshop: BCDR
  - ASRFailback.ps1
 
 .What calls this script?
- - This script gets called by the BCDRAOG Runbook in Azure Automation
+ - This script gets called by the sqlAlwaysOn Runbook in Azure Automation
  - A Failover from the Secondary Site to the Primary Site using Azure Site Recovery
 
 .What does this script do?
@@ -13,5 +13,5 @@ Microsoft Cloud Workshop: BCDR
  
 #>
 Import-Module sqlps
-$AGPath = "SQLSERVER:\Sql\SQLVM1\DEFAULT\AvailabilityGroups\BCDRAOG"
+$AGPath = "SQLSERVER:\Sql\SQLVM1\DEFAULT\AvailabilityGroups\sqlAlwaysOn"
 Switch-SqlAvailabilityGroup -Path $AGPath

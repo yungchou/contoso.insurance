@@ -121,7 +121,7 @@
                 },
                 "parameters": {
                     "Environment": {
-                        "value": "Primary"
+                        "value": "[resourceGroup().location]"
                     },
                     "DataSubnetId": {
                         "value": "[variables('DataSubnetId')]"

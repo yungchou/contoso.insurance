@@ -242,7 +242,7 @@
                 },
                 "parameters": {
                     "Environment": {
-                        "value": "Secondary"
+                        "value": "variables('vnetNameSecondary'))]"
                     },
                     "DataSubnetId": {
                         "value": "[reference('VirtualNetworkSecondary').outputs.DataSubnetId.value]"
