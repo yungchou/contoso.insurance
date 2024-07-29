@@ -153,13 +153,13 @@
             "name": "[concat(variables('RuleName'),'1433')]",
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('InternalLoadBalancerName'), variables('FrontEndName'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('InternalLoadBalancerName'), concat('SQL-',variables('FrontEndName')))]"
               },
               "backendAddressPool": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('InternalLoadBalancerName'), variables('BackEndPoolName'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('InternalLoadBalancerName'), concat('SQL-',variables('BackEndPoolName')))]"
               },
               "probe": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('InternalLoadBalancerName'), variables('ProbeName'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('InternalLoadBalancerName'), concat(variables('ProbeName'),'59999'))]"
               },
               "protocol": "Tcp",
               "frontendPort": 1433,
