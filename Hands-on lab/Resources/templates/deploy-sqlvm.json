@@ -78,7 +78,7 @@
     "SQLScriptParameters": "[concat(' -user ', parameters('adminUsername'), ' -password ', parameters('adminPassword'),' -domain ', parameters('domainToJoin'),' -dbsource \"', parameters('SQLDownloadUrl'), '\" -scripturl \"', variables('SQLScriptUrl2'), '\"')]",
     "SQLImagePublisher": "MicrosoftSQLServer",
     "SQLImageOffer": "SQL2022-WS2022",
-    "SQLSKU": "SQLDEV",
+    "SQLSKU": "SQLDEV-GEN2",
     "SQLVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
     "SQLVMOSDiskName": "[concat(parameters('SQLVMName'), '-OSDisk')]",
     "SQLVMDataDiskName": "[concat(parameters('SQLVMName'), '-DataDisk1')]",
