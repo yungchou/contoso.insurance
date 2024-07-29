@@ -86,7 +86,7 @@
         ],
         "loadBalancingRules": [
           {
-            "name": "[concat(variables('RuleName'),'-80')]",
+            "name": "[concat(variables('RuleName'),'80')]",
             "properties": {
               "frontendIPConfiguration": {
                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('ExternalLoadBalancerName'), concat('IIS-',variables('FrontEndName')))]"
@@ -95,7 +95,7 @@
                 "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('ExternalLoadBalancerName'), concat('IIS-',variables('BackEndPoolName')))]"
               },
               "probe": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('ExternalLoadBalancerName'), concat(variables('ProbeName'),'-80'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('ExternalLoadBalancerName'), concat(variables('ProbeName'),'80'))]"
               },
               "protocol": "tcp",
               "frontendPort": 80,
@@ -107,7 +107,7 @@
         ],
         "probes": [
           {
-            "name": "[concat(variables('ProbeName'),'-80')]",
+            "name": "[concat(variables('ProbeName'),'80')]",
             "properties": {
               "protocol": "tcp",
               "port": 80,
@@ -150,7 +150,7 @@
         ],
         "loadBalancingRules": [
           {
-            "name": "[concat(variables('RuleName'),'-1433')]",
+            "name": "[concat(variables('RuleName'),'1433')]",
             "properties": {
               "frontendIPConfiguration": {
                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('InternalLoadBalancerName'), variables('FrontEndName'))]"
@@ -171,7 +171,7 @@
         ],
         "probes": [
           {
-            "name": "[concat(variables('ProbeName'),'-59999')]",
+            "name": "[concat(variables('ProbeName'),'59999')]",
             "properties": {
               "protocol": "Tcp",
               "port": 59999,
