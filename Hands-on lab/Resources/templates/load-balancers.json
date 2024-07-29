@@ -28,8 +28,8 @@
     }
   },
   "variables": {
-    "InternalLoadBalancerName": "[concat('Internal-SQL-LB', parameters('Environment'))]",
-    "ExternalLoadBalancerName": "[concat('External-IIS-LB', parameters('Environment'))]",
+    "InternalLoadBalancerName": "[concat('Internal-SQL-LB-', parameters('Environment'))]",
+    "ExternalLoadBalancerName": "[concat('External-IIS-LB-', parameters('Environment'))]",
     "FrontEndName": "Front-End",
     "RuleName": "Rule",
     "BackEndPoolName": "Back-End-Pool",
@@ -107,7 +107,7 @@
         ],
         "probes": [
           {
-            "name": "[concat(variables('HealthProbeName'),'-80')]",
+            "name": "[concat(variables('ProbeName'),'-80')]",
             "properties": {
               "protocol": "tcp",
               "port": 80,
@@ -171,7 +171,7 @@
         ],
         "probes": [
           {
-            "name": "[concat(variables('HealthProbeName'),'-59999')]",
+            "name": "[concat(variables('ProbeName'),'-59999')]",
             "properties": {
               "protocol": "Tcp",
               "port": 59999,
