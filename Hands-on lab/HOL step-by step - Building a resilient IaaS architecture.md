@@ -602,13 +602,13 @@ In this task, you will deploy the resources used by the DR environment. First, y
         "PrimarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM1\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
         "PrimarySiteVNetName": "centralus",
         "PrimarySiteWebSubnetName": "Apps",
-        "PrimarySiteWebLBName": "External-IIS-LB-Primary",
+        "PrimarySiteWebLBName": "External-IIS-LB-centralus",
         "SecondarySiteRG": "contoso.eastus2",
         "SecondarySiteSQLVMName": "ci-sql-3",
         "SecondarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM3\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
         "SecondarySiteVNetName": "eastus2",
         "SecondarySiteWebSubnetName": "Apps",
-        "SecondarySiteWebLBName": "External-IIS-LB-Secondary"
+        "SecondarySiteWebLBName": "External-IIS-LB-eastus2"
     }
     ```
 
