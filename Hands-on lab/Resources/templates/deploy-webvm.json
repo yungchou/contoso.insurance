@@ -65,7 +65,7 @@
     },
     "IpDomainNameLabel": {
       "type": "string",
-      "defaultValue": "[concat('contoso', take(newGuid(), 4))]",
+      "defaultValue": "[concat('contoso', take(newGuid(), 3))]",
       "metadata": {
         "description": "DNS label to use with public IP address"
       }
@@ -88,11 +88,11 @@
     "WebScriptDownload": "[concat('powershell -ExecutionPolicy Unrestricted \"[Net.ServicePointManager]::SecurityProtocol = ''Tls12''; Invoke-WebRequest -uri ', variables('WebScriptUrl') ,' -OutFile ', variables('WebScriptFileName'), ' \"')]",
     "WebVMImagePublisher": "MicrosoftWindowsServer",
     "WebVMImageOffer": "WindowsServer",
-    "WebSKU": "2019-Datacenter",
+    "WebSKU": "2022-Datacenter",
     "WebVMSize": "[concat('Standard_',parameters('skuSizeVM'))]",
-    "WebVMNicName": "[concat(parameters('WebVMName'), 'NIC')]",
-    "WebVMOSDiskName": "[concat(parameters('WebVMName'), 'OSDisk')]",
-    "WebVMIPName": "[concat(parameters('WebVMName'), 'IP')]",
+    "WebVMNicName": "[concat(parameters('WebVMName'), '-NIC')]",
+    "WebVMOSDiskName": "[concat(parameters('WebVMName'), '-OSDisk')]",
+    "WebVMIPName": "[concat(parameters('WebVMName'), '-IP')]",
     "DiskType": "Premium_LRS",
     "domainOUPath": "",
     "domainJoinOptions": 3

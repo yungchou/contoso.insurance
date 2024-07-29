@@ -81,7 +81,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "ADVMName": {
-                        "value": "ADVM2"
+                        "value": "ci-dc-2"
                     },
                     "AvailabilityZone": {
                         "value": "2"
@@ -181,7 +181,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "WebVMName": {
-                        "value": "WebVM2"
+                        "value": "ci-iis-2"
                     },
                     "AvailabilityZone": {
                         "value": "2"
@@ -199,7 +199,7 @@
                         "value": false
                     },
                     "SQLEndpoint": {
-                        "value": "SQLVM1"
+                        "value": "ci-sql-1"
                     },
                     "domainToJoin": {
                         "value": "[parameters('domainName')]"
@@ -230,7 +230,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "SqlVMName": {
-                        "value": "SQLVM2"
+                        "value": "ci-sql-2"
                     },
                     "AvailabilityZone": {
                         "value": "2"

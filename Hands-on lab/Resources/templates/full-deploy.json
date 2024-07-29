@@ -30,7 +30,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "linkedLabVM",
-            "resourceGroup":"LabRG",
+            "resourceGroup":"contoso.lab",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
