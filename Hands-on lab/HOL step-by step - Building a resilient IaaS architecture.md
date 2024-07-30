@@ -207,10 +207,10 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of the Windows PowerShell icon.](images/image71.png "Windows PowerShell icon")
 
-10. Copy and paste the following command into PowerShell and execute it. This will create the Windows Failover Cluster and add all the SQL VMs as nodes in the cluster. It will also assign a static IP address of **10.33.2.99** to the new Cluster named **AOGCLUSTER**.
+10. Copy and paste the following command into PowerShell and execute it. This will create the Windows Failover Cluster and add all the SQL VMs as nodes in the cluster. It will also assign a static IP address of **10.33.2.99** to the new Cluster named **sqlCluster**.
 
     ```PowerShell
-    New-Cluster -Name AOGCLUSTER -Node SQLVM1,SQLVM2 -StaticAddress 10.33.2.99
+    New-Cluster -Name sqlCluster -Node SQLVM1,SQLVM2 -StaticAddress 10.33.2.99
     ```
 
     ![In the PowerShell window, the command is shown after being successfully executed.](images/ha-createfailovercluster.png "PowerShell window")
@@ -233,7 +233,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In Failover Cluster Manager, Networks is selected in the tree view, and the network displays in the details pane.](images/ha-fcm-1network.png "Failover Cluster Manager")
 
-15. Right-click **AOGCLUSTER,** then select **More Actions**, **Configure Cluster Quorum Settings**.
+15. Right-click **sqlCluster,** then select **More Actions**, **Configure Cluster Quorum Settings**.
 
     ![In Failover Cluster Manager, a callout says to right-click the cluster name in the tree view, then select More Actions, and then select Configure Cluster Quorum Settings.](images/image159.png "Failover Cluster Manager")
 
@@ -686,7 +686,7 @@ This task comprises the following steps:
     Add-ClusterNode -Name SQLVM3
     ```
 
-5. Select **Start** and then **Windows Administrative Tools**. Locate and open the **Failover Cluster Manager**. Expand the **AOGCLUSTER** and select **Nodes**. Note that SQLVM3 is now included in the list, with the status **Up**.
+5. Select **Start** and then **Windows Administrative Tools**. Locate and open the **Failover Cluster Manager**. Expand the **sqlCluster** and select **Nodes**. Note that SQLVM3 is now included in the list, with the status **Up**.
 
     ![In Failover Cluster Manager, Nodes is selected in the tree view, and three nodes are displayed in the details pane.](images/dr-fcm-3nodes.png "Failover Cluster Manager")
 
