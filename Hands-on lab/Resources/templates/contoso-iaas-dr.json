@@ -44,7 +44,7 @@
         },
         "SecondaryRG": {
             "type": "string",
-            "defaultValue": "contoo.eastus2",
+            "defaultValue": "contoso.eastus2",
             "metadata": {
                 "description": "Resource group name of the secondary region (must already exist)"
             }

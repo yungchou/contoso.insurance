@@ -25,7 +25,7 @@
         },
         "PrimaryRG": {
             "type": "string",
-            "defaultValue": "contoo.eastus2",
+            "defaultValue": "contoso.eastus2",
             "metadata": {
                 "description": "Resource group name of the primary region (must already exist)"
             }
