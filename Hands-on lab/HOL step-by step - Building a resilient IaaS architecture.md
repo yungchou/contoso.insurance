@@ -497,7 +497,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
     ```PowerShell
     New-AzResourceGroup -Name 'contoso.eastus2' -Location 'East US 2'
 
-    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' `
+    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' -Verbose `
         -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
         -Location 'East US 2'
     ```
@@ -506,7 +506,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     ```powershell
     # Only run this command if the previous deployment failed with an error that size was not available
-    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' `
+    New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' -Verbose `
         -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
         -Location 'East US 2' -skuSizeVM 'D2as_v4'
     ```

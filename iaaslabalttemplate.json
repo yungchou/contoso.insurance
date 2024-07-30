@@ -25,14 +25,14 @@
         },
         "PrimaryRG": {
             "type": "string",
-            "defaultValue": "contoso.eastus2",
+            "defaultValue": "contoso.centralus",
             "metadata": {
                 "description": "Resource group name of the primary region (must already exist)"
             }
         },
         "SecondaryRG": {
             "type": "string",
-            "defaultValue": "ContosoRG3",
+            "defaultValue": "contoso.eastus2",
             "metadata": {
                 "description": "Resource group name of the secondary region (must already exist)"
             }
