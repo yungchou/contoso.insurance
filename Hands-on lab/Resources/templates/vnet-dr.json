@@ -20,15 +20,15 @@
     "NSGName": "Apps-NSG",
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-PIP')]",
-    "VNetPrefix": "10.66.0.0/16",
+    "VNetPrefix": "10.33.0.0/16",
     "AppsSubnetName": "Apps",
-    "AppsSubnetPrefix": "10.66.1.0/24",
+    "AppsSubnetPrefix": "10.33.1.0/24",
     "DataSubnetName": "Data",
-    "DataSubnetPrefix": "10.66.2.0/24",
+    "DataSubnetPrefix": "10.33.2.0/24",
     "ADSubnetName": "Identity",
-    "ADSubnetPrefix": "10.66.3.0/24",
+    "ADSubnetPrefix": "10.33.3.0/24",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "10.66.254.0/24"
+    "BastionSubnetPrefix": "10.33.254.0/24"
   },
   "resources": [
     {

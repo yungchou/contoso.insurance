@@ -142,9 +142,9 @@ In this task, you will reboot all the virtual machines to ensure they receive th
 
 When using a domain controller VM in Azure, other VMs in the virtual network must be configured to use the domain controller as their DNS server. This is achieved with the DNS settings in the virtual network. These settings are then picked up by the VMs when they reboot or renew their DHCP lease.
 
-The initial deployment included a first domain controller VM, **ADVM1**, with static private IP address **10.33.3.100**. The initial deployment also configured this IP address in the VNet DNS settings.
+The initial deployment included a first domain controller VM, **ADVM1**, with static private IP address **10.22.3.100**. The initial deployment also configured this IP address in the VNet DNS settings.
 
-The HA resources template has added a second domain controller, **ADVM2**.  The static private IP address should be **10.33.3.101**. This server has already been promoted to be a domain controller using a CustomScriptExtension (you can review this script if you like, you'll find it linked from the ADVM2 deployment template). The template also updated the DNS setting on the virtual network to include the IP address of the second domain controller.
+The HA resources template has added a second domain controller, **ADVM2**.  The static private IP address should be **10.22.3.101**. This server has already been promoted to be a domain controller using a CustomScriptExtension (you can review this script if you like, you'll find it linked from the ADVM2 deployment template). The template also updated the DNS setting on the virtual network to include the IP address of the second domain controller.
 
 In this task, you will reboot all the servers to ensure they have the latest DNS settings.
 
@@ -207,10 +207,10 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![Screenshot of the Windows PowerShell icon.](images/image71.png "Windows PowerShell icon")
 
-10. Copy and paste the following command into PowerShell and execute it. This will create the Windows Failover Cluster and add all the SQL VMs as nodes in the cluster. It will also assign a static IP address of **10.33.2.99** to the new Cluster named **sqlCluster**.
+10. Copy and paste the following command into PowerShell and execute it. This will create the Windows Failover Cluster and add all the SQL VMs as nodes in the cluster. It will also assign a static IP address of **10.22.2.99** to the new Cluster named **sqlCluster**.
 
     ```PowerShell
-    New-Cluster -Name sqlCluster -Node SQLVM1,SQLVM2 -StaticAddress 10.33.2.99
+    New-Cluster -Name sqlCluster -Node SQLVM1,SQLVM2 -StaticAddress 10.22.2.99
     ```
 
     ![In the PowerShell window, the command is shown after being successfully executed.](images/ha-createfailovercluster.png "PowerShell window")
@@ -343,7 +343,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![The Add button is selected beneath an empty subnet table.](images/image187.png "Add button")
 
-41. Select the Subnet of **10.33.2.0/24** and then add IPv4 **10.33.2.100** and select **OK**. This is the IP address of the Internal Load Balancer that is in front of the **SQLVM1** and **SQLVM2** in the **Data** subnet running in the **Primary** Site.
+41. Select the Subnet of **10.22.2.0/24** and then add IPv4 **10.22.2.100** and select **OK**. This is the IP address of the Internal Load Balancer that is in front of the **SQLVM1** and **SQLVM2** in the **Data** subnet running in the **Primary** Site.
 
     ![The Add IP Address dialog box fields are set to the previously defined settings.](images/image188.png "Add IP Address dialog box")
 
@@ -393,8 +393,8 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 1"
-    $IPResourceName = "sqlAlwaysOn_10.33.2.100"
-    $ILBIP = "10.33.2.100"
+    $IPResourceName = "sqlAlwaysOn_10.22.2.100"
+    $ILBIP = "10.22.2.100"
     Import-Module FailoverClusters
     Get-ClusterResource $IPResourceName | Set-ClusterParameter -Multiple @{"Address"="$ILBIP";"ProbePort"="59999";"SubnetMask"="255.255.255.255";"Network"="$ClusterNetworkName";"EnableDhcp"=0}
     Stop-ClusterResource -Name $IPResourceName
@@ -407,17 +407,17 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
     ![In Object Explorer, Connect / Database Engine is selected.](images/image200.png "Object Explorer")
 
-54. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.33.2.100**. You again will be able to connect to the server, which is up and running as the master. **Note**: The username for your lab should show **CONTOSO\adadmin**.
+54. This time, put the following into the IP address of the Internal Load balancer of the **Primary** Site AOG Load Balancer: **10.22.2.100**. You again will be able to connect to the server, which is up and running as the master. **Note**: The username for your lab should show **CONTOSO\adadmin**.
 
     ![Fields in the Connect to Server dialog box are set to the previously defined settings.](images/image205.png "Connect to Server dialog box")
 
-55. Once connected to **10.33.2.100**, you can select **Databases** and will be able to see the database there. Notice that you do not know directly which server this is running on.
+55. Once connected to **10.22.2.100**, you can select **Databases** and will be able to see the database there. Notice that you do not know directly which server this is running on.
 
     ![A callout points to the Databases folder in Object Explorer.](images/ha-ssms-ip.png "Object Explorer")
 
     > **Note**: It could take a minute to connect the first time as this goes through the Azure Internal Load Balancer.
 
-56. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting Roles and **sqlAlwaysOn** and viewing the Resources. Notice how the **10.33.2.100** is Online.
+56. Move back to Failover Cluster Manager on **SQLVM1**, and you can review the IP Addresses that were added by selecting Roles and **sqlAlwaysOn** and viewing the Resources. Notice how the **10.22.2.100** is Online.
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, sqlAlwaysOn is selected, and details of the role are displayed.](images/ha-fcm-aogrole.png "Failover Cluster Manager")
 
@@ -643,7 +643,7 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
     ![Azure portal showing the Contoso-IaaS-DR template, with the deployment sequence highlighted.](images/dr-ad.png "DR template")
 
-3. Navigate to the **contoso.westus3** resource group. Inspect network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.66.3.100** and **10.66.3.101**, respectively.
+3. Navigate to the **contoso.westus3** resource group. Inspect network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.33.3.100** and **10.33.3.101**, respectively.
 
     ![Network interface configuration showing a static private IP address for ADVM3.](images/dr-adip.png "Static IPs")
 
@@ -722,7 +722,7 @@ This task comprises the following steps:
 
     ![On the sqlAlwaysOn Listener properties dialog, 'Add' is selected.](images/dr-sql-l2.png "Listener - Add")
 
-14. On the Add IP Address dialog, check the subnet is **10.66.2.0** (this is the Data subnet in VNet2). Enter the IP address **10.66.2.100** (this is the frontend IP of the SQL load balancer in VNet2). Select **OK**.
+14. On the Add IP Address dialog, check the subnet is **10.33.2.0** (this is the Data subnet in VNet2). Enter the IP address **10.33.2.100** (this is the frontend IP of the SQL load balancer in VNet2). Select **OK**.
 
     ![On the sqlAlwaysOn Listener Add IP Address dialog, the IP address is entered as specified.](images/dr-sql-l3.png "Listener - IP")
 
@@ -780,8 +780,8 @@ This task comprises the following steps:
 
     ```Powershell
     $ClusterNetworkName = "Cluster Network 2"
-    $IPResourceName = "sqlAlwaysOn_10.66.2.100"
-    $ILBIP = "10.66.2.100"
+    $IPResourceName = "sqlAlwaysOn_10.33.2.100"
+    $ILBIP = "10.33.2.100"
     Import-Module FailoverClusters
     Get-ClusterResource $IPResourceName | Set-ClusterParameter -Multiple @{"Address"="$ILBIP";"ProbePort"="59999";"SubnetMask"="255.255.255.255";"Network"="$ClusterNetworkName";"EnableDhcp"=0}
     Stop-ClusterResource -Name $IPResourceName
@@ -790,7 +790,7 @@ This task comprises the following steps:
 
     ![In the Windows PowerShell window, the script from the lab guide has been executed.](images/dr-ise-listenerip.png "Windows PowerShell window")
 
-28. Move back to Failover Cluster Manager on **SQLVM1**, select **Roles**, then **sqlAlwaysOn**. Notice how the **Resources** tab shows that the new IP address **10.66.2.100** has been added and is currently Offline.
+28. Move back to Failover Cluster Manager on **SQLVM1**, select **Roles**, then **sqlAlwaysOn**. Notice how the **Resources** tab shows that the new IP address **10.33.2.100** has been added and is currently Offline.
 
     ![In the Failover Cluster Manager tree view, Roles is selected. Under Roles, sqlAlwaysOn is selected, and the Resources tab is selected, displaying the offline IP address.](images/dr-fcm-role.png "Failover Cluster Manager")
 
@@ -825,7 +825,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
    - **Target resource group**: contoso.westus3
    - **Failover virtual network**: VNet2
-   - **Failover subnet**: Apps (10.66.1.0/24)
+   - **Failover subnet**: Apps (10.33.1.0/24)
 
     Select **Next**.
 
