@@ -88,7 +88,7 @@ In this task, you will use an Azure Resource Manager template to deploy the Cont
 
     Select **Review + Create** and then **Create** to deploy the resources. It usually takes around 20 minutes to deploy the resources.
 
-    ![The custom deployment screen with contoso.westus2 as the resource group and East US 2 as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
+    ![The custom deployment screen with contoso.westus2 as the resource group and West US 3 as the region.](images/BeforeTheHOL/contoso-deploy1.png "Custom deployment")
 
 ### Task 3: Wait for deployments to complete, and validate
 

@@ -521,7 +521,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
    *Which secondary Azure region will you use?*
 
-   - The primary region chosen above was Central US (changed from West Central US to gain Availability Zone support). The secondary region should be the appropriate region pair, in this case East US 2.
+   - The primary region chosen above was Central US (changed from West Central US to gain Availability Zone support). The secondary region should be the appropriate region pair, in this case West US 3.
 
    *How will the DR be configured? Consider each component (web, database, AD, VPN)*.
 
@@ -709,11 +709,11 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 | Component     | Site          | Details / Assumptions                                           | Monthly Cost (USD) |
 |:--------------|:--------------|:--------------------------------------------------------------------------|---------:|
 | DC VMs        | Central US    | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM | $314.50  |
-| DC VMs        | East US 2     | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM | $289.67  |
+| DC VMs        | West US 3     | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM | $289.67  |
 | VPN Gateway   | Central US    | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 | $419.98  |
-| VPN Gateway   | East US 2     | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 | $419.98  |
+| VPN Gateway   | West US 3     | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 | $419.98  |
 | Log Analytics | Central US    | 3GB per VM, 180 day retention                                             | $  7.08  |
-| Log Analytics | East US 2   | 3GB per VM, 180 day retention                                             | $  7.08  |
+| Log Analytics | West US 3   | 3GB per VM, 180 day retention                                             | $  7.08  |
 | Alert Rules   | Central US    | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
 | Alert Rules   | East US  2  | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
 | **Total** | | | **$1,477.30** |
@@ -730,12 +730,12 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 | Alert Rules   | Central US    | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $ 11.50  |
 | VM Backup     | Central US    | 2x Web VMs, 80GB each, GRS, low churn, 30 daily/26 weekly/24 monthly/3 yearly RPs, steady state | $ 54.69 |
 | SQL Backup    | Central US    | 300 GB, GRS, high churn, 30 daily/6 weekly/12 monthly RPs, steady state | $695.28 |
-| ASR           | East US 2   | 2 instances                                                               | $ 50.00  |
-| SQL VMs (DR)  | East US 2    | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM      | $1,613.64 |
+| ASR           | West US 3   | 2 instances                                                               | $ 50.00  |
+| SQL VMs (DR)  | West US 3    | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM      | $1,613.64 |
 | Traffic Manager | Global      | 10M DNS queries, 2 endpoints                                              | $  6.12  |
-| VNet          | East US 2     | Global peering bandwidth for SQL replication to East US 2, 200GB          | $ 14.00  |
-| Log Analytics | East US 2   | 3GB per VM, 180 day retention                                             | $  7.08  |
-| Alert Rules   | East US 2   | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
+| VNet          | West US 3     | Global peering bandwidth for SQL replication to West US 3, 200GB          | $ 14.00  |
+| Log Analytics | West US 3   | 3GB per VM, 180 day retention                                             | $  7.08  |
+| Alert Rules   | West US 3   | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
 | **Total** | | | **$4,949.42** | 
 | | | | |
 
@@ -749,11 +749,11 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 | Component     | Site          | Details / Assumptions                                           | Monthly Cost (USD) |
 |:--------------|:--------------|:--------------------------------------------------------------------------|---------:|
 | Web App       | Central US    | 2 instances, S3 tier                                                      | $584.00  |
-| Web App (DR)  | East US 2     | As above                                                                  | $584.00  |
+| Web App (DR)  | West US 3     | As above                                                                  | $584.00  |
 | SQL Database  | Central US    | Single DB, General Purpose, 4 vCores, PAYG, 2 instances, 500GB. Backup: RA-GRS, 1TB point-in-time, 300GB average backup size, 26 weeks/12 months/3 years retention  | $1,719.54 |
-| SQL Database (DR)  | East US 2     | As above, no backup                                                | $1,530.25  |
+| SQL Database (DR)  | West US 3     | As above, no backup                                                | $1,530.25  |
 | Traffic Manager | Global      | 10M DNS queries, 2 endpoints                                              | $  6.12  |
-| VNet          | Central US    | Global peering bandwidth for SQL replication to East US 2, 200GB          | $ 14.00  |
+| VNet          | Central US    | Global peering bandwidth for SQL replication to West US 3, 200GB          | $ 14.00  |
 | Bandwidth     | Central US    | 500 GB                                                                    | $ 43.07  |
 | App Insights  | Central US    | 100GB/month, 5 multi-step web tests                                       | $312.20  |
 | Alert Rules   | Central US    | 20 metrics + 10 log signals x 5 minutes                                   | $ 17.00  |

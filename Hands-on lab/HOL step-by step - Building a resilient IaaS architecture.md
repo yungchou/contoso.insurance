@@ -74,7 +74,7 @@ Contoso has asked you to deploy their infrastructure in a resilient manner to en
 
 The following diagram shows the highly resilient application architecture you will build in this lab. Starting with just WebVM1, SQLVM1 and DCVM1, you will first build out a fully-redundant, high-availability environment in a primary region, the region you chose for the before the hands on lab deployment. You will then extend this environment to a disaster recovery site in a secondary region and add a backup solution for both the web tier and database tier.
 
-![Diagram showing the DR design for the Ordering application. Two sites, Central US and East US 2, each show the application footprint, each with web VMs, SQL VMs, and domain controller VMs separated into availability zones within each site. Failover for the web VMs is shown using Azure Site Recovery. Failover for the SQL VMs is shown via SQL Server asynchronous replication. The Domain Controller VMs are running active-active.](images/solution-dr2.png "Solution architecture")
+![Diagram showing the DR design for the Ordering application. Two sites, Central US and West US 3, each show the application footprint, each with web VMs, SQL VMs, and domain controller VMs separated into availability zones within each site. Failover for the web VMs is shown using Azure Site Recovery. Failover for the SQL VMs is shown via SQL Server asynchronous replication. The Domain Controller VMs are running active-active.](images/solution-dr2.png "Solution architecture")
 
 
 ## Requirements
@@ -495,11 +495,11 @@ In this task, you will deploy the resources used by the DR environment. First, y
     You can proceed to the following tasks while the template deployment is in progress.
 
     ```PowerShell
-    New-AzResourceGroup -Name 'contoso.westus3' -Location 'East US 2'
+    New-AzResourceGroup -Name 'contoso.westus3' -Location 'West US 3'
 
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' -Verbose `
         -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
-        -Location 'East US 2'
+        -Location 'West US 3'
     ```
 
     > **Note**: If your deployment fails with an error *`"The requested size for resource '<resourceID>' is currently not available"`*, add the parameter `-skuSizeVM 'D2as_v4'` to the end of the `New-AzSubscriptionDeployment` and rerun the command:
@@ -508,7 +508,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
     # Only run this command if the previous deployment failed with an error that size was not available
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR-SKU' -Verbose `
         -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
-        -Location 'East US 2' -skuSizeVM 'D2as_v4'
+        -Location 'West US 3' -skuSizeVM 'D2as_v4'
     ```
 
 3. Take a few minutes to review the template while it deploys. Navigate to the Azure portal home page, select **Subscriptions**, then **Deployments**  to review the template and deployment progress. Note that the template includes:
@@ -829,7 +829,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     Select **Next**.
 
-    ![In the Customize target settings blade, the Target location is set to East US 2, and the customize button is highlighted.](images/dr-asr-4.png "Configure settings blade")
+    ![In the Customize target settings blade, the Target location is set to West US 3, and the customize button is highlighted.](images/dr-asr-4.png "Configure settings blade")
 
 6. Under 'Extension settings', change the **Automation Account** to use your existing Automation Account. Select **Next**.
 
@@ -1144,7 +1144,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 
     ```PowerShell
     New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
-    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'East US 2' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'West US 3' -LicenseType PAYG
     ```
 
     > **Note**: This lab uses SQL Server under a 'Developer' tier license. When using SQL Server in production at the 'Standard' or 'Enterprise' tier, you can specify `DR` as the license type for failover servers (each full-price server includes a license for 1 DR server). The DR license type reduces your licensing cost significantly. Check the SQL Server licensing documentation for full details.
@@ -1257,7 +1257,7 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 ### Task 2: Validate Disaster Recovery - Failover IaaS region to region
 
-In this task, you will validate the failover of the Contoso application from Central US to East US 2. The failover is orchestrated by Azure Site Recovery using the recovery plan you configured earlier. It includes the failover of both the web tier (creating new Web VMs from the replicated data) and the SQL Server tier (failure to the SQLVM3 asynchronous replica). The failover process is fully automated, with custom steps implemented using Azure Automation runbooks triggered by the Recovery Plan.
+In this task, you will validate the failover of the Contoso application from Central US to West US 3. The failover is orchestrated by Azure Site Recovery using the recovery plan you configured earlier. It includes the failover of both the web tier (creating new Web VMs from the replicated data) and the SQL Server tier (failure to the SQLVM3 asynchronous replica). The failover process is fully automated, with custom steps implemented using Azure Automation runbooks triggered by the Recovery Plan.
 
 1. Using the Azure portal, open the **contoso.westus2** resource group. Navigate to the Front Door resource, locate Frontend Host URL, and open it in a new browser tab. Navigate to it to ensure that the application is up and running from the Primary Site.
 
@@ -1353,7 +1353,7 @@ In this task, you will failback the Contoso application from the DR site in your
 
 2. Select **Failover**. If there is a warning about No Test Failover, select **I understand the risk, Skip test failover**. Notice that **From** is the **Secondary** site and **To** is the **Primary** site. Select **OK**.
 
-    ![Screenshot of the Failover blade, from East US 2 to Central US.](images/v-dr17.png "Failover (failback)")
+    ![Screenshot of the Failover blade, from West US 3 to Central US.](images/v-dr17.png "Failover (failback)")
 
 3. After the Failover is initiated, close the blade and select **Site Recovery Jobs**, then select the **Failover** job to monitor the progress. Once the job has finished, it should show as successful for all tasks.
 
