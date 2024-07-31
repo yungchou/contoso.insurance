@@ -52,7 +52,7 @@
         }
     },
     "variables": {
-        "vnetName": "centralus",
+        "vnetName": "westus2",
         "AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Apps')]",
         "DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Data')]",
         "ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Identity')]"

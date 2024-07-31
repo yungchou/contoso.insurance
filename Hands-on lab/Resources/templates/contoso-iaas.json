@@ -45,7 +45,7 @@
         }
     },
     "variables": {
-        "vnetName": "centralus"
+        "vnetName": "westus2"
     },
     "resources": [
         {

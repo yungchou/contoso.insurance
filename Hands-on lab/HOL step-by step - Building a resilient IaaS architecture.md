@@ -113,14 +113,14 @@ A template will be used to save time. You will configure each tier in subsequent
 
 2. Complete the Custom deployment blade as follows:
 
-    - Resource Group: **contoso.centralus** (existing)
-    - Location: Auto selected based on the region for contoso.centralus
+    - Resource Group: **contoso.westus2** (existing)
+    - Location: Auto selected based on the region for contoso.westus2
 
     Select **Review + Create** and then **Create** to deploy resources.
 
-    ![The custom deployment screen with contoso.centralus as the resource group.](images/ha-deploy1.png "Custom deployment")
+    ![The custom deployment screen with contoso.westus2 as the resource group.](images/ha-deploy1.png "Custom deployment")
 
-3. While you wait for the HA resources to deploy, review the template contents. You can review the template by navigating to the **contoso.centralus** resource group, selecting **Deployments** in the resource group left-nav, and selecting any of the deployments, followed by **template**.
+3. While you wait for the HA resources to deploy, review the template contents. You can review the template by navigating to the **contoso.westus2** resource group, selecting **Deployments** in the resource group left-nav, and selecting any of the deployments, followed by **template**.
 
     ![Screenshot of the Azure portal showing the HA template contents.](images/ha-template.png "Screenshot of the Azure portal showing the HA template contents.")
 
@@ -132,7 +132,7 @@ A template will be used to save time. You will configure each tier in subsequent
     - Two load balancers, one for the web tier and one for the SQL tier.
     - The virtual network with the proper DNS configuration in place.
 
-4. You can check the HA resource deployment status by navigating to the **contoso.centralus** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the next task. This could take 30 minutes or so to complete.
+4. You can check the HA resource deployment status by navigating to the **contoso.westus2** resource group, selecting **Deployments** in the resource group left-nav, and checking the status of the deployments. Make sure the deployment status is **Succeeded** for all templates before proceeding to the next task. This could take 30 minutes or so to complete.
 
     ![Screenshot of the Azure portal showing the template deployment status 'Succeeded' for each template.](images/ha-success.png "Screenshot of the Azure portal showing the template deployment status Succeeded for each template")
 
@@ -148,7 +148,7 @@ The HA resources template has added a second domain controller, **ADVM2**.  The 
 
 In this task, you will reboot all the servers to ensure they have the latest DNS settings.
 
-1. Restart the **ADVM1** and **ADVM2** virtual machines in the **contoso.centralus** resource group, so they pick up the new DNS server settings.
+1. Restart the **ADVM1** and **ADVM2** virtual machines in the **contoso.westus2** resource group, so they pick up the new DNS server settings.
 
 2. Wait for a minute or two for the domain controller VMs to boot fully, then restart the **WebVM1**, **WebVM2**, **SQLVM1**, and **SQLVM2** virtual machines, so they also pick up the new DNS server settings.
 
@@ -160,7 +160,7 @@ In this task, you will build a Windows Failover Cluster and configure SQL Always
 
 2. Complete the **Create storage account** form using the following details:
 
-    - **Resource group**: Use existing / contoso.centralus
+    - **Resource group**: Use existing / contoso.westus2
     - **Storage account name**: Unique name starting with `contososqlwitness`
     - **Location**: Any location in your area that is **NOT** your Primary or Secondary site, for example **West US 3**.
     - **Performance**: Standard
@@ -446,7 +446,7 @@ In this task, you will configure a high-availability web tier. This comprises tw
 
     ![Azure portal showing the path to BackEndPool1 on ContosoWebLBPrimary.](images/ha-web-bepool.png "Backend pool select path")
 
-6. In the **BackendPool1** blade, select **VNet1 (contoso.centralus)** as the Virtual network. Then select **+ Add**.
+6. In the **BackendPool1** blade, select **VNet1 (contoso.westus2)** as the Virtual network. Then select **+ Add**.
 
     ![Azure portal showing adding vms to the backend pool.](images/ha-web-poolvms.png "Backend pool VMs")
 
@@ -484,7 +484,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     ![Screenshot of the Azure Cloud Shell with URL and PowerShell mode highlighted.](images/dr-cloudshell.png "Azure Cloud Shell")
 
-2. Update the **-Location** parameter in each of the commands below to be a different location than **contoso.centralus**. Execute the commands. These commands will create the DR resource group and deploy the DR resources. If you have multiple subscriptions, ensure you create the resources in the correct subscription using
+2. Update the **-Location** parameter in each of the commands below to be a different location than **contoso.westus2**. Execute the commands. These commands will create the DR resource group and deploy the DR resources. If you have multiple subscriptions, ensure you create the resources in the correct subscription using
 
     ```PowerShell
 
@@ -495,7 +495,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
     You can proceed to the following tasks while the template deployment is in progress.
 
     ```PowerShell
-    New-AzResourceGroup -Name 'contoso.eastus2' -Location 'East US 2'
+    New-AzResourceGroup -Name 'contoso.westus3' -Location 'East US 2'
 
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' -Verbose `
         -TemplateUri 'https://raw.githubusercontent.com/yungchou/contoso.insurance/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
@@ -525,9 +525,9 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
 5. Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
-    - **Resource Group**: contoso.eastus2
-    - **Name**: `RSV-eastus2`
-    - **Location**: *The same region you used for contoso.eastus2*
+    - **Resource Group**: contoso.westus3
+    - **Name**: `RSV-westus3`
+    - **Location**: *The same region you used for contoso.westus3*
 
     ![A screenshot of the Backup and Site Recovery Screen with the Create button selected.](images/dr-rsv.png "Backup and Site Recovery Screen Create Button")
 
@@ -551,7 +551,7 @@ In this task, you will deploy the resources used by the DR environment. First, y
 11. Complete the **Add Automation Account** blade using the following inputs and then select **Review + Create** followed by **Create**:
 
     - **Name**: Enter a Globally unique name starting with `BCDR`.
-    - **Resource group**: Use existing / **contoso.eastus2**
+    - **Resource group**: Use existing / **contoso.westus3**
     - **Location**: Any region that support automation **except for** your primary region.
 
     ![Fields in the Add Automation Account blade are set to the previously defined values.](images/dr-aa.png "Add Automation Account blade")
@@ -596,19 +596,19 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     ```json
     {
-        "PrimarySiteRG": "contoso.centralus",
+        "PrimarySiteRG": "contoso.westus2",
         "PrimarySiteSQLVM1Name": "ci-sql-1",
         "PrimarySiteSQLVM2Name": "ci-sql-2",
         "PrimarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM1\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
-        "PrimarySiteVNetName": "centralus",
+        "PrimarySiteVNetName": "westus2",
         "PrimarySiteWebSubnetName": "Apps",
-        "PrimarySiteWebLBName": "External-IIS-LB-centralus",
-        "SecondarySiteRG": "contoso.eastus2",
+        "PrimarySiteWebLBName": "External-IIS-LB-westus2",
+        "SecondarySiteRG": "contoso.westus3",
         "SecondarySiteSQLVMName": "ci-sql-3",
         "SecondarySiteSQLPath": "SQLSERVER:\\Sql\\SQLVM3\\DEFAULT\\AvailabilityGroups\\sqlAlwaysOn",
-        "SecondarySiteVNetName": "eastus2",
+        "SecondarySiteVNetName": "westus3",
         "SecondarySiteWebSubnetName": "Apps",
-        "SecondarySiteWebLBName": "External-IIS-LB-eastus2"
+        "SecondarySiteWebLBName": "External-IIS-LB-westus3"
     }
     ```
 
@@ -643,7 +643,7 @@ The configuration of these domain controllers is fully automatic. In this task, 
 
     ![Azure portal showing the Contoso-IaaS-DR template, with the deployment sequence highlighted.](images/dr-ad.png "DR template")
 
-3. Navigate to the **contoso.eastus2** resource group. Inspect network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.66.3.100** and **10.66.3.101**, respectively.
+3. Navigate to the **contoso.westus3** resource group. Inspect network interface (NIC) resources for the **ADVM3** and **ADVM4** VMs to confirm their network settings include the static private IP addresses **10.66.3.100** and **10.66.3.101**, respectively.
 
     ![Network interface configuration showing a static private IP address for ADVM3.](images/dr-adip.png "Static IPs")
 
@@ -668,7 +668,7 @@ This task comprises the following steps:
 - Add SQLVM3 as an asynchronous replica in the existing Always On Availability Group.
 - Update the failover cluster with the Listener IP address.
 
-1. Return to the Azure portal and navigate to the **ContosoSQLLBSecondary** load balancer in **contoso.eastus2**. Select **Backend pools** and open **BackEndPool1**. Note that the pool is connected to the **VNet2** virtual network. Select **+ Add**.
+1. Return to the Azure portal and navigate to the **ContosoSQLLBSecondary** load balancer in **contoso.westus3**. Select **Backend pools** and open **BackEndPool1**. Note that the pool is connected to the **VNet2** virtual network. Select **+ Add**.
 
     ![Azure portal showing where to select Add on the ContosoSQLLBSecondary load balancer backend pool to add a new VM.](images/ha-lb.png "Backend pool")
 
@@ -802,7 +802,7 @@ The DR solution for the web tier uses Azure Site Recovery to continually replica
 
 Custom scripts in Azure Automation are called by Azure Site recovery to add the recovered web VMs to the load balancer and failover the SQL Server.
 
-1. From the Azure portal, open the **BCDRRSV** Recovery Services Vault located in the **contoso.eastus2** resource group.
+1. From the Azure portal, open the **BCDRRSV** Recovery Services Vault located in the **contoso.westus3** resource group.
 
 2. Under **Getting Started**, select **Site Recovery**. Next, select **Step 1: Enable replication** in the **Azure virtual machines** section.
 
@@ -812,7 +812,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
     - **Source Location**: *Your primary region that contains WebVM1 and Web VM2*
     - **Azure virtual machine deployment model**: Resource Manager
-    - **Source resource group**: contoso.centralus
+    - **Source resource group**: contoso.westus2
     - **Disaster Recovery between Availability Zones?**: No (this option is for DR between availability zones *within* a region)
 
     ![In the Source blade, fields are set to the previously defined settings.](images/dr-asr-2.png "Source blade")
@@ -823,7 +823,7 @@ Custom scripts in Azure Automation are called by Azure Site recovery to add the 
 
 5. On the **Replication settings** tab, select the **Target location** as **your secondary site Azure region** (*Contains WebVM3*). Configure the rest of the fields with the following settings:
 
-   - **Target resource group**: contoso.eastus2
+   - **Target resource group**: contoso.westus3
    - **Failover virtual network**: VNet2
    - **Failover subnet**: Apps (10.66.1.0/24)
 
@@ -930,8 +930,8 @@ In this task, you will use the Front Door approach to configure a highly availab
 
 3. Complete the **Basics** tab of the **Create a Front Door** using the following inputs, then select **Next: Secrets >**.
 
-    - **Resource group**: Use existing / **contoso.centralus**
-    - **Location**: Automatically assigned based on the region of **contoso.centralus**.
+    - **Resource group**: Use existing / **contoso.westus2**
+    - **Location**: Automatically assigned based on the region of **contoso.westus2**.
     - **Profile name**: `ContosoFD1`
     - **Tier**: Standard
 
@@ -994,7 +994,7 @@ In this task, you will use the Front Door approach to configure a highly availab
 
     ![Create a front door profile screen completed and ready to create. Completed route and Review + Create are highlighted.](images/dr-fd-profile.png "Create a front door profile completed and ready to create")
 
-15. Once the Front Door deployment is complete, navigate to the Azure Front Door resource. Select the **Frontend host** URL of Azure Front Door, and the Policy Connect web application will load. The web application is routing through the **ContosoWebLBPrimary** External Load Balancer configured in front of **WEBVM1** and **WEBVM2** running in the **Primary** Site in **contoso.centralus** resource group and connecting to the SQL AlwaysOn Listener at the same location.
+15. Once the Front Door deployment is complete, navigate to the Azure Front Door resource. Select the **Frontend host** URL of Azure Front Door, and the Policy Connect web application will load. The web application is routing through the **ContosoWebLBPrimary** External Load Balancer configured in front of **WEBVM1** and **WEBVM2** running in the **Primary** Site in **contoso.westus2** resource group and connecting to the SQL AlwaysOn Listener at the same location.
 
     ![The Frontend host link is selected from the Azure Front Door.](images/dr-fd.png "Frontend host link")
 
@@ -1023,7 +1023,7 @@ Azure Backup and Azure Site Recovery are implemented using the same Azure resour
 
 2. Complete the **Recovery Services Vault** blade using the following inputs, then select **Review and Create**, followed by **Create**:
 
-    - **Resource Group**: contoso.centralus
+    - **Resource Group**: contoso.westus2
     - **Name**: `BackupRSV`
     - **Location**: *your primary region*
 
@@ -1133,7 +1133,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 3. Register **SQLVM1** with the resource provider by executing the following command in the Cloud Shell window. Ensure that **-Location** matches the location SQLVM1 is deployed.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.centralus' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
     ```
 
     ![Azure Cloud Shell screenshot showing the SQL Virtual Machine resource being created for SQLVM1.](images/bk-sql-rp2.png "Register resource provider")
@@ -1143,13 +1143,13 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 4. Register **SQLVM2** and **SQLVM3** with the resource provider using the following commands. Ensure you specify the correct locations.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.centralus' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
-    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.eastus2' -SqlManagementType Full -Location 'East US 2' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'East US 2' -LicenseType PAYG
     ```
 
     > **Note**: This lab uses SQL Server under a 'Developer' tier license. When using SQL Server in production at the 'Standard' or 'Enterprise' tier, you can specify `DR` as the license type for failover servers (each full-price server includes a license for 1 DR server). The DR license type reduces your licensing cost significantly. Check the SQL Server licensing documentation for full details.
 
-5. In the Azure portal, navigate to the **contoso.centralus** resource group. In addition to the SQLVM1 and SQLVM2 virtual machines, there are now parallel SQLVM1 and SQLVM2 resources of type 'SQL virtual machine' These additional resources provide additional management capabilities for SQL Server in Azure virtual machines.
+5. In the Azure portal, navigate to the **contoso.westus2** resource group. In addition to the SQLVM1 and SQLVM2 virtual machines, there are now parallel SQLVM1 and SQLVM2 resources of type 'SQL virtual machine' These additional resources provide additional management capabilities for SQL Server in Azure virtual machines.
 
     ![Azure portal screenshot showing the SQLVM1 and SQLVM2 SQL virtual machine resources.](images/bk-sql-rp3.png "SQL virtual machine resources")
 
@@ -1159,7 +1159,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 
     With the SQL virtual machine resources created and the SQL IaaS extension installed, you can now configure Azure Backup for virtual machines.
 
-7. In the Azure portal, navigate to the **BackupRSV** Recovery Services Vault resource in **contoso.centralus**. Under 'Getting started', select **Backup**. Under 'Where is your workload running?', select **Azure**. Under 'What do you want to backup?', select **SQL Server in Azure VM**. Then select **Start Discovery**.
+7. In the Azure portal, navigate to the **BackupRSV** Recovery Services Vault resource in **contoso.westus2**. Under 'Getting started', select **Backup**. Under 'Where is your workload running?', select **Azure**. Under 'What do you want to backup?', select **SQL Server in Azure VM**. Then select **Start Discovery**.
 
    ![Azure portal screenshot showing the Getting Started - Backup blade of the Azure Portal, with 'SQL Server in Azure VM' selected.](images/bk-sql1.png "Backup SQL Server in Azure VM")
 
@@ -1229,7 +1229,7 @@ This exercise will validate the high availability, disaster recovery, and backup
 
 In this task, we will validate high availability for both the Web and SQL tiers.
 
-1. In the Azure portal, open the **contoso.centralus** resource group. Select the public IP address for the web tier load-balancer, **ContosoWebLBPrimary**. Select the **Overview** tab, copy the DNS name to the clipboard, and navigate to it in a different browser tab.
+1. In the Azure portal, open the **contoso.westus2** resource group. Select the public IP address for the web tier load-balancer, **ContosoWebLBPrimary**. Select the **Overview** tab, copy the DNS name to the clipboard, and navigate to it in a different browser tab.
 
 2. The Contoso application should load in your browser tab. Select **Current Policy Offerings** to view the policy list - this shows the database is accessible. As an additional check, edit an existing policy and save your changes to show that the database is writable.
 
@@ -1259,13 +1259,13 @@ In this task, we will validate high availability for both the Web and SQL tiers.
 
 In this task, you will validate the failover of the Contoso application from Central US to East US 2. The failover is orchestrated by Azure Site Recovery using the recovery plan you configured earlier. It includes the failover of both the web tier (creating new Web VMs from the replicated data) and the SQL Server tier (failure to the SQLVM3 asynchronous replica). The failover process is fully automated, with custom steps implemented using Azure Automation runbooks triggered by the Recovery Plan.
 
-1. Using the Azure portal, open the **contoso.centralus** resource group. Navigate to the Front Door resource, locate Frontend Host URL, and open it in a new browser tab. Navigate to it to ensure that the application is up and running from the Primary Site.
+1. Using the Azure portal, open the **contoso.westus2** resource group. Navigate to the Front Door resource, locate Frontend Host URL, and open it in a new browser tab. Navigate to it to ensure that the application is up and running from the Primary Site.
 
     ![The Frontend host link is called out.](images/image318.png "Frontend host")
 
     Keep this browser tab open; you will return to it later in the lab.
 
-2. From a new browser tab, open the Azure portal, then navigate to the **BCDRRSV** Recovery Services Vault located in the **contoso.eastus2** resource group.
+2. From a new browser tab, open the Azure portal, then navigate to the **BCDRRSV** Recovery Services Vault located in the **contoso.westus3** resource group.
 
 3. Select **Recovery Plans (Site Recovery)** in the **Manage** area, then select **BCDRIaaSPlan**.
 
@@ -1299,7 +1299,7 @@ In this task, you will validate the failover of the Contoso application from Cen
 
     ![Under the Site Recovery Job, the status for the job steps all show as successful.](images/v-dr8.png "Job status")
 
-10. Select **Resource groups** and select **contoso.centralus**. Open **WebVM1** and notice that it currently shows as **Status: Stopped (deallocated).** This shows that failover automation has stopped the VMs at the **Primary** site.
+10. Select **Resource groups** and select **contoso.westus2**. Open **WebVM1** and notice that it currently shows as **Status: Stopped (deallocated).** This shows that failover automation has stopped the VMs at the **Primary** site.
 
     ![A call out points to the Status of Stopped (deallocated) in the Virtual machine blade. The VM location is Central US.](images/v-dr9.png "Virtual machine blade")
 
@@ -1307,11 +1307,11 @@ In this task, you will validate the failover of the Contoso application from Cen
 
 11. Move back to the Resource group and select the **ContosoWebLBPrimaryIP** Public IP address. Copy the DNS name and paste it into a new browser tab. The website will be unreachable at the Primary location since the Web VMs at this location have been stopped by ASR during failover.
 
-12. In the Azure portal, move to the **contoso.eastus2** resource group. Locate the **WebVM1** in the resource group and select to open. Notice that **WebVM1** is running on the **Secondary** site.
+12. In the Azure portal, move to the **contoso.westus3** resource group. Locate the **WebVM1** in the resource group and select to open. Notice that **WebVM1** is running on the **Secondary** site.
 
     ![In the Virtual Machine blade, a call out points to the status of WebVM1, which is now running.](images/v-dr10.png "Virtual Machine blade")
 
-13. Move back to the **contoso.eastus2** resource group and select the **ContosoWebLBSecondaryIP** Public IP address. Copy the DNS name and paste it into a new browser tab. The Contoso application is now responding from the **Secondary** site. Make sure to select the current Policy Offerings to ensure connectivity to the SQL Always-On group that was also failed over in the background.
+13. Move back to the **contoso.westus3** resource group and select the **ContosoWebLBSecondaryIP** Public IP address. Copy the DNS name and paste it into a new browser tab. The Contoso application is now responding from the **Secondary** site. Make sure to select the current Policy Offerings to ensure connectivity to the SQL Always-On group that was also failed over in the background.
 
 14. Return to the browser tab pointing to the Contoso application at the Front Door URL. Refresh the page. The site loads immediately from the DR site. Web site users accessing the service via Front Door are automatically routed to the currently available site, so there is no change in how they access the site even though it is failed over. There **will** be downtime as the failover happens, but once the site is back online, their experience will be no different from when it is running in the **Primary** site.
 
@@ -1407,7 +1407,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
     ![Windows Explorer is used to delete PNG files from the Contoso application.](images/v-bk-web1.png "Delete PNG files")
 
-4. In the Azure portal, locate the **ContosoWebLBPrimaryIP** public IP address in **contoso.centralus**. Copy the DNS name and open it in a new browser tab. Hold down `CTRL` and refresh the browser to reload the page without using your local browser cache. The Contoso application should be shown with images missing.
+4. In the Azure portal, locate the **ContosoWebLBPrimaryIP** public IP address in **contoso.westus2**. Copy the DNS name and open it in a new browser tab. Hold down `CTRL` and refresh the browser to reload the page without using your local browser cache. The Contoso application should be shown with images missing.
 
     ![Browser screenshot showing the Contoso application with missing images highlighted.](images/v-bk-web2.png "Contoso application with missing images")
 
@@ -1415,7 +1415,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
 6. Complete the 'Create storage account' form as follows, then select **Review** followed by **Create**.
 
-    - **Resource group:** contoso.centralus
+    - **Resource group:** contoso.westus2
     - **Storage account name:** Unique name starting with `backupstaging`.
     - **Location:** *your primary region*
     - **Performance:** Standard
@@ -1459,7 +1459,7 @@ In this task, you will validate the backup for the Contoso application WebVMs. Y
 
 In this task, you will validate the ability to restore the Contoso application database from Azure Backup.
 
-1. In the Azure portal, navigate to the **BackupRSV** in **contoso.centralus**. Under 'Protected items', select **Backup items**, then select **SQL in Azure VM**.
+1. In the Azure portal, navigate to the **BackupRSV** in **contoso.westus2**. Under 'Protected items', select **Backup items**, then select **SQL in Azure VM**.
 
     ![Screenshot showing the path to the SQL in Azure VMs in backup items in the Recovery Services Vault.](images/v-bk-sql1.png "Backup items")
 

@@ -25,22 +25,22 @@
         },
         "PrimaryRG": {
             "type": "string",
-            "defaultValue": "contoso.centralus",
+            "defaultValue": "contoso.westus2",
             "metadata": {
                 "description": "Resource group name of the primary region (must already exist)"
             }
         },
         "SecondaryRG": {
             "type": "string",
-            "defaultValue": "contoso.eastus2",
+            "defaultValue": "contoso.westus3",
             "metadata": {
                 "description": "Resource group name of the secondary region (must already exist)"
             }
         }
     },
     "variables": {
-        "vnetNamePrimary": "centralus",
-        "vnetNameSecondary": "eastus2",
+        "vnetNamePrimary": "westus2",
+        "vnetNameSecondary": "westus3",
         "baseUri": "https://cloudworkshop.blob.core.windows.net/building-resilient-iaas-architecture/lab-resources/june-2020-update/"
     },
     "resources": [
