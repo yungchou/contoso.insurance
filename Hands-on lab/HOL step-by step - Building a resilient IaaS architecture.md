@@ -1133,8 +1133,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 3. Register **SQLVM1** with the resource provider by executing the following command in the Cloud Shell window. Ensure that **-Location** matches the location SQLVM1 is deployed.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -LicenseType PAYG
-    ```
+    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -Verbose -LicenseType PAYG 
 
     ![Azure Cloud Shell screenshot showing the SQL Virtual Machine resource being created for SQLVM1.](images/bk-sql-rp2.png "Register resource provider")
 
@@ -1143,8 +1142,8 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 4. Register **SQLVM2** and **SQLVM3** with the resource provider using the following commands. Ensure you specify the correct locations.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -LicenseType PAYG
-    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'West US 3' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -Verbose -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'West US 3' -Verbose -LicenseType PAYG
     ```
 
     > **Note**: This lab uses SQL Server under a 'Developer' tier license. When using SQL Server in production at the 'Standard' or 'Enterprise' tier, you can specify `DR` as the license type for failover servers (each full-price server includes a license for 1 DR server). The DR license type reduces your licensing cost significantly. Check the SQL Server licensing documentation for full details.
