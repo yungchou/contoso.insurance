@@ -1133,7 +1133,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 3. Register **SQLVM1** with the resource provider by executing the following command in the Cloud Shell window. Ensure that **-Location** matches the location SQLVM1 is deployed.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -LicenseType PAYG
     ```
 
     ![Azure Cloud Shell screenshot showing the SQL Virtual Machine resource being created for SQLVM1.](images/bk-sql-rp2.png "Register resource provider")
@@ -1143,7 +1143,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 4. Register **SQLVM2** and **SQLVM3** with the resource provider using the following commands. Ensure you specify the correct locations.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'contoso.westus2' -SqlManagementType Full -Location 'West US 2' -LicenseType PAYG
     New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'contoso.westus3' -SqlManagementType Full -Location 'West US 3' -LicenseType PAYG
     ```
 
