@@ -42,10 +42,12 @@
         "resourceFolder": {
             "type": "string",
             "defaultValue": "master/Hands-on%20lab/Resources/"
-        }
+        },
+        "tag":{
+            "type": "string"
     },
     "variables": {
-        "vnetName": "westus2"
+        "vnetName": "[concat(resourceGroup().location,parameters('tag'))]"
     },
     "resources": [
         {
@@ -91,7 +93,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "ADVMName": {
-                        "value": "ci-dc-1"
+                        "value": "[concat('ci',parameters('tag'),'-dc1')]"
                     },
                     "AvailabilityZone": {
                         "value": "1"
@@ -100,7 +102,7 @@
                         "value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
                     },
                     "ADVMPrivateIPAddress": {
-                        "value": "10.22.3.100"
+                        "value": "[concat('10.',parameters('tag'),'.3.100')]"
                     },
                     "adminUserName": {
                         "value": "[parameters('adminUserName')]"
@@ -163,7 +165,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "WebVMName": {
-                        "value": "ci-iis-1"
+                        "value": "[concat('ci',parameters('tag'),'-iis1')]"
                     },
                     "AvailabilityZone": {
                         "value": "1"
@@ -181,7 +183,7 @@
                         "value": true
                     },
                     "SQLEndpoint": {
-                        "value": "ci-sql-1"
+                        "value": "[concat('ci',parameters('tag'),'-sql1')]"
                     },
                     "domainToJoin": {
                         "value": "[parameters('domainName')]"
@@ -231,7 +233,7 @@
                         "value": "[parameters('resourceFolder')]"
                     },
                     "SqlVMName": {
-                        "value": "ci-sql-1"
+                        "value": "[concat('ci',parameters('tag'),'-sql1')]"
                     },
                     "AvailabilityZone": {
                         "value": "1"
