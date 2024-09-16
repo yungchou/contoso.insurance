@@ -36,6 +36,9 @@
         "studentFilesDestination": {
             "defaultValue": "C:\\HOL",
             "type": "String"
+        },
+        "tag": {
+            "type": "string"
         }
     },
     "variables": {
@@ -48,18 +51,18 @@
         "imageOffer": "visualstudio2019latest",
         "imageSku": "vs-2022-comm-latest-ws2022",
         "imageVersion": "latest",
-        "OSDiskName": "LabVMOSDisk",
+        "OSDiskName": "[concat('LabVMOSDisk',parameters('tag'))]",
         "OSDiskType": "Premium_LRS",
-        "nicName": "LabVMNIC",
-        "addressPrefix": "10.255.33.0/16",
+        "nicName": "[concat('LabVMNIC',parameters('tag'))]",
+        "addressPrefix": "[concat('10.',parameters('tag'),'.33.0/16')]",
         "subnetName": "Subnet",
-        "subnetPrefix": "10.255.33.0/24",
-        "NSGName": "LabVMNSG",
-        "publicIPAddressName": "LabVMIP",
-        "publicIPAddressType": "Dynamic",
-        "vmName": "LabVM",
+        "subnetPrefix": "[concat('10.',parameters('tag'),'.33.0/24')]",
+        "NSGName": "[concat('LabVMNSG',parameters('tag'))]",
+        "publicIPAddressName": "[concat('LabVMPIP',parameters('tag'))]",
+        "publicIPAddressType": "static",
+        "vmName": "[concat('LabVM',parameters('tag'))]",
         "vmSize": "[concat('Standard_',parameters('skuSizeVM'))]",
-        "virtualNetworkName": "LabVMVNet"
+        "virtualNetworkName": "[concat('LabVMVNet',parameters('tag'))]"
     },
     "resources": [
         {
@@ -193,7 +196,17 @@
                     "bootDiagnostics": {
                         "enabled": false
                     }
-                }
+                },
+                "priority": "Spot",
+                "evictionPolicy": "Deallocate",
+                "billingProfile": {
+                  "capabilities": [
+                    {
+                      "name": "Spot",
+                      "value": "true"
+                    }
+                  ]
+                } 
             },
             "resources": [
                 {
