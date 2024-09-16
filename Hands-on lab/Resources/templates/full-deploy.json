@@ -20,7 +20,16 @@
             "minValue": 1,
             "maxValue": 3,
             "defaultValue": 1
+        },
+        "seed": {
+          "defaultValue": "[utcNow('yyyyMMddHHmmss')]",
+          "type": "string"
         }
+  },
+  "variables": {
+      "min": 229,
+      "max": 248,
+      "tag": "[add(variables('min'), mod(int(substring(parameters('seed'), 12, 2)), add(sub(variables('max'), variables('min')), 1)))]"
     },
     "variables": {
     },
@@ -30,7 +39,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "linkedLabVM",
-            "resourceGroup":"contoso.lab",
+            "resourceGroup":"[concat('contoso.lab',variables('tag'))]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -38,7 +47,8 @@
                     "contentVersion":"1.0.0.0"
                 },
                 "parameters": {
-                    "baseUri": {"value": "[parameters('baseUri')]"}
+                    "baseUri": {"value": "[parameters('baseUri')]"},
+                    "tag": "[variables('tag')]"
                 }
             },
             "dependsOn": [
@@ -57,7 +67,8 @@
                     "contentVersion":"1.0.0.0"
                 },
                 "parameters": {
-                    "baseUri": {"value": "[parameters('baseUri')]"}
+                    "baseUri": {"value": "[parameters('baseUri')]"},
+                    "tag": "[variables('tag')]"
                 }
             },
             "dependsOn": [
@@ -77,7 +88,8 @@
                     "contentVersion":"1.0.0.0"
                 },
                 "parameters": {
-                    "baseUri": {"value": "[parameters('baseUri')]"}
+                    "baseUri": {"value": "[parameters('baseUri')]"},
+                    "tag": "[variables('tag')]"
                 }
             },
             "dependsOn": [
