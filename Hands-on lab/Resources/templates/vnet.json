@@ -14,21 +14,23 @@
         "description": "Array of IP address of DNS server to configure in VNet settings. Defaults to Azure default DNS settings."
       },
       "defaultValue": []
-    }
+    },
+    "tag": {
+      "type": "string"
   },
   "variables": {
-    "NSGName": "Apps-NSG",
-    "NATName": "[concat(parameters('VNetName'), '-NAT')]",
-    "NATIPName": "[concat(variables('NATName'), '-PIP')]",
-    "VNetPrefix": "10.22.0.0/16",
+    "NSGName": "[concat('Apps-NSG',parameters('tag'))]",
+    "NATName": "[concat(parameters('VNetName'), '-NAT',parameters('tag'))]",
+    "NATIPName": "[concat(variables('NATName'), '-PIP',parameters('tag'))]",
+    "VNetPrefix": "[concat('10.',parameters('tag'),'.0.0/16')]",
     "AppsSubnetName": "Apps",
-    "AppsSubnetPrefix": "10.22.1.0/24",
+    "AppsSubnetPrefix": "[concat('10.',parameters('tag'),'.1.0/24')]",
     "DataSubnetName": "Data",
-    "DataSubnetPrefix": "10.22.2.0/24",
+    "DataSubnetPrefix": "[concat('10.',parameters('tag'),'.2.0/24')]",
     "ADSubnetName": "Identity",
-    "ADSubnetPrefix": "10.22.3.0/24",
+    "ADSubnetPrefix": "[concat('10.',parameters('tag'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "10.22.254.0/24"
+    "BastionSubnetPrefix": "[concat('10.',parameters('tag'),'.254.0/24')]"
   },
   "resources": [
     {
