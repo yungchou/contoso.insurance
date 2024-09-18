@@ -45,6 +45,7 @@
         },
         "tag":{
             "type": "string"
+        }
     },
     "variables": {
         "vnetName": "[concat(resourceGroup().location,parameters('tag'))]"
