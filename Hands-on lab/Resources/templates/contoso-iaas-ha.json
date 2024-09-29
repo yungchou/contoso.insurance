@@ -19,10 +19,7 @@
 		},
 		"VnetName": { 
 			"type": "string",  
-			"defaultValue": "[concat(resourceGroup().location,'-',parameters('sessionID'))]" ,
-			"metadata": {
-				"description": "Existing target vnet name"
-			}
+			"defaultValue": "Existing target vnet name" 
 		},
 		"domainName": {
 			"type": "string",
@@ -75,7 +72,7 @@
 			"type": "string",
 			"defaultValue": "[concat('10.',parameters('sessionID'),'.2.100')]",
 			"metadata": {
-				"description": "Existing DNS server in Virtual Network"
+				"description": "Private IP of the Internal LB for backend SQL cluster"
 			}
 		}
 	},
