@@ -159,7 +159,7 @@
 				},
 				"parameters": {
 					"VNetName": {
-						"value": "[variables('VnetName')]"
+						"value": "[variables('VNetName')]"
 					},
 					"DNSIPs": {
 						"value": [
