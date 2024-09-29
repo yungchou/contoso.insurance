@@ -144,9 +144,8 @@
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
-					"VNetName": {
-						"value": "[variables('vnetName')]"
-					},
+					"VNetName": { "value": "[variables('vnetName')]" },
+					"stub": { "value": "[parameters('sessionID')]"},
 					"DNSIPs": {
 						"value": [
 							"[reference('ADVM1').outputs.ADVM1PrivateIP.value]"
