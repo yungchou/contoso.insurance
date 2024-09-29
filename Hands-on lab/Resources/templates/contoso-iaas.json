@@ -126,6 +126,9 @@
 					},
 					"domainName": {
 						"value": "[parameters('domainName')]"
+					},
+					"newDomain": {
+						"value": true
 					}
 				}
 			}
