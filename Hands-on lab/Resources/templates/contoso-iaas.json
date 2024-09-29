@@ -291,7 +291,8 @@
 				"parameters": {
 					"BastionSubnetId": {
 						"value": "[reference('VirtualNetwork').outputs.BastionSubnetId.value]"
-					}
+					},
+					"stub": { "value": "[parameters('sessionID')]"}
 				}
 			}
 		}

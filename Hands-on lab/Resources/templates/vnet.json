@@ -8,9 +8,7 @@
         "description": "Name of the virtual network to create (or update)."
       }
     },
-    "stub": {
-      "type": "string"
-    },
+    "stub": { "type": "string" },
     "DNSIPs": {
       "type": "array",
       "metadata": {

@@ -7,16 +7,17 @@
       "metadata": {
         "description": "Id of the subnet to deploy the Bastion to"
       }
-    }
+    },
+    "stub": { "type": "string" }
   },
   "variables": {
-    "BastionName": "[concat(resourceGroup().location,'-Bastion')]",
+    "BastionName": "[concat(resourceGroup().location,'-Bastion',parameters('stub'))]",
     "BastionIPName": "[concat(variables('BastionName'),'-PIP')]"
   },
   "resources": [
     {
       "apiVersion": "2019-02-01",
-      "type": "Microsoft.Network/publicIpAddresses",
+      "type": "Microsoft.Network/publicIPAddresses",
       "name": "[variables('BastionIPName')]",
       "location": "[resourceGroup().location]",
       "sku": {
