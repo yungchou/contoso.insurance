@@ -17,7 +17,7 @@
 				"description": "between 0 and 255"
 			}
 		},
-		"VNetName": { 
+		"VnetName": { 
 			"type": "string",  
 			"defaultValue": "[concat(resourceGroup().location,'-',parameters('sessionID'))]" ,
 			"metadata": {
@@ -80,9 +80,9 @@
 		}
 	},
 	"variables": {
-		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Apps')]",
-		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Data')]",
-		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'Identity')]"
+		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Apps')]",
+		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Data')]",
+		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Identity')]"
 	},
 	"resources": [
 		{
@@ -177,7 +177,7 @@
 				},
 				"parameters": {
 					"VNetName": {
-						"value": "[parameters('VNetName')]"
+						"value": "[parameters('VnetName')]"
 					},
 					"DNSIPs": {
 						"value": [
