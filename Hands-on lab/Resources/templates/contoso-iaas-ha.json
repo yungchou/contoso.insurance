@@ -152,6 +152,7 @@
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
+					"stub": { "value": "[variables('sessionID')]",
 					"VNetName": {
 						"value": "[variables('VNetName')]"
 					},
