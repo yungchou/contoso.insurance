@@ -29,7 +29,7 @@
 			"defaultValue": "contoso.ins",
 			"metadata": {
 				"description": "The FQDN of the Active Directory Domain to be created"
-			},
+			}
 		},
 		"skuSizeVM": {
 			"defaultValue": "E2bds_v5",
