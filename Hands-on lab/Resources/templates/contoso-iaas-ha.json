@@ -55,13 +55,7 @@
 		"sessionID":"252",
 		"VNetName": "westus2-252",
 		"existingDNSServer": "[concat('10.', variables('sessionID'),'.3.100')]",
-		"SQLLBPrivateIPAddress" : {
-			"type": "string",
-			"defaultValue": "[concat('10.',variables('sessionID'),'.2.100')]",
-			"metadata": {
-				"description": "Private IP of the Internal LB for backend SQL cluster"
-			}
-		},
+		"SQLLBPrivateIPAddress" : "[concat('10.',variables('sessionID'),'.2.100')]",
 		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Apps')]",
 		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Data')]",
 		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Identity')]"
@@ -251,7 +245,7 @@
 						"value": "[parameters('zone')]"
 					},
 					"DataSubnetId": {
-						"value": "[reference('VirtualNetwork').outputs.DataSubnetId.value]"
+						"value": "[variables('DataSubnetId')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
