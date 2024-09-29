@@ -9,8 +9,7 @@
       }
     },
     "stub": {
-      "type": "string",
-      "default": "252"
+      "type": "string"
     },
     "DNSIPs": {
       "type": "array",
