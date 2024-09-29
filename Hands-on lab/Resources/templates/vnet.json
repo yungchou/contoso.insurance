@@ -22,7 +22,7 @@
   "variables": {
     "NSGName": "[concat('Apps-NSG',parameters('stub'))]",
     "NATName": "[concat(parameters('VNetName'), '-NAT',parameters('stub'))]",
-    "NATIPName": "[concat(variables('NATName'), '-PIP',parameters('stub'))]",
+    "NATIPName": "[concat(variables('NATName'), '-PIP')]",
     "VNetPrefix": "[concat('10.',parameters('stub'),'.0.0/16')]",
     "AppsSubnetName": "Apps",
     "AppsSubnetPrefix": "[concat('10.',parameters('stub'),'.1.0/24')]",

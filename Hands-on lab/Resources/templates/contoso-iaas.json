@@ -14,7 +14,7 @@
 			"type": "string",
 			"defaultValue": "252",
 			"metadata": {
-				"description": "The FQDN of the Active Directory Domain to be created"
+				"description": "between 0 and 255"
 			}
 		},
 		"domainName": {
