@@ -54,7 +54,7 @@
 	"variables": {
 		"sessionID":"252",
 		"VNetName": "[concat('westus2-',variables('sessionID')]",
-		"existingDNSServer": "concat('10.', variables('sessionID'),'.3.100')]",
+		"existingDNSServer": "[concat('10.', variables('sessionID'),'.3.100')]",
 		"SQLLBPrivateIPAddress" : {
 			"type": "string",
 			"defaultValue": "[concat('10.',variables('sessionID'),'.2.100')]",
