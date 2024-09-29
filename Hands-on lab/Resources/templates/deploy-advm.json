@@ -170,10 +170,10 @@
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('ADVMNicName'))]"
             }
-          ],
-          "priority": "[if(parameters('spotInstance'), 'Spot', 'Regular')]",
-          "evictionPolicy": "[if(parameters('spotInstance'), 'Deallocate', 'Delete')]"  
-        }
+          ]
+        },
+        "priority": "[if(parameters('spotInstance'), 'Spot', 'Regular')]",
+        "evictionPolicy": "[if(parameters('spotInstance'), 'Deallocate', 'Delete')]" 
       },
       "resources": [
         {
