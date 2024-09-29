@@ -2,6 +2,19 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "baseUri": {
+      "type": "string",
+      "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
+    },
+    "resourceFolder": {
+      "type": "string",
+      "defaultValue": "master/Hands-on%20lab/Resources/"
+    },
+    "SQLVMName": {
+      "type": "string",
+      "defaultValue": "SQLVM1",
+      "minLength": 1
+    },
     "skuSizeVM": {
       "defaultValue": "D2as_v5", 
       "type": "string",
@@ -13,11 +26,6 @@
         "D2s_v5", "E2as_v4", "E2as_v5",
         "DC2s_v3"
       ]
-    },
-    "SQLVMName": {
-      "type": "string",
-      "defaultValue": "SQLVM1",
-      "minLength": 1
     },
     "AvailabilityZone": {
       "type": "string",
@@ -58,14 +66,6 @@
       "metadata": {
         "description": "(Optional) URL for SQL database backup to be restored into the database"
       }
-    },
-    "resourceFolder": {
-      "type": "string",
-      "defaultValue": "master/Hands-on%20lab/Resources/"
-    },
-    "baseUri": {
-      "type": "string",
-      "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
     }
   },
   "variables": {

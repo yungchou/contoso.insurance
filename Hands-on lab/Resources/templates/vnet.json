@@ -15,22 +15,23 @@
       },
       "defaultValue": []
     },
-    "tag": {
+    "stub": {
       "type": "string"
+    }
   },
   "variables": {
-    "NSGName": "[concat('Apps-NSG',parameters('tag'))]",
-    "NATName": "[concat(parameters('VNetName'), '-NAT',parameters('tag'))]",
-    "NATIPName": "[concat(variables('NATName'), '-PIP',parameters('tag'))]",
-    "VNetPrefix": "[concat('10.',parameters('tag'),'.0.0/16')]",
+    "NSGName": "[concat('Apps-NSG',parameters('stub'))]",
+    "NATName": "[concat(parameters('VNetName'), '-NAT',parameters('stub'))]",
+    "NATIPName": "[concat(variables('NATName'), '-PIP',parameters('stub'))]",
+    "VNetPrefix": "[concat('10.',parameters('stub'),'.0.0/16')]",
     "AppsSubnetName": "Apps",
-    "AppsSubnetPrefix": "[concat('10.',parameters('tag'),'.1.0/24')]",
+    "AppsSubnetPrefix": "[concat('10.',parameters('stub'),'.1.0/24')]",
     "DataSubnetName": "Data",
-    "DataSubnetPrefix": "[concat('10.',parameters('tag'),'.2.0/24')]",
+    "DataSubnetPrefix": "[concat('10.',parameters('stub'),'.2.0/24')]",
     "ADSubnetName": "Identity",
-    "ADSubnetPrefix": "[concat('10.',parameters('tag'),'.3.0/24')]",
+    "ADSubnetPrefix": "[concat('10.',parameters('stub'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "[concat('10.',parameters('tag'),'.254.0/24')]"
+    "BastionSubnetPrefix": "[concat('10.',parameters('stub'),'.254.0/24')]"
   },
   "resources": [
     {
@@ -52,7 +53,7 @@
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "VirtualNetwork",
               "access": "Allow",
-              "priority": 100,
+              "priority": 250,
               "direction": "Inbound"
             }
           }
@@ -60,7 +61,7 @@
       }
     },
     {
-      "type": "Microsoft.Network/publicIpAddresses",
+      "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2019-02-01",
       "name": "[variables('NATIPName')]",
       "location": "[resourceGroup().location]",
@@ -98,7 +99,7 @@
       "name": "[parameters('VNetName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
-      "apiVersion": "2021-01-01",
+      "apiVersion": "2017-06-01",
       "dependsOn": [
         "[variables('NSGName')]",
         "[variables('NATName')]"

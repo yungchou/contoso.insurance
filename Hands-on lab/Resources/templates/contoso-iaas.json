@@ -1,283 +1,295 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "skuSizeVM": {
-            "defaultValue": "D2as_v5", 
-            "type": "string",
-            "metadata": {
-                "description": "Size of Virtual Machines to use"
-            },
-            "allowedValues": [
-                "D2as_v4", "D2as_v5",
-                "D2s_v5", "E2as_v4", "E2as_v5",
-                "DC2s_v3"
-            ]
-        },
-        "adminUsername": {
-            "type": "string",
-            "defaultValue": "adadmin",
-            "metadata": {
-                "description": "The name of the administrator account of the new VM and domain"
-            }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "defaultValue": "Demo!pass123",
-            "metadata": {
-                "description": "The password for the administrator account of the new VM and domain"
-            }
-        },
-        "domainName": {
-            "type": "string",
-            "defaultValue": "contoso.ins",
-            "metadata": {
-                "description": "The FQDN of the Active Directory Domain to be created"
-            }
-        },
-        "baseUri": {
-            "type": "string",
-            "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
-        },
-        "resourceFolder": {
-            "type": "string",
-            "defaultValue": "master/Hands-on%20lab/Resources/"
-        },
-        "tag":{
-            "type": "string"
-        }
-    },
-    "variables": {
-        "vnetName": "[concat(resourceGroup().location,parameters('tag'))]"
-    },
-    "resources": [
-        {
-            "name": "VirtualNetwork",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2016-09-01",
-            "dependsOn": [
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNetName": {
-                        "value": "[variables('vnetName')]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "ADVM1",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2016-09-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/VirtualNetwork"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-advm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "ADVMName": {
-                        "value": "[concat('ci',parameters('tag'),'-dc1')]"
-                    },
-                    "AvailabilityZone": {
-                        "value": "1"
-                    },
-                    "ADSubnetId": {
-                        "value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
-                    },
-                    "ADVMPrivateIPAddress": {
-                        "value": "[concat('10.',parameters('tag'),'.3.100')]"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "domainName": {
-                        "value": "[parameters('domainName')]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "VirtualNetworkWithDNS",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2016-09-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/ADVM1"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/vnet.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNetName": {
-                        "value": "[variables('vnetName')]"
-                    },
-                    "DNSIPs": {
-                        "value": [
-                            "[reference('ADVM1').outputs.ADVM1PrivateIP.value]"
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "name": "WebVM1",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2016-09-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/VirtualNetworkWithDNS"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-webvm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "WebVMName": {
-                        "value": "[concat('ci',parameters('tag'),'-iis1')]"
-                    },
-                    "AvailabilityZone": {
-                        "value": "1"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "AppsSubnetId": {
-                        "value": "[reference('VirtualNetwork').outputs.AppsSubnetId.value]"
-                    },
-                    "PublicIP": {
-                        "value": true
-                    },
-                    "SQLEndpoint": {
-                        "value": "[concat('ci',parameters('tag'),'-sql1')]"
-                    },
-                    "domainToJoin": {
-                        "value": "[parameters('domainName')]"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deploymentScripts",
-            "apiVersion": "2020-10-01",
-            "name": "waitForSQL",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/WebVM1"
-            ],
-            "kind": "AzurePowerShell",
-            "properties": {
-                "azPowerShellVersion": "6.4",
-                "scriptContent": "param([int]$waitInSeconds); Write-Output \"Holding for $waitInSeconds seconds to ensure AD start up complete...\"; Start-Sleep -Seconds $waitInSeconds; Write-Output 'Done.'",
-                "arguments": "[concat('-waitInSeconds', '900')]",
-                "timeout": "PT1H",
-                "cleanupPreference": "OnSuccess",
-                "retentionInterval": "P1D"
-            }
-        },
-        {
-            "name": "SQLVM1",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2016-09-01",
-            "dependsOn": [
-                "Microsoft.Resources/deploymentScripts/waitForSQL"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "SqlVMName": {
-                        "value": "[concat('ci',parameters('tag'),'-sql1')]"
-                    },
-                    "AvailabilityZone": {
-                        "value": "1"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "DataSubnetId": {
-                        "value": "[reference('VirtualNetwork').outputs.DataSubnetId.value]"
-                    },
-                    "domainToJoin": {
-                        "value": "[parameters('domainName')]"
-                    },
-                    "SQLDownloadUrl": {
-                        "value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "Bastion",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/VirtualNetworkWithDNS"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/bastion.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "BastionSubnetId": {
-                        "value": "[reference('VirtualNetwork').outputs.BastionSubnetId.value]"
-                    }
-                }
-            }
-        }
-    ],
-    "outputs": {
-    }
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"skuSizeVM": {
+			"defaultValue": "E2bds_v5",
+			"type": "string",
+			"metadata": {
+					"description": "Size of Virtual Machines to use"
+			},
+			"allowedValues": [ "D2s_v3", "D2s_v5", "E2ads_v5", "E2as_v5", "E2bds_v5", "E2bs_v5" ]
+		},
+		"zone": {
+			"defaultValue": "1",
+			"type": "string",
+			"allowedValues": ["1","2","3"]
+		},
+		"spotInstanceWhenAnOption": {
+			"type": "bool",
+			"defaultValue": true,
+			"metadata": { "description": "Set default to create a Spot VM when applicable and available."
+			}
+		},
+		"adminUsername": {
+				"type": "string",
+				"defaultValue": "adadmin",
+				"metadata": {
+					"description": "The name of the administrator account of the new VM and domain"
+				}
+		},
+		"adminPassword": {
+			"type": "securestring",
+			"defaultValue": "Demo!pass123",
+			"metadata": {
+				"description": "The password for the administrator account of the new VM and domain"
+			}
+		},
+		"domainName": {
+			"type": "string",
+			"defaultValue": "contoso.ins",
+			"metadata": {
+				"description": "The FQDN of the Active Directory Domain to be created"
+			}
+		},
+		"baseUri": {
+			"type": "string",
+			"defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
+		},
+		"resourceFolder": {
+			"type": "string",
+			"defaultValue": "master/Hands-on%20lab/Resources/"
+		},
+		"tag":{
+			"type": "string"
+		}
+	},
+	"variables": {
+		"vnetName": "[concat(resourceGroup().location,parameters('tag'))]"
+	},
+	"resources": [
+		{
+			"name": "VirtualNetwork",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2016-09-01",
+			"dependsOn": [
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNetName": { "value": "[variables('vnetName')]" },
+					"tag": { "value": "[parameters('tag')]"}
+				}
+			}
+		},
+		{
+			"name": "ADVM1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2016-09-01",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/VirtualNetwork"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-advm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"ADVMName": {
+						"value": "[concat('ci',parameters('tag'),'-dc',parameters('zone'))]"
+					},
+					"spotInstance": {
+						"value": "[parameters('spotInstanceWhenAnOption')]"	
+					},
+					"AvailabilityZone": {
+						"value": "[parameters('zone')]"
+					},
+					"ADSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
+					},
+					"ADVMPrivateIPAddress": {
+						"value": "[concat('10.',parameters('tag'),'.3.100')]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"domainName": {
+						"value": "[parameters('domainName')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "VirtualNetworkWithDNS",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2016-09-01",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/ADVM1"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/vnet.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNetName": {
+						"value": "[variables('vnetName')]"
+					},
+					"DNSIPs": {
+						"value": [
+							"[reference('ADVM1').outputs.ADVM1PrivateIP.value]"
+						]
+					}
+				}
+			}
+		},
+		{
+			"name": "WebVM1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2016-09-01",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/VirtualNetworkWithDNS"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-webvm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"WebVMName": {
+						"value": "[concat('ci',parameters('tag'),'-iis',parameters('zone'))]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"spotInstance": {
+						"value": "[parameters('spotInstanceWhenAnOption')]"	
+					},					
+					"AvailabilityZone": {
+						"value": "[parameters('zone')]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"AppsSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.AppsSubnetId.value]"
+					},
+					"PublicIP": {
+						"value": true
+					},
+					"SQLEndpoint": {
+						"value": "[concat('ci',parameters('tag'),'-sql'),parameters('zone'))]"
+					},
+					"domainToJoin": {
+						"value": "[parameters('domainName')]"
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Resources/deploymentScripts",
+			"apiVersion": "2020-10-01",
+			"name": "waitForSQL",
+			"location": "[resourceGroup().location]",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/WebVM1"
+			],
+			"kind": "AzurePowerShell",
+			"properties": {
+				"azPowerShellVersion": "6.4",
+				"scriptContent": "param([int]$waitInSeconds); Write-Output \"Holding for $waitInSeconds seconds to ensure AD start up complete...\"; Start-Sleep -Seconds $waitInSeconds; Write-Output 'Done.'",
+				"arguments": "[concat('-waitInSeconds', '900')]",
+				"timeout": "PT1H",
+				"cleanupPreference": "OnSuccess",
+				"retentionInterval": "P1D"
+			}
+		},
+		{
+			"name": "SQLVM1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2016-09-01",
+			"dependsOn": [
+				"Microsoft.Resources/deploymentScripts/waitForSQL"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"SqlVMName": {
+						"value": "[concat('ci',parameters('tag'),'-sql'),parameters('zone'))]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"AvailabilityZone": {
+						"value": "[parameters('zone')]"
+					},
+					"DataSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.DataSubnetId.value]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"domainToJoin": {
+						"value": "[parameters('domainName')]"
+					},
+					"SQLDownloadUrl": {
+						"value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "Bastion",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/VirtualNetworkWithDNS"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'templates/bastion.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"BastionSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.BastionSubnetId.value]"
+					}
+				}
+			}
+		}
+	],
+	"outputs": {
+	}
 }
