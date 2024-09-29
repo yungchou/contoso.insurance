@@ -73,7 +73,7 @@
 		},
 		"SQLLBPrivateIPAddress" : {
 			"type": "string",
-			"defaultValue": "[concat('10.',patameters('sessionID'),'.2.100')]",
+			"defaultValue": "[concat('10.',parameters('sessionID'),'.2.100')]",
 			"metadata": {
 				"description": "Existing DNS server in Virtual Network"
 			}
