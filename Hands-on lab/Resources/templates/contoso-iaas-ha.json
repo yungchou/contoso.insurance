@@ -49,19 +49,19 @@
 			"metadata": {
 				"description": "The password for the administrator account of the new VM and domain"
 			}
-		},
-		"SQLLBPrivateIPAddress" : {
-			"type": "string",
-			"defaultValue": "[concat('10.',parameters('sessionID'),'.2.100')]",
-			"metadata": {
-				"description": "Private IP of the Internal LB for backend SQL cluster"
-			}
 		}
 	},
 	"variables": {
 		"sessionID":"252",
 		"VNetName": "[concat(resourceGroup().location,'-',variables('sessionID')]",
 		"existingDNSServer": "concat('10.', variables('sessionID','.3.100')]",
+		"SQLLBPrivateIPAddress" : {
+			"type": "string",
+			"defaultValue": "[concat('10.',variables('sessionID'),'.2.100')]",
+			"metadata": {
+				"description": "Private IP of the Internal LB for backend SQL cluster"
+			}
+		},
 		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Apps')]",
 		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Data')]",
 		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Identity')]"
@@ -102,7 +102,7 @@
 						"value": "[variables('ADSubnetId')]"
 					},
 					"ADVMPrivateIPAddress": {
-						"value": "[concat('10.',parameters('sessionID'),'.3.101')]"
+						"value": "[concat('10.',variables('sessionID'),'.3.101')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
@@ -139,7 +139,7 @@
 						"value": "[variables('DataSubnetId')]"
 					},
 					"SQLLBPrivateIPAddress": {
-						"value": "[parameters('SQLLBPrivateIPAddress')]"
+						"value": "[variables('SQLLBPrivateIPAddress')]"
 					}
 				}
 			}
@@ -190,7 +190,7 @@
 						"value": "[parameters('resourceFolder')]"
 					},
 					"WebVMName": {
-						"value": "[concat('ci',parameters('sessionID'),'-iis',parameters('zone'))]"
+						"value": "[concat('ci',variables('sessionID'),'-iis',parameters('zone'))]"
 					},
 					"skuSizeVM": {
 						"value": "[parameters('skuSizeVM')]"
