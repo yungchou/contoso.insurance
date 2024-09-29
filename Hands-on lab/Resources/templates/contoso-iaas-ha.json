@@ -10,17 +10,6 @@
 			"type": "string",
 			"defaultValue": "master/Hands-on%20lab/Resources/"
 		},
-		"sessionID":{
-			"type": "string",
-			"defaultValue": "252",
-			"metadata": {
-				"description": "between 0 and 255"
-			}
-		},
-		"VnetName": { 
-			"type": "string",  
-			"defaultValue": "Existing target vnet name" 
-		},
 		"domainName": {
 			"type": "string",
 			"defaultValue": "contoso.ins",
@@ -61,13 +50,6 @@
 				"description": "The password for the administrator account of the new VM and domain"
 			}
 		},
-		"existingDNSServer": {
-			"type": "string",
-			"defaultValue": "specify dns ip address",
-			"metadata": {
-				"description": "Existing DNS server in Virtual Network"
-			}
-		},
 		"SQLLBPrivateIPAddress" : {
 			"type": "string",
 			"defaultValue": "[concat('10.',parameters('sessionID'),'.2.100')]",
@@ -77,9 +59,12 @@
 		}
 	},
 	"variables": {
-		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Apps')]",
-		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Data')]",
-		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VnetName'), 'Identity')]"
+		"sessionID":"252",
+		"VNetName": "[concat(resourceGroup().location,'-',variables('sessionID')]",
+		"existingDNSServer": "concat('10.', variables('sessionID','.3.100')]",
+		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Apps')]",
+		"DataSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Data')]",
+		"ADSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Identity')]"
 	},
 	"resources": [
 		{
@@ -105,7 +90,7 @@
 						"value": "[parameters('skuSizeVM')]"
 					},
 					"ADVMName": {
-						"value": "[concat('ci',parameters('sessionID'),'-dc',parameters('zone'))]"
+						"value": "[concat('ci',variables('sessionID'),'-dc',parameters('zone'))]"
 					},
 					"spotInstance": {
 						"value": "[parameters('spotInstanceWhenAnOption')]"	
@@ -117,7 +102,7 @@
 						"value": "[variables('ADSubnetId')]"
 					},
 					"ADVMPrivateIPAddress": {
-						"value": "10.22.3.101"
+						"value": "[concat('10.',parameters('sessionID'),'.3.101')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
@@ -174,11 +159,11 @@
 				},
 				"parameters": {
 					"VNetName": {
-						"value": "[parameters('VnetName')]"
+						"value": "[variables('VnetName')]"
 					},
 					"DNSIPs": {
 						"value": [
-							"[parameters('existingDNSServer')]",
+							"[variables('existingDNSServer')]",
 							"[reference('ADVM2').outputs.ADVM1PrivateIP.value]"
 						]
 					}
@@ -229,7 +214,7 @@
 						"value": false
 					},
 					"SQLEndpoint": {
-						"value": "[concat('ci',parameters('sessionID'),'-sql',parameters('zone'))]"
+						"value": "[concat('ci',variable('sessionID'),'-sql',parameters('zone'))]"
 					},
 					"domainToJoin": {
 						"value": "[parameters('domainName')]"
@@ -257,7 +242,7 @@
 						"value": "[parameters('resourceFolder')]"
 					},
 					"SqlVMName": {
-						"value": "[concat('ci',parameters('sessionID'),'-sql',parameters('zone'))]"
+						"value": "[concat('ci',variables('sessionID'),'-sql',parameters('zone'))]"
 					},
 					"skuSizeVM": {
 						"value": "[parameters('skuSizeVM')]"
