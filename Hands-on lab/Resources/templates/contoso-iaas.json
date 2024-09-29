@@ -196,7 +196,7 @@
 						"value": true
 					},
 					"SQLEndpoint": {
-						"value": "[concat('ci',parameters('tag'),'-sql'),parameters('zone'))]"
+						"value": "[concat('ci',parameters('tag'),'-sql',parameters('zone'))]"
 					},
 					"domainToJoin": {
 						"value": "[parameters('domainName')]"
@@ -243,7 +243,7 @@
 						"value": "[parameters('resourceFolder')]"
 					},
 					"SqlVMName": {
-						"value": "[concat('ci',parameters('tag'),'-sql'),parameters('zone'))]"
+						"value": "[concat('ci',parameters('tag'),'-sql',parameters('zone'))]"
 					},
 					"skuSizeVM": {
 						"value": "[parameters('skuSizeVM')]"
