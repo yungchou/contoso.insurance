@@ -10,16 +10,16 @@
 			"type": "string",
 			"defaultValue": "master/Hands-on%20lab/Resources/"
 		},
-		"domainName": {
+		"sessionID":{
 			"type": "string",
-			"defaultValue": "contoso.ins",
+			"defaultValue": "252",
 			"metadata": {
 				"description": "The FQDN of the Active Directory Domain to be created"
 			}
 		},
-		"sessionID":{
+		"domainName": {
 			"type": "string",
-			"defaultValue": "252",
+			"defaultValue": "contoso.ins",
 			"metadata": {
 				"description": "The FQDN of the Active Directory Domain to be created"
 			}
@@ -59,7 +59,7 @@
 		}
 	},
 	"variables": {
-		"vnetName": "[concat(resourceGroup().location,parameters('sessionID'))]"
+		"vnetName": "[concat(resourceGroup().location,'-',parameters('sessionID'))]"
 	},
 	"resources": [
 		{
@@ -204,6 +204,9 @@
 					},
 					"domainToJoin": {
 						"value": "[parameters('domainName')]"
+					},
+					"IpDomainNameLabel": {
+						"value": "[concat('ci',parameters('sessionID'))]"
 					}
 				}
 			}

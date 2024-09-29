@@ -2,6 +2,14 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "baseUri": {
+      "type": "string",
+      "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
+    },
+    "resourceFolder": {
+      "type": "string",
+      "defaultValue": "master/Hands-on%20lab/Resources/"
+    },
     "skuSizeVM": {
       "defaultValue": "D2as_v5", 
       "type": "string",
@@ -20,6 +28,12 @@
         "description": "The name of the domain controller VM to create"
       }
     },
+    "spotInstance": {
+			"type": "bool",
+			"defaultValue": true,
+			"metadata": { "description": "Set default to create a Spot VM when applicable and available."
+			}
+		},  
     "AvailabilityZone": {
       "type": "string",
       "metadata": {
@@ -65,14 +79,6 @@
       "metadata": {
         "description": "Use 'true' to create a new domain, 'false' to attach to existing domain"
       }
-    },
-    "resourceFolder": {
-      "type": "string",
-      "defaultValue": "master/Hands-on%20lab/Resources/"
-    },
-    "baseUri": {
-      "type": "string",
-      "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
     }
   },
   "variables": {
@@ -168,7 +174,9 @@
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('ADVMNicName'))]"
             }
-          ]
+          ],
+          "priority": "[if(parameters('spotInstance'), 'Spot', 'Regular')]",
+          "evictionPolicy": "[if(parameters('spotInstance'), 'Deallocate', 'Delete')]"  
         }
       },
       "resources": [
