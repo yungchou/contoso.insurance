@@ -2,6 +2,28 @@
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+		"baseUri": {
+			"type": "string",
+			"defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
+		},
+		"resourceFolder": {
+			"type": "string",
+			"defaultValue": "master/Hands-on%20lab/Resources/"
+		},
+		"domainName": {
+			"type": "string",
+			"defaultValue": "contoso.ins",
+			"metadata": {
+				"description": "The FQDN of the Active Directory Domain to be created"
+			}
+		},
+		"sessionID":{
+			"type": "string",
+			"defaultValue": "252",
+			"metadata": {
+				"description": "The FQDN of the Active Directory Domain to be created"
+			}
+		},
 		"skuSizeVM": {
 			"defaultValue": "E2bds_v5",
 			"type": "string",
@@ -10,16 +32,16 @@
 			},
 			"allowedValues": [ "D2s_v3", "D2s_v5", "E2ads_v5", "E2as_v5", "E2bds_v5", "E2bs_v5" ]
 		},
-		"zone": {
-			"defaultValue": "1",
-			"type": "string",
-			"allowedValues": ["1","2","3"]
-		},
 		"spotInstanceWhenAnOption": {
 			"type": "bool",
 			"defaultValue": true,
 			"metadata": { "description": "Set default to create a Spot VM when applicable and available."
 			}
+		},
+		"zone": {
+			"defaultValue": "1",
+			"type": "string",
+			"allowedValues": ["1","2","3"]
 		},
 		"adminUsername": {
 				"type": "string",
@@ -34,28 +56,10 @@
 			"metadata": {
 				"description": "The password for the administrator account of the new VM and domain"
 			}
-		},
-		"domainName": {
-			"type": "string",
-			"defaultValue": "contoso.ins",
-			"metadata": {
-				"description": "The FQDN of the Active Directory Domain to be created"
-			}
-		},
-		"baseUri": {
-			"type": "string",
-			"defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
-		},
-		"resourceFolder": {
-			"type": "string",
-			"defaultValue": "master/Hands-on%20lab/Resources/"
-		},
-		"tag":{
-			"type": "string"
 		}
 	},
 	"variables": {
-		"vnetName": "[concat(resourceGroup().location,parameters('tag'))]"
+		"vnetName": "[concat(resourceGroup().location,parameters('sessionID'))]"
 	},
 	"resources": [
 		{
@@ -72,7 +76,7 @@
 				},
 				"parameters": {
 					"VNetName": { "value": "[variables('vnetName')]" },
-					"tag": { "value": "[parameters('tag')]"}
+					"stub": { "value": "[parameters('sessionID')]"}
 				}
 			}
 		},
@@ -100,7 +104,7 @@
 						"value": "[parameters('skuSizeVM')]"
 					},
 					"ADVMName": {
-						"value": "[concat('ci',parameters('tag'),'-dc',parameters('zone'))]"
+						"value": "[concat('ci',parameters('sessionID'),'-dc',parameters('zone'))]"
 					},
 					"spotInstance": {
 						"value": "[parameters('spotInstanceWhenAnOption')]"	
@@ -112,7 +116,7 @@
 						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
 					},
 					"ADVMPrivateIPAddress": {
-						"value": "[concat('10.',parameters('tag'),'.3.100')]"
+						"value": "[concat('10.',parameters('sessionID'),'.3.100')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
@@ -172,7 +176,7 @@
 						"value": "[parameters('resourceFolder')]"
 					},
 					"WebVMName": {
-						"value": "[concat('ci',parameters('tag'),'-iis',parameters('zone'))]"
+						"value": "[concat('ci',parameters('sessionID'),'-iis',parameters('zone'))]"
 					},
 					"skuSizeVM": {
 						"value": "[parameters('skuSizeVM')]"
@@ -196,7 +200,7 @@
 						"value": true
 					},
 					"SQLEndpoint": {
-						"value": "[concat('ci',parameters('tag'),'-sql',parameters('zone'))]"
+						"value": "[concat('ci',parameters('sessionID'),'-sql',parameters('zone'))]"
 					},
 					"domainToJoin": {
 						"value": "[parameters('domainName')]"
@@ -243,7 +247,7 @@
 						"value": "[parameters('resourceFolder')]"
 					},
 					"SqlVMName": {
-						"value": "[concat('ci',parameters('tag'),'-sql',parameters('zone'))]"
+						"value": "[concat('ci',parameters('sessionID'),'-sql',parameters('zone'))]"
 					},
 					"skuSizeVM": {
 						"value": "[parameters('skuSizeVM')]"
