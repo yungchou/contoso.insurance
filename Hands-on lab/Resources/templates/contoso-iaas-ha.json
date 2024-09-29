@@ -53,7 +53,7 @@
 	},
 	"variables": {
 		"sessionID":"252",
-		"VNetName": "westus2-252",
+		"VNetName": "[concat(resourceGroup().location,'-',variables('sessionID'))]",
 		"existingDNSServer": "[concat('10.', variables('sessionID'),'.3.100')]",
 		"SQLLBPrivateIPAddress" : "[concat('10.',variables('sessionID'),'.2.100')]",
 		"AppsSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VNetName'), 'Apps')]",
