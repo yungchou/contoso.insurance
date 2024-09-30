@@ -163,7 +163,7 @@
                 "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('InternalLBName'), variables('InternalLBBackEndPoolName'))]"
               },
               "probe": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('InternalLoadBalancerName'), variables('Probe5999'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('InternalLBName'), variables('Probe5999'))]"
               },
               "protocol": "Tcp",
               "frontendPort": 1433,
