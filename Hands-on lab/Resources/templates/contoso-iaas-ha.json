@@ -127,14 +127,14 @@
 				},
 				"parameters": {
 					"Environment": {
-						"value": "[resourceGroup().location]"
+						"value": "Primary"
 					},
-					"DataSubnetId": {
-						"value": "[variables('DataSubnetId')]"
-					},
-					"SQLLBPrivateIPAddress": {
-						"value": "[variables('SQLLBPrivateIPAddress')]"
-					}
+				"DataSubnetId": {
+					"value": "[variables('DataSubnetId')]"
+				},
+				"SQLLBPrivateIPAddress": {
+					"value": "[variables('SQLLBPrivateIPAddress')]"
+				}
 				}
 			}
 		},
