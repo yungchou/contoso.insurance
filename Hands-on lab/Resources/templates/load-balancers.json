@@ -28,8 +28,8 @@
     }
   },
   "variables": {
-    "InternalLoadBalancerName": "[concat(parameters('Environment'),'InternalLB2SQL')]",
-    "ExternalLoadBalancerName": "[concat(parameters('Environment'),'ExternalLB2IIS')]",
+    "InternalLoadBalancerName": "[concat(parameters('Environment'),'InternalLB')]",
+    "ExternalLoadBalancerName": "[concat(parameters('Environment'),'ExternalLB')]",
     "FrontEndName": "FrontEnd",
     "RuleName": "Rule",
     "BackEndPoolName": "BackEndPool",
