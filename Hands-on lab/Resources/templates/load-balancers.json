@@ -28,18 +28,18 @@
     }
   },
   "variables": {
-    "InternalLBName": "[concat(parameters('Environment'),'InternalLB')]",
     "ExternalLBName": "[concat(parameters('Environment'),'ExternalLB')]",
     "ExternalLBFrontEndName": "ExternalLBFrontEnd",
-    "InternalLBFrontEndName": "InternalLBFrontEnd1",
+    "ExternalLBPIPDNSName": "[concat(parameters('WebLBDnsLabelPrefix'), take(uniqueString(resourceGroup().id), 3))]",
+    "ExternalLBPIPName": "[concat(variables('ExternalLBName'), 'PIP')]",
+    "ExternalLBBackEndPoolName": "ExternalLBBackEndPool",
+    "InternalLBName": "[concat(parameters('Environment'),'InternalLB')]",
+    "InternalLBFrontEndName": "InternalLBFrontEnd",
+    "InternalLBBackEndPoolName": "InternalLBBackEndPool",
     "Rule80": "Rule80",
     "Rule1433": "Rule1433",
-    "ExternalLBBackEndPoolName": "ExternalLBBackEndPool",
-    "InternalLBBackEndPoolName": "InternalLBBackEndPool",
     "Probe80": "Probe80",
-    "Probe59999": "Probe59999",
-    "ExternalLBPIPName": "[concat(variables('ExternalLBName'), 'PIP')]",
-    "ExternalLBPIPDNSName": "[concat(parameters('WebLBDnsLabelPrefix'), take(uniqueString(resourceGroup().id), 3))]"
+    "Probe59999": "Probe59999"
   },
   "resources": [
     {
