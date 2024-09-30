@@ -106,7 +106,7 @@
 				},
 				"parameters": {
 					"VNetName": { "value": "[parameters('secondaryVnet')]"},
-					"stub": { "value": "[parameters('seondaryVnetSessionID')]"}
+					"stub": { "value": "[parameters('sessionID')]"}
 				}
 			}
 		},
