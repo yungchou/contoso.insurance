@@ -75,7 +75,7 @@
       "properties": {
         "frontendIPConfigurations": [
           {
-            "name": "[variables('ExternalLBFrontEndName']",
+            "name": "[variables('ExternalLBFrontEndName')]",
             "properties": {
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('ExternalLBPIPName'))]"
