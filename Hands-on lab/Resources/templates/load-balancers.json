@@ -38,7 +38,7 @@
     "InternalLBBackEndPoolName": "InternalLBBackEndPool",
     "Probe80": "Probe80",
     "Probe59999": "Probe59999",
-    "ExternalLBPIPName": "[concat(variables('ExternalLoadBalancerName'), 'PIP')]",
+    "ExternalLBPIPName": "[concat(variables('ExternalLBName'), 'PIP')]",
     "ExternalLBPIPDNSName": "[concat(parameters('WebLBDnsLabelPrefix'), take(uniqueString(resourceGroup().id), 3))]"
   },
   "resources": [
