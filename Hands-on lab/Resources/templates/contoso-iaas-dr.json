@@ -1,365 +1,397 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/subscriptionDeploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "skuSizeVM": {
-            "defaultValue": "D2as_v5", 
-            "type": "string",
-            "metadata": {
-                "description": "Size of Virtual Machines to use"
-            },
-            "allowedValues": [
-                "D2as_v4", "D2as_v5",
-                "D2s_v5", "E2as_v4", "E2as_v5",
-                "DC2s_v3"
-            ]
-        },
-        "adminUsername": {
-            "type": "string",
-            "defaultValue": "adadmin",
-            "metadata": {
-                "description": "The name of the administrator account of the new VM and domain"
-            }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "defaultValue": "Demo!pass123",
-            "metadata": {
-                "description": "The password for the administrator account of the new VM and domain"
-            }
-        },
-        "domainName": {
-            "type": "string",
-            "defaultValue": "contoso.ins",
-            "metadata": {
-                "description": "The FQDN of the Active Directory Domain"
-            }
-        },
-        "PrimaryRG": {
-            "type": "string",
-            "defaultValue": "contoso.westus2",
-            "metadata": {
-                "description": "Resource group name of the primary region (must already exist)"
-            }
-        },
-        "SecondaryRG": {
-            "type": "string",
-            "defaultValue": "contoso.westus3",
-            "metadata": {
-                "description": "Resource group name of the secondary region (must already exist)"
-            }
-        },
-        "baseUri": {
-            "type": "string",
-            "defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
-        },
-        "resourceFolder": {
-            "type": "string",
-            "defaultValue": "master/Hands-on%20lab/Resources/"
-        }
-    },
-    "variables": {
-        "vnetNamePrimary": "westus2",
-        "vnetNameSecondary": "westus3"
-    },
-    "resources": [
-        {
-            "name": "VirtualNetworkSecondary",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNetName": {
-                        "value": "[variables('vnetNameSecondary')]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "Peering",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "dependsOn": [
-                "VirtualNetworkSecondary"
-            ],
-            "location": "[deployment().location]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/peering.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNet1Id": {
-                        "value": "[concat(subscription().Id, '/resourceGroups/', parameters('PrimaryRG'), '/providers/Microsoft.Network/virtualNetworks/', variables('vnetNamePrimary'))]"
-                    },
-                    "VNet2Id": {
-                        "value": "[concat(subscription().Id, '/resourceGroups/', parameters('SecondaryRG'), '/providers/Microsoft.Network/virtualNetworks/', variables('vnetNameSecondary'))]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "VirtualNetworkSecondaryWithPrimaryDNS",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "Peering"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNetName": {
-                        "value": "[variables('vnetNameSecondary')]"
-                    },
-                    "DNSIPs": {
-                        "value": [
-                            "10.22.3.100",
-                            "10.22.3.101"
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "name": "ADVM3",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "VirtualNetworkSecondaryWithPrimaryDNS"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "ADVMName": {
-                        "value": "ci-dc-3"
-                    },
-                    "AvailabilityZone": {
-                        "value": "1"
-                    },
-                    "ADSubnetId": {
-                        "value": "[reference('VirtualNetworkSecondary').outputs.ADSubnetId.value]"
-                    },
-                    "ADVMPrivateIPAddress": {
-                        "value": "10.33.3.100"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "domainName": {
-                        "value": "[parameters('domainName')]"
-                    },
-                    "newDomain": {
-                        "value": false
-                    }
-                }
-            }
-        },
-        {
-            "name": "ADVM4",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "VirtualNetworkSecondaryWithPrimaryDNS"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "ADVMName": {
-                        "value": "ci-dc-4"
-                    },
-                    "AvailabilityZone": {
-                        "value": "2"
-                    },
-                    "ADSubnetId": {
-                        "value": "[reference('VirtualNetworkSecondary').outputs.ADSubnetId.value]"
-                    },
-                    "ADVMPrivateIPAddress": {
-                        "value": "10.33.3.101"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "domainName": {
-                        "value": "[parameters('domainName')]"
-                    },
-                    "newDomain": {
-                        "value": false
-                    }
-                }
-            }
-        },
-        {
-            "name": "VirtualNetworkSecondaryWithSecondaryDNS",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "ADVM3",
-                "ADVM4"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "VNetName": {
-                        "value": "[variables('vnetNameSecondary')]"
-                    },
-                    "DNSIPs": {
-                        "value": [
-                            "10.33.3.100",
-                            "10.33.3.101"
-                        ]
-                    }
-                }
-            }
-        },
-        {
-            "name": "LoadBalancersSecondary",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/load-balancers.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "Environment": {
-                        "value": "[variables('vnetNameSecondary')]"
-                    },
-                    "DataSubnetId": {
-                        "value": "[reference('VirtualNetworkSecondary').outputs.DataSubnetId.value]"
-                    },
-                    "SQLLBPrivateIPAddress": {
-                        "value": "10.33.2.100"
-                    }
-                }
-            }
-        },
-        {
-            "name": "SQLVM3",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "VirtualNetworkSecondaryWithSecondaryDNS"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "skuSizeVM": {
-                        "value": "[parameters('skuSizeVM')]"
-                    },
-                    "baseUri": {
-                        "value": "[parameters('baseUri')]"
-                    },
-                    "resourceFolder": {
-                        "value": "[parameters('resourceFolder')]"
-                    },
-                    "SqlVMName": {
-                        "value": "ci-sql-3"
-                    },
-                    "AvailabilityZone": {
-                        "value": "1"
-                    },
-                    "adminUserName": {
-                        "value": "[parameters('adminUserName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "DataSubnetId": {
-                        "value": "[reference('VirtualNetworkSecondary').outputs.DataSubnetId.value]"
-                    },
-                    "domainToJoin": {
-                        "value": "[parameters('domainName')]"
-                    },
-                    "SQLDownloadUrl": {
-                        "value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
-                    }
-                }
-            }
-        },
-        {
-            "name": "Bastion",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            "resourceGroup": "[parameters('SecondaryRG')]",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/VirtualNetworkSecondary"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/bastion.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "BastionSubnetId": {
-                        "value": "[reference('VirtualNetworkSecondary').outputs.BastionSubnetId.value]"
-                    }
-                }
-            }
-        }
-    ],
-    "outputs": {
-    }
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/subscriptionDeploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"baseUri": {
+			"type": "string",
+			"defaultValue":"https://raw.githubusercontent.com/yungchou/contoso.insurance/"
+		},
+		"resourceFolder": {
+			"type": "string",
+			"defaultValue": "master/Hands-on%20lab/Resources/"
+		},
+		"PrimaryRG": {
+			"type": "string",
+			"defaultValue": "Resource group in the primary/source region",
+			"metadata": {
+				"description": "Resource group name of the primary/source region (must already exist)"
+			}
+		},
+		"primaryVnet": {
+			"type": "string",
+			"defaultValue": "Vnet in the primary/source region",
+			"metadata": {
+				"description": "Vnet name of the primary/source region (must already exist)"
+			}
+		},
+		"primaryVnetDNSIps":{
+			"type": "array",
+			"defaultValue": ["10.252.3.100", "10.252.3.101"],
+			"metadata": {
+				"description": "between 0 and 255 with no overlap with exiting vnet IP spaces"
+			}
+		},
+		"SecondaryRG": {
+			"type": "string",
+			"defaultValue": "Resource group in the secondary/DR retion",
+			"metadata": {
+				"description": "Resource group name of the secondary/DR region (must already exist)"
+			}
+		},
+		"secondaryVnet": {
+			"type": "string",
+			"defaultValue": "Vnet in the secondary/DR region",
+			"metadata": {
+				"description": "Vnet name of the secondary/DR region (to be created)"
+			}
+		},
+		"sessionID":{
+			"type": "string",
+			"defaultValue": "253",
+			"metadata": {
+				"description": "between 0 and 255 with no overlap with exiting vnet IP spaces"
+			}
+		},
+		"domainName": {
+			"type": "string",
+			"defaultValue": "contoso.ins",
+			"metadata": {
+				"description": "The FQDN of the Active Directory Domain to be created"
+			}
+		},
+		"skuSizeVM": {
+			"defaultValue": "E2bds_v5",
+			"type": "string",
+			"metadata": {
+					"description": "Size of Virtual Machines to use"
+			},
+			"allowedValues": [ "D2s_v3", "D2s_v5", "E2ads_v5", "E2as_v5", "E2bds_v5", "E2bs_v5" ]
+		},
+		"spotInstanceWhenAnOption": {
+			"type": "bool",
+			"defaultValue": true,
+			"metadata": { "description": "Set default to create a Spot VM when applicable and available."
+			}
+		},
+		"adminUsername": {
+				"type": "string",
+				"defaultValue": "adadmin",
+				"metadata": {
+					"description": "The name of the administrator account of the new VM and domain"
+				}
+		},
+		"adminPassword": {
+			"type": "securestring",
+			"defaultValue": "Demo!pass123",
+			"metadata": {
+				"description": "The password for the administrator account of the new VM and domain"
+			}
+		}
+	},
+	"variables": {
+	},
+	"resources": [
+		{
+			"name": "VirtualNetworkSecondary",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNetName": { "value": "[parameters('secondaryVnet')]"},
+					"stub": { "value": "[parameters('seondaryVnetSessionID')]"}
+				}
+			}
+		},
+		{
+			"name": "Peering",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"dependsOn": [
+				"VirtualNetworkSecondary"
+			],
+			"location": "[deployment().location]",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/peering.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNet1Id": {
+						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('PrimaryRG'), '/providers/Microsoft.Network/virtualNetworks/', parameters('primaryVnet'))]"
+					},
+					"VNet2Id": {
+						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('SecondaryRG'), '/providers/Microsoft.Network/virtualNetworks/', parameters('secondaryVnet'))]"
+					}
+				}
+			}
+		},
+		{
+			"name": "VirtualNetworkSecondaryWithPrimaryDNS",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"Peering"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNetName": {
+						"value": "[parameters('secondaryVnet')]"
+					},
+					"DNSIPs": {
+						"value": "[parameters('primaryVnetDNSIps')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "ADVM3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"VirtualNetworkSecondaryWithPrimaryDNS"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"ADVMName": {
+						"value": "[concat('ci',parameters('sessionID'),'-dc3')]"
+					},
+					"spotInstance": {
+						"value": "[parameters('spotInstanceWhenAnOption')]"	
+					},
+					"AvailabilityZone": {
+						"value": "1"
+					},
+					"ADSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
+					},
+					"ADVMPrivateIPAddress": {
+						"value": "[concat('10.',parameters('sessionID'),'.3.100')]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"domainName": {
+						"value": "[parameters('domainName')]"
+					},
+					"newDomain": {
+						"value": true
+					}
+				}
+			}
+		},
+		{
+			"name": "ADVM4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"VirtualNetworkSecondaryWithPrimaryDNS"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-advm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"ADVMName": {
+						"value": "[concat('ci',parameters('sessionID'),'-dc4')]"
+					},
+					"spotInstance": {
+						"value": "[parameters('spotInstanceWhenAnOption')]"	
+					},
+					"AvailabilityZone": {
+						"value": "2"
+					},
+					"ADSubnetId": {
+						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
+					},
+					"ADVMPrivateIPAddress": {
+						"value": "[concat('10.',parameters('sessionID'),'.3.101')]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"domainName": {
+						"value": "[parameters('domainName')]"
+					},
+					"newDomain": {
+						"value": true
+					}
+				}
+			}
+		},
+		{
+			"name": "VirtualNetworkSecondaryWithSecondaryDNS",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"ADVM3",
+				"ADVM4"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/vnet-dr.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"VNetName": {
+						"value": "[parameters('secondaryVnet')]"
+					},
+					"DNSIPs": {
+						"value": [
+							"[reference('ADVM3').outputs.ADVM3PrivateIP.value]",
+							"[reference('ADVM4').outputs.ADVM4PrivateIP.value]"
+						]
+					}
+				}
+			}
+		},
+		{
+			"name": "LoadBalancersSecondary",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/load-balancers.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"Environment": {
+						"value": "[parameters('secondaryVnet')]"
+					},
+					"DataSubnetId": {
+						"value": "[reference('VirtualNetworkSecondary').outputs.DataSubnetId.value]"
+					},
+					"SQLLBPrivateIPAddress": {
+						"value": "[concat('10.',variables('sessionID'),'.2.100')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "SQLVM3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"VirtualNetworkSecondaryWithSecondaryDNS"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/deploy-sqlvm.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"baseUri": {
+						"value": "[parameters('baseUri')]"
+					},
+					"resourceFolder": {
+						"value": "[parameters('resourceFolder')]"
+					},
+					"SqlVMName": {
+						"value": "[concat('ci',variables('sessionID'),'-sql3')]"
+					},
+					"skuSizeVM": {
+						"value": "[parameters('skuSizeVM')]"
+					},
+					"AvailabilityZone": {
+						"value": "1"
+					},
+					"DataSubnetId": {
+						"value": "[variables('DataSubnetId')]"
+					},
+					"adminUserName": {
+						"value": "[parameters('adminUserName')]"
+					},
+					"adminPassword": {
+						"value": "[parameters('adminPassword')]"
+					},
+					"domainToJoin": {
+						"value": "[parameters('domainName')]"
+					},
+					"SQLDownloadUrl": {
+						"value": "[concat(parameters('baseUri'),parameters('resourceFolder'), 'application/ContosoInsurance.bak')]"
+					}
+				}
+			}
+		},
+		{
+			"name": "Bastion",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2019-10-01",
+			"resourceGroup": "[parameters('SecondaryRG')]",
+			"dependsOn": [
+				"Microsoft.Resources/deployments/VirtualNetworkSecondary"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('baseUri'), parameters('resourceFolder'), 'templates/bastion.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"BastionSubnetId": {
+						"value": "[reference('VirtualNetworkSecondary').outputs.BastionSubnetId.value]",
+						"stub": { "value": "[parameters('sessionID')]"}
+
+					}
+				}
+			}
+		}
+	],
+	"outputs": {
+	}
 }

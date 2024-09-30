@@ -8,6 +8,7 @@
         "description": "Name of the virtual network to create (or update)."
       }
     },
+    "stub": { "type": "string" },
     "DNSIPs": {
       "type": "array",
       "metadata": {
@@ -17,18 +18,18 @@
     }
   },
   "variables": {
-    "NSGName": "Apps-NSG",
+    "NSGName": "[concat('AppsNSG',parameters('stub'))]",
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-PIP')]",
-    "VNetPrefix": "10.33.0.0/16",
+    "VNetPrefix": "[concat('10.',parameters('stub'),'.0.0/16')]",
     "AppsSubnetName": "Apps",
-    "AppsSubnetPrefix": "10.33.1.0/24",
+    "AppsSubnetPrefix": "[concat('10.',parameters('stub'),'.1.0/24')]",
     "DataSubnetName": "Data",
-    "DataSubnetPrefix": "10.33.2.0/24",
+    "DataSubnetPrefix": "[concat('10.',parameters('stub'),'.2.0/24')]",
     "ADSubnetName": "Identity",
-    "ADSubnetPrefix": "10.33.3.0/24",
+    "ADSubnetPrefix": "[concat('10.',parameters('stub'),'.3.0/24')]",
     "BastionSubnetName": "AzureBastionSubnet",
-    "BastionSubnetPrefix": "10.33.254.0/24"
+    "BastionSubnetPrefix": "[concat('10.',parameters('stub'),'.254.0/24')]"
   },
   "resources": [
     {
@@ -47,7 +48,7 @@
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "VirtualNetwork",
               "access": "Allow",
-              "priority": 100,
+              "priority": 300,
               "direction": "Inbound"
             }
           }
@@ -55,7 +56,7 @@
       }
     },
     {
-      "type": "Microsoft.Network/publicIpAddresses",
+      "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2019-02-01",
       "name": "[variables('NATIPName')]",
       "location": "[resourceGroup().location]",
