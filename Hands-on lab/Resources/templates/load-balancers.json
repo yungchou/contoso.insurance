@@ -28,13 +28,13 @@
     }
   },
   "variables": {
-    "InternalLoadBalancerName": "[concat(parameters('Environment'),'-InternalLB2SQL')]",
-    "ExternalLoadBalancerName": "[concat(parameters('Environment'),'-ExternalLB2IIS')]",
+    "InternalLoadBalancerName": "[concat(parameters('Environment'),'InternalLB2SQL')]",
+    "ExternalLoadBalancerName": "[concat(parameters('Environment'),'ExternalLB2IIS')]",
     "FrontEndName": "FrontEnd",
     "RuleName": "Rule",
     "BackEndPoolName": "BackEndPool",
     "ProbeName": "Probe",
-    "ExternalLoadBalancerPublicIPName": "[concat(variables('ExternalLoadBalancerName'), '-PIP')]",
+    "ExternalLoadBalancerPublicIPName": "[concat(variables('ExternalLoadBalancerName'), 'PIP')]",
     "ExternalLoadBalancerPublicIPDNSName": "[concat(parameters('WebLBDnsLabelPrefix'), take(uniqueString(resourceGroup().id), 3))]"
   },
   "resources": [
@@ -81,7 +81,7 @@
         ],
         "backendAddressPools": [
           {
-            "name": "[concat(variables('BackEndPoolName'),'-IIS')]"
+            "name": "[variables('BackEndPoolName')]"
           }
         ],
         "loadBalancingRules": [
@@ -89,10 +89,10 @@
             "name": "[concat(variables('RuleName'),'80')]",
             "properties": {
               "frontendIPConfiguration": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('ExternalLoadBalancerName'), concat(variables('FrontEndName'),'-PIP'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('ExternalLoadBalancerName'), variables('FrontEndName'))]"
               },
               "backendAddressPool": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('ExternalLoadBalancerName'), concat(variables('BackEndPoolName'),'-IIS'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('ExternalLoadBalancerName'), variables('BackEndPoolName'))]"
               },
               "probe": {
                 "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('ExternalLoadBalancerName'), concat(variables('ProbeName'),'80'))]"
@@ -156,7 +156,7 @@
                 "id": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', variables('InternalLoadBalancerName'), variables('FrontEndName'))]"
               },
               "backendAddressPool": {
-                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('InternalLoadBalancerName'), concat(variables('BackEndPoolName'),'-SQL'))]"
+                "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', variables('InternalLoadBalancerName'), variables('BackEndPoolName'))]"
               },
               "probe": {
                 "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('InternalLoadBalancerName'), concat(variables('ProbeName'),'59999'))]"
