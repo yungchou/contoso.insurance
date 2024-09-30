@@ -71,7 +71,7 @@
       "properties": {
         "frontendIPConfigurations": [
           {
-            "name": "IIS-Front-End",
+            "name": "Front-End",
             "properties": {
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('ExternalLoadBalancerPublicIPName'))]"
@@ -81,7 +81,7 @@
         ],
         "backendAddressPools": [
           {
-            "name": "[concat('IIS-',variables('BackEndPoolName'))]"
+            "name": "[concat(variables('BackEndPoolName'),'-IIS')]"
           }
         ],
         "loadBalancingRules": [
@@ -97,7 +97,7 @@
               "probe": {
                 "id": "[resourceId('Microsoft.Network/loadBalancers/probes', variables('ExternalLoadBalancerName'), concat(variables('ProbeName'),'80'))]"
               },
-              "protocol": "tcp",
+              "protocol": "Tcp",
               "frontendPort": 80,
               "backendPort": 80,
               "enableFloatingIP": false,
@@ -109,7 +109,7 @@
           {
             "name": "[concat(variables('ProbeName'),'80')]",
             "properties": {
-              "protocol": "tcp",
+              "protocol": "Tcp",
               "port": 80,
               "intervalInSeconds": 5,
               "numberOfProbes": 2
@@ -133,7 +133,7 @@
       "properties": {
         "frontendIPConfigurations": [
           {
-            "name": "[concat('SQL-',variables('FrontEndName'))]",
+            "name": "[concat(variables('FrontEndName'))]",
             "properties": {
               "subnet": {
                 "id": "[parameters('DataSubnetId')]"
@@ -145,7 +145,7 @@
         ],
         "backendAddressPools": [
           {
-            "name": "[concat('SQL-',variables('BackEndPoolName'))]"
+            "name": "[concat(variables('BackEndPoolName'),'-SQL')]"
           }
         ],
         "loadBalancingRules": [

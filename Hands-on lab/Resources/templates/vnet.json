@@ -18,7 +18,7 @@
     }
   },
   "variables": {
-    "NSGName": "[concat('Apps-NSG',parameters('stub'))]",
+    "NSGName": "[concat('AppsNSG',parameters('stub'))]",
     "NATName": "[concat(parameters('VNetName'), '-NAT')]",
     "NATIPName": "[concat(variables('NATName'), '-PIP')]",
     "VNetPrefix": "[concat('10.',parameters('stub'),'.0.0/16')]",
