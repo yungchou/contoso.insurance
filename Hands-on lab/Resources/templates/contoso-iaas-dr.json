@@ -12,23 +12,9 @@
 		},
 		"PrimaryRG": {
 			"type": "string",
-			"defaultValue": "Resource group in the primary/source region",
+			"defaultValue": "ci-westus3",
 			"metadata": {
 				"description": "Resource group name of the primary/source region (must already exist)"
-			}
-		},
-		"primaryVnet": {
-			"type": "string",
-			"defaultValue": "Vnet in the primary/source region",
-			"metadata": {
-				"description": "Vnet name of the primary/source region (must already exist)"
-			}
-		},
-		"primaryVnetDNSIps":{
-			"type": "array",
-			"defaultValue": ["10.252.3.100", "10.252.3.101"],
-			"metadata": {
-				"description": "between 0 and 255 with no overlap with exiting vnet IP spaces"
 			}
 		},
 		"SecondaryRG": {
@@ -36,20 +22,6 @@
 			"defaultValue": "Resource group in the secondary/DR retion",
 			"metadata": {
 				"description": "Resource group name of the secondary/DR region (must already exist)"
-			}
-		},
-		"secondaryVnet": {
-			"type": "string",
-			"defaultValue": "Vnet in the secondary/DR region",
-			"metadata": {
-				"description": "Vnet name of the secondary/DR region (to be created)"
-			}
-		},
-		"sessionID":{
-			"type": "string",
-			"defaultValue": "253",
-			"metadata": {
-				"description": "between 0 and 255 with no overlap with exiting vnet IP spaces"
 			}
 		},
 		"domainName": {
@@ -89,6 +61,10 @@
 		}
 	},
 	"variables": {
+		"primaryVnet": "westus3-252",
+		"sessionID": "253",
+		"secondaryVnet": "eastus-253",
+		"primaryVnetDNSIps": ["10.252.3.100", "10.252.3.101"],
 	},
 	"resources": [
 		{
@@ -105,8 +81,8 @@
 					"contentVersion": "1.0.0.0"
 				},
 				"parameters": {
-					"VNetName": { "value": "[parameters('secondaryVnet')]"},
-					"stub": { "value": "[parameters('sessionID')]"}
+					"VNetName": { "value": "[variables('secondaryVnet')]" },
+					"stub": { "value": "[variables('sessionID')]" }
 				}
 			}
 		},
@@ -126,10 +102,10 @@
 				},
 				"parameters": {
 					"VNet1Id": {
-						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('PrimaryRG'), '/providers/Microsoft.Network/virtualNetworks/', parameters('primaryVnet'))]"
+						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('PrimaryRG'), '/providers/Microsoft.Network/virtualNetworks/', variables('primaryVnet'))]"
 					},
 					"VNet2Id": {
-						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('SecondaryRG'), '/providers/Microsoft.Network/virtualNetworks/', parameters('secondaryVnet'))]"
+						"value": "[concat(subscription().Id, '/resourceGroups/', parameters('SecondaryRG'), '/providers/Microsoft.Network/virtualNetworks/', variables('secondaryVnet'))]"
 					}
 				}
 			}
@@ -150,10 +126,10 @@
 				},
 				"parameters": {
 					"VNetName": {
-						"value": "[parameters('secondaryVnet')]"
+						"value": "[variables('secondaryVnet')]"
 					},
 					"DNSIPs": {
-						"value": "[parameters('primaryVnetDNSIps')]"
+						"value": "[variables('primaryVnetDNSIps')]"
 					}
 				}
 			}
@@ -183,7 +159,7 @@
 						"value": "[parameters('skuSizeVM')]"
 					},
 					"ADVMName": {
-						"value": "[concat('ci',parameters('sessionID'),'-dc3')]"
+						"value": "[concat('ci',variables('sessionID'),'-dc3')]"
 					},
 					"spotInstance": {
 						"value": "[parameters('spotInstanceWhenAnOption')]"	
@@ -195,7 +171,7 @@
 						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
 					},
 					"ADVMPrivateIPAddress": {
-						"value": "[concat('10.',parameters('sessionID'),'.3.100')]"
+						"value": "[concat('10.',variables('sessionID'),'.3.100')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
@@ -237,7 +213,7 @@
 						"value": "[parameters('skuSizeVM')]"
 					},
 					"ADVMName": {
-						"value": "[concat('ci',parameters('sessionID'),'-dc4')]"
+						"value": "[concat('ci',variables('sessionID'),'-dc4')]"
 					},
 					"spotInstance": {
 						"value": "[parameters('spotInstanceWhenAnOption')]"	
@@ -249,7 +225,7 @@
 						"value": "[reference('VirtualNetwork').outputs.ADSubnetId.value]"
 					},
 					"ADVMPrivateIPAddress": {
-						"value": "[concat('10.',parameters('sessionID'),'.3.101')]"
+						"value": "[concat('10.',variables('sessionID'),'.3.101')]"
 					},
 					"adminUserName": {
 						"value": "[parameters('adminUserName')]"
@@ -287,8 +263,8 @@
 					},
 					"DNSIPs": {
 						"value": [
-							"[reference('ADVM3').outputs.ADVM3PrivateIP.value]",
-							"[reference('ADVM4').outputs.ADVM4PrivateIP.value]"
+							"[concat('10.',variables('sessionID'),'.3.100')]",
+							"[concat('10.',variables('sessionID'),'.3.101')]"
 						]
 					}
 				}
@@ -309,7 +285,7 @@
 				},
 				"parameters": {
 					"Environment": {
-						"value": "[parameters('secondaryVnet')]"
+						"value": "[variables('secondaryVnet')]"
 					},
 					"DataSubnetId": {
 						"value": "[reference('VirtualNetworkSecondary').outputs.DataSubnetId.value]"
@@ -385,7 +361,7 @@
 				"parameters": {
 					"BastionSubnetId": {
 						"value": "[reference('VirtualNetworkSecondary').outputs.BastionSubnetId.value]",
-						"stub": { "value": "[parameters('sessionID')]"}
+						"stub": { "value": "[variables('sessionID')]"}
 
 					}
 				}
