@@ -64,7 +64,7 @@
 		"primaryVnet": "westus3-252",
 		"sessionID": "253",
 		"secondaryVnet": "eastus-253",
-		"primaryVnetDNSIps": ["10.252.3.100", "10.252.3.101"],
+		"primaryVnetDNSIps": ["10.252.3.100", "10.252.3.101"]
 	},
 	"resources": [
 		{
